@@ -65,9 +65,9 @@ nvm install node
 
 *Note: It is strongly recommended that you complete the entire installation process with “Git Bash”.*
 
-To install Git on Windows, please download the installer from the following link: https://git-scm.com/download/win
+To install Git on Windows, please download the installer from the following link: https://git-scm.com/download/win.
 
-Afterwards, download the Node.js installer from the following link: https://nodejs.org/en/download/
+Afterwards, download the Node.js installer from the following link: https://nodejs.org/en/download/.
 
 ## Testing to see if Node.js and Git work on your machine 
 
@@ -137,7 +137,7 @@ Host github.com
 
 Save it and exit.
 
-* Step 4) Provide the SSH key file “id_rsa.pub” (or the custom name of your SSH key) to the Admin at zanechandy@gmail.com to have your SSH key processed and added to the GitHub repository.
+* Step 4) Provide the SSH key file “id_rsa.pub” (or the custom name of your SSH key) to admin at zanechandy@gmail.com to have your SSH key processed and added to the GitHub repository.
 
 *Note: Make sure the file has the “.pub” extension.*
 
