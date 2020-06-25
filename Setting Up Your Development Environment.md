@@ -2,15 +2,13 @@
 
 ## Overview
 
-Below is a step of instructions for setting up and getting started with developing for the NHNAC website. The following steps will take you through installing the proper dependencies on your computer and preparing your development environment. Any questions please email zanechandy@gmail.com. Thanks. 
-
-- Zane 
+Below is a step of instructions for setting up and getting started with developing for the NHNAC website. The following steps will take you through installing the proper dependencies on your computer and preparing your development environment. Any questions please email zanechandy@gmail.com. Thanks. - Zane 
 
 ## Getting started: Installing all the proper global dependencies
 
 ### Installing on MacOS:
 
-Note: Git should be installed on your MacOS by default. To check the version on your computer, type in the following command:
+*Note: Git should be installed on your MacOS by default. To check the version on your computer, type in the following command:*
 
 ```
 git —version
