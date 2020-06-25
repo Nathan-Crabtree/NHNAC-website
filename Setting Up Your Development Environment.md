@@ -33,7 +33,7 @@ npm -v
 
 ### Installing on Linux:
 
-Note: Make sure the distro you’re using fully supports these dependencies.
+*Note: Make sure the distro you’re using fully supports these dependencies.*
 
 To install Git on Linux, type in the following command in your terminal:
 
@@ -63,7 +63,7 @@ nvm install node
 
 ### Installing on Windows:
 
-Note: It is strongly recommended that you complete the entire installation process with “Git Bash”.
+*Note: It is strongly recommended that you complete the entire installation process with “Git Bash”.*
 
 To install Git on Windows, please download the installer from the following link: https://git-scm.com/download/win
 
@@ -109,7 +109,7 @@ The following steps will require your terminal and will contain details about th
 Cd ~/.ssh
 ```
 
-Note: On MacOS, the .ssh folder will be located in /Users/<username/.ssh. For Windows, you will have to create .ssh file manually in the root directory (e.g C:\Users\<username>\.ssh).
+*Note: On MacOS, the .ssh folder will be located in /Users/<username/.ssh. For Windows, you will have to create .ssh file manually in the root directory (e.g C:\Users\<username>\.ssh).*
 
 * Step 2: Create an SSH key.
 
@@ -117,7 +117,7 @@ Note: On MacOS, the .ssh folder will be located in /Users/<username/.ssh. For Wi
 ssh-keygen -t rsa
 ```
 
-Note: You may leave all the fields blank when prompted, the file name will default to “id_rsa”. For Windows, use “ssh-keygen.exe” (make sure your directory is pointing to C:\Program Files\Git\bin). 
+*Note: You may leave all the fields blank when prompted, the file name will default to “id_rsa”. For Windows, use “ssh-keygen.exe” (make sure your directory is pointing to C:\Program Files\Git\bin).* 
 
 * Step 3) Creating a configuration file for making the connection to GitHub. Note: If you’re on Windows or MacOS, you may skip this step.
 
@@ -137,7 +137,7 @@ Save it and exit.
 
 * Step 4) Provide the SSH key file “id_rsa.pub” (or the custom name of your SSH key) to the Admin at zanechandy@gmail.com to have your SSH key processed and added to the GitHub repository.
 
-Note: Make sure the file has the “.pub” extension.
+*Note: Make sure the file has the “.pub” extension.*
 
 Once the key has been added, you can test your connection by typing in the terminal:
 
@@ -145,7 +145,7 @@ Once the key has been added, you can test your connection by typing in the termi
 ssh -T git@github.com
 ```
 
-Note: On Windows, you may need to use nmap which is downloadable at nmap.org.
+*Note: On Windows, you may need to use nmap which is downloadable at nmap.org.*
 
 ## Final Steps
 
@@ -155,7 +155,7 @@ After completing all the other steps, you may pull the repository into your loca
 git pull origin master
 ```
 
-Note: Make sure you’re in your designated file directory before you pull.
+*Note: Make sure you’re in your designated file directory before you pull.*
 
 To set up your environment head into your “api” and “client” directories in the repository folder and type in the command:
 
@@ -170,4 +170,4 @@ npm start
 ```
 At this point, your environment is all set and ready for you to start coding! 
 
-Note: At anytime, you may run “npm stop” to stop the servers.
+*Note: At anytime, you may run “npm stop” to stop the servers.*
