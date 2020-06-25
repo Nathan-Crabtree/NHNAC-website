@@ -33,7 +33,7 @@ npm -v
 ```
 
 
-###Installing on Linux:
+### Installing on Linux:
 
 Note: Make sure the distro you’re using fully supports these dependencies.
 
