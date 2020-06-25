@@ -119,7 +119,9 @@ ssh-keygen -t rsa
 
 *Note: You may leave all the fields blank when prompted, the file name will default to “id_rsa”. For Windows, use “ssh-keygen.exe” (make sure your directory is pointing to C:\Program Files\Git\bin).* 
 
-* Step 3) Creating a configuration file for making the connection to GitHub. Note: If you’re on Windows or MacOS, you may skip this step.
+* Step 3) Creating a configuration file for making the connection to GitHub. 
+
+*Note: If you’re on Windows or MacOS, you may skip this step.*
 
 ```
 touch ~/.ssh/config
