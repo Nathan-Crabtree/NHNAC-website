@@ -83,23 +83,21 @@ Ensure on your computer after installing Node.js that you also have npm by check
 npm -v
 ```
 
-## Initializing your empty repository folder
+## Forking and cloning your empty repository folder
 
-In order to initialize your repository folder, you must first create an empty folder that you’ll be working in. You can name it and place anywhere in your OS as you wish.
+In order to initialize your repository folder, you must first create an empty folder that you’ll be working in. You can name it and place anywhere in your OS as you wish. 
 
-* Step 1: To initialize your folder, type into your terminal:
+*Note: Before following these steps, make sure you've forked the head repository at https://www.github.com/Zandy12/NHNAC-website.git. If you need to know to how fork, please read "How To Properly Add Code To The Repository.md"*
 
-```
-git init
-```
-
-* Step 2: Set your origin link to use the proper SSH protocol to the remote repository by typing in: 
+Set your origin link to use the proper SSH protocol to the remote repository by typing in: 
 
 ```
-git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
+git remote add origin git+ssh://git@github.com/<username>/NHNAC-website.git
 ```
 
-## Setting up your SSH key:
+*Note: Replace <username> with your actual Github account username.*
+
+## Setting up your SSH key (Optional):
 
 The following steps will require your terminal and will contain details about the commands you’re typing in.
 
@@ -154,10 +152,10 @@ ssh -T git@github.com
 After completing all the other steps, you may pull the repository into your local machine by typing in the terminal:
 
 ```
-git pull origin master
+git clone git+ssh://git@github.com/<username>/NHNAC-website.git
 ```
 
-*Note: Make sure you’re in your designated file directory before you pull.*
+*Note: Make sure you’re in your designated file directory before you clone and replace <username> with your actual Github account username.*
 
 To set up your environment head into your “api” and “client” directories in the repository folder and type in the command:
 
