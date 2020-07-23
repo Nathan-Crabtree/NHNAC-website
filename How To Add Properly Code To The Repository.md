@@ -64,7 +64,7 @@ git add <new-file>
 Also, you can use:
 
 ```
-git add *
+git add .
 ```
 
 which bascially commits everything that exists within the folder, including the new or edited files.
