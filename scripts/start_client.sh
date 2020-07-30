@@ -17,7 +17,7 @@
 # npm run build
 # sudo mv ~/production/client/build/* /var/www/html/
 # rmdir ~/production/client/build
-# service apache2 start
+# sudo service apache2 start
 # serve -s build # obsolete
 #
 
