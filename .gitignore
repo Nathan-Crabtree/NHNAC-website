@@ -2,3 +2,6 @@
 'How To Properly Add Code To The Repository.md'
 'READ FIRST BEFORE DOING ANYTHING.md'
 'Setting Up Your Development Environment.md'
+
+#ignore .DS_store
+.DS_store
