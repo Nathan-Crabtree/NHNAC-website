@@ -63,7 +63,7 @@ nvm install node
 
 ### Installing on Windows:
 
-*Note: It is strongly recommended that you complete the entire installation process with “Git Bash”.*
+*Note: It is mandatory that you complete the entire installation process on Windows with “Git Bash”.*
 
 To install Git on Windows, please download the installer from the following link: https://git-scm.com/download/win.
 
