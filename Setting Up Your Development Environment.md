@@ -92,7 +92,7 @@ In order to initialize your repository folder, you must first create an empty fo
 Set your origin link to use the proper SSH protocol to the remote repository by typing in: 
 
 ```
-git remote add origin git+ssh://git@github.com/<username>/NHNAC-website.git
+git remote add origin https://github.com/<username>/NHNAC-website.git
 ```
 
 *Note: Replace <username> with your actual Github account username.*
