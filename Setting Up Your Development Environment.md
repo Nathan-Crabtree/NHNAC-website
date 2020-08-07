@@ -152,7 +152,7 @@ ssh -T git@github.com
 After completing all the other steps, you may pull the repository into your local machine by typing in the terminal:
 
 ```
-git clone git+ssh://git@github.com/<username>/NHNAC-website.git
+git clone https://github.com/<username>/NHNAC-website.git
 ```
 
 *Note: Make sure you’re in your designated file directory before you clone and replace <username> with your actual Github account username.*
