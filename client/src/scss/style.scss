@@ -1,0 +1,80 @@
+@import "normalize";
+@import "variables";
+@import "mixins";
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
+
+/*************** 
+  Main content 
+***************/
+
+* {
+    font-family: 'Bitter', serif;
+}
+
+body {
+    background-color: $nhbody;
+}
+
+.page {
+    @include center;
+    width: 65%;
+    padding: 5% 3% 5% 3%;
+    background-color: $nhpage;
+}
+
+header, footer {
+    background-color: $nhblack;
+    li {
+        list-style-type: none;
+    }
+    .nav-footer-link, h4 {
+        color: $nhwhite;
+        text-decoration: none;
+    }
+}
+
+nav > ul, footer > div, .social-links > ul  {
+    @include flexbox;
+}
+
+/***************** 
+  Header content 
+*****************/
+
+.logo {
+    @include center;
+    padding: 1% 0% 0% 0%;
+}
+
+header {
+    padding: 5px 0px 5px 0px;
+}
+header > nav > ul > li {
+    display: inline;
+    padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+}
+
+.vertical-bar {
+    color: white;
+    cursor: default;
+}
+.vertical-bar::selection {
+    color: none;
+    background: none;
+}
+
+/***************** 
+  Footer content 
+*****************/
+
+.footer-section {
+    padding: 0% 3% 2% 3%;
+}
+.footer-section > li {
+    padding: 25px 0px 0px 0px;
+}
+
+.social-links > ul > li {
+    padding: 0px 5px 0px 5px;
+}
