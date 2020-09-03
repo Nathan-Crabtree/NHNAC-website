@@ -34,6 +34,15 @@ header, footer {
     }
 }
 
+a {
+    color: $nhblack;
+    font-weight: bold;
+    text-decoration: none;
+    :hover {
+        text-decoration: underline;
+    }
+}
+
 nav > ul, footer > div, .social-links > ul  {
     @include flexbox;
 }
@@ -49,19 +58,19 @@ nav > ul, footer > div, .social-links > ul  {
 
 header {
     padding: 5px 0px 5px 0px;
-}
-header > nav > ul > li {
-    display: inline;
-    padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+    > nav > ul > li {
+        display: inline;
+        padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+    }
 }
 
 .vertical-bar {
     color: white;
     cursor: default;
-}
-.vertical-bar::selection {
-    color: none;
-    background: none;
+    ::selection {
+        color: none;
+        background: none;
+    }
 }
 
 /***************** 
@@ -70,9 +79,12 @@ header > nav > ul > li {
 
 .footer-section {
     padding: 0% 3% 2% 3%;
-}
-.footer-section > li {
-    padding: 25px 0px 0px 0px;
+     > li {
+        padding: 25px 0px 0px 0px;
+    }
+    li:not(first-child):hover {
+        text-decoration: underline;
+    }
 }
 
 .social-links > ul > li {
