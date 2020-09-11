@@ -1,14 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component }from 'react';
 
 export default class PrivacyPolicy extends Component {
+
+    componentDidMount() {
+        // This code allows all anchor tags to have the resetToggleDisplay() function implemented to 
+        // remove any user interference from the nav menu in mobile mode.
+        let links = document.getElementsByTagName("a");
+        for (let link = 0; link < links.length; link++) {
+            links[link].onclick = this.props.resetToggleDisplay;
+        }
+    }
+
     render() {
-        return(
+        return (
             <div>{" "}
                 <div data-custom-class="body">
                     {" "}
                     <div
                     className="MsoNormal"
-                    data-custom-class="title"
                     >
                     <strong>
                         <span>
@@ -3916,7 +3925,6 @@ export default class PrivacyPolicy extends Component {
                     </div>
                     </div>
                 </div>
-                </div>
-        );
+                </div>);
     }
 }

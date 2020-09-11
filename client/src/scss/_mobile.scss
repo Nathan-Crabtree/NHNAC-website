@@ -1,0 +1,85 @@
+@media (max-width: 375px) {
+
+    /*********************
+          Main Content 
+    **********************/
+
+    body {
+        background-color: $nh-page;
+    }
+
+    .page {
+        width: 100%;
+        padding: 5% 0% 5% 0%;
+    }
+
+    /*********************
+        Header Content 
+    **********************/
+
+    .cross {
+        display: block;
+        width: 5%;
+        height: 5%;
+        float: right;
+        padding: 10px 10px 0px 0px;
+    }
+
+    .logo {
+        width: 38%;
+        height: 38%;
+        margin: 0;
+        padding: 25px 0px 0px 25px;
+    }
+
+    nav > div {
+        margin-top: -485.72px;
+    }
+
+    .vertical-bar {
+        display: none;
+    }
+
+    .hamburger-icon {
+        display: block;
+        padding: 15px 0px 0px 15px; // top, right, bottom, left
+    }
+
+    nav {
+        position: fixed;
+        display: block;
+    }
+
+    /*********************
+        Footer Content 
+    **********************/
+
+    footer {
+        padding: 25px 0px 0px 30px;
+    }
+
+    footer > div,
+    .social-links > ul {
+        display: block;
+        padding-left: 5px;
+    }
+
+    .social-links {
+        padding-bottom: 5px;
+        > ul > li {
+        padding-bottom: 15px;
+        }
+    }
+
+    /*********************
+        Section Content 
+    **********************/
+
+    bdt, a > span {
+        word-break: break-word;
+    }
+
+    td {
+        font-size: 25%;
+    }
+} 
