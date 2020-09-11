@@ -4,64 +4,76 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
 
-/*************** 
-  Main content 
-***************/
+// NOTE: To compile a compressed .css version, use "sass --watch scss/style.scss css/style.css --style compressed" - Zane 
+
+/****************** 
+    Main content 
+*******************/
 
 * {
     font-family: 'Bitter', serif;
 }
 
 body {
-    background-color: $nhbody;
+    background-color: $nh-body;
 }
 
 .page {
     @include center;
     width: 65%;
     padding: 5% 3% 5% 3%;
-    background-color: $nhpage;
+    background-color: $nh-page;
 }
 
-header, footer {
-    background-color: $nhblack;
+nav > div, footer {
+    background-color: $nh-black;
     li {
         list-style-type: none;
     }
     .nav-footer-link, h4 {
-        color: $nhwhite;
+        color: $nh-white;
         text-decoration: none;
     }
 }
 
-nav > ul, footer > div, .social-links > ul  {
+nav > div > ul, 
+footer > div, 
+.social-links > ul  {
     @include flexbox;
 }
 
-/***************** 
-  Header content 
-*****************/
+/******************** 
+    Header content 
+*********************/
+
+.hamburger-icon {
+    display: none; 
+}
+
+.cross {
+    display: none;
+}
 
 .logo {
     @include center;
-    padding: 1% 0% 0% 0%;
+    padding-top: 1%;
 }
 
-header {
+nav > div {
     padding: 5px 0px 5px 0px;
-}
-header > nav > ul > li {
-    display: inline;
-    padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+    > ul > li {
+        display: inline;
+        padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+    }
 }
 
 .vertical-bar {
-    color: white;
+    color: $nh-white;
     cursor: default;
-}
-.vertical-bar::selection {
-    color: none;
-    background: none;
+    ::selection {
+        color: none;
+        background: none;
+    }
 }
 
 /***************** 
@@ -70,11 +82,40 @@ header > nav > ul > li {
 
 .footer-section {
     padding: 0% 3% 2% 3%;
-}
-.footer-section > li {
-    padding: 25px 0px 0px 0px;
+    > li {
+        padding-top: 25px;
+        > h4 {
+            margin: 0;
+        }
+    }
+    li:not(first-child):hover {
+        text-decoration: underline;
+    }
 }
 
 .social-links > ul > li {
-    padding: 0px 5px 0px 5px;
+    padding-left: 5px;
 }
+
+/*********************
+    Section Content
+**********************/
+
+.MsoNormal {
+    font-size: 28px;
+}
+
+tr:first-child > td {
+    text-decoration: underline;
+}
+
+a {
+    color: $nh-black;
+    font-weight: bold;
+    text-decoration: none;
+    :hover {
+        text-decoration: underline;
+    }
+}
+
+@import "mobile";
