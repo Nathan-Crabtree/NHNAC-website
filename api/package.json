@@ -29,9 +29,12 @@
     "express-validator": "^6.6.1",
     "jest": "^26.4.2",
     "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
+    "os": "^0.1.1",
     "pm2": "^4.4.1",
     "sequelize": "^5.21.13",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "util": "^0.12.3"
   }
 }

@@ -413,7 +413,7 @@ export default class PrivacyPolicy extends Component {
                         <span>
                             <span>
                             <a data-custom-class="link" href="#sociallogins">
-                                How Do We Handle Your Social Logins
+                                <span>How Do We Handle Your Social Logins</span>
                             </a>
                             " below.
                             </span>
@@ -2270,7 +2270,7 @@ export default class PrivacyPolicy extends Component {
                                             rel="noopener noreferrer"
                                             target="_blank"
                                             >
-                                            https://www.edoeb.admin.ch/edoeb/en/home.html
+                                                <span>https://www.edoeb.admin.ch/edoeb/en/home.html</span>
                                             </a>
                                             .
                                         </span>
@@ -3916,7 +3916,7 @@ export default class PrivacyPolicy extends Component {
                             <div>
                             This privacy policy was created using{" "}
                             <a href="https://termly.io/products/privacy-policy-generator/?ftseo">
-                                Termly’s Privacy Policy Generator
+                                <span>Termly’s Privacy Policy Generator</span>
                             </a>
                             .
                             </div>
