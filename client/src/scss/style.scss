@@ -18,6 +18,13 @@ body {
     background-color: $nh-body;
 }
 
+.noJavaScriptDiv {
+    @include center;
+    width: 65%;
+    padding: 5% 3% 5% 3%;
+    background-color: $nh-page;  
+}
+
 .page {
     @include center;
     width: 65%;
@@ -116,6 +123,10 @@ a {
     :hover {
         text-decoration: underline;
     }
+}
+
+.error-description {
+    color: $nh-error-red;
 }
 
 @import "mobile";

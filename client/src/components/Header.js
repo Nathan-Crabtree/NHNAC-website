@@ -90,5 +90,5 @@ export default class Header extends Component {
 Header.propTypes = {
     logo: PropTypes.string.isRequired,
     hbIcon: PropTypes.string.isRequired,
-    cross: PropTypes.string.isRequired
+    cross: PropTypes.string.isRequired,
 }

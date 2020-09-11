@@ -1,4 +1,5 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class PrivacyPolicy extends Component {
 
@@ -3927,4 +3928,9 @@ export default class PrivacyPolicy extends Component {
                 </div>
                 </div>);
     }
+}
+
+// PropTypes for jest testing in App.test.js
+PrivacyPolicy.propTypes = {
+    resetToggleDisplay: PropTypes.func.isRequired
 }
