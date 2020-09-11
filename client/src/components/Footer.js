@@ -11,7 +11,7 @@ export default class Footer extends Component {
                     <ul className="footer-section">
                         <li><h4><u>Legal</u></h4></li>
                         <li><Link className="nav-footer-link" to="/privacy-policy">Privacy Policy</Link></li>
-                        <li><Link className="nav-footer-link" to="#">Terms Of Service</Link></li>
+                        <li><Link className="nav-footer-link" to="/terms-of-service">Terms Of Service</Link></li>
                     </ul>
                     <ul className="footer-section">
                         <li><h4><u>Connect</u></h4></li>

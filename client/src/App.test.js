@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, { resetToggleDisplay } from './App';
+import App, { resetToggleDisplay, removeNoJavaScriptDiv } from './App';
 import { toggleDisplayNav } from './components/Header.js';
 
 /**
@@ -25,12 +25,17 @@ console.error = message => {
   originalConsoleError(message);
 };
 
-// toggleDisplayNav() testing; src: client/src/components/Header.js
-it("doesn't output anything", () => {
-  expect(toggleDisplayNav).toBe(undefined);
-});
-
 // resetToggleDisplay() testing; src: client/src/App.js
 it("doesn't output anything", () => {
   expect(resetToggleDisplay).toBe(undefined);
+});
+
+// removeNoJavaScriptDiv() testing; src: client/src/components/App.js
+it("doesn't output anything", () => {
+  expect(removeNoJavaScriptDiv).toBe(undefined);
+});
+
+// toggleDisplayNav() testing; src: client/src/components/Header.js
+it("doesn't output anything", () => {
+  expect(toggleDisplayNav).toBe(undefined);
 });
