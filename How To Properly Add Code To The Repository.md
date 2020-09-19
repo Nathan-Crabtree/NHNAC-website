@@ -24,6 +24,23 @@ git clone git+ssh://git@github.com/<username>/NHNAC-website.git
 
 When the command process is complete, you should have the repo files in your folder.
 
+## Track the original repository as a remote of the fork
+
+*Note: This snippet of text was copied over from https://jarv.is/notes/how-to-pull-request-fork-github/*
+
+*This step is technically optional, but important if you plan to continue contributing to a project in the future, so we might as well…*
+
+Once you’ve forked a repository, changes to the original (or “upstream”) repository are not pushed to your fork. We need to tell the new repository to follow changes made upstream to keep it fresh via remotes.
+
+Switch directories to the forked repository you just cloned and run the following commands. Replace the last part of the first line with the original repository clone URL — similar to the how you grabbed the URL in step 2, but this isn’t the one with your username.
+
+This links the fork back to the original repository as a remote, which we’ll name upstream, and then fetch it.
+
+```
+git remote add --track master upstream git@github.com:facebook/react-native.git
+git fetch upstream
+```
+
 ## Creating a new branch to store your code using Git
 
 Now to add code to the codebase, you must first create a seperate branch from the master. You can do this by typing in your terminal:

@@ -1,5 +1,6 @@
 #!/bin/sh
 #
+# NOTE: This script only restarts the API server. Front-end will be already taken care by automatic apache restart. - Zane
 #
 # The script executes in the following manner:
 # 
