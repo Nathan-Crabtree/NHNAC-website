@@ -89,6 +89,8 @@ try {
   console.log(User === sequelize.models.Members); // true
 
   //Which members belong to which councils? Members may belong to multiple councils.
+  //Need to add Roles to this table, or possibly a new table "CouncilMemberRoles"
+  //Counciles have "stone carriers", as well as other authoritative positions.
   class CouncilMembers extends model {}
   CouncilMembers.init ({
       CouncilID: {
@@ -114,6 +116,9 @@ try {
   });
   console.log(User === sequelize.models.CouncilMembers); // true
 
+
+//This table will store the names of the various Roles that people within the church play
+//"web admin", "church member", "medicine person", "peyote roadman", "ayahuasca roadman"
   class Roles extends model {}
   Roles.init({
     RoleID: {
@@ -135,6 +140,8 @@ try {
   });
   console.log(User === sequelize.models.CouncilMembers); // true
 
+
+  //Members may play multiple roles in the church, "web admin", "church member", "medicine person", 
   class MemberRoles extends model {}
   MemberRoles.init({
     MemberID: {
@@ -151,4 +158,31 @@ try {
         key: 'ID'
       }
     }
+  })
+
+  //This table is for the actual PDF data documents that people have earned
+  //or for references to the PDF documents on the server storage
+  class Certificates extends model {}
+  Certificates.init({
+      ID: {
+        type: Datatypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+      },
+      Name: {
+        type: Datatypes.STRING
+      },
+      
+      //This field holds either the binary PDF file, or a pointer to that file on the server storage
+      File: {
+        type: Datatypes.STRING // datatype might need to be changed.
+      },
+      //A Certificate belongs to a member.
+      MemberID: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: Members,
+          key: 'ID'
+        }
+      }
   })
