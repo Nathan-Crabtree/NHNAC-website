@@ -1,7 +1,7 @@
 const { Sequelize, Datatypes, Model } = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-const sequelize = new Sequelize('mysql://admin:pass@localhost:3306/nhnac')
+const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:3306/newhaven')
 try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -114,5 +114,41 @@ try {
   });
   console.log(User === sequelize.models.CouncilMembers); // true
 
+  class Roles extends model {}
+  Roles.init({
+    RoleID: {
+      type: DataTypes.INTEGER,
+      //foreign key
+      references: { 
+          model: Councils,
+          key: 'ID'
+      }
+    },
+    Name: {
+      type: DataTypes.STRING
+    }
+  }, {
+    sequelize,
+    modelName: 'CouncilsMembers'
   
-  
+    //not sure if Index is needed
+  });
+  console.log(User === sequelize.models.CouncilMembers); // true
+
+  class MemberRoles extends model {}
+  MemberRoles.init({
+    MemberID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Members,
+        key: 'ID'
+      }
+    },
+    RoleID: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Roles,
+        key: 'ID'
+      }
+    }
+  })
