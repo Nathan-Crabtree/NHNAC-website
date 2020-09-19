@@ -6,7 +6,7 @@
 # Note: before running script, make sure you have an SSH key setup for accessing github repo
 # Note: run script with sudo
 # Note: after running script, use "chmod +x *" in scripts folder (make sure to have it unlocked). 
-# place startup.sh into /etc/init.d and schedule cronjob for dev_to_test.sh
+# place startup.sh into /etc/init.d and schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
 #
 # The script executes in the following way:
 #
