@@ -88,7 +88,7 @@ nvm install node
 
 To install MySQL in Linux, you will have to download the binaries here: https://dev.mysql.com/downloads/mysql/. Make sure to have "Linux - Generic" selected as your Operating System. Be sure to download a "Compressed TAR archive" file. Usually it is near the top of the list.
 
-*Note: For further assistance with installing MySQL on Linux, you can visit the official online documentation by Oracle provided here: https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html *
+*Note: For further assistance with installing MySQL on Linux, you can visit the official online documentation by Oracle provided here: https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html*
 
 Keep in mind the location where your file was downloaded (Usually it's ~/Downloads/<filename>.tar.xz).
 
