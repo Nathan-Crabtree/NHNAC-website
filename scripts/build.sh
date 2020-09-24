@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 #
 # build.sh
 #
@@ -7,7 +5,19 @@
 # Note: run script with sudo
 # Note: after running script, use "chmod +x *" in scripts folder (make sure to have it unlocked). 
 # place startup.sh into /etc/init.d and schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
+# Steps:
+# 1) before running script, make sure you have an SSH key setup for accessing github repo, 
+# also have the latest full MySQL Community Server .tar.xz file downloaded from https://dev.mysql.com/downloads/mysql/.
+# 2) run script with sudo
+# 3) after running script, use "chmod +x *" in scripts folder (make sure to have it unlocked).
+# 4) place startup.sh into /etc/init.d and schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
+# 5) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
 #
+# MYSQL COMMANDS KNOWN TO WORK WITH GENERIC LINUX (DO NOT USE SUDO):
+# bin/mysqld_safe --user=mysql &
+# mysql -u root -p -h127.0.0.1
+# bin/mysqladmin -u root -p shutdown
+# 
 # The script executes in the following way:
 #
 # sudo apt-get update
@@ -16,16 +26,30 @@
 # sudo apt install nodejs
 # sudo apt install npm
 # sudo apt install ssmtp
+# +++++++ NEEDS TO BE ADDED TO SCRIPT ++++++++
+# groupadd mysql
+# useradd -r -g mysql -s /bin/false mysql
+# cd /usr/local
+# prompt file location and name of mysql file here
+# tar xvf <path_and_name_to_mysql_file>.tar.xz
+# ln -s /usr/local/<mysql_filename> mysql
+# cd mysql
+# mkdir mysql-files
+# chown mysql:mysql mysql-files
+# chmod 750 mysql-files
+# chmod -R 777 /tmp
+# chmod -R 777 /usr/local/mysql
+# bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
+# bin/mysql_ssl_rsa_setup
+# +++++++++++++++++++++++++++++++++++++++++++
 # cd ~
 # mkdir testing staging production
 # cd testing
-# git init 
-# git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
-# git pull origin master
 # cd ~/production
 # git init 
 # git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
 # sudo mv startup.sh /etc/init.d
+# mv startup.sh /etc/init.d
 #
 
 FILE=~/script_exec_log.txt
