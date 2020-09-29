@@ -1,12 +1,15 @@
 // Import React libraries
-import React, { Component } from 'react';
+import React,{ Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
 
 // Import images
-import logo from './images/nhnac.png';
+import logo from './images/header/nhnac.png';
+import hbIcon from './images/header/hamburger_icon.png';
+import cross from './images/header/cross.png';
 import fbLogo from './images/facebook.svg';
-import hbIcon from './images/hamburger-icon.png';
-import cross from './images/cross.png';
+import donate from './images/donate/donate.png';
+import paypal from './images/donate/paypal.png';
+import bitcoin from './images/donate/bitcoin-accepted.png';
 
 // Import components
 import Header from './components/Header.js';
@@ -14,8 +17,13 @@ import Footer from './components/Footer.js';
 import PrivacyPolicy from './components/PrivacyPolicy.js';
 import TermsOfService from './components/TermsOfService.js';
 import Error from './components/Error.js';
+import FAQ from './components/FAQ.js';
+import Donate from './components/Donate.js';
+import Login from './components/Login.js';
+import SignUp from './components/SignUp.js';
+import ForgotPassword from './components/ForgotPassword.js';
 
-class App extends Component {
+export default class App extends Component {
 
   constructor() {
     super(); 
@@ -29,15 +37,29 @@ class App extends Component {
    */
   resetToggleDisplay() {
     if (window.outerWidth <= 375) {
-      const hamburgerIcon = document.getElementsByClassName("hamburger-icon")[0];
+      const hamburgerIcon = document.getElementsByClassName("hamburger_icon")[0];
       const navDiv = document.getElementsByTagName("div")[1];
+      const body = document.getElementsByTagName("body")[0];
+      const main = document.getElementsByTagName("main")[0];
+      const footer = document.getElementsByTagName("footer")[0];
       
-      // Change hamburgerIcon's display to block; change navDiv and headerLinks display to none.
+      // Change hamburgerIcon's display to block;
       hamburgerIcon.style.display = "block";
-        
+      
       // Change navDiv margin and transition settings.
       navDiv.style.marginTop = "-485.72px";
       navDiv.style.transition = "margin-top 0s";
+
+      // Set body overflow style property to scroll
+      body.style.overflow = "scroll";
+
+      // Set page-content brightness style property back to 100% and remove the style attribute.
+      main.style.filter = "brightness(100%)";
+      main.removeAttribute("style");
+      
+      // Set footer brightness style property back to 100% and remove the style attribute.
+      footer.style.filter = "brightness(100%)";
+      footer.removeAttribute("style");
     }
   }
 
@@ -50,7 +72,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let noJavaScriptDiv = document.getElementsByClassName("noJavaScriptDiv")[0];
+    let noJavaScriptDiv = document.getElementsByClassName("no_javascript_div")[0];
     let links = document.getElementsByTagName("a");
 
     // Remove "noJavaScriptDiv" <div> tag because JavaScript works in browser.
@@ -61,23 +83,30 @@ class App extends Component {
     for (let link = 0; link < links.length; link++) {
       links[link].onclick = this.resetToggleDisplay();
     }
+
+    window.scrollTo(0, 0);
   }
 
   render() {
     return (
       <BrowserRouter>
         <Header logo={logo} hbIcon={hbIcon} cross={cross} />
-          <div className="page">
+        <div onClick={this.resetToggleDisplay}>
+          <main>
             <Switch>
-              <Route exact path="/privacy-policy" component={ () => <PrivacyPolicy resetToggleDisplay={this.resetToggleDisplay} />} />
-              <Route exact path="/terms-of-service" component={ () => <TermsOfService resetToggleDisplay={this.resetToggleDisplay} />} />
-              <Route component={Error} />
+                <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy />} />
+                <Route exact path="/terms_of_service" component={ () => <TermsOfService />} />
+                <Route exact path="/FAQ" component={ () => <FAQ />} />
+                <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />
+                <Route exact path="/login" component={ () => <Login />} />
+                <Route exact path="/signup" component={ () => <SignUp />} />
+                <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
+                <Route component={Error} />
             </Switch>
-          </div>
-        <Footer fbLogo={fbLogo} />
+          </main>
+          <Footer fbLogo={fbLogo} />
+        </div>
       </BrowserRouter>
     );
   }
 }
-
-export default App;

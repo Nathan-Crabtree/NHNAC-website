@@ -1,0 +1,30 @@
+@mixin flexbox {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin center {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@mixin button-properties {
+    border: none;
+    background-color: $nh-green-button;
+    border-radius: 25px;
+    height: 30px;
+}
+
+@mixin alt-button-properties {
+    border: none;
+    background-color: white;
+    border-radius: 25px;
+    height: 30px;
+}
+
+@mixin input-properties {
+    border-radius: 4px;
+    padding: 2px 0px 2px 5px;
+    border: $nh-black solid 1px;
+}

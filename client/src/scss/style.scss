@@ -1,132 +1,21 @@
-@import "normalize";
-@import "variables";
-@import "mixins";
-
-@import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
-
 // NOTE: To compile a compressed .css version, use "sass --watch scss/style.scss css/style.css --style compressed" - Zane 
 
-/****************** 
-    Main content 
-*******************/
+// import utilities partials
+@import "utilities/variables";
+@import "utilities/mixins";
 
-* {
-    font-family: 'Bitter', serif;
-}
+// import Bitter font from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
 
-body {
-    background-color: $nh-body;
-}
+// import base partials
+@import "base/normalize";
+@import "base/base";
 
-.noJavaScriptDiv {
-    @include center;
-    width: 65%;
-    padding: 5% 3% 5% 3%;
-    background-color: $nh-page;  
-}
-
-.page {
-    @include center;
-    width: 65%;
-    padding: 5% 3% 5% 3%;
-    background-color: $nh-page;
-}
-
-nav > div, footer {
-    background-color: $nh-black;
-    li {
-        list-style-type: none;
-    }
-    .nav-footer-link, h4 {
-        color: $nh-white;
-        text-decoration: none;
-    }
-}
-
-nav > div > ul, 
-footer > div, 
-.social-links > ul  {
-    @include flexbox;
-}
-
-/******************** 
-    Header content 
-*********************/
-
-.hamburger-icon {
-    display: none; 
-}
-
-.cross {
-    display: none;
-}
-
-.logo {
-    @include center;
-    padding-top: 1%;
-}
-
-nav > div {
-    padding: 5px 0px 5px 0px;
-    > ul > li {
-        display: inline;
-        padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
-    }
-}
-
-.vertical-bar {
-    color: $nh-white;
-    cursor: default;
-    ::selection {
-        color: none;
-        background: none;
-    }
-}
-
-/***************** 
-  Footer content 
-*****************/
-
-.footer-section {
-    padding: 0% 3% 2% 3%;
-    > li {
-        padding-top: 25px;
-        > h4 {
-            margin: 0;
-        }
-    }
-    li:not(first-child):hover {
-        text-decoration: underline;
-    }
-}
-
-.social-links > ul > li {
-    padding-left: 5px;
-}
-
-/*********************
-    Section Content
-**********************/
-
-.MsoNormal {
-    font-size: 28px;
-}
-
-tr:first-child > td {
-    text-decoration: underline;
-}
-
-a {
-    color: $nh-black;
-    font-weight: bold;
-    text-decoration: none;
-    :hover {
-        text-decoration: underline;
-    }
-}
-
-.error-description {
-    color: $nh-error-red;
-}
+// import component partials
+@import "components/header";
+@import "components/footer";
+@import "components/main";
+@import "components/images";
+@import "components/forms";
 
 @import "mobile";
