@@ -5,3 +5,7 @@
 
 #ignore .DS_store
 .DS_store
+
+#ignore excess dependencies and configuration files in main folder
+package-lock.json
+/node_modules

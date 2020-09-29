@@ -30,8 +30,33 @@ Ensure on your computer after installing Node.js that you also have npm by check
 npm -v
 ```
 
+After installing Node.js, it is now time to install MySQL. Please follow the instructions provided in this link: https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html
 
-### Installing on Linux:
+*Note: If you are getting an error that is preventing you from launching the .dmg file due to a security block, you will have to go to "Security & Privacy" General settings in "System Preferences" and click "Open anyways" at the bottom where it notifies you that a file has been prevented from being opened.*
+
+Make sure you remember your password while setting it up via installation. 
+
+When you've finished installing, you can start the server with the MySQL preference pane in "System Preferences".
+
+To connect and interact with the server, you'll need the MySQL shell that is provided here with installation instructions: https://dev.mysql.com/doc/refman/5.7/en/installing-mysql-shell-osx-quick.html
+
+Once you've installed MySQL shell, to connect to the server in your terminal type:
+
+```
+cd /usr/local/mysql/bin
+```
+
+and
+
+```
+./mysql -u root -p
+```
+
+You'll be prompted the password that you've initially set up via installation. MySQL will be running by default on localhost:3306.
+
+*Note: You can also use MySQL Workbench on MacOS by downloading it here: https://dev.mysql.com/downloads/workbench/ . Be sure to have "MacOS" selected as your Operating System.*
+
+### Installing on a Generic Linux kernel:
 
 *Note: Make sure the distro you’re using fully supports these dependencies.*
 
@@ -61,6 +86,58 @@ The terminal should output “nvm” if the installation is successful. To insta
 nvm install node
 ```
 
+To install MySQL in Linux, you will have to download the binaries here: https://dev.mysql.com/downloads/mysql/. Make sure to have "Linux - Generic" selected as your Operating System. Be sure to download a "Compressed TAR archive" file. Usually it is near the top of the list.
+
+*Note: For further assistance with installing MySQL on Linux, you can visit the official online documentation by Oracle provided here: https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html*
+
+Keep in mind the location where your file was downloaded (Usually it's ~/Downloads/<filename>.tar.xz).
+
+In your terminal you'll have to type in the following commands:
+
+```
+shell> sudo groupadd mysql
+shell> sudo useradd -r -g mysql -s /bin/false mysql
+shell> cd /usr/local
+shell> sudo tar xvf <path_and_name_to_mysql_file>.tar.xz
+shell> sudo ln -s /usr/local/<mysql_filename> mysql
+shell> cd mysql
+shell> sudo mkdir mysql-files
+shell> sudo chown mysql:mysql mysql-files
+shell> sudo chmod 750 mysql-files
+shell> sudo chmod -R 777 /tmp
+shell> sudo chmod -R 777 /usr/local/mysql
+shell> sudo bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
+shell> sudo bin/mysql_ssl_rsa_setup
+```
+
+Once you've completed installing MySQL, you can start the server with this command:
+
+```
+shell> bin/mysqld_safe --user=mysql &
+```
+
+You can shutdown the server with this command:
+
+```
+bin/mysqladmin -u root -p shutdown
+```
+
+*KNOWN ISSUE: From personal experience with using "bin/mysqladmin" in Linux Mint 20, the only way to get any command working with it is to use "-u root -p" before adding an argument.*
+
+To connect to the server, use the following command: 
+
+```
+mysql -u root -p -h127.0.0.1
+```
+
+Here you'll be prompted the password. Once you're in, you will have to reset the password with the following SQL command:
+
+```
+ALTER USER 'root'@'localhost' IDENTIFIED BY '<type_new_password_here>';
+```
+
+MySQL will running by default on localhost:3306.
+
 ### Installing on Windows:
 
 *Note: It is mandatory that you complete the entire installation process on Windows with “Git Bash”.*
@@ -68,6 +145,14 @@ nvm install node
 To install Git on Windows, please download the installer from the following link: https://git-scm.com/download/win.
 
 Afterwards, download the Node.js installer from the following link: https://nodejs.org/en/download/.
+
+To install MySQL on Windows, you'll have to download the installer here: https://dev.mysql.com/doc/refman/8.0/en/windows-installation.html/.
+
+The setup type doesn't matter as long as you're installing the server. When prompted config type for the server, use "Development Computer". Have the port number set to 3306. 
+
+Be sure you remember your password. 
+
+You can connect to the server easily by starting either application: "MySQL Shell" or "MySQL Workbench".
 
 ## Testing to see if Node.js and Git work on your machine 
 
