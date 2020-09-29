@@ -2,12 +2,12 @@
   "name": "api",
   "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon server.js",
-    "build": "pm2 start server.js",
-    "stop": "pm2 stop server.js"
+    "start": "nodemon app.js",
+    "build": "pm2 start app.js",
+    "stop": "pm2 stop app.js"
   },
   "repository": {
     "type": "git",
