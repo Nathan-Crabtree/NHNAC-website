@@ -348,7 +348,7 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
       Text: {
         type: DataTypes.STRING
       },
-      //Is this answer the correct answer to the quiz?
+      //Is this answer the correct answer to the question?
       Correct: {
         type: DataTypes.BOOLEAN
       },
