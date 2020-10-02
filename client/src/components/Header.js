@@ -44,7 +44,7 @@ export default class Header extends Component {
             const hamburgerIcon = document.getElementsByClassName("hamburger_icon")[0];
             const navDiv = document.getElementsByTagName("div")[1];
             const body = document.getElementsByTagName("body")[0];
-            const page = document.getElementsByClassName("page")[0];
+            const main = document.getElementsByTagName("main")[0];
             const footer = document.getElementsByTagName("footer")[0];
 
             // Change hamburgerIcon's display to block; change navDiv margin and transition settings.
@@ -56,8 +56,8 @@ export default class Header extends Component {
             body.style.overflow = "scroll";
 
             // Set page brightness style property back to 100% and remove the style attribute.
-            page.style.filter = "brightness(100%)";
-            page.removeAttribute("style");
+            main.style.filter = "brightness(100%)";
+            main.removeAttribute("style");
             
             // Set footer brightness style property back to 100% and remove the style attribute.
             footer.style.filter = "brightness(100%)";
@@ -70,7 +70,7 @@ export default class Header extends Component {
             const navDiv = document.getElementsByTagName("div")[1];
             const headerLinks = document.getElementsByClassName("header_links")[0];
             const body = document.getElementsByTagName("body")[0];
-            const page = document.getElementsByClassName("page")[0];
+            const main = document.getElementsByTagName("main")[0];
             const footer = document.getElementsByTagName("footer")[0];
 
             // Change hamburgerIcon's display to none; change headerLinks display to block.
@@ -85,16 +85,16 @@ export default class Header extends Component {
             body.style.overflow = "hidden";
             
             // Set page brightness style property to 50% and z-index with position.
-            page.style.filter = "brightness(50%)";
-            page.style.position = "relative";
-            page.style.zIndex = "-1";
+            main.style.filter = "brightness(50%)";
+            main.style.position = "relative";
+            main.style.zIndex = "-1";
 
             // Set footer brightness style property to 50% and z-index with position.
             footer.style.filter = "brightness(50%)";
             footer.style.position = "relative";
             footer.style.zIndex = "-1";
             
-            // Iterate through all <li> tags of class "header-links" and set display to block and add padding-bottom of 25px.
+            // Iterate through all <li> tags of class "header_links" and set display to block and add padding-bottom of 25px.
             for (let childNode = 0; childNode < headerLinks.childNodes.length; childNode += 2) {
                 headerLinks.childNodes[childNode].style.display = "block";
                 headerLinks.childNodes[childNode].style.paddingBottom = "25px";
@@ -114,19 +114,20 @@ export default class Header extends Component {
                         <img className="cross" onClick={this.toggleDisplayNav} srcSet={this.props.cross} alt="Exit icon" />
                         <Link to="/" onClick={this.resetToggleDisplay}><img className="logo" srcSet={this.props.logo} alt="New Haven Native American Church logo" width="221px" height="210px" /></Link>
                         <ul className="header_links">
-                            <li><Link className="nav_footer_links" to="/">Home</Link></li> 
+                            <li><Link to="/">Home</Link></li> 
                             <li className="vertical_bar">|</li>
-                            <li><Link className="nav_footer_links" to="#">News</Link></li>
+                            <li><Link to="#">News</Link></li>
                             <li className="vertical_bar">|</li>
-                            <li><Link className="nav_footer_links" to="/login">NHNAC University</Link></li>
+                            <li><Link to="/login">NHNAC University</Link></li>
                             <li className="vertical_bar">|</li>
-                            <li><Link className="nav_footer_links" to="#">About</Link></li>
+                            <li><Link to="#">About</Link></li>
                             <li className="vertical_bar">|</li>
-                            <li><Link className="nav_footer_links" to="/donate">Donate</Link></li>
+                            <li><Link to="/donate">Donate</Link></li>
                         </ul>
                     </div>
                 </nav>
-            </header>);
+            </header>
+        );
     }
 }
 

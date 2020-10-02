@@ -1,22 +1,29 @@
-nav > div, footer {
-    background-color: $nh-black;
-    li {
-        list-style-type: none;
-    }
-    .nav_footer_links, h4 {
-        color: $nh-white;
-        text-decoration: none;
-    }
-}
-
-nav > div > ul, 
+nav ul, 
 footer > div, 
-.social_links > ul  {
+footer > div:last-child > ul  {
     @include flexbox;
 }
 
+nav > div, 
+footer {
+    background-color: $nh-black;
+    a, h4 {
+        color: $nh-white;
+        text-decoration: none;
+    }
+    li {
+        list-style-type: none;
+    }
+}
+
+footer a, 
+footer > div:nth-child(2) li {
+    color: $nh-white;
+    text-decoration: none;
+}
+
 .MsoNormal {
-    font-size: 28px;
+    font-size: 1.75rem; // 175% relative to root font-size (1em = 16px)
 }
 
 tr:first-child > td {
@@ -27,11 +34,11 @@ a {
     color: $nh-black;
     font-weight: bold;
     text-decoration: none;
-    :hover {
-        text-decoration: underline;
-    }
+}
+a:hover {
+    text-decoration: underline;
 }
 
 .error_description {
-    color: $nh-error-red;
+    color: $nh-error;
 }

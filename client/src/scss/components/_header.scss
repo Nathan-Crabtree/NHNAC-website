@@ -1,4 +1,5 @@
-.hamburger_icon, .cross {
+.hamburger_icon, 
+.cross {
     display: none; 
 }
 
@@ -9,17 +10,16 @@
 
 nav > div {
     padding: 5px 0px 5px 0px;
-    > ul > li {
+    li {
         display: inline;
         padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
     }
-}
-
-.vertical_bar {
-    color: $nh-white;
-    cursor: default;
-    ::selection {
-        color: none;
-        background: none;
+    li:nth-child(even) {
+        color: $nh-white;
+        cursor: default;
+        ::selection {
+            color: none;
+            background: none;
+        }
     }
 }

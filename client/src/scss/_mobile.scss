@@ -5,7 +5,7 @@
     **********************/
 
     body {
-        background-color: $nh-page;
+        background-color: $nh-main;
     }
 
     main {
@@ -80,6 +80,6 @@
     }
 
     td {
-        font-size: 25%;
+        font-size: .25rem; // 25% relative to root font-size (1em = 16px)
     }
 } 

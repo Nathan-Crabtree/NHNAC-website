@@ -12,25 +12,45 @@ import paypal from './images/donate/paypal.png';
 import bitcoin from './images/donate/bitcoin-accepted.png';
 
 // Import components
+import { Footer, PrivacyPolicy, TermsOfService, FAQ, Donate, SignUp } from './components/static/Static.js';
 import Header from './components/Header.js';
-import Footer from './components/Footer.js';
-import PrivacyPolicy from './components/PrivacyPolicy.js';
-import TermsOfService from './components/TermsOfService.js';
 import Error from './components/Error.js';
-import FAQ from './components/FAQ.js';
-import Donate from './components/Donate.js';
 import Login from './components/Login.js';
-import SignUp from './components/SignUp.js';
 import ForgotPassword from './components/ForgotPassword.js';
+import Verification from './components/Verification.js';
 
 export default class App extends Component {
 
   constructor() {
     super(); 
+    this.state = {
+      geoDataExists: false
+    }
+    this.setGeoDataExists = this.setGeoDataExists.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.resetToggleDisplay = this.resetToggleDisplay.bind(this);
     this.removeNoJavaScriptDiv = this.removeNoJavaScriptDiv.bind(this);
   }
   
+  /**
+   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists
+   */
+  setGeoDataExists = () => {
+    this.setState({ geoDataExists: true });
+  }
+
+  /**
+   * onSubmit() function - An event handler that prevents default action (page refresh) 
+   * and console logs name and email values.
+   * 
+   * @param {*} event 
+   */
+  onSubmit = (event) => {
+    event.preventDefault(event);
+    console.log(event.target.name.value);
+    console.log(event.target.email.value);
+  }
+
   /**
    * resetToggleDisplay() funcion - An event handler for whenever a link is clicked on phone,
    * the menu automatically disappears to avoid usage interference.
@@ -84,6 +104,7 @@ export default class App extends Component {
       links[link].onclick = this.resetToggleDisplay();
     }
 
+    // When component is rendered, bring user to top of page.
     window.scrollTo(0, 0);
   }
 
@@ -99,12 +120,13 @@ export default class App extends Component {
                 <Route exact path="/FAQ" component={ () => <FAQ />} />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />
                 <Route exact path="/login" component={ () => <Login />} />
-                <Route exact path="/signup" component={ () => <SignUp />} />
+                <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} />} />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
+                <Route exact path="/verification" component={ () => <Verification />} />
                 <Route component={Error} />
             </Switch>
           </main>
-          <Footer fbLogo={fbLogo} />
+          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} />
         </div>
       </BrowserRouter>
     );

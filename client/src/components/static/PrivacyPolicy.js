@@ -2232,7 +2232,7 @@ export default class PrivacyPolicy extends Component {
                                         <span data-custom-class="body_text">
                                         <a
                                             data-custom-class="link"
-                                            href="http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
+                                            href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
                                             rel="noopener noreferrer"
                                             target="_blank"
                                         >
@@ -2450,7 +2450,7 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                     <a
                                     data-custom-class="link"
-                                    href="http://www.aboutads.info/choices/"
+                                    href="https://www.aboutads.info/choices/"
                                     rel="noopener noreferrer"
                                     target="_blank"
                                     >
@@ -3921,6 +3921,7 @@ export default class PrivacyPolicy extends Component {
                     </div>
                     </div>
                 </div>
-                </React.Fragment>);
+                </React.Fragment>
+        );
     }
 }

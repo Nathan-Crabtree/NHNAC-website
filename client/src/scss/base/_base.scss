@@ -6,9 +6,10 @@ body {
     background-color: $nh-body;
 }
 
-main, .no_javascript_div {
+main, 
+.no_javascript_div {
     @include center;
     width: 65%;
     padding: 5% 3% 5% 3%;
-    background-color: $nh-page;  
+    background-color: $nh-main;  
 }

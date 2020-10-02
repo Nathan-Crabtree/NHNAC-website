@@ -1,5 +1,6 @@
 .login_display {
     background-image: url("../images/login.jpeg");
+    background-size: cover;
     background-repeat: no-repeat;
     height: 725px;
     > h1 {
@@ -21,8 +22,8 @@
 .image_description {
     color: $nh-white;
     background-color: $nh-black;
-    width: 61.75%;
-    font-size: 75%;
+    width: 56.06%;
+    font-size: .75rem; // 75% relative to root font-size (1em = 16px)
     margin: -27px 0px 0px 0px; // top, right, bottom, left
     padding: 5px 0px 5px 0px;
     opacity: 0%;
@@ -31,9 +32,11 @@
     transition: opacity 0.25s;
 }
 
-.image_display {
+.image_display,
+.paypal_link {
     padding: 25px 0px 25px 0px; // top, right, bottom, left
 }
+
 .image_display:hover {
     opacity: 80%;
     .image_description {
@@ -42,11 +45,7 @@
     transition: opacity 0.25s;
 }
 
-.paypal {
-    padding: 25px 0px 25px 0px; // top, right, bottom, left
-}
-
-.bitcoin {
+.bitcoin_link {
     text-align: center;
 }
 

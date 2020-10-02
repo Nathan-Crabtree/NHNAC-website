@@ -51,7 +51,7 @@ export default class TermsOfService extends Component {
                 <p><br /></p>
                 <p><strong>I understand that the New Haven Native American Church allows individuals to exercise the freedom the Creator has given them to follow the dictates of religion according to how they feel directed by the Spirit.<span>&nbsp;&nbsp;</span></strong>I also understand that this is not &quot;Tribal Adoption&quot; for purposes of commerce or taxation.<span>&nbsp;&nbsp;</span>It is the first step in the Ceremony of &quot;Making Relations&quot; which the Church calls &quot;Spiritual Adoption&quot; and it is the only manner in which a person may become a Member of the Church. <span>&nbsp;</span></p>
                 <p><br /></p>
-                <p>BY SIGNING UP ON <a href="http://NEWHAVENNATIVEAMERICANCHURCH.ORG"><span>NEWHAVENNATIVEAMERICANCHURCH.ORG</span></a> I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THESE TERMS AND CONDITIONS AND WAIVER OF LIABILITY CLAIMS.<span>&nbsp;&nbsp;</span>I UNDERSTAND THAT ALONG WITH GAINING THE BENEFITS OF NHNAC ACTIVITIES I ALSO GIVE UP SUBSTANTIAL RIGHTS, AND I DO SO KNOWINGLY AND VOLUNTARILY WITHOUT ANY COERCION OR DURESS.</p>
+                <p>BY SIGNING UP ON <a href="https://NEWHAVENNATIVEAMERICANCHURCH.ORG"><span>NEWHAVENNATIVEAMERICANCHURCH.ORG</span></a> I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THESE TERMS AND CONDITIONS AND WAIVER OF LIABILITY CLAIMS.<span>&nbsp;&nbsp;</span>I UNDERSTAND THAT ALONG WITH GAINING THE BENEFITS OF NHNAC ACTIVITIES I ALSO GIVE UP SUBSTANTIAL RIGHTS, AND I DO SO KNOWINGLY AND VOLUNTARILY WITHOUT ANY COERCION OR DURESS.</p>
             </React.Fragment>
         );
     }

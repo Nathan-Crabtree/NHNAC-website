@@ -18,12 +18,12 @@ export default class ForgotPassword extends Component {
     render() { 
         return ( 
             <React.Fragment>
+                <div className="MsoNormal"><strong><span>Password Recovery</span></strong></div><br />
                 <p>Please answer your security question below.</p><br />
                 <label htmlFor="securityQuestion">{this.state.securityQuestion}</label><br />
                 <input type="text" className="security_question" id="securityOuestion" name="security_answer" placeholder=" Type your security answer here" /><br />
                 <button className="security_submit" type="submit">Submit</button><br />
                 <p className="resend_email_span">Need assistance? <Link to="#">Click here to contact us.</Link></p>
-                {/*<span className="resend_email_span">Didn't get an email? <Link to="#">Click here to have it resent.</Link></span>*/}
             </React.Fragment>
          );
     }
