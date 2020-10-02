@@ -10,6 +10,11 @@ export default class Error extends Component {
         }
     }
 
+    componentDidMount() {
+        // When component is rendered, bring user to top of page.
+        window.scrollTo(0, 0);
+    }
+
     render() {
         return(
             <div>
@@ -17,7 +22,7 @@ export default class Error extends Component {
                 &nbsp;
                 <p>Status: <b>{this.state.errorStatus}</b></p>
                 &nbsp;
-                <p className="error-description">Description: {this.state.errorDescription}</p>
+                <p className="error_description">Description: {this.state.errorDescription}</p>
             </div>
         );
     }

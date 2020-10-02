@@ -1,0 +1,59 @@
+.login_display {
+    background-image: url("../images/login.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 725px;
+    > h1 {
+        padding-top: 75px;
+        text-align: center;
+        margin: 0;
+        color: $nh-white;
+    }
+}
+
+.image {
+    width: 95%;
+    position: relative;
+    border-radius: 4px;
+    transition: opacity 0.25s;
+    box-shadow: 0px 3px 6px #100B009A;
+}
+
+.image_description {
+    color: $nh-white;
+    background-color: $nh-black;
+    width: 56.06%;
+    font-size: .75rem; // 75% relative to root font-size (1em = 16px)
+    margin: -27px 0px 0px 0px; // top, right, bottom, left
+    padding: 5px 0px 5px 0px;
+    opacity: 0%;
+    position: absolute;
+    border-radius: 4px;
+    transition: opacity 0.25s;
+}
+
+.image_display,
+.paypal_link {
+    padding: 25px 0px 25px 0px; // top, right, bottom, left
+}
+
+.image_display:hover {
+    opacity: 80%;
+    .image_description {
+        opacity: 95%;
+    }
+    transition: opacity 0.25s;
+}
+
+.bitcoin_link {
+    text-align: center;
+}
+
+.bitcoin_span {
+    opacity: 50%;
+}
+
+.paypal_bitcoin {
+    @include center;
+    width: 15%;
+}

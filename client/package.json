@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
+    "focus-trap-react": "^8.1.0",
     "interweave": "^12.5.0",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",

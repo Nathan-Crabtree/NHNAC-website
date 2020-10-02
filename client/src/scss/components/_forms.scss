@@ -1,0 +1,194 @@
+// Base
+
+label[for="rememberMe"], 
+label[for="newsletter"], 
+.resend_email_span, 
+.agreement {
+    font-size: .8rem;
+}
+
+label, 
+input, 
+.form_links, 
+select[id="gender"] {
+    margin: 10px 0px 10px 0px; // top, right, bottom, left
+}
+
+label[for="rememberMe"], 
+label[for="newsletter"] {
+    margin-left: 5px; 
+}
+
+input:focus, 
+input:focus {
+    outline: none;
+    border: $nh-black solid 2px;
+}
+
+form {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 3px 6px #100B0098;
+    padding: 10px 0px 10px 0px; 
+    > ul {
+        list-style-type: none;
+    }
+}
+
+fieldset {
+    border: none;
+    margin-bottom: -10px;
+}
+
+select {
+    @include input-properties;
+}
+
+input:not([type='checkbox']) {
+    height: 25px;
+    @include input-properties;
+}
+
+button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_modal-close"]):hover {
+    background-color: $nh-button-hover;
+}
+
+button:focus {
+    outline: none;
+}
+
+// Login
+
+.login_form {
+    @include center;
+    width: 35%;
+    margin-top: 100px;
+}
+
+.login_input {
+    width: 97.5%;
+}
+
+.login_submit {
+    @include button_properties;
+    @include center;
+    width: 95%;
+}
+
+.form_links {
+    text-align: center;
+    > span {
+        font-size: .8rem;
+        > button {
+            font-size: 1em;
+            text-align: left;
+            color: $nh-black;
+            background: none;
+            margin: 0;
+            padding: 0;
+            border: none;
+            cursor: pointer;
+        }
+    }
+}
+
+.form_links button:hover {
+    text-decoration: underline;
+}
+
+// Sign Up 
+
+.top_div {
+    text-align: center;
+    padding-bottom: 90px;
+}
+
+.signup_form {
+    @include center;
+    width: 70%;
+}
+
+.signup_fieldset {
+    padding: 0 0 0 25px;
+}
+
+.signup_fields {
+    padding-bottom: 5px;
+}
+
+.signup_input {
+    width: 95%;
+}
+
+.geo_location {
+    margin: 10px 10px 0 0;
+    display: inline;
+}
+
+label[for="newsletter"] {
+    text-align: center;
+}
+
+.newsletter {
+    text-align: center;
+    padding: 11px 0;
+}
+
+label[for="pay"] {
+    margin-bottom: -3px;
+    display: block;
+    text-align: center;
+}
+
+.pay_buttons_div {
+    @include center;
+    width: 100%;
+}
+
+.pay_buttons {
+    @include button_properties;
+    width: 21%;
+    margin-right: 27px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+}
+
+.pay_with {
+    text-align: center;
+    margin-left: -32px;
+    padding: 10px 0;
+}
+
+.paypal_btn {
+    @include button_properties;
+    width: 92.25%;
+    height: 50px !important;
+}
+
+.bitcoin_btn {
+    @include alt_button_properties;
+    width: 92.25%;
+    height: 50px !important;
+}
+
+.agreement {
+    text-align:center;
+    @include center;
+    width: 50%;
+    padding-top: 90px;
+}
+
+// Forgot Password
+
+.security_question {
+    width: 50%;
+}
+
+.security_submit {
+    @include button_properties;
+    width: 12.5%;
+}
+
+.resend_email_span {
+    padding-top: 25px;
+}

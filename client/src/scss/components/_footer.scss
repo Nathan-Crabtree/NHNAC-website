@@ -1,0 +1,16 @@
+footer > div:first-child > ul {
+    padding: 0% 3% 2% 3%;
+    li {
+        padding-top: 25px;
+        h4 {
+            margin: 0;
+        }
+    }
+    li:not(first-child):hover {
+        text-decoration: underline;
+    }
+}
+
+footer > div:nth-child(2) li {
+    padding-left: 5px;
+}

@@ -253,6 +253,17 @@ To run the servers in each directory, simply put in the terminal for both:
 ```
 npm start
 ```
-At this point, your environment is all set and ready for you to start coding! 
 
-*Note: At anytime, you may run “npm stop” to stop the servers.*
+To run jest testing inside the development environment for both servers, type in the terminal:
+
+```
+npm test
+```
+
+To run the sass preprocessor while working on the front-end, type in the terminal:
+
+```
+sass --watch scss/style.css ../public/css/style.css --style=compressed
+```
+
+At this point, your environment is all set and ready for you to start coding! 

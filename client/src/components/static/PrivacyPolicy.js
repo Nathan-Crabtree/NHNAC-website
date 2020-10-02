@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 export default class PrivacyPolicy extends Component {
 
     componentDidMount() {
-        // This code allows all anchor tags to have the resetToggleDisplay() function implemented to 
-        // remove any user interference from the nav menu in mobile mode.
-        let links = document.getElementsByTagName("a");
-        for (let link = 0; link < links.length; link++) {
-            links[link].onclick = this.props.resetToggleDisplay;
-        }
+        // When component is rendered, bring user to top of page.
+        window.scrollTo(0, 0);
     }
 
     render() {
         return (
-            <div>{" "}
+            <React.Fragment>{" "}
                 <div data-custom-class="body">
                     {" "}
                     <div
@@ -22,7 +17,7 @@ export default class PrivacyPolicy extends Component {
                     >
                     <strong>
                         <span>
-                        Privacy Notice
+                        Privacy Policy
                         </span>
                     </strong>
                     </div>
@@ -2237,7 +2232,7 @@ export default class PrivacyPolicy extends Component {
                                         <span data-custom-class="body_text">
                                         <a
                                             data-custom-class="link"
-                                            href="http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
+                                            href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
                                             rel="noopener noreferrer"
                                             target="_blank"
                                         >
@@ -2455,7 +2450,7 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                     <a
                                     data-custom-class="link"
-                                    href="http://www.aboutads.info/choices/"
+                                    href="https://www.aboutads.info/choices/"
                                     rel="noopener noreferrer"
                                     target="_blank"
                                     >
@@ -3926,11 +3921,7 @@ export default class PrivacyPolicy extends Component {
                     </div>
                     </div>
                 </div>
-                </div>);
+                </React.Fragment>
+        );
     }
-}
-
-// PropTypes for jest testing in App.test.js
-PrivacyPolicy.propTypes = {
-    resetToggleDisplay: PropTypes.func.isRequired
 }
