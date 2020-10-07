@@ -1,17 +1,18 @@
 // Base
 
-label[for="rememberMe"], 
-label[for="newsletter"], 
-.resend_email_span, 
-.agreement {
-    font-size: .8rem;
-}
-
 label, 
 input, 
 .form_links, 
-select[id="gender"] {
-    margin: 10px 0px 10px 0px; // top, right, bottom, left
+select[id="gender"],
+textarea {
+    margin: 10px 0; // top, right, bottom, left
+}
+
+label[for="rememberMe"], 
+label[for="newsletter"], 
+.resend_email_span, 
+.agreement_p {
+    font-size: .8rem;
 }
 
 label[for="rememberMe"], 
@@ -19,8 +20,7 @@ label[for="newsletter"] {
     margin-left: 5px; 
 }
 
-input:focus, 
-input:focus {
+input:focus, textarea:focus, select:focus {
     outline: none;
     border: $nh-black solid 2px;
 }
@@ -29,7 +29,7 @@ form {
     background-color: white;
     border-radius: 4px;
     box-shadow: 0px 3px 6px #100B0098;
-    padding: 10px 0px 10px 0px; 
+    padding: 10px 0; 
     > ul {
         list-style-type: none;
     }
@@ -42,6 +42,7 @@ fieldset {
 
 select {
     @include input-properties;
+    margin: 10px 0;
 }
 
 input:not([type='checkbox']) {
@@ -55,6 +56,16 @@ button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_mo
 
 button:focus {
     outline: none;
+}
+
+textarea {
+    @include input-properties;
+    width: 100px;
+    height: 100px;
+}
+
+.submit_padding {
+    margin: 10px 0;
 }
 
 // Login
@@ -109,7 +120,7 @@ button:focus {
 }
 
 .signup_fieldset {
-    padding: 0 0 0 25px;
+    padding-left: 25px;
 }
 
 .signup_fields {
@@ -129,12 +140,12 @@ label[for="newsletter"] {
     text-align: center;
 }
 
-.newsletter {
+.newsletter_div {
     text-align: center;
     padding: 11px 0;
 }
 
-label[for="pay"] {
+label[for="payment"] {
     margin-bottom: -3px;
     display: block;
     text-align: center;
@@ -145,7 +156,7 @@ label[for="pay"] {
     width: 100%;
 }
 
-.pay_buttons {
+.pay_button {
     @include button_properties;
     width: 21%;
     margin-right: 27px;
@@ -153,7 +164,7 @@ label[for="pay"] {
     margin-bottom: 3px;
 }
 
-.pay_with {
+.pay_with_div {
     text-align: center;
     margin-left: -32px;
     padding: 10px 0;
@@ -171,7 +182,7 @@ label[for="pay"] {
     height: 50px !important;
 }
 
-.agreement {
+.agreement_p {
     text-align:center;
     @include center;
     width: 50%;
@@ -191,4 +202,11 @@ label[for="pay"] {
 
 .resend_email_span {
     padding-top: 25px;
+}
+
+// Contact
+
+.contact_form {
+    @include center;
+    width: 50%;
 }

@@ -5,19 +5,25 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // Import images
 import logo from './images/header/nhnac.png';
 import hbIcon from './images/header/hamburger_icon.png';
-import cross from './images/header/cross.png';
 import fbLogo from './images/facebook.svg';
 import donate from './images/donate/donate.png';
 import paypal from './images/donate/paypal.png';
 import bitcoin from './images/donate/bitcoin-accepted.png';
+import indian from './images/about/indian.png';
+import tribe from './images/about/tribe.jpeg';
 
 // Import components
-import { Footer, PrivacyPolicy, TermsOfService, FAQ, Donate, SignUp } from './components/static/Static.js';
+import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
+         Donate, SignUp, About, Constitution, 
+         LegalRights, Adoption, CodeOfConduct 
+        } from './components/static/Static.js';
 import Header from './components/Header.js';
 import Error from './components/Error.js';
 import Login from './components/Login.js';
 import ForgotPassword from './components/ForgotPassword.js';
 import Verification from './components/Verification.js';
+import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
+import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
 
 export default class App extends Component {
 
@@ -111,7 +117,7 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Header logo={logo} hbIcon={hbIcon} cross={cross} />
+        <Header logo={logo} hbIcon={hbIcon} />
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
@@ -123,6 +129,11 @@ export default class App extends Component {
                 <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} />} />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
                 <Route exact path="/verification" component={ () => <Verification />} />
+                <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} />} />
+                <Route exact path="/constitution" component={ () => <Constitution ConstitutionPdf={ConstitutionPdf} />} />
+                <Route exact path="/adoption_agreement" component={ () => <Adoption /> } />
+                <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
+                <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
                 <Route component={Error} />
             </Switch>
           </main>

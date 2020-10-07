@@ -70,7 +70,7 @@ export default class SignUp extends Component {
                                     <select name="city" className="cities" id="cityId">
                                         <option value="">Select City</option>
                                     </select>
-                                </div>
+                                </div><br />
                                 <input type="text" name="zip" id="address" placeholder="Zip" /><br />
                             </div>
                             <div className="signup_fields">
@@ -89,26 +89,26 @@ export default class SignUp extends Component {
                                 <label htmlFor="confirm_password">Confirm Password</label><br />
                                 <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" /><br />    
                             </div>
-                            <div className="newsletter">
+                            <div className="newsletter_div">
                                 <input type="checkbox" id="newsletter" name="newsletter" />
                                 <label htmlFor="newsletter">Check this box to sign up for our newsletter</label><br />
                             </div>
                             {/* Insert e-signature widget here */}
-                            <label htmlFor="pay">Pay Us What You'd Like</label><br />
-                            <input className="signup_input" type="number" id="pay" name="pay" placeholder="0" /><br />
+                            <label htmlFor="payment">Pay Us What You'd Like</label><br />
+                            <input className="signup_input" type="number" id="payment" name="payment" placeholder="0" /><br />
                             <div className="pay_buttons_div">
-                                <button className="pay_buttons" type="button" value="1">$1</button>
-                                <button className="pay_buttons" type="button" value="5">$5</button>
-                                <button className="pay_buttons" type="button" value="10">$10</button>
-                                <button className="pay_buttons" type="button" value="20">$20</button>
+                                <button className="pay_button" type="button" value="1">$1</button>
+                                <button className="pay_button" type="button" value="5">$5</button>
+                                <button className="pay_button" type="button" value="10">$10</button>
+                                <button className="pay_button" type="button" value="20">$20</button>
                             </div>
-                            <div className="pay_with">
+                            <div className="pay_with_div">
                                 <button className="paypal_btn" type="button">Pay with PayPal</button>
                                 <p>Or</p>
                                 <button className="bitcoin_btn" type="button">Pay with Bitcoin</button>
                             </div>
                         </fieldset>
-                        <p className="agreement">By signing up, you automatically agree to our <Link to="/privacy_policy" target="_blank">Privacy Policy</Link> and <Link to="/terms_of_service" target="_blank">Terms Of Service</Link>.</p>
+                        <p className="agreement_p">By signing up, you automatically agree to our <Link to="/adoption_agreement" target="_blank">Adoption Agreement</Link> and <Link to="/terms_of_service" target="_blank">Terms Of Service</Link>.</p>
                     </form>
             </React.Fragment> 
         );

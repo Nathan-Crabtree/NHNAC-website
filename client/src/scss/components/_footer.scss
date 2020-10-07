@@ -1,5 +1,5 @@
 footer > div:first-child > ul {
-    padding: 0% 3% 2% 3%;
+    padding: 0% 3% 2%;
     li {
         padding-top: 25px;
         h4 {
@@ -13,4 +13,8 @@ footer > div:first-child > ul {
 
 footer > div:nth-child(2) li {
     padding-left: 5px;
+}
+
+footer > div:nth-child(2) li:first-child {
+    opacity: 50%;
 }

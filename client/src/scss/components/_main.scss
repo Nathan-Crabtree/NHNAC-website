@@ -39,6 +39,20 @@ a:hover {
     text-decoration: underline;
 }
 
+.about_link {
+    display: block;
+    text-align: center;
+}
+
 .error_description {
     color: $nh-error;
+}
+
+.center_text {
+    text-align: center;
+}
+
+.experiences_div {
+    @include center;
+    width: 50%;
 }

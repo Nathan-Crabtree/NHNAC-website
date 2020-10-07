@@ -28,3 +28,21 @@
     padding: 2px 0px 2px 5px;
     border: $nh-black solid 1px;
 }
+
+@mixin img-properties {
+    position: relative;
+    border-radius: 4px;
+    transition: opacity 0.25s;
+    box-shadow: 0 3px 6px #100B009A;
+}
+
+@mixin img-desc-properties {
+    color: $nh-white;
+    background-color: $nh-black;
+    font-size: .75rem; // 75% relative to root font-size (1em = 16px)
+    margin: -27px 0 0 0px; // top, right, bottom, left
+    padding: 5px 0;
+    opacity: 0%;
+    border-radius: 4px;
+    transition: opacity 0.25s;
+}

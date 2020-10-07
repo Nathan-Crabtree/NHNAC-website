@@ -25,7 +25,7 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <strong>
                         <span data-custom-class="subtitle">
-                            Last updated <bdt className="question">August 19, 2020</bdt>
+                            Last updated <bdt is="x3d"className="question">August 19, 2020</bdt>
                         </span>
                         </strong>
                     </span>
@@ -37,48 +37,48 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <span data-custom-class="body_text">
                         Thank you for choosing to be part of our community at{" "}
-                        <bdt className="question">New Haven Native American Church</bdt>
-                        <bdt className="block-component" /> (“
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="question">New Haven Native American Church</bdt>
+                        <bdt is="x3d"className="block-component" /> (“
+                        <bdt is="x3d"className="block-component" />
                         <strong>Company</strong>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                         ”, “<strong>we</strong>”, “<strong>us</strong>”, or “
                         <strong>our</strong>”). We are committed to protecting your personal
                         information and your right to privacy. If you have any questions or
                         concerns about this privacy notice, or our practices with regards to
                         your personal information, please contact us at{" "}
-                        <bdt className="question">info@newhavennativeamericanchurch.org</bdt>.
+                        <bdt is="x3d"className="question">info@newhavennativeamericanchurch.org</bdt>.
                         </span>
                     </span>
                     </p>
                     <p>
                     <span>
                         <span data-custom-class="body_text">
-                        When you <bdt className="block-component" />
+                        When you <bdt is="x3d"className="block-component" />
                         visit our website{" "}
-                        <bdt className="question">newhavennativeamericanchurch.org</bdt> (the
+                        <bdt is="x3d"className="question">newhavennativeamericanchurch.org</bdt> (the
                         "<strong>Website</strong>"),{" "}
-                        <bdt className="statement-end-if-in-editor" />
-                        <bdt className="block-component" />
-                        <bdt className="block-component" /> and more generally, use any of our
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="block-component" />
+                        <bdt is="x3d"className="block-component" /> and more generally, use any of our
                         services (the "<strong>Services</strong>", which include the{" "}
                         <span>
                             <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                             </span>
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
                         </span>
                         <span data-custom-class="body_text">
                         <span>
                             <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
                         </span>
@@ -99,15 +99,15 @@ export default class PrivacyPolicy extends Component {
                         <span data-custom-class="body_text">
                         This privacy notice applies to all information collected through our
                         Services (which, as described above, includes our{" "}
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                         Website
                         <span>
                             <span data-custom-class="body_text">
-                            <bdt className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                             </span>
                         </span>
-                        <bdt className="block-component">
-                            <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component">
+                            <bdt is="x3d"className="block-component" />
                         </bdt>
                         </span>
                     </span>
@@ -148,7 +148,7 @@ export default class PrivacyPolicy extends Component {
                         </span>
                     </a>
                     <span>
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
                     </p>
                     <p>
@@ -159,7 +159,7 @@ export default class PrivacyPolicy extends Component {
                     </a>
                     <span>
                         <span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                         </span>
                     </span>
                     </p>
@@ -168,10 +168,10 @@ export default class PrivacyPolicy extends Component {
                         <a data-custom-class="link" href="#infoshare">
                         3. Will Your Information Be Shared With Anyone?
                         </a>
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
                     <span>
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
                     </p>
                     <p>
@@ -181,12 +181,12 @@ export default class PrivacyPolicy extends Component {
                         </span>
                     </a>
                     <span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </span>
                     <span>
                         <span>
-                        <bdt className="block-component" />
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                         </span>
                     </span>
                     </p>
@@ -203,11 +203,11 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <span>
                         <span>
-                            <bdt className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                         </span>
                         </span>
-                        <bdt className="block-component" />
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
                     </p>
                     <p>
@@ -218,7 +218,7 @@ export default class PrivacyPolicy extends Component {
                     </a>
                     <span>
                         <span>
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                         </span>
                     </span>
                     </p>
@@ -231,10 +231,10 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <span>
                         <span>
-                            <bdt className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                         </span>
                         </span>
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
                     </p>
                     <p>
@@ -287,7 +287,7 @@ export default class PrivacyPolicy extends Component {
                         </span>
                         </strong>
                     </span>
-                    <bdt className="block-component">
+                    <bdt is="x3d"className="block-component">
                         <span data-custom-class="body_text" />
                     </bdt>
                     </p>
@@ -325,30 +325,30 @@ export default class PrivacyPolicy extends Component {
                     <span data-custom-class="body_text">
                         <span>
                         We collect personal information that you voluntarily provide to us
-                        when you <bdt className="block-component" />
-                        register on the <bdt className="block-component" />
-                        Website, <bdt className="statement-end-if-in-editor" />
-                        <bdt className="block-component" />
-                        <bdt className="block-component" />
+                        when you <bdt is="x3d"className="block-component" />
+                        register on the <bdt is="x3d"className="block-component" />
+                        Website, <bdt is="x3d"className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                         <span data-custom-class="body_text">
                             <span>
-                            <bdt className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                             </span>
                         </span>
                         express an interest in obtaining information about us or our products
                         and Services, when you participate in activities on the{" "}
                         <span data-custom-class="body_text">
                             <span>
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
-                        <bdt className="block-component" /> (such as by posting messages in
+                        <bdt is="x3d"className="block-component" /> (such as by posting messages in
                         our online forums or entering competitions, contests or giveaways)
-                        <bdt className="statement-end-if-in-editor" /> or otherwise when you
+                        <bdt is="x3d"className="statement-end-if-in-editor" /> or otherwise when you
                         contact us.
                         </span>
                     </span>
@@ -359,15 +359,15 @@ export default class PrivacyPolicy extends Component {
                         The personal information that we collect depends on the context of
                         your interactions with us and the{" "}
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         , the choices you make and the products and features you use. The
                         personal information we collect may include the following:
-                        <bdt className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                         </span>
                     </span>
                     </p>
@@ -375,25 +375,25 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <span data-custom-class="body_text">
                         <strong>Personal Information Provided by You.</strong> We collect{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">names</bdt>;{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">passwords</bdt>;{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">usernames</bdt>;{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">email addresses</bdt>;{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">mailing addresses</bdt>;{" "}
-                        <bdt className="forloop-component" />
-                        <bdt className="question">contact preferences</bdt>;{" "}
-                        <bdt className="forloop-component" />
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">names</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">passwords</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">usernames</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">email addresses</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">mailing addresses</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
+                        <bdt is="x3d"className="question">contact preferences</bdt>;{" "}
+                        <bdt is="x3d"className="forloop-component" />
                         and other similar information.
                         </span>
                         <span data-custom-class="body_text">
-                        <bdt className="statement-end-if-in-editor" />
-                        <bdt className="block-component">
-                            <bdt className="block-component" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="block-component">
+                            <bdt is="x3d"className="block-component" />
                         </bdt>
                         </span>
                     </span>
@@ -418,8 +418,8 @@ export default class PrivacyPolicy extends Component {
                     </span>
                     <span data-custom-class="body_text">
                         <span>
-                        <bdt className="statement-end-if-in-editor">
-                            <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor">
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                         </bdt>
                         </span>
                     </span>
@@ -430,12 +430,12 @@ export default class PrivacyPolicy extends Component {
                         and accurate, and you must notify us of any changes to such personal
                         information.
                         <span>
-                        <bdt className="statement-end-if-in-editor">
-                            <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor">
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                         </bdt>
                         </span>
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </div>
                     <p>
                     <strong>
@@ -460,11 +460,11 @@ export default class PrivacyPolicy extends Component {
                         <span data-custom-class="body_text">
                             <span>
                             <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 Website
-                                <bdt className="statement-end-if-in-editor" />
-                                <bdt className="block-component" />
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                             </span>
                             </span>
                         </span>
@@ -481,11 +481,11 @@ export default class PrivacyPolicy extends Component {
                         navigate the{" "}
                         <span>
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         </span>
                         . This information does not reveal your specific identity (like your
@@ -496,27 +496,27 @@ export default class PrivacyPolicy extends Component {
                         our{" "}
                         <span>
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         </span>{" "}
                         and other technical information. This information is primarily needed to
                         maintain the security and operation of our{" "}
                         <span>
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         </span>
                         , and for our internal analytics and reporting purposes.
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </div>
                     <div>
                     <br />
@@ -524,13 +524,13 @@ export default class PrivacyPolicy extends Component {
                     <div>
                     <span data-custom-class="body_text">
                         Like many businesses, we also collect information through cookies and
-                        similar technologies. <bdt className="block-component" />
-                        <bdt className="block-component" />
+                        similar technologies. <bdt is="x3d"className="block-component" />
+                        <bdt is="x3d"className="block-component" />
                     </span>
-                    <bdt className="statement-end-if-in-editor">
+                    <bdt is="x3d"className="statement-end-if-in-editor">
                         <span data-custom-class="body_text" />
                     </bdt>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     &nbsp;
                     </div>
                     <div>
@@ -540,7 +540,7 @@ export default class PrivacyPolicy extends Component {
                     <span data-custom-class="body_text">
                         The information we collect includes:
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </div>
                     <ul>
                     <li>
@@ -552,11 +552,11 @@ export default class PrivacyPolicy extends Component {
                             servers automatically collect when you access or use our{" "}
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 Website
-                                <bdt className="statement-end-if-in-editor" />
-                                <bdt className="block-component" />
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </span>{" "}
                             and which we record in log files. Depending on how you interact
@@ -565,11 +565,11 @@ export default class PrivacyPolicy extends Component {
                             activity in the{" "}
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 Website
-                                <bdt className="statement-end-if-in-editor" />
-                                <bdt className="block-component" />
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </span>{" "}
                             (such as the date/time stamps associated with your usage, pages
@@ -585,7 +585,7 @@ export default class PrivacyPolicy extends Component {
                             <span data-custom-class="body_text">
                             <span>
                                 <span>
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                             </span>
                             </span>
@@ -594,7 +594,7 @@ export default class PrivacyPolicy extends Component {
                     </li>
                     </ul>
                     <div>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </div>
                     <ul>
                     <li>
@@ -606,11 +606,11 @@ export default class PrivacyPolicy extends Component {
                             </span>
                         <span>
                             <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
                             <span>
@@ -626,7 +626,7 @@ export default class PrivacyPolicy extends Component {
                             <span data-custom-class="body_text">
                             <span>
                                 <span>
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                             </span>
                             </span>
@@ -635,7 +635,7 @@ export default class PrivacyPolicy extends Component {
                     </li>
                     </ul>
                     <div>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </div>
                     <ul>
                     <li>
@@ -648,11 +648,11 @@ export default class PrivacyPolicy extends Component {
                             the type of settings of the device you use to access the{" "}
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 Website
-                                <bdt className="statement-end-if-in-editor" />
-                                <bdt className="block-component" />
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </span>
                             . For example, we may use GPS and other technologies to collect
@@ -670,7 +670,7 @@ export default class PrivacyPolicy extends Component {
                             <span data-custom-class="body_text">
                             <span>
                                 <span>
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                             </span>
                             </span>
@@ -679,19 +679,19 @@ export default class PrivacyPolicy extends Component {
                     </li>
                     </ul>
                     <div>
-                    <bdt className="block-component" />
-                    <bdt className="statement-end-if-in-editor" />
+                    <bdt is="x3d"className="block-component" />
+                    <bdt is="x3d"className="statement-end-if-in-editor" />
                     <span data-custom-class="body_text">
                         <span>
-                        <bdt className="statement-end-if-in-editor">
-                            <bdt className="statement-end-if-in-editor">
+                        <bdt is="x3d"className="statement-end-if-in-editor">
+                            <bdt is="x3d"className="statement-end-if-in-editor">
                             <span>
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="statement-end-if-in-editor">
-                                        <bdt className="statement-end-if-in-editor">
-                                        <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor">
+                                        <bdt is="x3d"className="statement-end-if-in-editor">
+                                        <bdt is="x3d"className="block-component" />
                                         </bdt>
                                     </bdt>
                                     </span>
@@ -702,8 +702,8 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="statement-end-if-in-editor">
-                                        <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor">
+                                        <bdt is="x3d"className="block-component" />
                                     </bdt>
                                     </span>
                                 </span>
@@ -742,9 +742,9 @@ export default class PrivacyPolicy extends Component {
                         <em>
                             <span data-custom-class="body_text">
                             We may collect limited data from public databases, marketing
-                            partners, <bdt className="block-component" />
+                            partners, <bdt is="x3d"className="block-component" />
                             social media platforms,{" "}
-                            <bdt className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
                             and other outside sources.
                             </span>
                         </em>
@@ -759,8 +759,8 @@ export default class PrivacyPolicy extends Component {
                             offers and services to you and update our records, we may obtain
                             information about you from other sources, such as public databases,
                             joint marketing partners, affiliate programs, data providers,
-                            <bdt className="block-component" /> social media platforms,
-                            <bdt className="statement-end-if-in-editor" /> as well as from other
+                            <bdt is="x3d"className="block-component" /> social media platforms,
+                            <bdt is="x3d"className="statement-end-if-in-editor" /> as well as from other
                             third parties. This information includes mailing addresses, job
                             titles, email addresses, phone numbers, intent data (or user
                             behavior data), Internet Protocol (IP) addresses, social media
@@ -769,7 +769,7 @@ export default class PrivacyPolicy extends Component {
                             <span>
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </span>
                             </span>{" "}
@@ -781,20 +781,20 @@ export default class PrivacyPolicy extends Component {
                             <span>
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                             </span>
                             </span>
                         </span>
                         </span>
                         <span>
-                        <bdt className="block-component">
+                        <bdt is="x3d"className="block-component">
                             <span>
                             <span data-custom-class="body_text">
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="statement-end-if-in-editor">
-                                    <bdt className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor">
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </bdt>
                                 </span>
                                 </span>
@@ -803,7 +803,7 @@ export default class PrivacyPolicy extends Component {
                         </bdt>
                         </span>
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <p>
                     <br />
@@ -834,11 +834,11 @@ export default class PrivacyPolicy extends Component {
                         We use personal information collected via our{" "}
                         <span>
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             Website
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="block-component" />
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         </span>{" "}
                         for a variety of business purposes described below. We process your
@@ -848,13 +848,13 @@ export default class PrivacyPolicy extends Component {
                         obligations. We indicate the specific processing grounds we rely on next
                         to each purpose listed below.
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <p>
                     <span data-custom-class="body_text">
                         We use the information we collect or receive:
                     </span>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <ul>
                     <li>
@@ -873,7 +873,7 @@ export default class PrivacyPolicy extends Component {
                                 we use the information you allowed us to collect from those
                                 third parties to facilitate account creation and logon process
                                 for the performance of the contract.{" "}
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 See the section below headed "
                                 </span>
                             </span>
@@ -894,7 +894,7 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     </span>
                                 </span>
@@ -917,11 +917,11 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     Website
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>{" "}
@@ -929,11 +929,11 @@ export default class PrivacyPolicy extends Component {
                             testimonial, we will obtain your consent to use your name and the
                             consent of the testimonial. If you wish to update, or delete your
                             testimonial, please contact us at{" "}
-                            <bdt className="block-component" />
-                            <bdt className="question">
+                            <bdt is="x3d"className="block-component" />
+                            <bdt is="x3d"className="question">
                                 info@newhavennativeamericanchurch.org
                             </bdt>
-                            <bdt className="else-block" /> and be sure to include your name,
+                            <bdt is="x3d"className="else-block" /> and be sure to include your name,
                             testimonial location, and contact information.
                             </span>
                         </span>
@@ -955,11 +955,11 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     Website
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>
@@ -1057,11 +1057,11 @@ export default class PrivacyPolicy extends Component {
                             </span>
                         </span>
                         </span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </li>
                     </ul>
                     <p>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <ul>
                     <li>
@@ -1096,11 +1096,11 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     Website
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>{" "}
@@ -1145,11 +1145,11 @@ export default class PrivacyPolicy extends Component {
                             </span>
                         </span>
                         </span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </li>
                     </ul>
                     <p>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <ul>
                     <li>
@@ -1166,11 +1166,11 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     Website
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>
@@ -1345,11 +1345,11 @@ export default class PrivacyPolicy extends Component {
                             </span>
                         </span>
                         </span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </li>
                     </ul>
                     <p>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <ul>
                     <li>
@@ -1369,11 +1369,11 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     Website
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>
@@ -1415,19 +1415,19 @@ export default class PrivacyPolicy extends Component {
                             content and advertising (and work with third parties who do so)
                             tailored to your interests and/or location and to measure its
                             effectiveness.
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
                         </span>
-                        <bdt className="statement-end-if-in-editor" />
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </li>
                     </ul>
                     <p>
-                    <bdt className="block-component" />
+                    <bdt is="x3d"className="block-component" />
                     </p>
                     <p>
-                    <bdt className="block-component">
-                        <bdt className="statement-end-if-in-editor" />
+                    <bdt is="x3d"className="block-component">
+                        <bdt is="x3d"className="statement-end-if-in-editor" />
                     </bdt>
                     </p>
                     <p>
@@ -1566,7 +1566,7 @@ export default class PrivacyPolicy extends Component {
                     <span>
                         <span>
                         <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                         </span>
                         </span>
                     </span>
@@ -1574,7 +1574,7 @@ export default class PrivacyPolicy extends Component {
                         <span>
                         <span>
                             <span data-custom-class="body_text">
-                            <bdt className="block-component" />
+                            <bdt is="x3d"className="block-component" />
                             </span>
                         </span>
                         </span>
@@ -1584,7 +1584,7 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>
@@ -1594,7 +1594,7 @@ export default class PrivacyPolicy extends Component {
                             <span>
                             <span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </span>
                             </span>
@@ -1602,7 +1602,7 @@ export default class PrivacyPolicy extends Component {
                             <span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </span>
@@ -1616,30 +1616,30 @@ export default class PrivacyPolicy extends Component {
                                     </strong>
                                     <span data-custom-class="body_text">
                                     &nbsp;When you share personal information{" "}
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     (for example, by posting comments, contributions or other
                                     content to the{" "}
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>
-                                    ) <bdt className="statement-end-if-in-editor" />
+                                    ) <bdt is="x3d"className="statement-end-if-in-editor" />
                                     or otherwise interact with public areas of the{" "}
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>
@@ -1648,24 +1648,24 @@ export default class PrivacyPolicy extends Component {
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>{" "}
-                                    in perpetuity. <bdt className="block-component" />
+                                    in perpetuity. <bdt is="x3d"className="block-component" />
                                     If you interact with other users of our{" "}
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>{" "}
@@ -1673,28 +1673,28 @@ export default class PrivacyPolicy extends Component {
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>{" "}
                                     through a social network (such as Facebook), your contacts
                                     on the social network will see your name, profile photo,
                                     and descriptions of your activity.{" "}
-                                    <bdt className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
                                     Similarly, other users will be able to view descriptions
                                     of your activity, communicate with you within our{" "}
                                     <span>
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                         </span>
                                         </span>
                                     </span>
@@ -1707,7 +1707,7 @@ export default class PrivacyPolicy extends Component {
                                     <span data-custom-class="body_text">
                                     <span>
                                         <span>
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                         </span>
                                     </span>
                                     </span>
@@ -1720,21 +1720,21 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
                             </span>
                             <div>
                                 <span>
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                                 <span>
                                 <span>
                                     <span>
                                     <span>
                                         <span>
-                                        <bdt className="block-component">
+                                        <bdt is="x3d"className="block-component">
                                             <span data-custom-class="heading_1" />
                                         </bdt>
                                         </span>
@@ -1786,7 +1786,7 @@ export default class PrivacyPolicy extends Component {
                                     Specific information about how we use such technologies and
                                     how you can refuse certain cookies is set out in our Cookie
                                     Notice
-                                    <bdt className="block-component" />.
+                                    <bdt is="x3d"className="block-component" />.
                                 </span>
                                 <span>
                                     <span>
@@ -1794,11 +1794,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                         <span>
                                             <span data-custom-class="body_text">
-                                            <bdt className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
                                             </span>
                                             <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             </span>
                                         </span>
                                         </span>
@@ -1856,11 +1856,11 @@ export default class PrivacyPolicy extends Component {
                                             <span>
                                             <span>
                                                 <span data-custom-class="body_text">
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                                 Website
-                                                <bdt className="statement-end-if-in-editor" />
-                                                <bdt className="block-component" />
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                                 </span>
                                             </span>
                                             </span>
@@ -1876,7 +1876,7 @@ export default class PrivacyPolicy extends Component {
                                     concerned, but will often include your name, email
                                     address, friends list, profile picture as well as other
                                     information you choose to make public on such social media
-                                    platform. <bdt className="block-component" />
+                                    platform. <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -1894,11 +1894,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                             <span>
                                             <span data-custom-class="body_text">
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                                 Website
-                                                <bdt className="statement-end-if-in-editor" />
-                                                <bdt className="block-component" />
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                             </span>
                                             </span>
                                         </span>
@@ -1921,12 +1921,12 @@ export default class PrivacyPolicy extends Component {
                                             <span>
                                             <span>
                                                 <span data-custom-class="body_text">
-                                                <bdt className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                                 </span>
-                                                <bdt className="block-component">
+                                                <bdt is="x3d"className="block-component">
                                                 <span data-custom-class="body_text">
-                                                    <bdt className="block-component" />
-                                                    <bdt className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
                                                 </span>
                                                 </bdt>
                                             </span>
@@ -1987,19 +1987,19 @@ export default class PrivacyPolicy extends Component {
                                     permitted by law (such as tax, accounting or other legal
                                     requirements). No purpose in this notice will require us
                                     keeping your personal information for longer than{" "}
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 the period of time in which users have an account with us
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="else-block" />.
+                                    <bdt is="x3d"className="else-block" />.
                                     </span>
                                 </span>
                                 </span>
@@ -2017,7 +2017,7 @@ export default class PrivacyPolicy extends Component {
                                 </span>
                                 </span>
                                 <span>
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </p>
                             <div>
@@ -2077,11 +2077,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                             <span>
                                             <span data-custom-class="body_text">
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                                 Website
-                                                <bdt className="statement-end-if-in-editor" />
-                                                <bdt className="block-component" />
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                             </span>
                                             </span>
                                         </span>
@@ -2095,11 +2095,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                             <span>
                                             <span data-custom-class="body_text">
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                                 Website
-                                                <bdt className="statement-end-if-in-editor" />
-                                                <bdt className="block-component" />
-                                                <bdt className="block-component" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="block-component" />
+                                                <bdt is="x3d"className="block-component" />
                                             </span>
                                             </span>
                                         </span>
@@ -2110,11 +2110,11 @@ export default class PrivacyPolicy extends Component {
                                 </span>
                                 </span>
                                 <span>
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </p>
@@ -2148,16 +2148,16 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                     <span data-custom-class="body_text">
                                     <em>
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         In some regions, such as the European Economic Area, you
                                         have rights that allow you greater access to and control
                                         over your personal information.{" "}
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                         You may review, change, or terminate your account at any
                                         time.
                                     </em>
                                     </span>
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </p>
@@ -2211,7 +2211,7 @@ export default class PrivacyPolicy extends Component {
                                     grounds other than consent.
                                     <span>
                                         <span>
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                         </span>
                                     </span>
                                     </span>
@@ -2279,10 +2279,10 @@ export default class PrivacyPolicy extends Component {
                             <p>
                                 <span>
                                 <span>
-                                    <bdt className="block-component">
+                                    <bdt is="x3d"className="block-component">
                                     <span data-custom-class="body_text" />
                                     </bdt>
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </p>
@@ -2292,12 +2292,12 @@ export default class PrivacyPolicy extends Component {
                                     <span data-custom-class="body_text">
                                     If you have questions or comments about your privacy
                                     rights, you may email us at{" "}
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                         info@newhavennativeamericanchurch.org
                                     </bdt>
                                     .
                                     </span>
-                                    <bdt className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
                                 </span>
                                 </span>
                             </p>
@@ -2322,7 +2322,7 @@ export default class PrivacyPolicy extends Component {
                                     If you would at any time like to review or change the
                                     information in your account or terminate your account, you
                                     can:
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2332,11 +2332,11 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                         Log in to your account settings and update your user
                                         account.
                                     </bdt>{" "}
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2346,10 +2346,10 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                         Contact us using the contact information provided.
                                     </bdt>{" "}
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2370,8 +2370,8 @@ export default class PrivacyPolicy extends Component {
                                         <span data-custom-class="body_text">
                                         <span>
                                             <span>
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
                                             </span>
                                         </span>
                                         </span>
@@ -2405,11 +2405,11 @@ export default class PrivacyPolicy extends Component {
                                                 <span>
                                                 <span>
                                                     <span data-custom-class="body_text">
-                                                    <bdt className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
                                                     Website
-                                                    <bdt className="statement-end-if-in-editor" />
-                                                    <bdt className="block-component" />
-                                                    <bdt className="block-component" />
+                                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                    <bdt is="x3d"className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
                                                     </span>
                                                 </span>
                                                 </span>
@@ -2428,11 +2428,11 @@ export default class PrivacyPolicy extends Component {
                                                 <span>
                                                 <span>
                                                     <span data-custom-class="body_text">
-                                                    <bdt className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
                                                     Website
-                                                    <bdt className="statement-end-if-in-editor" />
-                                                    <bdt className="block-component" />
-                                                    <bdt className="block-component" />
+                                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                                    <bdt is="x3d"className="block-component" />
+                                                    <bdt is="x3d"className="block-component" />
                                                     </span>
                                                 </span>
                                                 </span>
@@ -2463,14 +2463,14 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    . <bdt className="block-component" />
+                                    . <bdt is="x3d"className="block-component" />
                                     <span>
                                         <span>
                                         <span>
                                             <span>
                                             <span>
                                                 <span>
-                                                <bdt className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                                 </span>
                                             </span>
                                             </span>
@@ -2479,7 +2479,7 @@ export default class PrivacyPolicy extends Component {
                                     </span>
                                     </span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2505,7 +2505,7 @@ export default class PrivacyPolicy extends Component {
                                     that are necessary for the administration and use of your
                                     account, to respond to service requests, or for other
                                     non-marketing purposes. To otherwise opt-out, you may:
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2516,11 +2516,11 @@ export default class PrivacyPolicy extends Component {
                                 &nbsp;
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                         Access your account settings and update your
                                         preferences.
                                     </bdt>{" "}
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -2531,15 +2531,15 @@ export default class PrivacyPolicy extends Component {
                                 &nbsp;
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                         Contact us using the contact information provided.
                                     </bdt>{" "}
-                                    <bdt className="forloop-component" />
+                                    <bdt is="x3d"className="forloop-component" />
                                     <span>
                                         <span data-custom-class="body_text">
                                         <span>
                                             <span>
-                                            <bdt className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
                                             </span>
                                         </span>
                                         </span>
@@ -2648,11 +2648,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                         <span>
                                             <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             the Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             </span>
                                         </span>
                                         </span>
@@ -2665,11 +2665,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                         <span>
                                             <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             </span>
                                         </span>
                                         </span>
@@ -2685,11 +2685,11 @@ export default class PrivacyPolicy extends Component {
                                         <span>
                                         <span>
                                             <span data-custom-class="body_text">
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             Website
-                                            <bdt className="statement-end-if-in-editor" />
-                                            <bdt className="block-component" />
-                                            <bdt className="block-component" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="block-component" />
+                                            <bdt is="x3d"className="block-component" />
                                             </span>
                                         </span>
                                         </span>
@@ -2700,7 +2700,7 @@ export default class PrivacyPolicy extends Component {
                                     etc.). &nbsp;
                                 </span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </p>
@@ -2781,7 +2781,7 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                     We have collected the following categories of personal
                                     information in the past twelve (12) months:{" "}
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </div>
@@ -2825,9 +2825,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <br />
@@ -2870,9 +2870,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <br />
@@ -2894,9 +2894,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <br />
@@ -2916,9 +2916,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <span data-custom-class="body_text">
@@ -2943,9 +2943,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <br />
@@ -2963,9 +2963,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                       <bdt className="block-component" />
+                                       <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <span data-custom-class="body_text">
@@ -2990,9 +2990,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <span data-custom-class="body_text">
@@ -3018,9 +3018,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <span data-custom-class="body_text">
@@ -3043,9 +3043,9 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
-                                        <bdt className="statement-end-if-in-editor" />
+                                        <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                     <br />
                                     <span data-custom-class="body_text">
@@ -3071,10 +3071,10 @@ export default class PrivacyPolicy extends Component {
                                     <td>
                                     <br />
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         NO
                                     </span>
-                                    <bdt className="statement-end-if-in-editor">
+                                    <bdt is="x3d"className="statement-end-if-in-editor">
                                         <span data-custom-class="body_text" />
                                     </bdt>
                                     <br />
@@ -3084,7 +3084,7 @@ export default class PrivacyPolicy extends Component {
                                 </tbody>
                             </table>
                             <div>
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                             </div>
                             <div>
                                 <br />
@@ -3138,15 +3138,15 @@ export default class PrivacyPolicy extends Component {
                                     <strong>
                                     How do we use and share your personal information?
                                     </strong>
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </p>
                             <p>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component">
+                                    <bdt is="x3d"className="block-component" />
                                     </bdt>
                                 </span>
                                 </span>
@@ -3160,7 +3160,7 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                     </span>
                                     </span>
                                 </span>
@@ -3168,7 +3168,7 @@ export default class PrivacyPolicy extends Component {
                                     .
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                     </span>
                                     </span>
                                 </span>
@@ -3180,24 +3180,24 @@ export default class PrivacyPolicy extends Component {
                             <div>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    You may contact us <bdt className="block-component" />
+                                    You may contact us <bdt is="x3d"className="block-component" />
                                     by email at{" "}
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                     info@newhavennativeamericanchurch.org
                                     </bdt>
-                                    , <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    , <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     by visiting{" "}
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                     newhavennativeamericanchurch.org/about
                                     </bdt>
-                                    , <bdt className="block-component" />
-                                    <bdt className="block-component">
+                                    , <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component">
                                     <span data-custom-class="body_text" />
                                     </bdt>
                                 </span>
@@ -3248,7 +3248,7 @@ export default class PrivacyPolicy extends Component {
                                     providers pursuant to a written contract between us and each
                                     service provider. Each service provider is a for-profit
                                     entity that processes the information on our behalf.
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </div>
@@ -3262,7 +3262,7 @@ export default class PrivacyPolicy extends Component {
                                     purposes, such as for undertaking internal research for
                                     technological development and demonstration. This is not
                                     considered to be "selling" of your personal data.
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                             </div>
@@ -3272,13 +3272,13 @@ export default class PrivacyPolicy extends Component {
                             <div>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                     New Haven Native American Church
                                     </bdt>{" "}
                                     has not disclosed or sold any personal information to third
                                     parties for a business or commercial purpose in the
                                     preceding twelve (12) months.{" "}
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                     New Haven Native American Church
                                     </bdt>{" "}
                                     will not sell personal information in the future belonging
@@ -3287,21 +3287,21 @@ export default class PrivacyPolicy extends Component {
                                     <span data-custom-class="body_text">
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
                                         </span>
                                         </span>
                                     </span>
                                     </span>
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                                 <span data-custom-class="body_text">
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 </span>
                             </div>
                             <div>
@@ -3653,24 +3653,24 @@ export default class PrivacyPolicy extends Component {
                                     To exercise these rights, you can contact us{" "}
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         by email at{" "}
-                                        <bdt className="question">
+                                        <bdt is="x3d"className="question">
                                         info@newhavennativeamericanchurch.org
                                         </bdt>
-                                        , <bdt className="block-component" />
-                                        <bdt className="block-component" />
+                                        , <bdt is="x3d"className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                     </span>
                                     </span>
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                         by visiting{" "}
-                                        <bdt className="question">
+                                        <bdt is="x3d"className="question">
                                         newhavennativeamericanchurch.org/about
                                         </bdt>
-                                        , <bdt className="block-component" />
-                                        <bdt className="block-component">
+                                        , <bdt is="x3d"className="block-component" />
+                                        <bdt is="x3d"className="block-component">
                                         <span data-custom-class="body_text" />
                                         </bdt>
                                     </span>
@@ -3686,7 +3686,7 @@ export default class PrivacyPolicy extends Component {
                                 </span>
                                 <span>
                                 <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                 </span>
                                 </span>
                                 <span>
@@ -3695,7 +3695,7 @@ export default class PrivacyPolicy extends Component {
                                     <span data-custom-class="body_text">
                                         <span>
                                         <span data-custom-class="body_text">
-                                            <bdt className="statement-end-if-in-editor" />
+                                            <bdt is="x3d"className="statement-end-if-in-editor" />
                                         </span>
                                         </span>
                                     </span>
@@ -3778,19 +3778,19 @@ export default class PrivacyPolicy extends Component {
                                 <span>
                                 <span data-custom-class="body_text">
                                     If you have questions or comments about this notice, you may{" "}
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     email us at{" "}
-                                    <bdt className="question">
+                                    <bdt is="x3d"className="question">
                                     info@newhavennativeamericanchurch.org
                                     </bdt>
-                                    <bdt className="statement-end-if-in-editor" /> or by post
+                                    <bdt is="x3d"className="statement-end-if-in-editor" /> or by post
                                     to:
                                 </span>
                                 </span>
                             </p>
                             <div>
                                 <span>
-                                <bdt className="question">
+                                <bdt is="x3d"className="question">
                                     <span>
                                     <span data-custom-class="body_text">
                                         New Haven Native American Church
@@ -3801,7 +3801,7 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                     <span>
                                     <span data-custom-class="body_text">
-                                        <bdt className="block-component" />
+                                        <bdt is="x3d"className="block-component" />
                                     </span>
                                     </span>
                                 </span>
@@ -3811,8 +3811,8 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span>
-                                    <bdt className="question">28310 East, State Hwy 14</bdt>
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="question">28310 East, State Hwy 14</bdt>
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -3821,24 +3821,24 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span>
-                                    <bdt className="question">Ava </bdt>
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />,{" "}
-                                    <bdt className="question">MO</bdt>
-                                    <bdt className="statement-end-if-in-editor" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />{" "}
-                                    <bdt className="question">65608</bdt>
-                                    <bdt className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="question">Ava </bdt>
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />,{" "}
+                                    <bdt is="x3d"className="question">MO</bdt>
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />{" "}
+                                    <bdt is="x3d"className="question">65608</bdt>
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                 </span>
                                 </span>
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span>
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
@@ -3847,40 +3847,40 @@ export default class PrivacyPolicy extends Component {
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span>
-                                    <bdt className="question">United States</bdt>
+                                    <bdt is="x3d"className="question">United States</bdt>
                                     <span data-custom-class="body_text">
                                         <span>
                                         <span>
                                             <span data-custom-class="body_text">
                                             <span>
                                                 <span>
-                                                <bdt className="statement-end-if-in-editor" />
+                                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                                 </span>
                                             </span>
                                             </span>
                                         </span>
                                         </span>
                                     </span>
-                                    <bdt className="else-block" />
+                                    <bdt is="x3d"className="else-block" />
                                     </span>
                                 </span>
                                 </span>
-                                <bdt className="statement-end-if-in-editor" />
+                                <bdt is="x3d"className="statement-end-if-in-editor" />
                                 <span data-custom-class="body_text">
                                 <span>
                                     <span>
-                                    <bdt className="statement-end-if-in-editor" />
+                                    <bdt is="x3d"className="statement-end-if-in-editor" />
                                     </span>
                                 </span>
                                 </span>
                                 <span>
                                 <span>
                                     <span data-custom-class="body_text">
-                                    <bdt className="block-component" />
+                                    <bdt is="x3d"className="block-component" />
                                     </span>
                                 </span>
                                 </span>
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                             </div>
                             <p id="contact">
                                 <br />
@@ -3899,12 +3899,12 @@ export default class PrivacyPolicy extends Component {
                                 from you, change that information, or delete it in some
                                 circumstances. To request to review, update, or delete your
                                 personal information, please{" "}
-                                <bdt className="block-component" />
+                                <bdt is="x3d"className="block-component" />
                                 visit:{" "}
-                                <bdt className="question">
+                                <bdt is="x3d"className="question">
                                     newhavennativeamericanchurch.org/adoption
                                 </bdt>
-                                <bdt className="else-block" />. We will respond to your
+                                <bdt is="x3d"className="else-block" />. We will respond to your
                                 request within 30 days.
                                 </span>
                             </div>{" "}

@@ -16,23 +16,27 @@ export default class Footer extends Component {
                     </ul>
                     <ul>
                         <li><h4><u>Connect</u></h4></li>
-                        <li><Link to="#">Contact</Link></li>
+                        <li><Link to="/about#contact">Contact</Link></li>
                         <li><Link to="/donate">Donate</Link></li>
                         <li><Container onSubmit={this.props.onSubmit} triggerText="Feedback" /></li>
                     </ul>
                     <ul>
                         <li><h4><u>Information</u></h4></li>
-                        <li><Link to="#">About</Link></li>
+                        <li><Link to="/about">About</Link></li>
                         <li><Link to="/FAQ">FAQ</Link></li>
                         <li><Container onSubmit={this.props.onSubmit} triggerText="Newsletter" /></li>
                     </ul>
                 </div>
                 <div className="social_links">
                     <ul>
+                        <li>info@newhavennativeamericanchurch.org</li>
+                        <li className="vertical_bar">|</li>
                         <li><a href="https://www.facebook.com/groups/NewHavenNativeAmericanChurch/" target="_blank" rel="noopener noreferrer" className="nav-footer-link" onClick={this.resetToggleDisplay}><img srcSet={this.props.fbLogo} alt="Facebook" width="16px" height="16px" /></a></li>
+                        <li className="vertical_bar">|</li>
                         <li>©2020 All rights reserved.</li>
                     </ul>
                 </div>
+                {/*<p>©2020 All rights reserved.</p>*/}
             </footer>
         );
     }
