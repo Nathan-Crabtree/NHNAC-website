@@ -21,8 +21,8 @@ export default class Donate extends Component {
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Donate</span></strong></div>
                 <div className="image_display">
-                    <img className="image" srcSet={this.props.donate} alt={this.state.alt} />
-                    <p className="image_description">&emsp;Photo description: {this.state.alt}</p>
+                    <img className="donate_image" srcSet={this.props.donate} alt={this.state.alt} />
+                    <p className="donate_image_desc image_desc">&emsp;Photo description: {this.state.alt}</p>
                 </div>
                 <p>&emsp;Many people may wonder about donating and where the funds are being applied. We understand this can be a major concern with so many nonprofit organizations and churches taking in billions of dollars in donations, and then just squandering the money without any real benefit to the world or their members. New Haven Native American Church is quite saddened by this exploitation and sees the problems of this world all stem from this type of selfishness and greed. We are dedicated to assisting our members and all others and this is the path we follow! We encourage all to join us in making a real difference in this world.</p>
                 <br />

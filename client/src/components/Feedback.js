@@ -8,20 +8,23 @@ export const Feedback = ({ onSubmit, closeModal }) => {
 
 return (
         <div>
-            <h3 align="center">Coming soon!</h3>
-            {/* <form className="modal_form" onSubmit={onSubmit}>
-                    <h2 className="newsletter_h2">Join Our Newsletter</h2>
-                    <p>Subscribe to our newsletter to get the latest articles, events, & updates. No spam.</p>
-                    <fieldset>
-                        <div className="form_fields">
-                            <input className="login_input" type="text" id="email" name="email" placeholder="Enter your email"/><br />
-                        </div>
-                        <button className="submit_btn" type="submit">Subscribe</button>
-                        <div className="form_links">
-                            <span><button className="form_links_btn" type="button" onClick={closeModal}>No thanks</button></span>
-                        </div>
-                    </fieldset>
-                </form> */}
+            {/*<h3 align="center">Coming soon!</h3>*/}
+            <form className="modal_form" onSubmit={onSubmit}>
+                <h2 className="newsletter_h2">Feedback</h2>
+                <fieldset>
+                    <div className="form_fields">
+                        <label for="type">Choose your feedback type</label><br />
+                        <select id="type" name="type">
+                            <option value="compliment">Compliment</option>
+                            <option value="complaint">Complaint</option>
+                            <option value="suggestion">Suggestion</option>
+                        </select><br />
+                        <label htmlFor="message">Comment</label><br />
+                        <textarea className="login_input" type="text" id="message" name="message" /><br />
+                    </div>
+                    <button className="submit_btn submit_padding" type="submit" onClick={closeModal}>Submit</button>
+                </fieldset>
+            </form>
         </div>   
     );
 

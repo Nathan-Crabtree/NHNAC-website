@@ -1,5 +1,5 @@
 .hamburger_icon, 
-.cross {
+.exit_cross {
     display: none; 
 }
 
@@ -12,7 +12,7 @@ nav > div {
     padding: 5px 0px 5px 0px;
     li {
         display: inline;
-        padding: 1% 2.75% 1% 2.75%; // top, right, bottom, left
+        padding: 1% 2.75%;
     }
     li:nth-child(even) {
         color: $nh-white;

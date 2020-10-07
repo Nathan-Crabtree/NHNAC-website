@@ -111,7 +111,9 @@ export default class Header extends Component {
                 <nav>
                     <img className="hamburger_icon" onClick={this.toggleDisplayNav} srcSet={this.props.hbIcon} alt="Hamburger menu icon" /> 
                     <div>
-                        <img className="cross" onClick={this.toggleDisplayNav} srcSet={this.props.cross} alt="Exit icon" />
+                        <svg className="exit_cross" onClick={this.toggleDisplayNav} viewBox="0 0 40 40">
+                            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+                        </svg>
                         <Link to="/" onClick={this.resetToggleDisplay}><img className="logo" srcSet={this.props.logo} alt="New Haven Native American Church logo" width="221px" height="210px" /></Link>
                         <ul className="header_links">
                             <li><Link to="/">Home</Link></li> 
@@ -120,7 +122,7 @@ export default class Header extends Component {
                             <li className="vertical_bar">|</li>
                             <li><Link to="/login">NHNAC University</Link></li>
                             <li className="vertical_bar">|</li>
-                            <li><Link to="#">About</Link></li>
+                            <li><Link to="/about">About</Link></li>
                             <li className="vertical_bar">|</li>
                             <li><Link to="/donate">Donate</Link></li>
                         </ul>
@@ -134,6 +136,5 @@ export default class Header extends Component {
 // PropTypes for jest testing in App.test.js
 Header.propTypes = {
     logo: PropTypes.string.isRequired,
-    hbIcon: PropTypes.string.isRequired,
-    cross: PropTypes.string.isRequired,
+    hbIcon: PropTypes.string.isRequired
 }
