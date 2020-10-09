@@ -8,7 +8,6 @@
 # The procedure goes in this script as follows:
 # 
 # fuser -k <portno>/tcp # obsolete
-# rm test_to_prod.sh
 # cd ~/production/client
 # npm install
 # npm audit fix
@@ -44,16 +43,6 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": Beginning start_client.sh\n" >> $FILE
-
-rm test_to_stage.sh
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully.\n" >> $FILE
-
-date >> $FILE
-echo -e ": test_to_stage.sh file successfully deleted.\n" >> $FILE
 
 service apache2 stop
 
