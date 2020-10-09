@@ -1,17 +1,15 @@
 #
 # build.sh
 #
-# Note: before running script, make sure you have an SSH key setup for accessing github repo
-# Note: run script with sudo
-# Note: after running script, use "chmod +x *" in scripts folder (make sure to have it unlocked). 
-# place startup.sh into /etc/init.d and schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
 # Steps:
 # 1) before running script, make sure you have an SSH key setup for accessing github repo, 
 # also have the latest full MySQL Community Server .tar.xz file downloaded from https://dev.mysql.com/downloads/mysql/.
 # 2) run script with sudo
-# 3) after running script, use "chmod +x *" in scripts folder (make sure to have it unlocked).
-# 4) place startup.sh into /etc/init.d and schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
-# 5) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
+# 3) after running script, use "chmod +x *" in ~/testing/scripts folder along with restart_mysql.sh and startup.sh in /etc/init.d (make sure to have it unlocked). 
+# 4) schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
+# 5) implement security features for apache and mysql. Configure firewall settings and enable SSH remote access.
+# note: whenever enabling SSH remote access for Linux server, make sure to combine it with OpenVPN.
+# 6) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
 #
 # MYSQL COMMANDS KNOWN TO WORK WITH GENERIC LINUX (DO NOT USE SUDO):
 # bin/mysqld_safe --user=mysql &
@@ -26,7 +24,9 @@
 # apt install nodejs
 # apt install npm
 # apt install ssmtp
-# +++++++ NEEDS TO BE ADDED TO SCRIPT ++++++++
+# apt install wget
+# wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+# apt install -y ./teamviewer_amd64.deb
 # groupadd mysql
 # useradd -r -g mysql -s /bin/false mysql
 # cd /usr/local
@@ -42,7 +42,6 @@
 # chown mysql:mysql /usr/local/mysql -h
 # bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
-# +++++++++++++++++++++++++++++++++++++++++++
 # cd ~
 # mkdir testing staging production
 # cd testing
@@ -129,6 +128,101 @@ echo -e "\n" >> $FILE
 wait
 date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: apt install wget) " >> $FILE
+apt install wget >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb) " >> $FILE
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: groupadd mysql) " >> $FILE
+groupadd mysql >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: useradd -r -g mysql -s /bin/false mysql) " >> $FILE
+useradd -r -g mysql -s /bin/false mysql >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: cd /usr/local) " >> $FILE
+cd /usr/local >> $FILE
+echo -e "\n" >> $FILE
+
+echo "Please enter the full file-name and path for your MySQL download (be sure to include .tar.xz)"
+
+read varfilename_and_path
+
+date >> $FILE
+echo -e ": (command: tar xvf ${varfilename_and_path}) " >> $FILE
+tar xvf ${varfilename_and_path} >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+echo "Please enter the only full file-name your MySQL download (be sure to include .tar.xz)"
+
+read varfilename_only
+
+date >> $FILE
+echo -e ": (command: ln -s /usr/local/${varfilename_only} mysql) " >> $FILE
+ln -s /usr/local/${varfilename_only} mysql >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: cd mysql) " >> $FILE
+cd mysql >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: mkdir mysql-files) " >> $FILE
+mkdir mysql-files >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: chown mysql:mysql mysql-files) " >> $FILE
+chown mysql:mysql mysql-files >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: chmod 750 mysql-files) " >> $FILE
+chmod 750 mysql-files >> $FILE
+echo -e "\n" >> $FILE
+
+
+date >> $FILE
+echo -e ": (command: chmod -R 777 /tmp) " >> $FILE
+chmod -R 777 /tmp >> $FILE
+echo -e "\n" >> $FILE
+
+
+date >> $FILE
+echo -e ": (command: chmod -R 777 /var) " >> $FILE
+chmod -R 777 /var >> $FILE
+echo -e "\n" >> $FILE
+
+# These need to be ran manually:
+# bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
+# bin/mysql_ssl_rsa_setup
 
 cd ~
 date >> $FILE
