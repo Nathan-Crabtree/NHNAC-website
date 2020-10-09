@@ -4,9 +4,8 @@
 # The procedure goes in this script as follows:
 # 
 # git pull origin master
-# rm dev_to_test.sh
 # cd ~/staging
-# ./test_to_stage.sh
+# ./scripts/test_to_stage.sh
 #
 
 FILE=~/script_exec_log.txt
@@ -50,7 +49,7 @@ cd ~/staging
 date >> $FILE
 echo -e ": Changed directory to ~/staging. Waiting and returning exit status 0.\n" >> $FILE
 
-./test_to_stage.sh
+./scripts/test_to_stage.sh
 
 wait
 
