@@ -3,7 +3,7 @@
 #
 # The procedure goes in this script as follows:
 # 
-# cd ~/testing
+# cd ..
 # git pull origin master
 # cd ~/testing/scripts
 # ./test_to_stage.sh
@@ -32,7 +32,7 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": Beginning dev_to_test.sh. Changing directory to ~/testing.\n" >> $FILE
 
-cd ~/testing
+cd ..
 
 date >> $FILE
 echo -e ": (command: git pull origin master) " >> $FILE
