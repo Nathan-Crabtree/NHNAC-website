@@ -5,7 +5,8 @@
 # 
 # git pull origin master
 # cd ~/staging
-# ./scripts/test_to_stage.sh
+# cd scripts
+# ./test_to_stage.sh
 #
 
 FILE=~/script_exec_log.txt
@@ -44,12 +45,12 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": dev_to_test.sh executed successfully\n" >> $FILE
 
-cd ~/staging
+cd ~/staging/scripts
 
 date >> $FILE
-echo -e ": Changed directory to ~/staging. Waiting and returning exit status 0.\n" >> $FILE
+echo -e ": Changed directory to ~/staging/scripts. Waiting and returning exit status 0.\n" >> $FILE
 
-./scripts/test_to_stage.sh
+./test_to_stage.sh
 
 wait
 
