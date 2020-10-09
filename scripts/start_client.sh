@@ -13,8 +13,8 @@
 # sendmail
 # delete email.txt
 # npm run build
-# mv ~/production/client/build/* /var/www/html/
-# rmdir ~/production/client/build
+# \cp -r ~/production/client/build/* /var/www/html/
+# rm -r ~/production/client/build
 # service apache2 start
 #
 
@@ -124,8 +124,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo mv ~/production/client/build/* /var/www/html/) " >> $FILE
-sudo mv ~/production/client/build/* /var/www/html/ >> $FILE
+echo -e ": (command: \cp -r ~/production/client/build/* /var/www/html/) " >> $FILE
+\cp -r ~/production/client/build/* /var/www/html/ >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -135,7 +135,7 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": (command: rmdir ~/production/client/build) " >> $FILE
-rmdir ~/production/client/build >> $FILE
+rm -r ~/production/client/build >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
