@@ -50,6 +50,7 @@
 # git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
 # git pull origin master
 # cp /scripts/startup.sh /etc/init.d
+# cp /scripts/restart_mysql.sh /etc/init.d
 #
 
 FILE=~/script_exec_log.txt
@@ -198,6 +199,11 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": (command: cp scripts/startup.sh /etc/init.d) " >> $FILE
 cp scripts/startup.sh /etc/init.d >> $FILE
+echo -e "\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: cp scripts/startup.sh /etc/init.d) " >> $FILE
+cp scripts/restart_mysql.sh /etc/init.d >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
