@@ -38,7 +38,7 @@
 # chown mysql:mysql mysql-files
 # chmod 750 mysql-files
 # chmod -R 777 /tmp
-# chmod -R 777 /usr/local/mysql
+# chown mysql:mysql /usr/local/mysql -h
 # bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
 # +++++++++++++++++++++++++++++++++++++++++++
