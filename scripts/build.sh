@@ -10,6 +10,7 @@
 # 5) implement security features for apache and mysql. Configure firewall settings and enable SSH remote access.
 # note: whenever enabling SSH remote access for Linux server, make sure to combine it with OpenVPN.
 # 6) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
+# 7) implement extra security features for the server if you can.
 #
 # MYSQL COMMANDS KNOWN TO WORK WITH GENERIC LINUX (DO NOT USE SUDO):
 # bin/mysqld_safe --user=mysql &
