@@ -20,12 +20,12 @@
 # 
 # The script executes in the following way:
 #
-# sudo apt-get update
-# sudo apt install apache2
-# sudo apt install git
-# sudo apt install nodejs
-# sudo apt install npm
-# sudo apt install ssmtp
+# apt-get update
+# apt install apache2
+# apt install git
+# apt install nodejs
+# apt install npm
+# apt install ssmtp
 # +++++++ NEEDS TO BE ADDED TO SCRIPT ++++++++
 # groupadd mysql
 # useradd -r -g mysql -s /bin/false mysql
@@ -38,6 +38,7 @@
 # chown mysql:mysql mysql-files
 # chmod 750 mysql-files
 # chmod -R 777 /tmp
+# chmod -R 777 /var
 # chown mysql:mysql /usr/local/mysql -h
 # bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
@@ -45,11 +46,10 @@
 # cd ~
 # mkdir testing staging production
 # cd testing
-# cd ~/production
 # git init 
 # git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
-# sudo mv startup.sh /etc/init.d
-# mv startup.sh /etc/init.d
+# git pull origin master
+# cp /scripts/startup.sh /etc/init.d
 #
 
 FILE=~/script_exec_log.txt
@@ -76,8 +76,8 @@ date >> $FILE
 echo -e "build.sh is being executed...\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt-get update) " >> $FILE
-sudo apt-get update >> $FILE
+echo -e ": (command: apt-get update) " >> $FILE
+apt-get update >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -85,8 +85,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt install apache2) " >> $FILE
-sudo apt install apache2 >> $FILE
+echo -e ": (command: apt install apache2) " >> $FILE
+apt install apache2 >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -94,8 +94,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt install git) " >> $FILE
-sudo apt install git >> $FILE 
+echo -e ": (command: apt install git) " >> $FILE
+apt install git >> $FILE 
 echo -e "\n" >> $FILE
 
 wait
@@ -103,8 +103,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt install nodejs) " >> $FILE
-sudo apt install nodejs >> $FILE
+echo -e ": (command: apt install nodejs) " >> $FILE
+apt install nodejs >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -112,8 +112,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt install npm) " >> $FILE
-sudo apt install npm >> $FILE
+echo -e ": (command: apt install npm) " >> $FILE
+apt install npm >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -121,8 +121,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo apt install ssmtp) " >> $FILE
-sudo apt install ssmtp >> $FILE
+echo -e ": (command: apt install ssmtp) " >> $FILE
+apt install ssmtp >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -196,8 +196,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo mv startup.sh /etc/init.d) " >> $FILE
-sudo mv startup.sh /etc/init.d >> $FILE
+echo -e ": (command: cp scripts/startup.sh /etc/init.d) " >> $FILE
+cp scripts/startup.sh /etc/init.d >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
