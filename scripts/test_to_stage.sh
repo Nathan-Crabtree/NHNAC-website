@@ -9,8 +9,8 @@
 # cd ~/staging
 # sendmail
 # delete email.txt
-# \mv -r ~/staging/scripts/startup.sh /etc/init.d/
-# \mv -r ~/staging/scripts/restart_mysql.sh /etc/init.d/
+# \cp -r ~/staging/scripts/startup.sh /etc/init.d/
+# \cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d/
 #
 
 FILE=~/script_exec_log.txt
