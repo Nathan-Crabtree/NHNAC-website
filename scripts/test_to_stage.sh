@@ -9,8 +9,8 @@
 # rm dev_to_test.sh
 # sendmail
 # delete email.txt
-# mv ../scripts/startup.sh /etc/init.d/
-# mv ../scripts/restart_mysql.sh /etc/init.d/
+# \mv ../scripts/startup.sh /etc/init.d/
+# \mv ../scripts/restart_mysql.sh /etc/init.d/
 #
 
 FILE=~/script_exec_log.txt
@@ -113,11 +113,11 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": email.txt successfully deleted\n" >> $FILE
 
-mv ../scripts/startup.sh /etc/init.d/ >> $FILE
+\mv ../scripts/startup.sh /etc/init.d/ >> $FILE
 
 wait
 
-mv ../scripts/restart_mysql.sh /etc/init.d/ >> $FILE
+\mv ../scripts/restart_mysql.sh /etc/init.d/ >> $FILE
 
 date >> $FILE
 echo -e ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $FILE
