@@ -9,8 +9,8 @@
 # cd ~/staging
 # sendmail
 # delete email.txt
-# \mv -r ../scripts/startup.sh /etc/init.d/
-# \mv -r ../scripts/restart_mysql.sh /etc/init.d/
+# \mv -r ~/staging/scripts/startup.sh /etc/init.d/
+# \mv -r ~/staging/scripts/restart_mysql.sh /etc/init.d/
 #
 
 FILE=~/script_exec_log.txt
@@ -107,11 +107,11 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": email.txt successfully deleted\n" >> $FILE
 
-\mv -r ../scripts/startup.sh /etc/init.d/ >> $FILE
+\mv -r ~/staging/scripts/startup.sh /etc/init.d/ >> $FILE
 
 wait
 
-\mv -r ../scripts/restart_mysql.sh /etc/init.d/ >> $FILE
+\mv -r ~/staging/scripts/restart_mysql.sh /etc/init.d/ >> $FILE
 
 date >> $FILE
 echo -e ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $FILE
