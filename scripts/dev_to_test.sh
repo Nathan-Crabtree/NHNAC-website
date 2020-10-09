@@ -4,8 +4,6 @@
 # The procedure goes in this script as follows:
 # 
 # git pull origin master
-# cd scripts
-# chmod +x *
 # cd ~/staging
 # cd scripts
 # ./test_to_stage.sh
@@ -42,11 +40,7 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE
-echo -e ": Waited successfully. Changing permissions of /scripts files.\n" >> $FILE
-
-cd scripts
-
-chmod +x *
+echo -e ": Waited successfully.\n" >> $FILE
 
 date >> $FILE
 echo -e ": dev_to_test.sh executed successfully\n" >> $FILE
