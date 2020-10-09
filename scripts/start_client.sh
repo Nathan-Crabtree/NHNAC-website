@@ -1,9 +1,5 @@
 #!/bin/bash
 #
-# IMPORTANT: This file must be ran with sudo.
-#
-# Note: This script must ran with sudo. Otherwise, it will not work. - Zane
-#
 # The procedure goes in this script as follows:
 # 
 # fuser -k <portno>/tcp # obsolete
