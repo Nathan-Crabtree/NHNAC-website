@@ -4,7 +4,6 @@
 # The procedure goes in this script as follows:
 # 
 # git pull origin master
-# cd ~/staging
 # cd scripts
 # ./test_to_stage.sh
 #
@@ -45,10 +44,10 @@ echo -e ": Waited successfully.\n" >> $FILE
 date >> $FILE
 echo -e ": dev_to_test.sh executed successfully\n" >> $FILE
 
-cd ~/staging/scripts
+cd scripts
 
 date >> $FILE
-echo -e ": Changed directory to ~/staging/scripts. Waiting and returning exit status 0.\n" >> $FILE
+echo -e ": Changed directory to ~/testing/scripts. Waiting and returning exit status 0.\n" >> $FILE
 
 ./test_to_stage.sh
 
