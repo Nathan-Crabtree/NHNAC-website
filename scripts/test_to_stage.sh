@@ -6,6 +6,7 @@
 # The procedure goes in this script as follows:
 # 
 # \cp -r ~/testing/* ~/staging
+# cd ~/staging
 # sendmail
 # delete email.txt
 # \mv -r ../scripts/startup.sh /etc/init.d/
@@ -48,7 +49,9 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": Files successfully moved from testing to staging\n" >> $FILE
+echo -e ": Files successfully moved from testing to staging. Changing directory to ~/staging.\n" >> $FILE
+
+cd ~/staging
 
 date >> $FILE
 echo ": (command: ls) " >> $FILE
