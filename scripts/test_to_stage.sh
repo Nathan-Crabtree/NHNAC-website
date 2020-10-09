@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# NOTE: Once the restart scripts for api server and MySQL have been relocated. You'll have to manually run the command "sudo chmod 777 <filename>.sh" 
+# for both of those files in /etc/init.d to work properly. - Zane 
 #
 # The procedure goes in this script as follows:
 # 
@@ -7,6 +9,8 @@
 # rm dev_to_test.sh
 # sendmail
 # delete email.txt
+# mv ../scripts/startup.sh /etc/init.d/
+# mv ../scripts/restart_mysql.sh /etc/init.d/
 #
 
 FILE=~/script_exec_log.txt
@@ -108,6 +112,15 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": email.txt successfully deleted\n" >> $FILE
+
+mv ../scripts/startup.sh /etc/init.d/ >> $FILE
+
+wait
+
+mv ../scripts/restart_mysql.sh /etc/init.d/ >> $FILE
+
+date >> $FILE
+echo -e ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $FILE
 
 date >> $FILE
 echo -e ": test_to_stage.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
