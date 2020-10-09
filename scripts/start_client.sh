@@ -2,8 +2,7 @@
 #
 # IMPORTANT: This file must be ran with sudo.
 #
-# Note: There are still some problems with this script being executed. 
-# Transfering files to /var/www/html has to be done manually. - Zane, 7-28-2020
+# Note: This script must ran with sudo. Otherwise, it will not work. - Zane
 #
 # The procedure goes in this script as follows:
 # 
@@ -14,10 +13,9 @@
 # sendmail
 # delete email.txt
 # npm run build
-# sudo mv ~/production/client/build/* /var/www/html/
+# mv ~/production/client/build/* /var/www/html/
 # rmdir ~/production/client/build
-# sudo service apache2 start
-# serve -s build # obsolete
+# service apache2 start
 #
 
 FILE=~/script_exec_log.txt
