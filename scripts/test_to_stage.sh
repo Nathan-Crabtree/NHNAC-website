@@ -110,12 +110,14 @@ echo -e ": email.txt successfully deleted\n" >> $FILE
 date >> $FILE
 echo ": (command: \cp -r ~/staging/scripts/startup.sh /etc/init.d) " >> $FILE
 \cp -r ~/staging/scripts/startup.sh /etc/init.d >> $FILE
+echo -e "\n" >> $FILE
 
 wait
 
 date >> $FILE
 echo ": (command: \cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d) " >> $FILE
 \cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d >> $FILE
+echo -e "\n" >> $FILE
 
 date >> $FILE
 echo -e ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $FILE
