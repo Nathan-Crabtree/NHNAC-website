@@ -6,7 +6,6 @@
 # cd ~/production/api
 # npm run-script stop
 # \cp -r ~/staging/* ~/production
-# rm ~/production/test_to_stage.sh
 # npm install
 # npm audit fix
 # sendmail
@@ -63,22 +62,9 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE
-echo -e ": Waited successfully. Files moved from ~/staging to ~/production. Changing directory to ~/production...\n" >> $FILE
-
-cd ~/production
-
-date >> $FILE
-echo ": (command: rm test_to_stage.sh) " >> $FILE
-rm test_to_stage.sh >> $FILE
-echo -e "\n" >> $FILE
-
-date >> $FILE
-echo -e ": Cloned test_to_stage.sh removed successfully\n" >> $FILE
+echo -e ": Waited successfully. Files moved from ~/staging to ~/production. Changing directory to ~/production/api...\n" >> $FILE
 
 cd ~/production/api
-
-date >> $FILE
-echo -e ": Changed directory to ~/production/api\n" >> $FILE
 
 date >> $FILE
 echo ": (command: npm install) " >> $FILE
