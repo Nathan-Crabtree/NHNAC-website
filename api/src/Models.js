@@ -2,6 +2,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
 const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:3306/newhaven')
+
 //try {
   //  await sequelize.authenticate();
   //  console.log('Connection has been established successfully.');
@@ -59,31 +60,63 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
   class User extends Model {}
   User.init ({
     UserID: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    UserName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [3,30], //User Name must be between 3 and 30 characters
+          message: 'Error: User Name must be between 3 and 30 characters'
+        }
+      }
+    },
+    Password: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [5,30],
+          message: 'Error: Password must be between 3 and 30 characters'
+        }
+      }
     },
     FirstName: {
       type: DataTypes.STRING,
       allowNull: false
     },
     LastName: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true
     },
     Email: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    //A user belongs to a chapter, possibly no value here could infere a default "New Haven" Chapter
-    Chapter: {
-        type: DataTypes.STRING,
-        references: {
-            model: Chapter,
-            key: 'Name'
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: [true],
+          msg: 'Error: Not an Email Address'
         }
+      },
+      allowNull: false
+    },
+
+    //A user may belong to a chapter, possibly no value here could infere a default "New Haven" Chapter
+    Chapter: {
+      type: DataTypes.STRING,
+      references: {
+          model: Chapter,
+          key: 'Name'
+      }
     }
   }, {
+    hooks: {
+      //beforeCreate: (user) => { //either beforeCreate or AfterValidate is fine
+      afterValidate: (user) => {
+        user.Password = bcrypt.hashSync(user.password, 8); //copied from Pluralsight Sequelize tutorial
+      }
+    },
   ///This was in the "Column Options" section of the sequilize manual
     sequelize,
     modelName: 'User',
@@ -322,7 +355,7 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
         primaryKey: true
       },
       Text: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
       
       //A Question belongs to a quiz.
@@ -346,7 +379,7 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
         primaryKey: true
       },
       Text: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
       //Is this answer the correct answer to the question?
       Correct: {
@@ -367,4 +400,4 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
   });
   console.log(Answer === sequelize.models.Answer); // true
 
-  sequelize.sync({ force: true });
+ // sequelize.sync({ force: true });
