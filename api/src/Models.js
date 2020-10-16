@@ -1,8 +1,20 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+//var babel = require("@babel/core");
+//import { transform } from "@babel/core";
+//import * as babel from "@babel/core";
+
+const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:3306/newhaven')
+const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:3306/newhaven');
 
+
+//bcrypt is for password hashing
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
+
+console.log("entering Models.js");
 //try {
   //  await sequelize.authenticate();
   //  console.log('Connection has been established successfully.');
@@ -59,13 +71,9 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
 
   class User extends Model {}
   User.init ({
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
     UserName: {
       type: DataTypes.STRING,
+      primaryKey: true,
       allowNull: false,
       validate: {
         len: {
@@ -112,9 +120,14 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
     }
   }, {
     hooks: {
-      //beforeCreate: (user) => { //either beforeCreate or AfterValidate is fine
-      afterValidate: (user) => {
-        user.Password = bcrypt.hashSync(user.password, 8); //copied from Pluralsight Sequelize tutorial
+      beforeCreate: (user) => { //either beforeCreate or AfterValidate is fine
+      //afterValidate: (user) => {
+        //user.Password = bcrypt.hashSync(user.Password, 8); //copied from Pluralsight Sequelize tutorial
+        user.Password = bcrypt.hashSync('${user.Password}', 8); //copied from Pluralsight Sequelize tutorial
+        //user.Password = bcrypt.hashSync('password', 8); //copied from Pluralsight Sequelize tutorial
+        
+        //To check if password is correct for authentication:
+        //bcrypt.compareSync(myPlaintextPassword, hash); // true
       }
     },
   ///This was in the "Column Options" section of the sequilize manual
@@ -122,9 +135,12 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
     modelName: 'User',
   
     // Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
-    indexes: [{ unique: true, fields: ['UserID'] }]
+    indexes: [{ unique: true, fields: ['UserName'] }]
   });
   console.log(User === sequelize.models.User); // true
+
+
+  module.exports = {User};
 
   //Which users belong to which councils? Users may belong to multiple councils.
   class CouncilUser extends Model {}
@@ -142,11 +158,11 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
             key: 'CouncilID'
         }
     },
-    UserId: {
-        type: DataTypes.INTEGER.UNSIGNED,
+    UserName: {
+        type: DataTypes.STRING,
         references: {
           model: User,
-          key: 'UserID'
+          key: 'UserName'
         }
     },
     Role: {
@@ -186,11 +202,11 @@ const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:330
       autoIncrement: true,
       primaryKey: true
     },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
+    UserName: {
+      type: DataTypes.STRING,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'UserName'
       }
     },
     Role: {
@@ -234,11 +250,11 @@ CouncilUserRole.init({
     primaryKey: true
   },
 
-  UserID: {
-    type: DataTypes.INTEGER.UNSIGNED,
+  UserName: {
+    type: DataTypes.STRING,
     references: {
       model: User,
-      key: 'UserID'
+      key: 'UserName'
     }
   },
   CouncilID: {
@@ -281,11 +297,11 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
         type: DataTypes.STRING // datatype might need to be changed.
       },
       //A Certificate belongs to a user.
-      UserID: {
-        type: DataTypes.INTEGER.UNSIGNED,
+      UserName: {
+        type: DataTypes.STRING,
         references: {
           model: User,
-          key: 'UserID'
+          key: 'UserName'
         }
       }
     }, {
@@ -307,11 +323,11 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
       },
       
       //A Course belongs to a user.
-      UserID: {
-        type: DataTypes.INTEGER.UNSIGNED,
+      UserName: {
+        type: DataTypes.STRING,
         references: {
           model: User,
-          key: 'UserID'
+          key: 'UserName'
         }
       }
     }, {
@@ -400,4 +416,4 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
   });
   console.log(Answer === sequelize.models.Answer); // true
 
- // sequelize.sync({ force: true });
+//sequelize.sync({ force: true });
