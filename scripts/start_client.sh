@@ -1,24 +1,17 @@
 #!/bin/bash
 #
-# IMPORTANT: This file must be ran with sudo.
-#
-# Note: There are still some problems with this script being executed. 
-# Transfering files to /var/www/html has to be done manually. - Zane, 7-28-2020
-#
 # The procedure goes in this script as follows:
 # 
 # fuser -k <portno>/tcp # obsolete
-# rm test_to_prod.sh
 # cd ~/production/client
 # npm install
 # npm audit fix
 # sendmail
 # delete email.txt
 # npm run build
-# sudo mv ~/production/client/build/* /var/www/html/
-# rmdir ~/production/client/build
-# sudo service apache2 start
-# serve -s build # obsolete
+# \cp -r ~/production/client/build/* /var/www/html/
+# rm -r ~/production/client/build
+# service apache2 start
 #
 
 FILE=~/script_exec_log.txt
@@ -44,16 +37,6 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": Beginning start_client.sh\n" >> $FILE
-
-rm test_to_stage.sh
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully.\n" >> $FILE
-
-date >> $FILE
-echo -e ": test_to_stage.sh file successfully deleted.\n" >> $FILE
 
 service apache2 stop
 
@@ -137,8 +120,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: sudo mv ~/production/client/build/* /var/www/html/) " >> $FILE
-sudo mv ~/production/client/build/* /var/www/html/ >> $FILE
+echo -e ": (command: \cp -r ~/production/client/build/* /var/www/html/) " >> $FILE
+\cp -r ~/production/client/build/* /var/www/html/ >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -148,7 +131,7 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": (command: rmdir ~/production/client/build) " >> $FILE
-rmdir ~/production/client/build >> $FILE
+rm -r ~/production/client/build >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
