@@ -41,6 +41,20 @@ git remote add --track master upstream git@github.com:facebook/react-native.git
 git fetch upstream
 ```
 
+## Catching up your forked repository with the original if you're falling behind on commits
+
+To make your repository even again with the original if your flagged on Github for falling n commits behind, simply type both of these commands sequentially:
+
+```
+git fetch upstream
+```
+
+```
+git pull upstream master
+```
+
+*Note: Make sure you are switched to the master branch in your local repository before running these commands.*
+
 ## Creating a new branch to store your code using Git
 
 Now to add code to the codebase, you must first create a seperate branch from the master. You can do this by typing in your terminal:
