@@ -8,6 +8,7 @@ const { userInfo } = require('os');
 const app = express();
 const port = 8001; 
 
+app.get('/', (req,res) => res.send('Hello World! from Node.js'))
 
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
     host: 'localhost',
