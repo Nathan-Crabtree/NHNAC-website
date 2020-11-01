@@ -51,7 +51,7 @@ console.log("entering Models.js");
         type:DataTypes.STRING
     },
     //A council belongs to a Chapter
-    Chapter: {
+    ChapterName: {
         type: DataTypes.STRING,
         references: {
             model: Chapter,
@@ -111,7 +111,7 @@ console.log("entering Models.js");
     },
 
     //A user may belong to a chapter, possibly no value here could infere a default "New Haven" Chapter
-    Chapter: {
+    ChapterName: {
       type: DataTypes.STRING,
       references: {
           model: Chapter,
@@ -137,44 +137,39 @@ console.log("entering Models.js");
     // Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
     indexes: [{ unique: true, fields: ['UserName'] }]
   });
+
   console.log(User === sequelize.models.User); // true
-
-
   module.exports = {User};
 
   //Which users belong to which councils? Users may belong to multiple councils.
-  class CouncilUser extends Model {}
-  CouncilUser.init ({
-    CouncilUserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    CouncilID: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        //foreign key
-        references: { 
-            model: Council,
-            key: 'CouncilID'
-        }
-    },
-    UserName: {
-        type: DataTypes.STRING,
-        references: {
-          model: User,
-          key: 'UserName'
-        }
-    },
-    Role: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'CouncilUser',
-    indexes: [{ unique: true, fields: ['CouncilUserID'] }]
-  });
-  console.log(CouncilUser === sequelize.models.CouncilUser); // true
+  // class CouncilUser extends Model {}
+  // CouncilUser.init ({
+  //   CouncilUserID: {
+  //     type: DataTypes.INTEGER.UNSIGNED,
+  //     autoIncrement: true,
+  //     primaryKey: true
+  //   },
+  //   CouncilID: {
+  //       type: DataTypes.INTEGER.UNSIGNED,
+  //       //foreign key
+  //       references: { 
+  //           model: Council,
+  //           key: 'CouncilID'
+  //       }
+  //   },
+  //   UserName: {
+  //       type: DataTypes.STRING,
+  //       references: {
+  //         model: User,
+  //         key: 'UserName'
+  //       }
+  //   },
+  // }, {
+  //   sequelize,
+  //   modelName: 'CouncilUser',
+  //   indexes: [{ unique: true, fields: ['CouncilUserID'] }]
+  // });
+  // console.log(CouncilUser === sequelize.models.CouncilUser); // true
 
 
 //This table will store the names of the various Roles that people within the church play
@@ -221,6 +216,7 @@ console.log("entering Models.js");
       modelName: 'UserRole',
       indexes: [{ unique: true, fields: ['UserRoleID'] }]
   });
+  
   console.log(UserRole === sequelize.models.UserRole); // true
 
 //This table will store the names of the various Roles that people within church councils play
@@ -264,7 +260,7 @@ CouncilUserRole.init({
       key: 'CouncilID'
     }
   },
-  CouncilRole: {
+  CouncilRoleName: {
     type: DataTypes.STRING,
     references: {
       model: CouncilRole,
@@ -416,4 +412,35 @@ console.log(CouncilUserRole === sequelize.models.CouncilUserRole); // true
   });
   console.log(Answer === sequelize.models.Answer); // true
 
-//sequelize.sync({ force: true });
+  
+
+   User.belongsTo(Chapter);
+   Chapter.hasMany(User);
+   Council.belongsTo(Chapter);
+   //Council.hasMany(User);
+
+  Chapter.hasMany(Council);
+   
+  
+  //User.hasMany(Role, {through: UserRole, foreignKey: UserName, otherKey: Role});
+   User.belongsToMany(Role, {through: UserRole, foreignKey: 'UserName', otherKey: 'Role'});
+   Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'UserName'});
+
+   //ambiguous and unsure about what to do with tablels that have more than two foreign keys
+    Council.belongsToMany(User, {through: CouncilUserRole, foreignKey: 'CouncilID', otherKey: 'UserName'});
+  //Council.belongsToMany(CouncilRole, {through: CouncilUserRole, foreignKey: 'CouncilID', otherKey: 'CouncilRole'});
+  //User.belongsToMany(Council, {through: CouncilUserRole, foreignKey: 'UserName', otherKey: 'CouncilId'});
+    User.belongsToMany(CouncilRole, {through: CouncilUserRole, foreignKey: 'UserName', otherKey: 'CouncilRole'});
+    CouncilRole.belongsToMany(Council, {through: CouncilUserRole, foreignKey: 'CouncilRole', otherKey: 'CouncilID'});
+  //  CouncilRole.belongsToMany(User, {through: CouncilUserRole, foreignKey: 'CouncilRole', otherKey: 'UserName'});
+
+   User.belongsToMany(Role, {through: UserRole, foreignKey: 'UserName', otherKey: 'Role'});
+   Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'UserName'});
+
+  // User.belongsTo(Chapter, {foreignKey: 'Name'});
+  // Quiz.hasMany(Question);
+  // Question.belongsTo(Quiz);
+  // Question.hasMany(Answer);
+  // Answer.belongsTo(Question);
+
+sequelize.sync({ force: true });
