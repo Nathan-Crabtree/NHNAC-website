@@ -8,6 +8,7 @@
 
 # production
 /build
+/public-html
 
 # misc
 .DS_Store

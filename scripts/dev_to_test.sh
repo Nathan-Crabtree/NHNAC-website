@@ -3,9 +3,9 @@
 #
 # The procedure goes in this script as follows:
 # 
+# cd ~/testing
 # git pull origin master
-# rm dev_to_test.sh
-# cd ~/staging
+# cd ~/testing/scripts
 # ./test_to_stage.sh
 #
 
@@ -30,7 +30,9 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE 
 
 date >> $FILE
-echo -e ": Beginning dev_to_test.sh\n" >> $FILE
+echo -e ": Beginning dev_to_test.sh. Changing directory to ~/testing.\n" >> $FILE
+
+cd ~/testing
 
 date >> $FILE
 echo -e ": (command: git pull origin master) " >> $FILE
@@ -40,15 +42,15 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+echo -e ": Waited successfully.\n" >> $FILE
 
 date >> $FILE
 echo -e ": dev_to_test.sh executed successfully\n" >> $FILE
 
-cd ~/staging
+cd ~/testing/scripts
 
 date >> $FILE
-echo -e ": Changed directory to ~/staging. Waiting and returning exit status 0.\n" >> $FILE
+echo -e ": Changed directory to ~/testing/scripts. Waiting and returning exit status 0.\n" >> $FILE
 
 ./test_to_stage.sh
 
