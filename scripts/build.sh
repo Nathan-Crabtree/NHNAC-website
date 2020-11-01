@@ -1,3 +1,4 @@
+#! bin/bash
 #
 # build.sh
 #
@@ -20,6 +21,12 @@
 # The script executes in the following way:
 #
 # apt-get update
+# rm /etc/apt/preferences.d/nosnap.pref
+# apt update
+# apt install snapd
+# snap install docker
+# docker volume create portainer_data
+# docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 # apt install apache2
 # apt install git
 # apt install nodejs
@@ -41,6 +48,7 @@
 # chmod -R 777 /tmp
 # chmod -R 777 /var
 # chown mysql:mysql /usr/local/mysql -h
+# snap install mysql-workbench-community
 # bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
 # cd ~
@@ -79,6 +87,60 @@ echo -e "build.sh is being executed...\n" >> $FILE
 date >> $FILE
 echo -e ": (command: apt-get update) " >> $FILE
 apt-get update >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: rm /etc/apt/preferences.d/nosnap.pref) " >> $FILE
+rm /etc/apt/preferences.d/nosnap.pref >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: apt update) " >> $FILE
+apt update >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: apt install snapd) " >> $FILE
+apt install snapd >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: snap install docker) " >> $FILE
+snap install docker >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: docker volume create portainer_data) " >> $FILE
+docker volume create portainer_data >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer) " >> $FILE
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -163,26 +225,22 @@ echo -e ": (command: cd /usr/local) " >> $FILE
 cd /usr/local >> $FILE
 echo -e "\n" >> $FILE
 
-echo "Please enter the full file-name and path for your MySQL download (be sure to include .tar.xz)"
-
-read varfilename_and_path
+read -p "Please enter the full file-name and path for your MySQL download (be sure to include .tar.xz)" VARFILENAME_AND_PATH
 
 date >> $FILE
-echo -e ": (command: tar xvf ${varfilename_and_path}) " >> $FILE
-tar xvf ${varfilename_and_path} >> $FILE
+echo -e ": (command: tar xvf ${VARFILENAME_AND_PATH}) " >> $FILE
+tar xvf ${VARFILENAME_AND_PATH} >> $FILE
 echo -e "\n" >> $FILE
 
 wait
 date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
-echo "Please enter the only full file-name your MySQL download (be sure to include .tar.xz)"
-
-read varfilename_only
+read -p "Please enter the only full file-name your MySQL download (be sure to include .tar.xz)" VARFILENAME_ONLY
 
 date >> $FILE
-echo -e ": (command: ln -s /usr/local/${varfilename_only} mysql) " >> $FILE
-ln -s /usr/local/${varfilename_only} mysql >> $FILE
+echo -e ": (command: ln -s /usr/local/${VARFILENAME_ONLY} mysql) " >> $FILE
+ln -s /usr/local/${VARFILENAME_ONLY} mysql >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -221,8 +279,8 @@ echo -e ": (command: chmod -R 777 /var) " >> $FILE
 chmod -R 777 /var >> $FILE
 echo -e "\n" >> $FILE
 
-# These need to be ran manually:
-# bin/mysqld --initialize --user=mysql #Note: Here you'll receive a default password, be sure to have that remembered.
+# These need to be ran manually after mysql has been installed:
+# bin/mysqld --initialize --user=mysql # Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
 
 cd ~
@@ -230,8 +288,8 @@ date >> $FILE
 echo -e ": Changed directory to ~\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: mkdir testing staging production) " >> $FILE
-mkdir testing staging production >> $FILE
+echo -e ": (command: mkdir development testing staging production) " >> $FILE
+mkdir development testing staging production >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -302,5 +360,8 @@ cp scripts/restart_mysql.sh /etc/init.d >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
-exit 0 >> $FILE
-echo -e "\n" >> $FILE
+echo -e ": build.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+
+wait
+
+exit 0

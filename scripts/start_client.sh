@@ -2,6 +2,8 @@
 #
 # The procedure goes in this script as follows:
 # 
+# docker stop client
+# docker rm client
 # fuser -k <portno>/tcp # obsolete
 # cd ~/production/client
 # npm install
@@ -9,9 +11,11 @@
 # sendmail
 # delete email.txt
 # npm run build
-# \cp -r ~/production/client/build/* /var/www/html/
-# rm -r ~/production/client/build
-# service apache2 start
+# mv ~/production/client/build ~/production/client/public-html
+# docker run -d -p 80:80 --name client client 
+# \cp -r ~/production/client/build/* /var/www/html/ # obsolete
+# rm -r ~/production/client/build 
+# service apache2 start # obsolete
 #
 
 FILE=~/script_exec_log.txt
@@ -38,12 +42,22 @@ echo -e ": Waited successfully\n" >> $FILE
 date >> $FILE
 echo -e ": Beginning start_client.sh\n" >> $FILE
 
-service apache2 stop
+date >> $FILE
+echo ": (command: docker stop client) " >> $FILE
+docker stop client >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+
+date >> $FILE
+echo ": (command: docker rm client) " >> $FILE
+docker rm client >> $FILE
+echo -e "\n" >> $FILE
 
 wait
 
 date >> $FILE 
-echo -e ": Successfully waited. Stopped the server.\n" >> $FILE
+echo -e ": Successfully waited. Stopped the server and deleted old container.\n" >> $FILE
 
 cd ~/production/client 
 
@@ -120,8 +134,18 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: \cp -r ~/production/client/build/* /var/www/html/) " >> $FILE
-\cp -r ~/production/client/build/* /var/www/html/ >> $FILE
+echo -e ": (command: mv ~/production/client/build ~/production/client/public-html) " >> $FILE
+mv ~/production/client/build ~/production/client/public-html >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
+date >> $FILE
+echo -e ": (command: docker run -d -p 80:80 --name client client) " >> $FILE
+docker run -d -p 80:80 --name client client >> $FILE
 echo -e "\n" >> $FILE
 
 wait
@@ -135,7 +159,9 @@ rm -r ~/production/client/build >> $FILE
 echo -e "\n" >> $FILE
 
 date >> $FILE
-echo -e ": Waited successfully. Package dependencies and build folder successfully implemented for client directory. Restarting server...\n" >> $FILE
+echo -e ": start_client.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
 
-sudo service apache2 start
+wait
+
+exit 0
 
