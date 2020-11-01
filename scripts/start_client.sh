@@ -11,7 +11,7 @@
 # sendmail
 # delete email.txt
 # npm run build
-# mv ~/production/client/build ~/production/client/public-html
+# \mv -r ~/production/client/build ~/production/client/public-html
 # docker run -d -p 80:80 --name client client 
 # \cp -r ~/production/client/build/* /var/www/html/ # obsolete
 # rm -r ~/production/client/build 
@@ -134,8 +134,8 @@ date >> $FILE
 echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
-echo -e ": (command: mv ~/production/client/build ~/production/client/public-html) " >> $FILE
-mv ~/production/client/build ~/production/client/public-html >> $FILE
+echo -e ": (command: \mv -r ~/production/client/build ~/production/client/public-html) " >> $FILE
+\mv -r ~/production/client/build ~/production/client/public-html >> $FILE
 echo -e "\n" >> $FILE
 
 wait
