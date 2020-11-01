@@ -3,6 +3,8 @@
 #
 # The procedure goes in this script as follows:
 # 
+# docker stop api
+# docker rm api 
 # cd ~/production/api
 # npm run-script stop
 # \cp -r ~/staging/* ~/production
@@ -10,7 +12,8 @@
 # npm audit fix
 # sendmail
 # delete email.txt
-# npm run-script build
+# npm run-script build # obsolete
+# docker run -d -p 8001:8001 --name api api
 #
 
 FILE=~/script_exec_log.txt
@@ -36,6 +39,23 @@ echo -e ": Waited successfully\n" >> $FILE
 
 date >> $FILE
 echo -e ": Beginning stage_to_prod.sh\n" >> $FILE
+
+date >> $FILE
+echo ": (command: docker stop api) " >> $FILE
+docker stop api >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+
+date >> $FILE
+echo ": (command: docker rm api) " >> $FILE
+docker rm api >> $FILE
+echo -e "\n" >> $FILE
+
+wait
+
+date >> $FILE 
+echo -e ": Successfully waited. Stopped the server and deleted old container.\n" >> $FILE
 
 cd ~/production/api
 
@@ -126,6 +146,13 @@ date >> $FILE
 echo -e ": email.txt successfully deleted\n" >> $FILE
 
 date >> $FILE
-echo -e ": Package dependencies successfully installed for api directory. Restarting the server...\n" >> $FILE
+echo -e ": (command: docker run -d -p 8001:8001 --name api api) " >> $FILE
+docker run -d -p 8001:8001 --name client client >> $FILE
+echo -e "\n" >> $FILE
 
-npm run-script build
+date >> $FILE
+echo -e ": stage_to_prod.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+
+wait
+
+exit 0
