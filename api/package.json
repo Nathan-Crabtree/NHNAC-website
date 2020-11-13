@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zandy12/NHNAC-website.git"
+    "url": "git+https://github.com/crystal-spider/NHNAC-website.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Zandy12/NHNAC-website/issues"
+    "url": "https://github.com/crystal-spider/NHNAC-website/issues"
   },
-  "homepage": "https://github.com/Zandy12/NHNAC-website#readme",
+  "homepage": "https://github.com/crystal-spider/NHNAC-website#readme",
   "dependencies": {
     "basic-auth": "^2.0.1",
     "bcrypt": "^5.0.0",

@@ -1,12 +1,13 @@
 //var babel = require("@babel/core");
 //import { transform } from "@babel/core";
 //import * as babel from "@babel/core";
+import { secret } from '~/secret.js'; //production env
 
 const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-const sequelize = new Sequelize('mysql://newhavenuser:newhavenpass@localhost:3306/newhaven');
-
+//const sequelize = secret; //production env
+const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
 
 //bcrypt is for password hashing
 const bcrypt = require('bcrypt');
@@ -15,12 +16,13 @@ const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
 console.log("entering Models.js");
-//try {
-  //  await sequelize.authenticate();
-  //  console.log('Connection has been established successfully.');
-  //} catch (error) {
-  //  console.error('Unable to connect to the database:', error);
-  //}
+
+try {
+  await sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 
 //Badge tags and references to images stored in the server hard drive
 class Badge extends Model{}
@@ -1649,7 +1651,7 @@ User.hasMany(UserQuestion);
 Answer.belongsTo(Question);
 Question.hasMany(Answer);
    
-  
+//Kept this in file for future reference. - Zane  
 /* //User.hasMany(Role, {through: UserRole, foreignKey: UserName, otherKey: Role});
 User.belongsToMany(Role, {through: UserRole, foreignKey: 'UserName', otherKey: 'Role'});
 Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'UserName'});
