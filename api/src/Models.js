@@ -1,7 +1,7 @@
 //var babel = require("@babel/core");
 //import { transform } from "@babel/core";
 //import * as babel from "@babel/core";
-import { secret } from '~/secret.js'; //production env
+//import { secret } from '~/secret.js'; //production env
 
 const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
@@ -17,20 +17,24 @@ const someOtherPlaintextPassword = 'not_bacon';
 
 console.log("entering Models.js");
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+// try {
+//   await sequelize.authenticate();
+//   console.log('Connection has been established successfully.');
+// } catch (error) {
+//   console.error('Unable to connect to the database:', error);
+// }
 
 //Badge tags and references to images stored in the server hard drive
 class Badge extends Model{}
   Badge.init ({
+    BadgeID:{
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    }, 
     Name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true
+      allowNull: false
     },
     //reference to where the image file is stored in the hard drive. 
     FilePath: {
@@ -106,10 +110,13 @@ console.log("CouncilLoaded: " + Council === sequelize.models.Council); //true
 //"web admin", "Church Member", "Visitor", "Teacher", "medicine person", "peyote roadman", "ayahuasca roadman"
 class Role extends Model{}
   Role.init({
-    Name: {
-      type: DataTypes.STRING,
+    RoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
       primaryKey: true
-    }
+    }, 
+    Name: {
+      type: DataTypes.STRING    }
   }, {
     sequelize,
     modelName: 'Role',
@@ -126,11 +133,18 @@ class UserRole extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    Role: {
+    RoleID: {
       type: DataTypes.STRING,
       references: {
         model: Role,
         key: 'Name'
+      }
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'UserID'
       }
     }
   }, {
@@ -145,9 +159,13 @@ console.log("UserRoleLoaded: " + UserRole === sequelize.models.UserRole); //true
 //"principle stone carrier", "treasurer", "member"
 class CouncilRole extends Model{}
   CouncilRole.init({
-    Name: {
-      type: DataTypes.STRING,
+    CouncilRoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
       primaryKey: true
+    },
+    Name: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
@@ -167,7 +185,8 @@ class CouncilUserRole extends Model{}
         autoIncrement: true,
         primaryKey: true
     },
-    CouncilName: {
+    //CouncilName: {
+    CouncilID: {  //edited by Nathan
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Council,
@@ -175,11 +194,16 @@ class CouncilUserRole extends Model{}
       },
       allowNull: false
     },
-    CouncilRoleName: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    CouncilRoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: CouncilRole,
-        key: 'Name'
+        key: 'CouncilRoleID'
       },
       allowNull: false
     }
@@ -193,10 +217,14 @@ console.log("CouncilUserRoleLoaded: " + CouncilUserRole === sequelize.models.Cou
 
 class User extends Model{}
   User.init ({
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
     Email: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
       validate: {
         isEmail: {
           args: [true],
@@ -329,24 +357,25 @@ console.log("UserLoaded: " + User === sequelize.models.User); //true
 
 class UserBadge extends Model{}
   UserBadge.init ({
-    //token primary key
     UserBadgeID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
     },
-    Badge: {
-      type: DataTypes.STRING,
+    //Badge: {
+    BadgeID: { //Changed by Nathan to fix associtation
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Badge,
-          key: 'Name'
+          key: 'BadgeID'
       },
     },
-    User: {
-      type: DataTypes.STRING,
+    //User: {
+    UserID: {  //Changed by Nathan to fix association 
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -360,7 +389,6 @@ console.log("UserBadgeLoaded: " + UserBadge === sequelize.models.UserBadge); //t
 
 class Address extends Model{}
 Address.init({
-  //token primary key
  AddressID: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -386,8 +414,9 @@ Address.init({
     type: DataTypes.MEDIUMINT.UNSIGNED,
     allowNull: true
   },
-  User: {
-    type: DataTypes.STRING,
+  //User: {
+  UserEmail: { //Nathan
+   type: DataTypes.STRING,
     references: {
       model: User,
       key: 'Email'
@@ -404,7 +433,6 @@ console.log("AddressLoaded: " + Address === sequelize.models.Address); //true
 
 class UpdatesTable extends Model{}
   UpdatesTable.init({
-    //token primary key
     UpdatesTableID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
@@ -422,7 +450,7 @@ class UpdatesTable extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
-    User: {
+    UserEmail: { //Nathan
       type: DataTypes.STRING,
       references: {
         model: User,
@@ -440,7 +468,6 @@ console.log("UpdatesTableLoaded: " + UpdatesTable === sequelize.models.UpdatesTa
 
 class CertificationsTable extends Model{}
   CertificationsTable.init({
-    //token primary key
     CertificationsTableID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
@@ -458,7 +485,8 @@ class CertificationsTable extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
-    User: {
+    //User: {
+    UserEmail: { //Nathan
       type: DataTypes.STRING,
       references: {
         model: User,
@@ -476,7 +504,6 @@ console.log("CertificationsTableLoaded: " + CertificationsTable === sequelize.mo
 
 class RecentActivityTable extends Model{}
   RecentActivityTable.init({
-    //token primary key
     RecentActivityTableID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
@@ -494,7 +521,8 @@ class RecentActivityTable extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
-    User: {
+    //User:
+    UserEmail: { //Nathan
       type: DataTypes.STRING,
       references: {
         model: User,
@@ -511,7 +539,6 @@ class RecentActivityTable extends Model{}
 console.log("RecentActivityTableLoaded: " + RecentActivityTable === sequelize.models.RecentActivityTable); //true
 
 class RecentBadgesTable extends Model{}
-  //token primary key
   RecentBadgesTable.init({
     RecentBadgesTableID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -530,7 +557,7 @@ class RecentBadgesTable extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
-    User: {
+    UserEmail: { //Nathan
       type: DataTypes.STRING,
       references: {
         model: User,
@@ -566,11 +593,12 @@ class CouncilsTable extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
-    User: {
-      type: DataTypes.STRING,
+    //User: {
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -584,7 +612,6 @@ console.log("CouncilsTableLoaded: " + CouncilsTable === sequelize.models.Council
 
 class Message extends Model{} 
   Message.init({
-    //token primary key
     MessageID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
@@ -607,18 +634,18 @@ class Message extends Model{}
       allowNull: false 
     },
     Sender: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
     Receiver: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -650,11 +677,11 @@ class Comment extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    Author: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -669,9 +696,13 @@ console.log("CommentLoaded: " + Comment === sequelize.models.Comment); //true
 class Certification extends Model{}
   Certification.init({
     //token primary key
+    CertificationID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
     Name: {
       type: DataTypes.STRING,
-      primaryKey: true
     },
     Description: {
       type: DataTypes.TEXT,
@@ -733,19 +764,19 @@ class UserCertificate extends Model{}
       allowNull: false 
     },
     //A Certificate belongs to a user.
-    User: {
-      type: DataTypes.STRING,
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
-    Certification: {
-      type: DataTypes.STRING,
+    CertificationID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Certification,
-        key: 'Name'
+        key: 'CertificationID'
       },
       allowNull: false
     }
@@ -760,10 +791,14 @@ console.log("UserCertificateLoaded: " + UserCertificate === sequelize.models.Use
 class Course extends Model{}
   Course.init({
     //token primary key
+    CouseID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
     Name: {
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true
     },
     Description: {
       type: DataTypes.TEXT,
@@ -782,11 +817,11 @@ class Course extends Model{}
       allowNull: false
     },
     //A Course belongs to a author.
-    Author: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -798,69 +833,69 @@ class Course extends Model{}
 );
 console.log("CourseLoaded: " + Course === sequelize.models.Course); //true
 
-class CoursePreReq extends Model{}
-  CoursePreReq.init({
-    //token primary key
-    CoursePreReqsID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      primaryKey: true
-    },
-    CoursePreReq: {
-      type: DataTypes.STRING,
-      references: {
-        model: Course,
-        key: 'Name'
-      },
-      allowNull: false
-    },
-    Course: {
-      type: DataTypes.STRING,
-      references: {
-        model: Course,
-        key: 'Name'
-      },
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'CoursePreReq',
-    indexes: [{ unique: true, fields: ['CoursePreReqID'] }]
-  }
-);
-console.log("CoursePreReqLoaded: " + CoursePreReq === sequelize.models.CoursePreReq); //true
+// class CoursePreReq extends Model{} //nathan
+//   CoursePreReq.init({
+//     //token primary key
+//     CoursePreReqsID: {
+//       type: DataTypes.INTEGER.UNSIGNED,
+//       allowNull: false,
+//       primaryKey: true
+//     },
+//     CoursePreReq: {
+//       type: DataTypes.STRING,
+//       references: {
+//         model: Course,
+//         key: 'Name'
+//       },
+//       allowNull: false
+//     },
+//     Course: {
+//       type: DataTypes.STRING,
+//       references: {
+//         model: Course,
+//         key: 'Name'
+//       },
+//       allowNull: false
+//     }
+//   }, {
+//     sequelize,
+//     modelName: 'CoursePreReq',
+//     indexes: [{ unique: true, fields: ['CoursePreReqID'] }]
+//   }
+// );
+// console.log("CoursePreReqLoaded: " + CoursePreReq === sequelize.models.CoursePreReq); //true
 
-class CertificationPreReq extends Model{}
-  CertificationPreReq.init({
-    //token primary key
-    CertificationPreReqID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      primaryKey: true
-    },
-    CoursePreReq: {
-      type: DataTypes.STRING,
-      references: {
-        model: Course,
-        key: 'Name'
-      },
-      allowNull: false
-    },
-    Certification: {
-      type: DataTypes.STRING,
-      references: {
-        model: Certification,
-        key: 'Name'
-      },
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'CertificationPreReq',
-    indexes: [{ unique: true, fields: ['CertificationPreReqID'] }]
-  }
-);
-console.log("CertificationPreReqLoaded: " + CoursePreReq === sequelize.models.CertificationPreReq); //true
+// class CertificationPreReq extends Model{} //Nathan
+//   CertificationPreReq.init({
+//     //token primary key
+//     CertificationPreReqID: {
+//       type: DataTypes.INTEGER.UNSIGNED,
+//       allowNull: false,
+//       primaryKey: true
+//     },
+//     CoursePreReq: {
+//       type: DataTypes.STRING,
+//       references: {
+//         model: Course,
+//         key: 'Name'
+//       },
+//       allowNull: false
+//     },
+//     Certification: {
+//       type: DataTypes.STRING,
+//       references: {
+//         model: Certification,
+//         key: 'Name'
+//       },
+//       allowNull: false
+//     }
+//   }, {
+//     sequelize,
+//     modelName: 'CertificationPreReq',
+//     indexes: [{ unique: true, fields: ['CertificationPreReqID'] }]
+//   }
+// );
+// console.log("CertificationPreReqLoaded: " + CoursePreReq === sequelize.models.CertificationPreReq); //true
 
 class UserCourse extends Model{} 
   UserCourse.init({
@@ -886,19 +921,19 @@ class UserCourse extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     }, 
-    User: {
-      type: DataTypes.STRING,
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
-    Course: {
-      type: DataTypes.STRING,
+    CourseID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Course,
-        key: 'Name'
+        key: 'CourseID'
       },
       allowNull: false
     }
@@ -922,11 +957,11 @@ class Section extends Model{}
       type: DataTypes.TINYINT,
       defaultValue: 1
     },
-    Course: {
-      type: DataTypes.STRING,
+    CourseID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
-      model: Course,
-      key: 'Name'
+        model: Course,
+        key: 'CourseID'
       },
       allowNull: false
     }
@@ -962,11 +997,11 @@ class UserSection extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: { //nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
@@ -1050,18 +1085,18 @@ class UserContent extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
     ContentID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-        model: Section,
+        model: Content, //nathan changed from Section? to content table
         key: 'ContentID'
       },
       allowNull: false      
@@ -1076,11 +1111,15 @@ console.log("UserContentLoaded: " + UserContent === sequelize.models.UserContent
 
 class Tag extends Model{} 
   Tag.init({
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
     //token primary key
     Tag: {
       type: DataTypes.STRING,
       allowNull: true,
-      primaryKey: true
     }
   }, {
       sequelize,
@@ -1126,19 +1165,19 @@ class Article extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    Tag: {
-      type: DataTypes.STRING,
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
-        key: 'Tag'
+        key: 'TagID'
       },
       allowNull: true    
     },
-    Author: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
-        model: Course,
-        key: 'Email'
+        model: User,
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -1196,19 +1235,19 @@ class Event extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    Tag: {
-      type: DataTypes.STRING,
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
-        key: 'Tag'
+        key: 'TagID'
       },
       allowNull: true    
     },
-    Author: {
-      type: DataTypes.STRING,
+    User: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     }
@@ -1230,11 +1269,11 @@ class EventUser extends Model{}
     GoingToEvent: {
       type: DataTypes.STRING
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       }
     },
     EventID: {
@@ -1282,11 +1321,11 @@ class UserResource extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       }
     },
     Archived: {
@@ -1324,11 +1363,11 @@ class Quiz extends Model{}
       type: DataTypes.STRING,
       allowNull: true
     },
-    Course: {
-      type: DataTypes.STRING,
+    CourseID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Course,
-        key: 'Name'
+        key: 'CourseID'
       },
       allowNull: true
     },
@@ -1367,19 +1406,19 @@ class UserQuiz extends Model{}
       type: DataTypes.TIME,
       allowNull: false 
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: false
     },
-    Course: {
-      type: DataTypes.STRING,
+    CourseID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Course,
-        key: 'Name'
+        key: 'CourseID'
       },
       allowNull: true
     },
@@ -1437,6 +1476,11 @@ console.log("QuestionLoaded: " + Question === sequelize.models.Question); //true
 
 class UserQuestion extends Model{}
   UserQuestion.init({
+    UserQuestionID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
     //Questions on the forum can be archived for future reference by User.
     Archived: {
       type: DataTypes.BOOLEAN,
@@ -1450,11 +1494,11 @@ class UserQuestion extends Model{}
       },
       allowNull: true
     },
-    User: {
-      type: DataTypes.STRING,
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'Email'
+        key: 'UserID'
       },
       allowNull: true
     }
@@ -1504,8 +1548,10 @@ Chapter.hasMany(Council);
 //CouncilUserRole Associations
 CouncilUserRole.belongsTo(Council);
 Council.hasMany(CouncilUserRole);
-CouncilUserRole.belongsTo(CouncilRoleName);
-CouncilRoleName.hasMany(CouncilUserRole);
+//CouncilUserRole.belongsTo(CouncilRoleName);
+CouncilUserRole.belongsTo(CouncilRole); //edited by Nathan
+//CouncilRoleName.hasMany(CouncilUserRole);
+CouncilRole.hasMany(CouncilUserRole); //edited by nathan
 
 //User Associations
 User.belongsTo(Chapter);
@@ -1542,10 +1588,13 @@ CouncilsTable.belongsTo(User);
 User.hasMany(CouncilsTable);
 
 //Message Associations
-Message.belongsTo(Sender);
-Sender.hasMany(Message);
-Message.belongsTo(Receiver);
-Receiver.hasMany(Message);
+//Message.belongsTo(Sender);
+Message.belongsTo(User, {as: 'Email', foreignKey: 'Sender'}); //Nathan
+//Sender.hasMany(Message); //nathan
+//Message.belongsTo(Receiver); //nathan
+//Message.belongsTo(User, {as: 'Email', foreignKey: 'Receiver'}); //nathan
+//Receiver.hasMany(Message); //nathan
+User.hasMany(Message);
 
 //Comment Associations
 Comment.belongsTo(User);
@@ -1561,17 +1610,17 @@ Certification.hasMany(UserCertificate);
 Course.belongsTo(User);
 User.hasMany(Course);
 
-//CoursePreReq Associations
-CoursePreReq.belongsTo(CoursePreReq);
-CoursePreReq.hasMany(CoursePreReq);
-CoursePreReq.belongsTo(Course);
-Course.hasMany(CoursePreReq);
+// //CoursePreReq Associations //nathan
+// CoursePreReq.belongsTo(CoursePreReq);
+// CoursePreReq.hasMany(CoursePreReq);
+// CoursePreReq.belongsTo(Course);
+// Course.hasMany(CoursePreReq);
 
-//CertificationPreReq Associations
-CertificationPreReq.belongsTo(CoursePreReq);
-CoursePreReq.hasMany(CertificationPreReq);
-CertificationPreReq.belongsTo(Certification);
-Certification.hasMany(CertificationPreReq);
+// //CertificationPreReq Associations
+// CertificationPreReq.belongsTo(CoursePreReq);
+// CoursePreReq.hasMany(CertificationPreReq);
+// CertificationPreReq.belongsTo(Certification);
+// Certification.hasMany(CertificationPreReq);
 
 //UserCourse Associations
 UserCourse.belongsTo(User);
@@ -1600,7 +1649,7 @@ UserContent.belongsTo(Content);
 Content.hasMany(UserContent);
 
 //Article Associations
-Article.belongsTo(Tag);
+Article.belongsTo(Tag); 
 Tag.hasMany(Article);
 Article.belongsTo(Author);
 Author.hasMany(Article);

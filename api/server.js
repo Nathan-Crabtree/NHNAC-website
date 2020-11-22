@@ -5,10 +5,16 @@ const { User } = require('./src/Models.js');
 const _USERS = require('./users.json');
 const { userInfo } = require('os');
 
+const {bodyParser} = require('body-parser'); //for post requests
+
 const app = express();
 const port = 8001; 
 
 app.get('/', (req,res) => res.send('Hello World! from Node.js'))
+
+app.use(
+    bodyParser.json() //for post requests
+);
 
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
     host: 'localhost',
@@ -58,7 +64,7 @@ sequelize.sync({})
 })
 
 //create express route; retrieve all records from Users table
-app.get('/findAll', (req, res) => {
+app.get('/findAllUsers', (req, res) => {
     User.findAll({
         //find records with specific userName
         // where: {
@@ -81,7 +87,7 @@ app.get('/findAll', (req, res) => {
     })
 }) 
 
-app.get('/findByPk', (req, res) => {
+app.get('/findUserByID', (req, res) => {
     User.findByPk('joeschmoe')
     .then(user => {
         res.json(user);
@@ -92,7 +98,7 @@ app.get('/findByPk', (req, res) => {
     })
 }) 
 
-app.put('/update', (req, res) => {
+app.put('/updateUser', (req, res) => {
     //User.update(req.body) //normal client request use case
     User.update({
         FirstName: 'Schmoe',
@@ -108,7 +114,7 @@ app.put('/update', (req, res) => {
         res.status(404).send(error);
     })
 }) 
-app.delete('/delete', (req, res) => {
+app.delete('/deleteUser', (req, res) => {
     //User.update(req.body) //normal client request use case
     User.destroy({
         where: {
@@ -138,19 +144,7 @@ app.delete('/delete', (req, res) => {
 //     })
 // })
 
-
-//examnple post method; doesn't work here
-// app.post('/post', (req, res) => {
-//     const newUser = req.body.user;
-//     //User.create(newUser) //this works just fine
-//     User.create({  //this also works
-//         UserName: newUser.UserName,
-//         FirstName: newUser.FirstName,
-//         LastName: newUser.LastName,
-//         Email: newUser.Email,
-//         Password: newUser.Password
-//     })
-// })
+// npm
 
 app.listen(port, () => {
     console.log('Running server on port ' + port)
