@@ -24,35 +24,6 @@ console.log("entering Models.js");
 //   console.error('Unable to connect to the database:', error);
 // }
 
-//Badge tags and references to images stored in the server hard drive
-class Badge extends Model{}
-  Badge.init ({
-    BadgeID:{
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    }, 
-    Name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    //reference to where the image file is stored in the hard drive. 
-    FilePath: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    Description: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'Badge',
-    indexes: [{ unique: true, fields: ['Name'] }]
-  }
-); 
-console.log("BadgeLoaded: " + Badge === sequelize.models.Badge); //true
-
 //Multiple Chapters (branches of the church) managed by database
 class Chapter extends Model{}
   Chapter.init ({
@@ -72,7 +43,7 @@ class Chapter extends Model{}
     indexes: [{ unique: true, fields: ['ChapterID'] }]
   }
 );
-console.log("ChapterLoaded: " + Chapter === sequelize.models.Chapter); //true
+console.log("ChapterLoaded: " + (Chapter === sequelize.models.Chapter)); //true
 
 //Councils are groups of Users with special administration authorities within a Chapter of the Church
 class Council extends Model{}
@@ -102,118 +73,7 @@ class Council extends Model{}
     indexes: [{ unique: true, fields: ['CouncilID'] }]
   }
 );
-console.log("CouncilLoaded: " + Council === sequelize.models.Council); //true
-
-//Roles: systemRole, userRole, councilRole, churchRole
-
-//This table will store the names of the various Roles that people within the church play
-//"web admin", "Church Member", "Visitor", "Teacher", "medicine person", "peyote roadman", "ayahuasca roadman"
-class Role extends Model{}
-  Role.init({
-    RoleID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    }, 
-    Name: {
-      type: DataTypes.STRING    }
-  }, {
-    sequelize,
-    modelName: 'Role',
-    indexes: [{ unique: true, fields: ['Name'] }]
-  }
-);
-console.log("RoleLoaded: " + Role === sequelize.models.Role); // true
-
-//Users may play multiple roles in the church, "web admin", "church user", "medicine person", 
-class UserRole extends Model{}
-  UserRole.init({
-    UserRoleID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    RoleID: {
-      type: DataTypes.STRING,
-      references: {
-        model: Role,
-        key: 'Name'
-      }
-    },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      }
-    }
-  }, {
-    sequelize,
-    modelName: 'UserRole',
-    indexes: [{ unique: true, fields: ['UserRoleID'] }]
-  }
-);
-console.log("UserRoleLoaded: " + UserRole === sequelize.models.UserRole); //true
-
-//This table will store the names of the various Roles that people within church councils play
-//"principle stone carrier", "treasurer", "member"
-class CouncilRole extends Model{}
-  CouncilRole.init({
-    CouncilRoleID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    Name: {
-      type: DataTypes.STRING
-    }
-  }, {
-    sequelize,
-    modelName: 'CouncilRole',
-    indexes: [{ unique: true, fields: ['Name'] }]
-  }
-);
-console.log("CouncilRoleLoaded: " + CouncilRole === sequelize.models.CouncilRole); //true
-
-//This table will store roles that the people in a council play
-//"Johnny is the Principle Stone Carrier of the Land Management Council"
-class CouncilUserRole extends Model{}
-  CouncilUserRole.init({
-    //token primary key
-    CouncilUserRoleID: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    //CouncilName: {
-    CouncilID: {  //edited by Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Council,
-        key: 'CouncilID'
-      },
-      allowNull: false
-    },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    CouncilRoleID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: CouncilRole,
-        key: 'CouncilRoleID'
-      },
-      allowNull: false
-    }
-  }, {
-      sequelize,
-      modelName: 'CouncilUserRole',
-      indexes: [{ unique: true, fields: ['CouncilUserRoleID'] }]
-    }
-);
-console.log("CouncilUserRoleLoaded: " + CouncilUserRole === sequelize.models.CouncilUserRole); //true
+console.log("CouncilLoaded: " + (Council === sequelize.models.Council)); //true
 
 class User extends Model{}
   User.init ({
@@ -353,7 +213,149 @@ class User extends Model{}
     indexes: [{ unique: true, fields: ['Email'] }]
   }
 );
-console.log("UserLoaded: " + User === sequelize.models.User); //true
+console.log("UserLoaded: " + (User === sequelize.models.User)); //true
+
+//Roles: systemRole, userRole, councilRole, churchRole
+
+//This table will store the names of the various Roles that people within the church play
+//"web admin", "Church Member", "Visitor", "Teacher", "medicine person", "peyote roadman", "ayahuasca roadman"
+class Role extends Model{}
+  Role.init({
+    RoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    }, 
+    Name: {
+      type: DataTypes.STRING    }
+  }, {
+    sequelize,
+    modelName: 'Role',
+    indexes: [{ unique: true, fields: ['Name'] }]
+  }
+);
+console.log("RoleLoaded: " + (Role === sequelize.models.Role)); // true
+
+//Users may play multiple roles in the church, "web admin", "church user", "medicine person", 
+class UserRole extends Model{}
+  UserRole.init({
+    UserRoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    RoleID: {
+      type: DataTypes.STRING,
+      references: {
+        model: Role,
+        key: 'Name'
+      }
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'UserID'
+      }
+    }
+  }, {
+    sequelize,
+    modelName: 'UserRole',
+    indexes: [{ unique: true, fields: ['UserRoleID'] }]
+  }
+);
+console.log("UserRoleLoaded: " + (UserRole === sequelize.models.UserRole)); //true
+
+//This table will store the names of the various Roles that people within church councils play
+//"principle stone carrier", "treasurer", "member"
+class CouncilRole extends Model{}
+  CouncilRole.init({
+    CouncilRoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    Name: {
+      type: DataTypes.STRING
+    }
+  }, {
+    sequelize,
+    modelName: 'CouncilRole',
+    indexes: [{ unique: true, fields: ['Name'] }]
+  }
+);
+console.log("CouncilRoleLoaded: " + (CouncilRole === sequelize.models.CouncilRole)); //true
+
+//This table will store roles that the people in a council play
+//"Johnny is the Principle Stone Carrier of the Land Management Council"
+class CouncilUserRole extends Model{}
+  CouncilUserRole.init({
+    //token primary key
+    CouncilUserRoleID: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    //CouncilName: {
+    CouncilID: {  //edited by Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Council,
+        key: 'CouncilID'
+      },
+      allowNull: false
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'UserID'
+      },
+    },
+    CouncilRoleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: CouncilRole,
+        key: 'CouncilRoleID'
+      },
+      allowNull: false
+    }
+  }, {
+      sequelize,
+      modelName: 'CouncilUserRole',
+      indexes: [{ unique: true, fields: ['CouncilUserRoleID'] }]
+    }
+);
+console.log("CouncilUserRoleLoaded: " + (CouncilUserRole === sequelize.models.CouncilUserRole)); //true
+
+//Badge tags and references to images stored in the server hard drive
+class Badge extends Model{}
+  Badge.init ({
+    BadgeID:{
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    }, 
+    Name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    //reference to where the image file is stored in the hard drive. 
+    FilePath: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    Description: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'Badge',
+    indexes: [{ unique: true, fields: ['Name'] }]
+  }
+); 
+console.log("BadgeLoaded: " + (Badge === sequelize.models.Badge)); //true
 
 class UserBadge extends Model{}
   UserBadge.init ({
@@ -385,7 +387,7 @@ class UserBadge extends Model{}
     indexes: [{ unique: true, fields: ['UserBadgeID'] }]
   }
 ); 
-console.log("UserBadgeLoaded: " + UserBadge === sequelize.models.UserBadge); //true
+console.log("UserBadgeLoaded: " + (UserBadge === sequelize.models.UserBadge)); //true
 
 class Address extends Model{}
 Address.init({
@@ -429,7 +431,7 @@ Address.init({
     indexes: [{ unique: true, fields: ['AddressID'] }]
   }
 );
-console.log("AddressLoaded: " + Address === sequelize.models.Address); //true
+console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
 
 class UpdatesTable extends Model{}
   UpdatesTable.init({
@@ -464,7 +466,7 @@ class UpdatesTable extends Model{}
     indexes: [{ unique: true, fields: ['UpdatesTableID'] }]
   }
 );
-console.log("UpdatesTableLoaded: " + UpdatesTable === sequelize.models.UpdatesTable); //true
+console.log("UpdatesTableLoaded: " + (UpdatesTable === sequelize.models.UpdatesTable)); //true
 
 class CertificationsTable extends Model{}
   CertificationsTable.init({
@@ -500,7 +502,7 @@ class CertificationsTable extends Model{}
     indexes: [{ unique: true, fields: ['CertificationsTableID'] }]
   }
 );
-console.log("CertificationsTableLoaded: " + CertificationsTable === sequelize.models.CertificationsTable); //true
+console.log("CertificationsTableLoaded: " + (CertificationsTable === sequelize.models.CertificationsTable)); //true
 
 class RecentActivityTable extends Model{}
   RecentActivityTable.init({
@@ -536,7 +538,7 @@ class RecentActivityTable extends Model{}
     indexes: [{ unique: true, fields: ['RecentActivityTableID'] }]
   }
 );
-console.log("RecentActivityTableLoaded: " + RecentActivityTable === sequelize.models.RecentActivityTable); //true
+console.log("RecentActivityTableLoaded: " + (RecentActivityTable === sequelize.models.RecentActivityTable)); //true
 
 class RecentBadgesTable extends Model{}
   RecentBadgesTable.init({
@@ -571,7 +573,7 @@ class RecentBadgesTable extends Model{}
     indexes: [{ unique: true, fields: ['RecentBadgesTableID'] }]
   }
 );
-console.log("RecentBadgesTableLoaded: " + RecentBadgesTable === sequelize.models.RecentBadgesTable); //true
+console.log("RecentBadgesTableLoaded: " + (RecentBadgesTable === sequelize.models.RecentBadgesTable)); //true
 
 class CouncilsTable extends Model{}
   //token primary key
@@ -608,7 +610,7 @@ class CouncilsTable extends Model{}
     indexes: [{ unique: true, fields: ['CouncilsTableID'] }]
   }
 );
-console.log("CouncilsTableLoaded: " + CouncilsTable === sequelize.models.CouncilsTable); //true
+console.log("CouncilsTableLoaded: " + (CouncilsTable === sequelize.models.CouncilsTable)); //true
 
 class Message extends Model{} 
   Message.init({
@@ -655,7 +657,7 @@ class Message extends Model{}
     indexes: [{ unique: true, fields: ['MessageID'] }]
   }
 );
-console.log("MessageLoaded: " + Message === sequelize.models.Message); //true
+console.log("MessageLoaded: " + (Message === sequelize.models.Message)); //true
 
 class Comment extends Model{}
   Comment.init({
@@ -691,7 +693,7 @@ class Comment extends Model{}
     indexes: [{ unique: true, fields: ['CommentID'] }]
   }
 );
-console.log("CommentLoaded: " + Comment === sequelize.models.Comment); //true
+console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
 
 class Certification extends Model{}
   Certification.init({
@@ -730,7 +732,7 @@ class Certification extends Model{}
     indexes: [{ unique: true, fields: ['Name'] }]
   }
 );
-console.log("CertificationLoaded: " + Certification === sequelize.models.Certification); //true
+console.log("CertificationLoaded: " + (Certification === sequelize.models.Certification)); //true
 
 //This table is for the actual PDF data documents that people have earned
 //or for references to the PDF documents on the server storage
@@ -786,7 +788,7 @@ class UserCertificate extends Model{}
     indexes: [{ unique: true, fields: ['UserCertificateID'] }]
   }
 );
-console.log("UserCertificateLoaded: " + UserCertificate === sequelize.models.UserCertificate); //true
+console.log("UserCertificateLoaded: " + (UserCertificate === sequelize.models.UserCertificate)); //true
 
 class Course extends Model{}
   Course.init({
@@ -831,7 +833,7 @@ class Course extends Model{}
     indexes: [{ unique: true, fields: ['Name'] }]
   }
 );
-console.log("CourseLoaded: " + Course === sequelize.models.Course); //true
+console.log("CourseLoaded: " + (Course === sequelize.models.Course)); //true
 
 // class CoursePreReq extends Model{} //nathan
 //   CoursePreReq.init({
@@ -943,7 +945,7 @@ class UserCourse extends Model{}
     indexes: [{ unique: true, fields: ['UserCourseID'] }]
   }
 );
-console.log("UserCourseLoaded: " + UserCourse === sequelize.models.UserCourse); //true
+console.log("UserCourseLoaded: " + (UserCourse === sequelize.models.UserCourse)); //true
 
 class Section extends Model{} 
   Section.init({
@@ -971,7 +973,7 @@ class Section extends Model{}
     indexes: [{ unique: true, fields: ['SectionID'] }]
   }
 );
-console.log("SectionLoaded: " + Section === sequelize.models.Section); //true
+console.log("SectionLoaded: " + (Section === sequelize.models.Section)); //true
 
 class UserSection extends Model{}
   UserSection.init({
@@ -1019,7 +1021,7 @@ class UserSection extends Model{}
     indexes: [{ unique: true, fields: ['UserSectionID'] }]
   }
 );
-console.log("UserSectionLoaded: " + UserSection === sequelize.models.UserSection); //true
+console.log("UserSectionLoaded: " + (UserSection === sequelize.models.UserSection)); //true
 
 class Content extends Model{} 
   Content.init({
@@ -1059,7 +1061,7 @@ class Content extends Model{}
     indexes: [{ unique: true, fields: ['ContentID'] }]
   }
 );
-console.log("ContentLoaded: " + Content === sequelize.models.Content); //true
+console.log("ContentLoaded: " + (Content === sequelize.models.Content)); //true
 
 class UserContent extends Model{}
   UserContent.init({
@@ -1107,7 +1109,7 @@ class UserContent extends Model{}
     indexes: [{ unique: true, fields: ['UserContentID'] }]
   }
 );
-console.log("UserContentLoaded: " + UserContent === sequelize.models.UserContent); //true
+console.log("UserContentLoaded: " + (UserContent === sequelize.models.UserContent)); //true
 
 class Tag extends Model{} 
   Tag.init({
@@ -1127,7 +1129,7 @@ class Tag extends Model{}
       indexes: [{ unique: true, fields: ['Tag'] }]
   }
 );
-console.log("TagLoaded: " + Tag === sequelize.models.Tag); //true
+console.log("TagLoaded: " + (Tag === sequelize.models.Tag)); //true
 
 class Article extends Model{}
   Article.init({
@@ -1186,7 +1188,7 @@ class Article extends Model{}
     modelName: 'Article',
     indexes: [{ unique: true, fields: ['ArticleID'] }]
 });
-console.log("ArticleLoaded: " + Article === sequelize.models.Article); //true
+console.log("ArticleLoaded: " + (Article === sequelize.models.Article)); //true
 
 class Event extends Model{}
   Event.init({
@@ -1243,7 +1245,7 @@ class Event extends Model{}
       },
       allowNull: true    
     },
-    User: {
+    UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -1257,7 +1259,7 @@ class Event extends Model{}
     indexes: [{ unique: true, fields: ['EventID'] }]
   }
 );
-console.log("EventLoaded: " + Event === sequelize.models.Event); //true
+console.log("EventLoaded: " + (Event === sequelize.models.Event)); //true
 
 class EventUser extends Model{}
   EventUser.init({
@@ -1289,7 +1291,7 @@ class EventUser extends Model{}
     indexes: [{ unique: true, fields: ['EventUserID'] }]
   }
 );
-console.log("EventUser: " + EventUser === sequelize.models.EventUser); //true
+console.log("EventUser: " + (EventUser === sequelize.models.EventUser)); //true
 
 class Resource extends Model{} 
   Resource.init({
@@ -1312,7 +1314,7 @@ class Resource extends Model{}
       indexes: [{ unique: true, fields: ['ResourceID'] }]
   }
 );
-console.log("ResourceLoaded: " + Resource === sequelize.models.Resource); //true
+console.log("ResourceLoaded: " + (Resource === sequelize.models.Resource)); //true
 
 class UserResource extends Model{} 
   UserResource.init({
@@ -1345,7 +1347,7 @@ class UserResource extends Model{}
       indexes: [{ unique: true, fields: ['UserResourceID'] }]
   }
 );
-console.log("UserResourceLoaded: " + UserResource === sequelize.models.UserResource); //true
+console.log("UserResourceLoaded: " + (UserResource === sequelize.models.UserResource)); //true
 
 class Quiz extends Model{}
   Quiz.init({
@@ -1385,7 +1387,7 @@ class Quiz extends Model{}
     indexes: [{ unique: true, fields: ['QuizID'] }]
   }
 );
-console.log("QuizLoaded: " + Quiz === sequelize.models.Quiz); //true
+console.log("QuizLoaded: " + (Quiz === sequelize.models.Quiz)); //true
 
 class UserQuiz extends Model{}
   UserQuiz.init({
@@ -1436,7 +1438,7 @@ class UserQuiz extends Model{}
     indexes: [{ unique: true, fields: ['UserQuizID'] }]
   }
 );
-console.log("UserQuizLoaded: " + UserQuiz === sequelize.models.UserQuiz); //true
+console.log("UserQuizLoaded: " + (UserQuiz === sequelize.models.UserQuiz)); //true
 
 class Question extends Model{}
   Question.init({
@@ -1472,7 +1474,7 @@ class Question extends Model{}
     indexes: [{ unique: true, fields: ['QuestionID'] }]
   }
 );
-console.log("QuestionLoaded: " + Question === sequelize.models.Question); //true
+console.log("QuestionLoaded: " + (Question === sequelize.models.Question)); //true
 
 class UserQuestion extends Model{}
   UserQuestion.init({
@@ -1508,7 +1510,7 @@ class UserQuestion extends Model{}
     indexes: [{ unique: true, fields: ['UserQuestionID'] }]
   }
 );
-console.log("UserQuestionLoaded: " + UserQuestion === sequelize.models.UserQuestion); //true
+console.log("UserQuestionLoaded: " + (UserQuestion === sequelize.models.UserQuestion)); //true
 
 class Answer extends Model{}
   Answer.init({
@@ -1539,7 +1541,7 @@ class Answer extends Model{}
       indexes: [{ unique: true, fields: ['AnswerID'] }]
   }
 );
-console.log("AnswerLoaded: " + Answer === sequelize.models.Answer); //true
+console.log("AnswerLoaded: " + (Answer === sequelize.models.Answer)); //true
 
 //Council Associations
 Council.belongsTo(Chapter);
@@ -1651,14 +1653,14 @@ Content.hasMany(UserContent);
 //Article Associations
 Article.belongsTo(Tag); 
 Tag.hasMany(Article);
-Article.belongsTo(Author);
-Author.hasMany(Article);
+Article.belongsTo(User);
+User.hasMany(Article);
 
 //Event Associations
 Event.belongsTo(Tag);
 Tag.hasMany(Event);
-Event.belongsTo(Author);
-Author.hasMany(Event);
+Event.belongsTo(User);
+User.hasMany(Event);
 
 //EventUser Associations
 EventUser.belongsTo(User);
@@ -1738,8 +1740,8 @@ module.exports = {
   Certification,
   UserCertificate,
   Course,
-  CertificationPreReq,
-  CoursePreReq,
+  //CertificationPreReq,
+  //CoursePreReq,
   UserCourse,
   Section,
   UserSection,

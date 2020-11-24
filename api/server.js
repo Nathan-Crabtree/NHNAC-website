@@ -5,16 +5,16 @@ const { User } = require('./src/Models.js');
 const _USERS = require('./users.json');
 const { userInfo } = require('os');
 
-const {bodyParser} = require('body-parser'); //for post requests
+//const {bodyParser} = require('body-parser'); //for post requests
 
 const app = express();
 const port = 8001; 
 
 app.get('/', (req,res) => res.send('Hello World! from Node.js'))
 
-app.use(
-    bodyParser.json() //for post requests
-);
+// app.use(
+//     bodyParser.json() //for post requests
+// );
 
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
     host: 'localhost',
