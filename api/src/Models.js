@@ -7,8 +7,15 @@ const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
 //const sequelize = secret; //production env
-const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
 
+//const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
+//const sequelize = new Sequelize('mysql://newhavenuser:@localhost:3306/newhaven', { logging: console.log }); //development env
+const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
+  host: 'localhost',
+  dialect: 'mysql',
+  //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database 
+  operatorsAliases: false // prevents us from receiving certain deprecation warnings inside console
+});
 //bcrypt is for password hashing
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -185,14 +192,14 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: true
     },
-    //A user may belong to a chapter, possibly no value here could infere a default "New Haven" Chapter
+    //A user may belong to a chapter, possibly no value or default value "0" here could infere a default "New Haven" Chapter
     ChapterID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Chapter,
           key: 'ChapterID'
       },
-      defaultValue: 'New Haven'
+      defaultValue: '0' //changed from string "new haven"
     }
   }, {
     hooks: {
@@ -736,10 +743,10 @@ console.log("CertificationLoaded: " + (Certification === sequelize.models.Certif
 
 //This table is for the actual PDF data documents that people have earned
 //or for references to the PDF documents on the server storage
-class UserCertificate extends Model{}
-  UserCertificate.init({
+class Certificate extends Model{}
+  Certificate.init({
     //token primary key
-    UserCertificateID: {
+    CertificateID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -784,16 +791,16 @@ class UserCertificate extends Model{}
     }
   }, {
     sequelize,
-    modelName: 'UserCertificate',
-    indexes: [{ unique: true, fields: ['UserCertificateID'] }]
+    modelName: 'Certificate',
+    indexes: [{ unique: true, fields: ['CertificateID'] }]
   }
 );
-console.log("UserCertificateLoaded: " + (UserCertificate === sequelize.models.UserCertificate)); //true
+console.log("CertificateLoaded: " + (Certificate === sequelize.models.Certificate)); //true
 
 class Course extends Model{}
   Course.init({
     //token primary key
-    CouseID: {
+    CourseID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -1050,7 +1057,7 @@ class Content extends Model{}
     SectionID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-      model: Course,
+      model: Section,
       key: 'SectionID'
       },
       allowNull: false
@@ -1451,11 +1458,11 @@ class Question extends Model{}
       type: DataTypes.TEXT,
       allowNull: false
     },
-    Resolved: {
+    Resolved: { //Questions as a part of a Quiz as a Part of a course are not resolved, they have answers though
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
-    Likes: {
+    Likes: { //is this needed? //nathan
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0
     },
@@ -1476,6 +1483,8 @@ class Question extends Model{}
 );
 console.log("QuestionLoaded: " + (Question === sequelize.models.Question)); //true
 
+
+//nathan This table is confused with The Quiz and Question models
 class UserQuestion extends Model{}
   UserQuestion.init({
     UserQuestionID: {
@@ -1484,6 +1493,7 @@ class UserQuestion extends Model{}
       primaryKey: true
     },
     //Questions on the forum can be archived for future reference by User.
+    //Forums are not part of Quizzes
     Archived: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -1602,11 +1612,11 @@ User.hasMany(Message);
 Comment.belongsTo(User);
 User.hasMany(Comment);
 
-//UserCertificate Associations
-UserCertificate.belongsTo(User);
-User.hasMany(UserCertificate);
-UserCertificate.belongsTo(Certification);
-Certification.hasMany(UserCertificate);
+//Certificate Associations
+Certificate.belongsTo(User);
+User.hasMany(Certificate);
+Certificate.belongsTo(Certification);
+Certification.hasMany(Certificate);
 
 //Course Associations
 Course.belongsTo(User);
@@ -1738,7 +1748,7 @@ module.exports = {
   Message,
   Comment,
   Certification,
-  UserCertificate,
+  Certificate,
   Course,
   //CertificationPreReq,
   //CoursePreReq,

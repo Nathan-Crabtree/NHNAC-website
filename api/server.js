@@ -35,33 +35,33 @@ sequelize
 
 User.destroy({truncate: {}});
 
-console.log('About to bulk create');
-sequelize.sync({force: true})
-    .then(() => {
-        User.bulkCreate(_USERS, {validate: true, individualHooks: true})
-            .then(users => {
-                console.log('success adding example users');
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }).then(() => {
-        console.log('Bulk Create sync() successful');
-    }).catch(err => {
-        console.error('Bulk Create Sync() failed', err);
-    });
- console.log('Done with Bulk Create');
+// console.log('About to bulk create');
+// sequelize.sync({force: true})
+//     .then(() => {
+//         User.bulkCreate(_USERS, {validate: true, individualHooks: true})
+//             .then(users => {
+//                 console.log('success adding example users');
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//             })
+//     }).then(() => {
+//         console.log('Bulk Create sync() successful');
+//     }).catch(err => {
+//         console.error('Bulk Create Sync() failed', err);
+//     });
+//  console.log('Done with Bulk Create');
 
-sequelize.sync({})
-.then(() => {
-    User.create({
-        UserName: 'joeschmoe',
-        password: 'apassword',
-        FirstName: 'Joe',
-        LastName: "Schmoe",
-        Email: "JoeSchmoe@gmail.com"
-    })
-})
+sequelize.sync({});
+// .then(() => {
+//     User.create({
+//         UserName: 'joeschmoe',
+//         password: 'apassword',
+//         FirstName: 'Joe',
+//         LastName: "Schmoe",
+//         Email: "JoeSchmoe@gmail.com"
+//     })
+// })
 
 //create express route; retrieve all records from Users table
 app.get('/findAllUsers', (req, res) => {
