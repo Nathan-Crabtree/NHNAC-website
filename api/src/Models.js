@@ -34,7 +34,12 @@ console.log("entering Models.js");
 //Multiple Chapters (branches of the church) managed by database
 class Chapter extends Model{}
   Chapter.init ({
-    ChapterID: {
+    // ChapterID: {
+    //   type: DataTypes.INTEGER.UNSIGNED,
+    //   autoIncrement: true,
+    //   primaryKey: true
+    // },     
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -47,7 +52,7 @@ class Chapter extends Model{}
   }, {
     sequelize,
     modelName: 'Chapter',
-    indexes: [{ unique: true, fields: ['ChapterID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("ChapterLoaded: " + (Chapter === sequelize.models.Chapter)); //true
@@ -55,7 +60,7 @@ console.log("ChapterLoaded: " + (Chapter === sequelize.models.Chapter)); //true
 //Councils are groups of Users with special administration authorities within a Chapter of the Church
 class Council extends Model{}
   Council.init ({
-    CouncilID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -69,7 +74,7 @@ class Council extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Chapter,
-          key: 'ChapterID'
+          key: 'ID'
       },
       allowNull: false
     }
@@ -77,17 +82,26 @@ class Council extends Model{}
     sequelize,
     modelName: 'Council',
     //Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
-    indexes: [{ unique: true, fields: ['CouncilID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CouncilLoaded: " + (Council === sequelize.models.Council)); //true
 
 class User extends Model{}
   User.init ({
-    UserID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    //A user may belong to a chapter, possibly no value or default value "0" here could infere a default "New Haven" Chapter
+    ChapterID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+          model: Chapter,
+          key: 'ID'
+      },
+      defaultValue: '0' //changed from string "new haven"
     },
     Email: {
       type: DataTypes.STRING,
@@ -143,7 +157,7 @@ class User extends Model{}
       allowNull: false     
     },
     //Uses a boolean to determine if user is subscribed to newsletter or not
-    SubscribedToNewsletter: {
+    SubscribedToNewsLetter: {
       type: DataTypes.BOOLEAN,
       defaultValue: false     
     },
@@ -172,13 +186,18 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: true 
     },
-    DateLoggedIn: {
-      type: DataTypes.DATE,
-      allowNull: false 
-    },
-    TimeLoggedIn: {
-      type: DataTypes.TIME,
-      allowNull: false 
+    //These two can be combined //nathan
+    // DateLoggedIn: {
+    //   type: DataTypes.DATE,
+    //   allowNull: false 
+    // },
+    // TimeLoggedIn: {
+    //   type: DataTypes.TIME,
+    //   allowNull: false 
+    // },
+    DateTimeLoggedIn: {
+      type: DataTypes.DATE, 
+      allowNull: false
     },
     Facebook: {
       type: DataTypes.STRING,
@@ -191,15 +210,6 @@ class User extends Model{}
     Twitter: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    //A user may belong to a chapter, possibly no value or default value "0" here could infere a default "New Haven" Chapter
-    ChapterID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-          model: Chapter,
-          key: 'ChapterID'
-      },
-      defaultValue: '0' //changed from string "new haven"
     }
   }, {
     hooks: {
@@ -217,7 +227,7 @@ class User extends Model{}
     modelName: 'User',
   
     //Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
-    indexes: [{ unique: true, fields: ['Email'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserLoaded: " + (User === sequelize.models.User)); //true
@@ -228,7 +238,7 @@ console.log("UserLoaded: " + (User === sequelize.models.User)); //true
 //"web admin", "Church Member", "Visitor", "Teacher", "medicine person", "peyote roadman", "ayahuasca roadman"
 class Role extends Model{}
   Role.init({
-    RoleID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -238,7 +248,7 @@ class Role extends Model{}
   }, {
     sequelize,
     modelName: 'Role',
-    indexes: [{ unique: true, fields: ['Name'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("RoleLoaded: " + (Role === sequelize.models.Role)); // true
@@ -246,29 +256,29 @@ console.log("RoleLoaded: " + (Role === sequelize.models.Role)); // true
 //Users may play multiple roles in the church, "web admin", "church user", "medicine person", 
 class UserRole extends Model{}
   UserRole.init({
-    UserRoleID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
     },
     RoleID: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Role,
-        key: 'Name'
+        key: 'ID'
       }
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       }
     }
   }, {
     sequelize,
     modelName: 'UserRole',
-    indexes: [{ unique: true, fields: ['UserRoleID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserRoleLoaded: " + (UserRole === sequelize.models.UserRole)); //true
@@ -277,7 +287,7 @@ console.log("UserRoleLoaded: " + (UserRole === sequelize.models.UserRole)); //tr
 //"principle stone carrier", "treasurer", "member"
 class CouncilRole extends Model{}
   CouncilRole.init({
-    CouncilRoleID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -288,7 +298,7 @@ class CouncilRole extends Model{}
   }, {
     sequelize,
     modelName: 'CouncilRole',
-    indexes: [{ unique: true, fields: ['Name'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CouncilRoleLoaded: " + (CouncilRole === sequelize.models.CouncilRole)); //true
@@ -298,7 +308,7 @@ console.log("CouncilRoleLoaded: " + (CouncilRole === sequelize.models.CouncilRol
 class CouncilUserRole extends Model{}
   CouncilUserRole.init({
     //token primary key
-    CouncilUserRoleID: {
+    ID: {
         type: DataTypes.INTEGER.UNSIGNED,
         autoIncrement: true,
         primaryKey: true
@@ -308,7 +318,7 @@ class CouncilUserRole extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Council,
-        key: 'CouncilID'
+        key: 'ID'
       },
       allowNull: false
     },
@@ -316,21 +326,21 @@ class CouncilUserRole extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       },
     },
     CouncilRoleID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: CouncilRole,
-        key: 'CouncilRoleID'
+        key: 'ID'
       },
       allowNull: false
     }
   }, {
       sequelize,
       modelName: 'CouncilUserRole',
-      indexes: [{ unique: true, fields: ['CouncilUserRoleID'] }]
+      indexes: [{ unique: true, fields: ['ID'] }]
     }
 );
 console.log("CouncilUserRoleLoaded: " + (CouncilUserRole === sequelize.models.CouncilUserRole)); //true
@@ -338,7 +348,7 @@ console.log("CouncilUserRoleLoaded: " + (CouncilUserRole === sequelize.models.Co
 //Badge tags and references to images stored in the server hard drive
 class Badge extends Model{}
   Badge.init ({
-    BadgeID:{
+    ID:{
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -359,14 +369,14 @@ class Badge extends Model{}
   }, {
     sequelize,
     modelName: 'Badge',
-    indexes: [{ unique: true, fields: ['Name'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 ); 
 console.log("BadgeLoaded: " + (Badge === sequelize.models.Badge)); //true
 
 class UserBadge extends Model{}
   UserBadge.init ({
-    UserBadgeID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -376,7 +386,7 @@ class UserBadge extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Badge,
-          key: 'BadgeID'
+          key: 'ID'
       },
     },
     //User: {
@@ -384,21 +394,21 @@ class UserBadge extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       },
       allowNull: false
     }
   }, {
     sequelize,
     modelName: 'UserBadge',
-    indexes: [{ unique: true, fields: ['UserBadgeID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 ); 
 console.log("UserBadgeLoaded: " + (UserBadge === sequelize.models.UserBadge)); //true
 
 class Address extends Model{}
 Address.init({
- AddressID: {
+  ID: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
     primaryKey: true
@@ -424,28 +434,36 @@ Address.init({
     allowNull: true
   },
   //User: {
-  UserEmail: { //Nathan
-   type: DataTypes.STRING,
+  UserID: { //Nathan
+   type: DataTypes.INTEGER.UNSIGNED,
     references: {
       model: User,
-      key: 'Email'
+      key: 'ID'
     },
     allowNull: false
   }
 }, {
     sequelize,
     modelName: 'Address',
-    indexes: [{ unique: true, fields: ['AddressID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
 
 class UpdatesTable extends Model{}
   UpdatesTable.init({
-    UpdatesTableID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     State: {
       type: DataTypes.BOOLEAN,
@@ -458,29 +476,29 @@ class UpdatesTable extends Model{}
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
-    },
-    UserEmail: { //Nathan
-      type: DataTypes.STRING,
-      references: {
-        model: User,
-        key: 'Email'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'UpdatesTable',
-    indexes: [{ unique: true, fields: ['UpdatesTableID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UpdatesTableLoaded: " + (UpdatesTable === sequelize.models.UpdatesTable)); //true
 
 class CertificationsTable extends Model{}
   CertificationsTable.init({
-    CertificationsTableID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     State: {
       type: DataTypes.BOOLEAN,
@@ -493,30 +511,29 @@ class CertificationsTable extends Model{}
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
-    },
-    //User: {
-    UserEmail: { //Nathan
-      type: DataTypes.STRING,
-      references: {
-        model: User,
-        key: 'Email'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'CertificationsTable',
-    indexes: [{ unique: true, fields: ['CertificationsTableID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CertificationsTableLoaded: " + (CertificationsTable === sequelize.models.CertificationsTable)); //true
 
 class RecentActivityTable extends Model{}
   RecentActivityTable.init({
-    RecentActivityTableID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     State: {
       type: DataTypes.BOOLEAN,
@@ -529,30 +546,29 @@ class RecentActivityTable extends Model{}
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
-    },
-    //User:
-    UserEmail: { //Nathan
-      type: DataTypes.STRING,
-      references: {
-        model: User,
-        key: 'Email'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'RecentActivityTable',
-    indexes: [{ unique: true, fields: ['RecentActivityTableID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("RecentActivityTableLoaded: " + (RecentActivityTable === sequelize.models.RecentActivityTable)); //true
 
 class RecentBadgesTable extends Model{}
   RecentBadgesTable.init({
-    RecentBadgesTableID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     State: {
       type: DataTypes.BOOLEAN,
@@ -565,19 +581,11 @@ class RecentBadgesTable extends Model{}
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
-    },
-    UserEmail: { //Nathan
-      type: DataTypes.STRING,
-      references: {
-        model: User,
-        key: 'Email'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'RecentBadgesTable',
-    indexes: [{ unique: true, fields: ['RecentBadgesTableID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("RecentBadgesTableLoaded: " + (RecentBadgesTable === sequelize.models.RecentBadgesTable)); //true
@@ -585,10 +593,18 @@ console.log("RecentBadgesTableLoaded: " + (RecentBadgesTable === sequelize.model
 class CouncilsTable extends Model{}
   //token primary key
   CouncilsTable.init({
-    CouncilsTableID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     State: {
       type: DataTypes.BOOLEAN,
@@ -601,30 +617,37 @@ class CouncilsTable extends Model{}
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
-    },
-    //User: {
-    UserID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'CouncilsTable',
-    indexes: [{ unique: true, fields: ['CouncilsTableID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CouncilsTableLoaded: " + (CouncilsTable === sequelize.models.CouncilsTable)); //true
 
 class Message extends Model{} 
   Message.init({
-    MessageID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    Sender: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    Receiver: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Content: {
       type: DataTypes.STRING,
@@ -641,27 +664,11 @@ class Message extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    Sender: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    Receiver: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Message',
-    indexes: [{ unique: true, fields: ['MessageID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("MessageLoaded: " + (Message === sequelize.models.Message)); //true
@@ -669,10 +676,18 @@ console.log("MessageLoaded: " + (Message === sequelize.models.Message)); //true
 class Comment extends Model{}
   Comment.init({
     //token primary key
-    CommentID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Content: {
       type: DataTypes.STRING,
@@ -685,19 +700,11 @@ class Comment extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Comment',
-    indexes: [{ unique: true, fields: ['CommentID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
@@ -705,7 +712,7 @@ console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
 class Certification extends Model{}
   Certification.init({
     //token primary key
-    CertificationID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -736,7 +743,7 @@ class Certification extends Model{}
   }, {
     sequelize,
     modelName: 'Certification',
-    indexes: [{ unique: true, fields: ['Name'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CertificationLoaded: " + (Certification === sequelize.models.Certification)); //true
@@ -746,10 +753,26 @@ console.log("CertificationLoaded: " + (Certification === sequelize.models.Certif
 class Certificate extends Model{}
   Certificate.init({
     //token primary key
-    CertificateID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    CertificationID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Certification,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     //This field holds either the binary PDF file, or a pointer to that file on the server storage
     UserCertFilePath: {
@@ -771,28 +794,11 @@ class Certificate extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    //A Certificate belongs to a user.
-    UserID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    CertificationID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Certification,
-        key: 'CertificationID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Certificate',
-    indexes: [{ unique: true, fields: ['CertificateID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CertificateLoaded: " + (Certificate === sequelize.models.Certificate)); //true
@@ -800,10 +806,18 @@ console.log("CertificateLoaded: " + (Certificate === sequelize.models.Certificat
 class Course extends Model{}
   Course.init({
     //token primary key
-    CourseID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Name: {
       type: DataTypes.STRING,
@@ -824,20 +838,11 @@ class Course extends Model{}
     IntroImageLarge: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    //A Course belongs to a author.
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Course',
-    indexes: [{ unique: true, fields: ['Name'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("CourseLoaded: " + (Course === sequelize.models.Course)); //true
@@ -909,10 +914,26 @@ console.log("CourseLoaded: " + (Course === sequelize.models.Course)); //true
 class UserCourse extends Model{} 
   UserCourse.init({
     //token primary key
-    UserCourseID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    CourseID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Course,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -929,27 +950,11 @@ class UserCourse extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    }, 
-    UserID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    CourseID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Course,
-        key: 'CourseID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'UserCourse',
-    indexes: [{ unique: true, fields: ['UserCourseID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserCourseLoaded: " + (UserCourse === sequelize.models.UserCourse)); //true
@@ -957,27 +962,27 @@ console.log("UserCourseLoaded: " + (UserCourse === sequelize.models.UserCourse))
 class Section extends Model{} 
   Section.init({
     //token primary key
-    SectionID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },
-    Number: {
-      type: DataTypes.TINYINT,
-      defaultValue: 1
     },
     CourseID: { //Nathan
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Course,
-        key: 'CourseID'
+        key: 'ID'
       },
       allowNull: false
+    },
+    Number: {
+      type: DataTypes.TINYINT,
+      defaultValue: 1
     }
   }, {
     sequelize,
     modelName: 'Section',
-    indexes: [{ unique: true, fields: ['SectionID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("SectionLoaded: " + (Section === sequelize.models.Section)); //true
@@ -985,10 +990,26 @@ console.log("SectionLoaded: " + (Section === sequelize.models.Section)); //true
 class UserSection extends Model{}
   UserSection.init({
     //token primary key
-    UserSectionID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    SectionID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Section,
+        key: 'ID'
+      },
+      allowNull: false      
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -1005,27 +1026,11 @@ class UserSection extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    UserID: { //nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    SectionID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Section,
-        key: 'SectionID'
-      },
-      allowNull: false      
     }
   }, {
     sequelize,
     modelName: 'UserSection',
-    indexes: [{ unique: true, fields: ['UserSectionID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserSectionLoaded: " + (UserSection === sequelize.models.UserSection)); //true
@@ -1033,10 +1038,18 @@ console.log("UserSectionLoaded: " + (UserSection === sequelize.models.UserSectio
 class Content extends Model{} 
   Content.init({
     //token primary key
-    ContentID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    SectionID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+      model: Section,
+      key: 'ID'
+      },
+      allowNull: false
     },
     Name: {
       type: DataTypes.STRING,
@@ -1053,19 +1066,11 @@ class Content extends Model{}
     Description: {
       type: DataTypes.TEXT,
       allowNull: false         
-    },
-    SectionID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-      model: Section,
-      key: 'SectionID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Content',
-    indexes: [{ unique: true, fields: ['ContentID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("ContentLoaded: " + (Content === sequelize.models.Content)); //true
@@ -1073,10 +1078,26 @@ console.log("ContentLoaded: " + (Content === sequelize.models.Content)); //true
 class UserContent extends Model{}
   UserContent.init({
     //token primary key
-    UserContentID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    ContentID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Content, //nathan changed from Section? to content table
+        key: 'ID'
+      },
+      allowNull: false      
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -1093,34 +1114,18 @@ class UserContent extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    UserID: { //Nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    ContentID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Content, //nathan changed from Section? to content table
-        key: 'ContentID'
-      },
-      allowNull: false      
     }
   }, {
     sequelize,
     modelName: 'UserContent',
-    indexes: [{ unique: true, fields: ['UserContentID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserContentLoaded: " + (UserContent === sequelize.models.UserContent)); //true
 
 class Tag extends Model{} 
   Tag.init({
-    TagID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -1133,7 +1138,7 @@ class Tag extends Model{}
   }, {
       sequelize,
       modelName: 'Tag',
-      indexes: [{ unique: true, fields: ['Tag'] }]
+      indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("TagLoaded: " + (Tag === sequelize.models.Tag)); //true
@@ -1141,10 +1146,26 @@ console.log("TagLoaded: " + (Tag === sequelize.models.Tag)); //true
 class Article extends Model{}
   Article.init({
     //token primary key
-    ArticleID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },    
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Tag,
+        key: 'ID'
+      },
+      allowNull: true    
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Name: {
       type: DataTypes.STRING,
@@ -1173,12 +1194,27 @@ class Article extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
+    }
+  }, {
+    sequelize,
+    modelName: 'Article',
+    indexes: [{ unique: true, fields: ['ID'] }]
+});
+console.log("ArticleLoaded: " + (Article === sequelize.models.Article)); //true
+
+class Event extends Model{}
+  Event.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
     },
     TagID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
-        key: 'TagID'
+        key: 'ID'
       },
       allowNull: true    
     },
@@ -1186,24 +1222,9 @@ class Article extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       },
       allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'Article',
-    indexes: [{ unique: true, fields: ['ArticleID'] }]
-});
-console.log("ArticleLoaded: " + (Article === sequelize.models.Article)); //true
-
-class Event extends Model{}
-  Event.init({
-    //token primary key
-    EventID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
     },
     Name: {
       type: DataTypes.STRING,
@@ -1243,66 +1264,50 @@ class Event extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    TagID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Tag,
-        key: 'TagID'
-      },
-      allowNull: true    
-    },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Event',
-    indexes: [{ unique: true, fields: ['EventID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("EventLoaded: " + (Event === sequelize.models.Event)); //true
 
 class EventUser extends Model{}
   EventUser.init({
-    EventUserID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },
-    GoingToEvent: {
-      type: DataTypes.STRING
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       }
     },
     EventID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Event,
-        key: 'EventID'
+        key: 'ID'
       }
     },
+    GoingToEvent: {
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'EventUser',
-    indexes: [{ unique: true, fields: ['EventUserID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("EventUser: " + (EventUser === sequelize.models.EventUser)); //true
 
 class Resource extends Model{} 
   Resource.init({
-    ResourceID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -1318,14 +1323,14 @@ class Resource extends Model{}
   }, {
       sequelize,
       modelName: 'Resource',
-      indexes: [{ unique: true, fields: ['ResourceID'] }]
+      indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("ResourceLoaded: " + (Resource === sequelize.models.Resource)); //true
 
 class UserResource extends Model{} 
   UserResource.init({
-    UserResourceID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
@@ -1334,34 +1339,50 @@ class UserResource extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       }
-    },
-    Archived: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false  
     },
     ResourceID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Resource,
-        key: 'ResourceID'
+        key: 'ID'
       }
     },
+    Archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false  
+    }
   }, {
       sequelize,
       modelName: 'UserResource',
-      indexes: [{ unique: true, fields: ['UserResourceID'] }]
+      indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserResourceLoaded: " + (UserResource === sequelize.models.UserResource)); //true
 
 class Quiz extends Model{}
   Quiz.init({
-    QuizID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    CourseID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Course,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    SectionID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Section,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Number: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1371,12 +1392,35 @@ class Quiz extends Model{}
     Name: {
       type: DataTypes.STRING,
       allowNull: true
+    }
+  }, {
+    sequelize,
+    modelName: 'Quiz',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("QuizLoaded: " + (Quiz === sequelize.models.Quiz)); //true
+
+class UserQuiz extends Model{}
+  UserQuiz.init({
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
     },
     CourseID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Course,
-        key: 'CourseID'
+        key: 'ID'
       },
       allowNull: true
     },
@@ -1384,24 +1428,9 @@ class Quiz extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Section,
-        key: 'SectionID'
+        key: 'ID'
       },
       allowNull: false
-    },
-  }, {
-    sequelize,
-    modelName: 'Quiz',
-    indexes: [{ unique: true, fields: ['QuizID'] }]
-  }
-);
-console.log("QuizLoaded: " + (Quiz === sequelize.models.Quiz)); //true
-
-class UserQuiz extends Model{}
-  UserQuiz.init({
-    UserQuizID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
     },
     Completed: {
       type: DataTypes.BOOLEAN,
@@ -1414,120 +1443,95 @@ class UserQuiz extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
-    },
-    UserID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: User,
-        key: 'UserID'
-      },
-      allowNull: false
-    },
-    CourseID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Course,
-        key: 'CourseID'
-      },
-      allowNull: true
-    },
-    SectionID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Section,
-        key: 'SectionID'
-      },
-      allowNull: false
-    },
+    }
   }, {
     sequelize,
     modelName: 'UserQuiz',
-    indexes: [{ unique: true, fields: ['UserQuizID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("UserQuizLoaded: " + (UserQuiz === sequelize.models.UserQuiz)); //true
 
 class Question extends Model{}
   Question.init({
-    QuestionID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },
-    Text: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    Resolved: { //Questions as a part of a Quiz as a Part of a course are not resolved, they have answers though
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    Likes: { //is this needed? //nathan
-      type: DataTypes.INTEGER.UNSIGNED,
-      defaultValue: 0
     },
     //A Question belongs to a quiz.
     QuizID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Quiz,
-        key: 'QuizID'
+        key: 'ID'
       },
       allowNull: true
+    },
+    Text: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Question',
-    indexes: [{ unique: true, fields: ['QuestionID'] }]
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("QuestionLoaded: " + (Question === sequelize.models.Question)); //true
 
-
-//nathan This table is confused with The Quiz and Question models
-class UserQuestion extends Model{}
-  UserQuestion.init({
-    UserQuestionID: {
+//nathan
+class ForumPost extends Model{}
+  ForumPost.init({
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },
-    //Questions on the forum can be archived for future reference by User.
-    //Forums are not part of Quizzes
-    Archived: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    QuestionID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Quiz,
-        key: 'QuestionID'
-      },
-      allowNull: true
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
-        key: 'UserID'
+        key: 'ID'
       },
       allowNull: true
+    },
+    //Posts on the forum can be archived for future reference by User.
+    Archived: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    Likes: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      defaultValue: 0
+    },    
+    Resolved: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
   }, {
     sequelize,
-    modelName: 'UserQuestion',
-    indexes: [{ unique: true, fields: ['UserQuestionID'] }]
+    modelName: 'ForumPost',
+    indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
-console.log("UserQuestionLoaded: " + (UserQuestion === sequelize.models.UserQuestion)); //true
+console.log("ForumPostLoaded: " + (ForumPost === sequelize.models.ForumPost)); //true
 
 class Answer extends Model{}
   Answer.init({
-    AnswerID: {
+    ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
+    },
+    //A Answer belongs to a Question.
+    QuestionID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Question,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Text: {
       type: DataTypes.TEXT
@@ -1535,23 +1539,18 @@ class Answer extends Model{}
     //Is this answer the correct answer to the question?
     Correct: {
       type: DataTypes.BOOLEAN
-    },
-    //A Answer belongs to a Question.
-    QuestionID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Question,
-        key: 'QuestionID'
-      },
-      allowNull: false
     }
   }, {
       sequelize,
       modelName: 'Answer',
-      indexes: [{ unique: true, fields: ['AnswerID'] }]
+      indexes: [{ unique: true, fields: ['ID'] }]
   }
 );
 console.log("AnswerLoaded: " + (Answer === sequelize.models.Answer)); //true
+
+//User Associations
+User.belongsTo(Chapter);
+Chapter.hasMany(User);
 
 //Council Associations
 Council.belongsTo(Chapter);
@@ -1565,9 +1564,7 @@ CouncilUserRole.belongsTo(CouncilRole); //edited by Nathan
 //CouncilRoleName.hasMany(CouncilUserRole);
 CouncilRole.hasMany(CouncilUserRole); //edited by nathan
 
-//User Associations
-User.belongsTo(Chapter);
-Chapter.hasMany(User);
+
 
 //UserBadge Associations
 UserBadge.belongsTo(Badge);
@@ -1702,11 +1699,9 @@ Section.hasMany(UserQuiz);
 Question.belongsTo(Quiz);
 Quiz.hasMany(Question);
 
-//UserQuestion Associations
-UserQuestion.belongsTo(Question);
-Question.hasMany(UserQuestion);
-UserQuestion.belongsTo(User);
-User.hasMany(UserQuestion);
+//UserQuestion Associations //nathan
+ForumPost.belongsTo(User);
+User.hasMany(ForumPost);
 
 //Answer Associations
 Answer.belongsTo(Question);
@@ -1766,6 +1761,7 @@ module.exports = {
   Quiz,
   UserQuiz,
   Question,
-  UserQuestion,
+  ForumPost,
   Answer
 }
+console.log("Exiting Models.js");

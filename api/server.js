@@ -129,20 +129,39 @@ app.delete('/deleteUser', (req, res) => {
         res.status(404).send(error);
     })
 }) 
-// app.get('/', (req, res) => {
-//     User.create({
-//         FirstName: 'Joe',
-//         LastName: "Schmoe",
-//         Email: "JoeSchmoe@.com"
-//     })
-//     .then(user => {
-//         res.json(user);
-//     })
-//     .catch(error => {
-//         console.log(error);
-//         res.status(404).send(error);
-//     })
-// })
+app.get('/createUser', (req, res) => {
+    User.create({
+        Email: "JoeSchmoe@gmail.com",
+        Password: "password",
+        FirstName: 'Joe',
+        LastName: "Schmoe",
+        NickName: "SchmoJoe",
+        Birthday: new Date('1986', '01', '23'),  
+        Gender: "Male",
+        SecurityQuestion: "Example Question",
+        SecurityAnswer: "Example Answer",
+        ESignatureFilePath: "/a/file/path",
+        SubscribedToNewsLetter: false,
+        SubscribedToPodcast: false,
+        Points: 12,
+        Status: "I am a new user",
+        ProfilePicLarge: "/a/file/path",
+        ProfilePicMedium: "/a/file/path",
+        ProfilePicSmall: "/a/file/path",
+        DateTimeLoggedIn: new Date('2020', '11','28', '01','58','59'),
+        Facebook: "http://afacebooklink.com",
+        Instagram: "@aninstagrampage",
+        Twitter: "@atwitteraccount",
+        ChapterID: 1
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
 
 // npm
 
