@@ -87,8 +87,8 @@ app.get('/findAllUsers', (req, res) => {
     })
 }) 
 
-app.get('/findUserByID', (req, res) => {
-    User.findByPk('joeschmoe')
+app.get('/findUserByID/:ID', (req, res) => {
+    User.findByPk(req.params.ID)
     .then(user => {
         res.json(user);
     })
@@ -98,27 +98,27 @@ app.get('/findUserByID', (req, res) => {
     })
 }) 
 
-app.put('/updateUser', (req, res) => {
-    //User.update(req.body) //normal client request use case
-    User.update({
-        FirstName: 'Schmoe',
-        LastName: 'Joe'
-    },{
-        where: {UserName: 'joeschmoe'}
-    })
-    .then(rows => {
-        res.json(rows);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
-}) 
-app.delete('/deleteUser', (req, res) => {
+// app.put('/updateUser', (req, res) => {
+//     //User.update(req.body) //normal client request use case
+//     User.update({
+//         FirstName: 'Schmoe',
+//         LastName: 'Joe'
+//     },{
+//         where: {UserName: 'joeschmoe'}
+//     })
+//     .then(rows => {
+//         res.json(rows);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//         res.status(404).send(error);
+//     })
+// }) 
+app.delete('/deleteUserByID/:ID', (req, res) => {
     //User.update(req.body) //normal client request use case
     User.destroy({
         where: {
-            UserName: 'joeschmoe',
+            ID: req.params.ID,
          }
     })
     .then(() => {
@@ -129,30 +129,63 @@ app.delete('/deleteUser', (req, res) => {
         res.status(404).send(error);
     })
 }) 
-app.get('/createUser', (req, res) => {
+// app.get('/createUser', (req, res) => {
+//     User.create({
+//         Email: "JoeSchmoe@gmail.com",
+//         Password: "password",
+//         FirstName: 'Joe',
+//         LastName: "Schmoe",
+//         NickName: "SchmoJoe",
+//         Birthday: new Date('1986', '01', '23'),  
+//         Gender: "Male",
+//         SecurityQuestion: "Example Question",
+//         SecurityAnswer: "Example Answer",
+//         ESignatureFilePath: "/a/file/path",
+//         SubscribedToNewsLetter: false,
+//         SubscribedToPodcast: false,
+//         Points: 12,
+//         Status: "I am a new user",
+//         ProfilePicLarge: "/a/file/path",
+//         ProfilePicMedium: "/a/file/path",
+//         ProfilePicSmall: "/a/file/path",
+//         DateTimeLoggedIn: new Date('2020', '11','28', '01','58','59'),
+//         Facebook: "http://afacebooklink.com",
+//         Instagram: "@aninstagrampage",
+//         Twitter: "@atwitteraccount",
+//         ChapterID: 1
+//     })
+//     .then(user => {
+//         res.json(user);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//         res.status(404).send(error);
+//     })
+// })
+app.put('/createUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
     User.create({
-        Email: "JoeSchmoe@gmail.com",
-        Password: "password",
-        FirstName: 'Joe',
-        LastName: "Schmoe",
-        NickName: "SchmoJoe",
-        Birthday: new Date('1986', '01', '23'),  
-        Gender: "Male",
-        SecurityQuestion: "Example Question",
-        SecurityAnswer: "Example Answer",
-        ESignatureFilePath: "/a/file/path",
-        SubscribedToNewsLetter: false,
-        SubscribedToPodcast: false,
-        Points: 12,
-        Status: "I am a new user",
-        ProfilePicLarge: "/a/file/path",
-        ProfilePicMedium: "/a/file/path",
-        ProfilePicSmall: "/a/file/path",
-        DateTimeLoggedIn: new Date('2020', '11','28', '01','58','59'),
-        Facebook: "http://afacebooklink.com",
-        Instagram: "@aninstagrampage",
-        Twitter: "@atwitteraccount",
-        ChapterID: 1
+        Email: req.params.Email,
+        Password: req.params.Password,
+        FirstName: req.params.FirstName,
+        LastName: req.params.LastName,
+        NickName: req.params.NickName,
+        Birthday: req.params.Birthday,  
+        Gender: req.params.Gender,
+        SecurityQuestion: req.params.SecurityQuestion,
+        SecurityAnswer: req.params.SecurityAnswer,
+        ESignatureFilePath: req.params.ESignatureFilePath,
+        SubscribedToNewsLetter: req.params.SubscribedToNewsLetter,
+        SubscribedToPodcast: req.params.SubscribedToPodcast,
+        Points: req.params.Points,
+        Status: req.params.Status,
+        ProfilePicLarge: req.params.ProfilePicLarge,
+        ProfilePicMedium: req.params.ProfilePicMedium,
+        ProfilePicSmall: req.params.ProfilePicSmall,
+        DateTimeLoggedIn: new Date(),
+        Facebook: req.params.Facebook,
+        Instagram: req.params.Instagram,
+        Twitter: req.params.Twitter,
+        ChapterID: req.params.ChapterID
     })
     .then(user => {
         res.json(user);
@@ -162,7 +195,6 @@ app.get('/createUser', (req, res) => {
         res.status(404).send(error);
     })
 })
-
 // npm
 
 app.listen(port, () => {
