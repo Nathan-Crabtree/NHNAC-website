@@ -11,7 +11,7 @@ export default class Login extends Component {
     render() { 
         return ( 
             <div className="login_display">
-                <h1>Welcome to NHNAC University</h1>
+                <h1>Welcome to N.H.N.A.C. University</h1>
                 <form className="login_form">
                     <fieldset>
                         <div className="form_fields">
@@ -23,7 +23,7 @@ export default class Login extends Component {
                             <label htmlFor="rememberMe">Remember me</label><br />
                         </div>
                         <div className="form_links">
-                            <span>Forgot password? <Link to="/forgot_password">Click here.</Link></span>
+                            <span><Link to="/forgot_password">Click here if you forgot your password.</Link></span>
                         </div>
                         <button className="login_submit" type="submit">Sign In</button>
                     </fieldset>

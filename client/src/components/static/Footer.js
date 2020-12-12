@@ -23,20 +23,19 @@ export default class Footer extends Component {
                     <ul>
                         <li><h4><u>Information</u></h4></li>
                         <li><Link to="/about">About</Link></li>
-                        <li><Link to="/FAQ">FAQ</Link></li>
-                        <li><Container onSubmit={this.props.onSubmit} triggerText="Newsletter" /></li>
+                        <li><Link to="/FAQ">F.A.Q.</Link></li>
+                        {/*<li><Container onSubmit={this.props.onSubmit} onSubmit={this.props.emailIsValid} triggerText="Newsletter" /></li>*/}
                     </ul>
                 </div>
                 <div className="social_links">
                     <ul>
-                        <li>info@newhavennativeamericanchurch.org</li>
+                        <li><a href="mailto:info@newhavennativeamericanchurch.org">info@newhavennativeamericanchurch.org</a></li>
                         <li className="vertical_bar">|</li>
                         <li><a href="https://www.facebook.com/groups/NewHavenNativeAmericanChurch/" target="_blank" rel="noopener noreferrer" className="nav-footer-link" onClick={this.resetToggleDisplay}><img srcSet={this.props.fbLogo} alt="Facebook" width="16px" height="16px" /></a></li>
                         <li className="vertical_bar">|</li>
                         <li>©2020 All rights reserved.</li>
                     </ul>
                 </div>
-                {/*<p>©2020 All rights reserved.</p>*/}
             </footer>
         );
     }
@@ -45,5 +44,6 @@ export default class Footer extends Component {
 // PropTypes for jest testing in App.test.js
 Footer.propTypes = {
     fbLogo: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    emailIsValid: PropTypes.func.isRequired
 }

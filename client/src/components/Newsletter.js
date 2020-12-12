@@ -4,14 +4,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Newsletter = ({ onSubmit, closeModal }) => {
+export const Newsletter = ({ onSubmit, closeModal, emailIsValid }) => {
 
 return (
         <form className="modal_form" onSubmit={onSubmit}>
             <h2 className="newsletter_h2">Join Our Newsletter</h2>
             <p>Subscribe to our newsletter to get the latest articles, events, & updates. No spam.</p>
             <fieldset>
-                <div className="form_fields">
+                <div className="newsletter_form_fields">
                     <input className="login_input" type="text" id="email" name="email" placeholder="Enter your email"/><br />
                 </div>
                 <button className="submit_btn" type="submit">Subscribe</button>
@@ -28,5 +28,6 @@ export default Newsletter;
 // PropTypes for jest testing in App.test.js
 Newsletter.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    emailIsValid: PropTypes.func.isRequired
 }
