@@ -42,7 +42,7 @@ export default class Container extends Component {
     /**
      * onKeyDown() function - Event handler that allows "Enter" key to trigger closeModal() by user.
      * 
-     * @param {*} event 
+     * @param {object} event 
      */
     onKeyDown = (event) => {
       if (event.keyCode === 27) {
@@ -53,7 +53,7 @@ export default class Container extends Component {
     /**
      * onClickOutside() function - Allows user to exit out of modal when clicking outside.
      * 
-     * @param {*} event 
+     * @param {object} event 
      */
     onClickOutside = (event) => {
        if (this.modal && this.modal.contains(event.target)) return;
@@ -85,6 +85,7 @@ export default class Container extends Component {
                     closeModal={this.closeModal}
                     onKeyDown={this.onKeyDown}
                     onClickOutside={this.onClickOutside}
+                    emailIsValid={this.props.emailIsValid}
                 />
                 ) : null}
             </React.Fragment>
@@ -95,5 +96,6 @@ export default class Container extends Component {
 // PropTypes for jest testing in App.test.js
 Container.propTypes = {
     triggerText: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    emailIsValid: PropTypes.func
 }

@@ -16,18 +16,23 @@ export const Modal = ({
     closeModal,
     onSubmit,
     triggerText,
-    displayForm
+    displayForm,
+    emailIsValid
 }) => {
 
+/**
+ * displayForm() function - Renders following component according to what value triggerText has.
+ * 
+ */
 displayForm = () => {
     switch (triggerText) {
         case "Feedback":
             return <Feedback onSubmit={onSubmit} closeModal={closeModal} />
         case "Newsletter":
-            return <Newsletter onSubmit={onSubmit} closeModal={closeModal} />
+            return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
         default:
             break;
-    } 
+    }
 }
 
 return ReactDOM.createPortal(
@@ -77,5 +82,6 @@ Modal.propTypes = {
     buttonRef: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    triggerText: PropTypes.string.isRequired
+    triggerText: PropTypes.string.isRequired,
+    emailIsValid: PropTypes.func
 }

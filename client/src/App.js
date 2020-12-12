@@ -1,6 +1,7 @@
 // Import React libraries
 import React,{ Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
+import $ from 'jquery';
 
 // Import images
 import logo from './images/header/nhnac.png';
@@ -36,6 +37,8 @@ export default class App extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.resetToggleDisplay = this.resetToggleDisplay.bind(this);
     this.removeNoJavaScriptDiv = this.removeNoJavaScriptDiv.bind(this);
+    this.emailIsValid = this.emailIsValid.bind(this);
+    this.reviseName = this.reviseName.bind(this);
   }
   
   /**
@@ -49,7 +52,7 @@ export default class App extends Component {
    * onSubmit() function - An event handler that prevents default action (page refresh) 
    * and console logs name and email values.
    * 
-   * @param {*} event 
+   * @param {object} event 
    */
   onSubmit = (event) => {
     event.preventDefault(event);
@@ -91,10 +94,44 @@ export default class App extends Component {
 
   /**
    * removeNoJavaScriptDiv() funcion - Remove "noJavaScriptDiv" <div> tag because JavaScript works in browser.
-   * NOTE: Causes App.test.js to fail "App render testing" test because it returns undefined. - Zane
+   * UPDATE: jQuery solved the "App render testing" test issue in App.test.js by having the document load first before changing the styling. - Zane
+   *
+   * @param {string} className 
    */
   removeNoJavaScriptDiv(className) {
-    className.parentElement.removeChild(className);
+    $(function() {
+      className.style.display = "none";
+    });
+  }
+
+  /**
+   * emailIsValid() function - Checks for valid email input.
+   * Source: https://ui.dev/validate-email-address-javascript/
+   * 
+   * @param {string} email 
+   */
+  emailIsValid (email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  /**
+   * reviseName() function - this function takes a string and capitalizes the first letter of the string and puts into a new array.
+   * Useful for correcting name-related values inserted in forms by user.
+   * 
+   * @param {string} name, @param {array} revisedName
+   */
+  reviseName(name, revisedName) {
+
+      // Capitalize the first letter of the name and insert into revised array
+      for (let letter = 0; letter < name.length; letter++) {
+          if (letter === 0) {
+              revisedName.push(name[letter].toUpperCase());
+          } else {
+              revisedName.push(name[letter]);
+          }
+      }
+
+      document.getElementById(name.toString()).value = revisedName.join("");
   }
 
   componentDidMount() {
@@ -126,10 +163,11 @@ export default class App extends Component {
                 <Route exact path="/FAQ" component={ () => <FAQ />} />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />
                 <Route exact path="/login" component={ () => <Login />} />
-                <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} />} />
+                <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} emailIsValid={this.emailIsValid} 
+                setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName}/>} />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
                 <Route exact path="/verification" component={ () => <Verification />} />
-                <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} />} />
+                <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} emailIsValid={this.emailIsValid} reviseName={this.reviseName} />} />
                 <Route exact path="/constitution" component={ () => <Constitution ConstitutionPdf={ConstitutionPdf} />} />
                 <Route exact path="/adoption_agreement" component={ () => <Adoption /> } />
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
@@ -137,7 +175,7 @@ export default class App extends Component {
                 <Route component={Error} />
             </Switch>
           </main>
-          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} />
+          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} emailIsValid={this.emailIsValid} />
         </div>
       </BrowserRouter>
     );
