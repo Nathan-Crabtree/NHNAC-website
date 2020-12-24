@@ -63,6 +63,33 @@ sequelize.sync({});
 //     })
 // })
 
+app.put('/createChapter/:Name/', (req, res) => {
+    Chapter.create({
+        Name: req.params.Name
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
+
+app.put('/createCouncil/:Name/:ChapterID/', (req, res) => {
+    Council.create({
+        Name: req.params.Name,
+        ChapterID: req.params.ChapterID
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
+
 //create express route; retrieve all records from Users table
 app.get('/findAllUsers', (req, res) => {
     User.findAll({
@@ -196,6 +223,49 @@ app.put('/createUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:
     })
 })
 // npm
+
+app.put('/createUserRole/:RoleID/:UserID/', (req, res) => {
+    UserRole.create({
+        RoleID: req.params.RoleID,
+        UserID: req.params.UserID
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
+
+app.put('/createCouncilRole/:Name/', (req, res) => {
+    CouncilRole.create({
+        Name: req.params.Name
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
+
+app.put('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, res) => {
+    CouncilUserRole.create({
+        CouncilID: req.params.CouncilID,
+        UserID: req.params.UserID,
+        CouncilRoleID: req.params.CouncilRoleID
+    })
+    .then(user => {
+        res.json(user);
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(404).send(error);
+    })
+})
+
 
 app.listen(port, () => {
     console.log('Running server on port ' + port)
