@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import queryString from 'query-string';
 import PropTypes from 'prop-types';
 
 export default class Article extends Component {
@@ -17,6 +16,7 @@ export default class Article extends Component {
 
     /**
      *  hideComments() function - Hides the comment section and shows the "See Comments" button. Hides all forms.
+     * 
      */
     hideComments() {
         this.hideForm("comment_form_1_0","comment_content_1_0",true);
@@ -31,6 +31,7 @@ export default class Article extends Component {
 
     /**
      *  hideResponses() function - Hides the response section for the comment and shows the "See Responses" button. Hides response form.
+     * 
      */
     hideResponses() {
         document.getElementsByClassName("response_section_container")[0].style.display = "none";
@@ -116,7 +117,7 @@ export default class Article extends Component {
                     <div className="clear"></div>
                 </aside>
                 { this.props.isAuthenticated ? 
-                <div>
+                <React.Fragment>
                     <div className="blur_container">
                         <article>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
@@ -296,9 +297,9 @@ export default class Article extends Component {
                         <p>Become adopted to the New Haven Native American Church community today to unlock this article.</p>
                         <Link to="/signup"><h5><b>Pay what you’d like by clicking here.</b></h5></Link>
                     </div>
-                </div>
+                </React.Fragment>
                 :
-                <div>
+                <React.Fragment>
                     <article>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
                         aliqua. Faucibus nisl tincidunt eget nullam. Amet justo donec enim diam vulputate ut. Sed viverra ipsum nunc aliquet 
@@ -472,7 +473,7 @@ export default class Article extends Component {
                     </div>
                     <button className="paypal_btn see_comments_btn" type="button" onClick={ () => { this.displayComments("comment_section_container", "see_comments_btn")} }><b>See Comments</b></button>
                     <button className="bitcoin_btn see_comments_btn" type="button" onClick={this.hideComments}><b>Hide Comments</b></button>
-                </div>
+                </React.Fragment>
                 }
                 <div className="back_to_articles_link">
                     <Link to="/">Back to articles</Link>

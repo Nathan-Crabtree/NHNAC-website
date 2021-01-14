@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ContentNav from './static/ContentNav';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-//import { __RouterContext } from 'react-router';
 
 export default class Content extends Component {
 
@@ -22,6 +21,7 @@ export default class Content extends Component {
    * for proper page rendering.
    * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered 
    * with only one click.
+   * 
    */
   setStateHandler() { 
     const parsedQString = queryString.parse(this.props.location.search);

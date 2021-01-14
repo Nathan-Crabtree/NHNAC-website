@@ -16,11 +16,13 @@ import { displayComments, hideComments, hideResponses, displayForm as displayFor
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
  *  To run this file, use "npm test --env=jsdom". - Zane
+ * 
  */
 
 /**
  *  NOTICE: Testing currently is not efficient. It offers no resourceful information for project debugging. 
  *  App.test.js will be undergoing major maintenance soon. - Zane
+ * 
  */
 
 const originalConsoleError = console.error;

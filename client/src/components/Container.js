@@ -22,6 +22,7 @@ export default class Container extends Component {
     
     /**
      * showModal() function - Changes "isShown" value, locks screen, and shows closeButton.
+     * 
      */
     showModal = () => {
         this.setState({ isShown: true }, () => {
@@ -32,6 +33,7 @@ export default class Container extends Component {
      
     /**
      * closeModal() function - Negates the effect of showModal()
+     * 
      */
     closeModal = () => {
         this.setState({ isShown: false });
@@ -63,6 +65,7 @@ export default class Container extends Component {
     /**
      * toggleScrollLock() function - Creates a class for <html> called "scroll-lock" 
      * that allows CSS to style scroll prevention. 
+     * 
      */
     toggleScrollLock = () => {
        document.querySelector('html').classList.toggle('scroll-lock');

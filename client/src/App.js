@@ -24,6 +24,10 @@ import twitterMini from './images/content/twitter.png';
 import thumbsUp from './images/content/thumbs-up.png';
 import magnifyingGlass from './images/header/magnifying_glass.png';
 
+// Import miscellaneous
+import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
+import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
+
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
@@ -36,8 +40,7 @@ import Content from './components/Content.js';
 import Article from './components/Article.js';
 import ForgotPassword from './components/ForgotPassword.js';
 import Verification from './components/Verification.js';
-import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
-import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
+import Profile from './components/Profile.js';
 
 export default class App extends Component {
 

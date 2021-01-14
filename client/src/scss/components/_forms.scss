@@ -1,10 +1,12 @@
-// Base
+/**********
+    Base
+***********/
 
 label, 
 input, 
 .form_links, 
 select[id="gender"],
-textarea:not(textarea[class="search_bar"]) {
+textarea:not(.search_bar) {
     margin: 10px 0; // top, right, bottom, left
 }
 
@@ -84,7 +86,7 @@ button:focus {
     outline: none;
 }
 
-textarea:not(textarea[class="search_bar"]) {
+textarea:not(.search_bar) {
     @include input-properties;
     width: 100px;
     height: 100px;
@@ -94,7 +96,9 @@ textarea:not(textarea[class="search_bar"]) {
     margin: 10px 0;
 }
 
-// Login
+/***********
+    Login
+************/
 
 .login_form {
     @include center;
@@ -133,7 +137,9 @@ textarea:not(textarea[class="search_bar"]) {
     text-decoration: underline;
 }
 
-// Sign Up 
+/*************
+    Sign up
+**************/
 
 .top_div {
     text-align: center;
@@ -213,7 +219,9 @@ label[for="payment"] {
     padding-top: 90px;
 }
 
-// Forgot Password
+/*********************
+    Forgot password
+**********************/
 
 .security_question {
     width: 50%;
@@ -228,14 +236,18 @@ label[for="payment"] {
     padding-top: 25px;
 }
 
-// Contact
+/**************
+    Contact
+***************/
 
 .contact_form {
     @include center;
     width: 50%;
 }
 
-// Article
+/**************
+    Article
+***************/
 
 .see_comments_btn {
     @include center;
@@ -262,7 +274,9 @@ label[for="payment"] {
     text-decoration: underline;
 }
 
-// Comment
+/**************
+    Comment
+***************/
 
 .comment_form, .response_form, .comment_form_1_0, .comment_form_1_1 {
     display: none;
@@ -280,7 +294,9 @@ label[for="payment"] {
     cursor: pointer;
 }
 
-// Authenticated Nav
+/***********************
+    Authenticated Nav
+************************/
 
 .search_bar {
     height: 25px;
