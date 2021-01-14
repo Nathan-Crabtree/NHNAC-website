@@ -1,7 +1,7 @@
 import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-//import { __RouterContext } from 'react-router';
+//import { __RouterContext } from 'react-router'; //idk why this was and still is here. - Zane
 
 const About = ({indian, tribe, emailIsValid, reviseName}) => {
 
@@ -32,7 +32,7 @@ const About = ({indian, tribe, emailIsValid, reviseName}) => {
         error[0] = document.createElement('p');
         error[1] = document.createElement('p');
 
-        reviseName(name, revisedName);
+        reviseName(name, revisedName, "name", true);
 
         // Clear error text if it currently exists on the DOM
         for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {

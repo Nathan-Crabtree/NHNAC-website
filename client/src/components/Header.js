@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+//import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Content from './Content';
 
 export default class Header extends Component {
 
@@ -10,6 +12,7 @@ export default class Header extends Component {
             toggleDisplay: false
         }
         this.toggleDisplayNav = this.toggleDisplayNav.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     /**
@@ -52,7 +55,7 @@ export default class Header extends Component {
             navDiv.style.marginTop = "-485.72px";
             navDiv.style.transition = "margin-top 1s";
 
-            // Set body overflow style property to scroll
+            // Set body overflow style property to scroll.
             body.style.overflow = "scroll";
 
             // Set page brightness style property back to 100% and remove the style attribute.
@@ -81,7 +84,7 @@ export default class Header extends Component {
             navDiv.style.marginTop  = "0px";
             navDiv.style.transition = "margin-top 1s";
 
-            // Set body overflow style property to hidden
+            // Set body overflow style property to hidden.
             body.style.overflow = "hidden";
             
             // Set page brightness style property to 50% and z-index with position.
@@ -105,6 +108,16 @@ export default class Header extends Component {
         }
     }
 
+    /**
+     * onSubmit() function - This function grabs the input value of the search query and sends a request to the API and returns 
+     * relevant results on the search page.
+     * 
+     */
+    onSubmit() {
+        const searchQuery = document.getElementById("search").value;
+        console.log(searchQuery);
+    }
+
     render() {
         return(
             <header> 
@@ -115,31 +128,83 @@ export default class Header extends Component {
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg>
                         <img className="logo" srcSet={this.props.logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
-                        <ul className="header_links">
-                            <li><Link to="/">Home</Link></li>
-                            <li className="vertical_bar">|</li>
-                            <li className="dropdown">
-                                <Link to="#">News</Link>
-                                <div className="dropdown-content">
-                                    <Link to="#">Articles</Link>
-                                    <Link to="#">Updates</Link>
-                                    <Link to="#">Blogs</Link>
-                                    <Link to="#">Podcast</Link>
-                                </div>
-                            </li>
-                            <li className="vertical_bar">|</li>
-                            <li><Link to="/login">N.H.N.A.C. University</Link></li>
-                            <li className="vertical_bar">|</li>
-                            <li className="dropdown">
-                                <Link to="/about">About</Link>
-                                <div className="dropdown-content">
-                                    <Link to="/constitution">Constitution</Link>
-                                    <Link to="/about#contact">Contact</Link>
-                                </div>
-                            </li>
-                            <li className="vertical_bar">|</li>
-                            <li><Link to="/donate">Donate</Link></li>
-                        </ul>
+                        { this.props.isAuthenticated ?  
+                                <ul className="header_links">
+                                <li className="dropdown">
+                                    <Link to="/profile?userid=1&view=user">Profile</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="#">Account Settings</Link>
+                                        <Link to="#">Customize Page</Link>
+                                        <Link to="#">Messages</Link>
+                                        <Link to="#">Connections</Link>
+                                        <Link to="#">Request ID</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li className="dropdown">
+                                    <Link to="#">Courses</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="#">Go To Current Course</Link>
+                                        <Link to="#">Courses</Link>
+                                        <Link to="#">Certifications</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li className="dropdown">
+                                    <Link to="#">Community</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="#">My Questions</Link>
+                                        <Link to="#">My Answers</Link>
+                                        <Link to="#">Archives</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li className="dropdown">
+                                    <Link to="/content?header=articles&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Articles</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="/content?header=news&top_aside=calendar&bottom_aside=events" onClick={ () => <Content /> }>News</Link>
+                                        <Link to="/content?header=updates&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content?header=blogs&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content?header=podcasts&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Podcast</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li>
+                                    <div>
+                                        <textarea className="login_input search_bar" type="text" id="search" name="search" placeholder="Search..." />
+                                        <img className="magnifying_glass" onClick={ this.onSubmit } srcSet={this.props.magnifyingGlass} alt="Submit your search query." />
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li><Link onClick={ this.props.deauthenticate } to="/">Log Out</Link></li>
+                            </ul>
+                            : 
+                            <ul className="header_links">
+                                <li><Link to="/">Home</Link></li>
+                                <li className="vertical_bar">|</li>
+                                <li className="dropdown">
+                                    <Link to="/content?header=news&top_aside=calendar&bottom_aside=events" onClick={ () => <Content /> }>News</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="/content?header=articles&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Articles</Link>
+                                        <Link to="/content?header=updates&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content?header=blogs&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content?header=podcasts&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Podcast</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li><Link to="/login">N.H.N.A.C. University</Link></li>
+                                <li className="vertical_bar">|</li>
+                                <li className="dropdown">
+                                    <Link to="/about">About</Link>
+                                    <div className="dropdown-content">
+                                        <Link to="/constitution">Constitution</Link>
+                                        <Link to="/about#contact">Contact</Link>
+                                    </div>
+                                </li>
+                                <li className="vertical_bar">|</li>
+                                <li><Link to="/donate">Donate</Link></li>
+                            </ul>
+                        }
                     </div>
                 </nav>
             </header>
@@ -150,5 +215,8 @@ export default class Header extends Component {
 // PropTypes for jest testing in App.test.js
 Header.propTypes = {
     logo: PropTypes.string.isRequired,
-    hbIcon: PropTypes.string.isRequired
+    hbIcon: PropTypes.string.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    deauthenticate: PropTypes.func.isRequired,
+    magnifyingGlass: PropTypes.string.isRequired
 }

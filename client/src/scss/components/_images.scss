@@ -23,7 +23,6 @@
 .tribe_image {
     @include img-properties;
     @include center;
-
 }
 
 .tribe_image_desc {
@@ -75,4 +74,42 @@
 // Might need to go in a separate sass file
 iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
     @include center;
+}
+
+.profile_img_small {
+    padding-left: 5px;
+    border-radius: 50%;
+    width: 50px;
+    height: auto;
+}
+
+.article_img_med {
+    border-radius: 4px;
+    width: calc(649px*.90);
+}
+
+.podcast_img {
+   width: 454.3px;
+   height: auto; 
+}
+
+.article_image {
+    width: 90%;
+    @include center;
+    @include img-properties;
+}
+
+.article_image_desc {
+    width: 90%;
+    margin: auto !important;
+    margin-top: -20px !important;
+    @include img-desc-properties;
+}
+
+.magnifying_glass {
+    width: 20px;
+    height: auto;
+    position: absolute;
+    right: 430px;
+    cursor: pointer;
 }

@@ -28,6 +28,17 @@ nav > div {
     }
 }
 
+.content_nav {
+    margin: -8.5% -5% 0 -5%; //-72px -42px 0 -42px
+    > div > ul li {
+        padding: 0 5%;
+    }
+}
+
+.content_nav > div > ul > li:hover {
+    background-color: transparent;
+}
+
 // Source: https://www.w3schools.com/css/css_dropdowns.asp
 
 /* The container <div> - needed to position the dropdown content */

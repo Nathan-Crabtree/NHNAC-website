@@ -9,8 +9,11 @@ import Constitution from './Constitution.js';
 import LegalRights from './LegalRights.js';
 import Adoption from './Adoption.js';
 import CodeOfConduct from './CodeOfConduct.js';
+import Home from './Home.js';
+import Slideshow from './Slideshow.js';
 
 export { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, Adoption, CodeOfConduct 
+         LegalRights, Adoption, CodeOfConduct, Home, 
+         Slideshow
         };

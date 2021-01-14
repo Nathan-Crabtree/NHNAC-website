@@ -84,10 +84,10 @@ export default class SignUp extends Component {
 
         // Capitalize the first letter of any names if haven't been done so by user
         if (firstName.length > 0) {
-            this.props.reviseName(firstName, revisedFirstName);
+            this.props.reviseName(firstName, revisedFirstName, "firstName", true);
         } 
         if (lastName.length > 0) {
-            this.props.reviseName(lastName, revisedLastName);
+            this.props.reviseName(lastName, revisedLastName, "lastName", true);
         } 
 
         // Check for valid email input
@@ -366,7 +366,7 @@ export default class SignUp extends Component {
                                 </select><br />
                             </div>
                             <div className="signup_fields">
-                                <label htmlFor="securityQuestion">Type your security question here</label><br />
+                                <label htmlFor="securityQuestion">Select your security question here</label><br />
                                 <select id="securityQuestion" name="security_question">
                                 <option>Choose a security question</option>
                                     <option value="question_1">What is your favorite car?</option>

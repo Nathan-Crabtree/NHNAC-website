@@ -44,6 +44,6 @@ export default class Footer extends Component {
 // PropTypes for jest testing in App.test.js
 Footer.propTypes = {
     fbLogo: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
     emailIsValid: PropTypes.func.isRequired
 }
