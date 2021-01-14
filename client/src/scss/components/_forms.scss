@@ -4,7 +4,7 @@ label,
 input, 
 .form_links, 
 select[id="gender"],
-textarea {
+textarea:not(textarea[class="search_bar"]) {
     margin: 10px 0; // top, right, bottom, left
 }
 
@@ -84,7 +84,7 @@ button:focus {
     outline: none;
 }
 
-textarea {
+textarea:not(textarea[class="search_bar"]) {
     @include input-properties;
     width: 100px;
     height: 100px;
@@ -233,4 +233,58 @@ label[for="payment"] {
 .contact_form {
     @include center;
     width: 50%;
+}
+
+// Article
+
+.see_comments_btn {
+    @include center;
+    margin-top: 25px;
+}
+
+.see_comments_btn:nth-of-type(2), .comment_btn:nth-of-type(2) {
+    display: none;
+}
+
+.comment_btn {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.text_btn {
+    border: none;
+    background-color: inherit !important;
+}
+
+.text_btn:hover {
+    cursor: pointer;
+    background-color: inherit !important;
+    text-decoration: underline;
+}
+
+// Comment
+
+.comment_form, .response_form, .comment_form_1_0, .comment_form_1_1 {
+    display: none;
+}
+
+.comment_form_field {
+    > svg {
+        float: right;
+        cursor: pointer;
+    }
+}
+
+.response_container ~ form > fieldset > svg {
+    float: right;
+    cursor: pointer;
+}
+
+// Authenticated Nav
+
+.search_bar {
+    height: 25px;
+    resize: none;
+    margin-top: -3px;
+    position: relative;
 }

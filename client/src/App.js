@@ -12,15 +12,28 @@ import paypal from './images/donate/paypal.png';
 import bitcoin from './images/donate/bitcoin-accepted.png';
 import indian from './images/about/indian.png';
 import tribe from './images/about/tribe.jpeg';
+import hands from './images/slideshow/hands.jpeg';
+import homes from './images/slideshow/homes.jpg';
+import people from './images/slideshow/people.jpeg';
+import podcast from './images/content/podcast.png';
+import articleImgLink from './images/content/article_img_link.png';
+import profileImgSmall from './images/content/profile_img_small.png';
+import fbMini from './images/content/facebook.png';
+import instaMini from './images/content/instagram.png';
+import twitterMini from './images/content/twitter.png';
+import thumbsUp from './images/content/thumbs-up.png';
+import magnifyingGlass from './images/header/magnifying_glass.png';
 
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, Adoption, CodeOfConduct 
+         LegalRights, Adoption, CodeOfConduct, Home
         } from './components/static/Static.js';
 import Header from './components/Header.js';
 import Error from './components/Error.js';
 import Login from './components/Login.js';
+import Content from './components/Content.js';
+import Article from './components/Article.js';
 import ForgotPassword from './components/ForgotPassword.js';
 import Verification from './components/Verification.js';
 import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
@@ -31,7 +44,9 @@ export default class App extends Component {
   constructor() {
     super(); 
     this.state = {
-      geoDataExists: false
+      geoDataExists: false,
+      cookiePolicyDisplayed: false,
+      isAuthenticated: true
     }
     this.setGeoDataExists = this.setGeoDataExists.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,10 +54,12 @@ export default class App extends Component {
     this.removeNoJavaScriptDiv = this.removeNoJavaScriptDiv.bind(this);
     this.emailIsValid = this.emailIsValid.bind(this);
     this.reviseName = this.reviseName.bind(this);
+    this.setCookiePolicyDisplayed = this.setCookiePolicyDisplayed.bind(this);
+    this.deauthenticate = this.deauthenticate.bind(this);
   }
   
   /**
-   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists
+   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists.
    */
   setGeoDataExists = () => {
     this.setState({ geoDataExists: true });
@@ -63,6 +80,7 @@ export default class App extends Component {
   /**
    * resetToggleDisplay() funcion - An event handler for whenever a link is clicked on phone,
    * the menu automatically disappears to avoid usage interference.
+   * 
    */
   resetToggleDisplay() {
     if (window.outerWidth <= 375) {
@@ -116,13 +134,14 @@ export default class App extends Component {
 
   /**
    * reviseName() function - this function takes a string and capitalizes the first letter of the string and puts into a new array.
-   * Useful for correcting name-related values inserted in forms by user.
+   * Useful for correcting name-related values inserted in forms by user. Also checks to see if it has a value related to a form 
+   * or not to return proper output.
    * 
-   * @param {string} name, @param {array} revisedName
+   * @param {string} name, @param {array} revisedName, @param {string} id, @param {boolean} isAVAlue
    */
-  reviseName(name, revisedName) {
+  reviseName(name, revisedName, id, isAValue) {
 
-      // Capitalize the first letter of the name and insert into revised array
+      // Capitalize the first letter of the name and insert into revised array.
       for (let letter = 0; letter < name.length; letter++) {
           if (letter === 0) {
               revisedName.push(name[letter].toUpperCase());
@@ -131,7 +150,29 @@ export default class App extends Component {
           }
       }
 
-      document.getElementById(name.toString()).value = revisedName.join("");
+      if (isAValue) {
+        document.getElementById(id).value = revisedName.join("");
+      } else {
+        document.getElementById(id).innerHTML = revisedName.join("");
+      }
+  }
+
+  /**
+   * setCookiePolicyDisplayed() function - Switches boolean value of this.state.cookiePolicyDisplayed.
+   * 
+   */
+  setCookiePolicyDisplayed = () => {
+    this.setState({ cookiePolicyDisplayed: true });
+  }
+
+  /**
+   * deauthenticate() function - When "Log Out" link is pressed, this function executes to display non-authenticated nav header.
+   * NOTE: For development purposes only, will not be in the production code. - Zane
+   * 
+   */
+  deauthenticate() {
+    this.setState({ isAuthenticated: false });
+    console.log("Hello World!");
   }
 
   componentDidMount() {
@@ -154,11 +195,18 @@ export default class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Header logo={logo} hbIcon={hbIcon} />
+        <Header logo={logo} hbIcon={hbIcon} setStateHandler={this.setStateHandler} isAuthenticated={this.state.isAuthenticated} 
+        deauthenticate={this.deauthenticate} magnifyingGlass={magnifyingGlass} />
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
+                <Route exact path="/" component={ () => <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} 
+                hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} />} />
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy />} />
+                <Route exact path="/content" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} 
+                articleImgLink={articleImgLink} reviseName={this.reviseName} />} />
+                <Route exact path="/article" component={ () => <Article articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
+                profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} /> } />
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService />} />
                 <Route exact path="/FAQ" component={ () => <FAQ />} />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />

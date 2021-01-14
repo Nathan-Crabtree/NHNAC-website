@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Newsletter } from './Newsletter';
 import { Feedback } from './Feedback';
+import { Cookies } from './Cookies';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
 
@@ -30,6 +31,8 @@ displayForm = () => {
             return <Feedback onSubmit={onSubmit} closeModal={closeModal} />
         case "Newsletter":
             return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
+        case "Cookies":
+            return <Cookies onSubmit={onSubmit} closeModal={closeModal} />
         default:
             break;
     }
