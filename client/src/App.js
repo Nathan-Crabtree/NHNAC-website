@@ -1,43 +1,28 @@
 // Import React libraries
 import React,{ Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'; 
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'; 
 import $ from 'jquery';
 
 // Import images
-import logo from './images/header/nhnac.png';
-import hbIcon from './images/header/hamburger_icon.png';
-import fbLogo from './images/facebook.svg';
-import donate from './images/donate/donate.png';
-import paypal from './images/donate/paypal.png';
-import bitcoin from './images/donate/bitcoin-accepted.png';
-import indian from './images/about/indian.png';
-import tribe from './images/about/tribe.jpeg';
-import hands from './images/slideshow/hands.jpeg';
-import homes from './images/slideshow/homes.jpg';
-import people from './images/slideshow/people.jpeg';
-import podcast from './images/content/podcast.png';
-import articleImgLink from './images/content/article_img_link.png';
-import profileImgSmall from './images/content/profile_img_small.png';
-import fbMini from './images/content/facebook.png';
-import instaMini from './images/content/instagram.png';
-import twitterMini from './images/content/twitter.png';
-import thumbsUp from './images/content/thumbs-up.png';
-import magnifyingGlass from './images/header/magnifying_glass.png';
+import { logo, hbIcon, fbLogo, donate, paypal, bitcoin, indian, 
+  tribe, hands, homes, people, podcast, articleImgLink, profileImgSmall,
+  profileImgLarge, fbMini, instaMini, twitterMini, thumbsUp, magnifyingGlass,
+  apple, book, badge
+ } from './images/Images';
+
+// Import miscellaneous
+import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
+import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
 
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
          LegalRights, Adoption, CodeOfConduct, Home
-        } from './components/static/Static.js';
-import Header from './components/Header.js';
-import Error from './components/Error.js';
-import Login from './components/Login.js';
-import Content from './components/Content.js';
-import Article from './components/Article.js';
-import ForgotPassword from './components/ForgotPassword.js';
-import Verification from './components/Verification.js';
-import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
-import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
+        } from './components/static/Static';
+import { Header, Error, Login, Content,
+          Article, ForgotPassword, Verification, Profile, 
+          Suspended
+         } from './components/dynamic/Dynamic';
 
 export default class App extends Component {
 
@@ -46,7 +31,9 @@ export default class App extends Component {
     this.state = {
       geoDataExists: false,
       cookiePolicyDisplayed: false,
-      isAuthenticated: true
+      isAuthenticated: true,
+      suspended: false,
+      userId: 1
     }
     this.setGeoDataExists = this.setGeoDataExists.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -133,7 +120,7 @@ export default class App extends Component {
   }
 
   /**
-   * reviseName() function - this function takes a string and capitalizes the first letter of the string and puts into a new array.
+   * reviseName() function - Takes a string and capitalizes the first letter of the string and puts into a new array.
    * Useful for correcting name-related values inserted in forms by user. Also checks to see if it has a value related to a form 
    * or not to return proper output.
    * 
@@ -172,7 +159,6 @@ export default class App extends Component {
    */
   deauthenticate() {
     this.setState({ isAuthenticated: false });
-    console.log("Hello World!");
   }
 
   componentDidMount() {
@@ -200,13 +186,15 @@ export default class App extends Component {
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
-                <Route exact path="/" component={ () => <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} 
-                hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} />} />
+                <Route exact path="/">{ this.state.suspended ? <Redirect to={`/suspended?userid=${this.state.userId}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} 
+                hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} /> }</Route>
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy />} />
                 <Route exact path="/content" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} 
                 articleImgLink={articleImgLink} reviseName={this.reviseName} />} />
                 <Route exact path="/article" component={ () => <Article articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
-                profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} /> } />
+                profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} onSubmit={this.onSubmit} /> } />
+                <Route exact path="/profile" component={ () => <Profile apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} 
+                twitterMini={twitterMini} profileImgLarge={profileImgLarge} badge={badge} onSubmit={this.onSubmit} /> } />
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService />} />
                 <Route exact path="/FAQ" component={ () => <FAQ />} />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />
@@ -220,6 +208,7 @@ export default class App extends Component {
                 <Route exact path="/adoption_agreement" component={ () => <Adoption /> } />
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
+                <Route exact path="/suspended" component={ () => <Suspended /> } />
                 <Route component={Error} />
             </Switch>
           </main>

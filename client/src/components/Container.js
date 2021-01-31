@@ -2,8 +2,8 @@
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 import React, { Component } from 'react';
-import { Modal } from './Modal.js';
-import TriggerButton from './TriggerButton.js';
+import { Modal } from './Modal';
+import TriggerButton from './TriggerButton';
 import PropTypes from 'prop-types';
 
 export default class Container extends Component {
@@ -22,6 +22,7 @@ export default class Container extends Component {
     
     /**
      * showModal() function - Changes "isShown" value, locks screen, and shows closeButton.
+     * 
      */
     showModal = () => {
         this.setState({ isShown: true }, () => {
@@ -32,6 +33,7 @@ export default class Container extends Component {
      
     /**
      * closeModal() function - Negates the effect of showModal()
+     * 
      */
     closeModal = () => {
         this.setState({ isShown: false });
@@ -63,6 +65,7 @@ export default class Container extends Component {
     /**
      * toggleScrollLock() function - Creates a class for <html> called "scroll-lock" 
      * that allows CSS to style scroll prevention. 
+     * 
      */
     toggleScrollLock = () => {
        document.querySelector('html').classList.toggle('scroll-lock');
@@ -86,6 +89,7 @@ export default class Container extends Component {
                     onKeyDown={this.onKeyDown}
                     onClickOutside={this.onClickOutside}
                     emailIsValid={this.props.emailIsValid}
+                    className={this.props.className}
                 />
                 ) : null}
             </React.Fragment>
@@ -97,5 +101,6 @@ export default class Container extends Component {
 Container.propTypes = {
     triggerText: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    className: PropTypes.string,
     emailIsValid: PropTypes.func
 }

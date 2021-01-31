@@ -4,8 +4,8 @@ label,
 input, 
 .form_links, 
 select[id="gender"],
-textarea:not(textarea[class="search_bar"]) {
-    margin: 10px 0; // top, right, bottom, left
+textarea:not(.search_bar) {
+    margin: $nh-form-margin;
 }
 
 label[for="rememberMe"], 
@@ -24,37 +24,35 @@ select:focus {
 
 label[for="rememberMe"], 
 label[for="newsletter"] {
-    margin-left: 5px; 
+    margin-left: $nh-padding-left; 
 }
 
 input[type="checkbox"] {
 	appearance: none;
-	background-color: #fafafa;
+	background-color: white;
 	border: 1px solid #cacece;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	box-shadow: $checkbox-shadow, $checkbox-shadow-inset;
     padding: 6px;
 	border-radius: 3px;
     margin: 5px 0 0 0;
     display: inline-block;
-	position: relative;
-}
-
-input[type="checkbox"]:active, .input[type="checkbox"]:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-}
-
-input[type="checkbox"]:checked {
-	background: linear-gradient(336deg, green, lightgreen);
-	border: 1px solid #adb8c0;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
-	color: #99a1a7;
+    position: relative;
+    &:active, &:checked:active {
+        box-shadow: $checkbox-shadow, inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+    &:checked {
+        background: linear-gradient(336deg, green, lightgreen);
+        border: 1px solid #adb8c0;
+        box-shadow: $checkbox-shadow, $checkbox-shadow-inset, inset 15px 10px -12px rgba(255,255,255,0.1);
+        color: #99a1a7;
+    }
 }
 
 form {
     background-color: white;
     border-radius: 4px;
     box-shadow: 0px 3px 6px #100B0098;
-    padding: 10px 0; 
+    padding: $nh-form-margin;
     > ul {
         list-style-type: none;
     }
@@ -67,13 +65,27 @@ fieldset {
 
 select {
     @include input-properties;
-    margin: 10px 0;
+    margin: $nh-form-margin;
     height: 40px;
 }
 
-input:not([type='checkbox']) {
+input:not([type='checkbox']):not([type="radio"]) {
     height: 40px;
     @include input-properties;
+}
+
+.report_label {
+    padding-top: $nh-padding-top-m;
+}
+
+.report_radio {
+    padding-top: $nh-padding-top-m;
+    &:nth-of-type(4) {
+        padding-bottom: $nh-padding-top-m;
+    }
+    > label {
+        padding-left: $nh-padding-left;
+    }
 }
 
 button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_modal-close"]):hover {
@@ -84,38 +96,37 @@ button:focus {
     outline: none;
 }
 
-textarea:not(textarea[class="search_bar"]) {
+textarea:not(.search_bar) {
     @include input-properties;
-    width: 100px;
     height: 100px;
 }
 
 .submit_padding {
-    margin: 10px 0;
+    margin: $nh-form-margin;
 }
 
 // Login
 
-.login_form {
-    @include center;
-    width: 35%;
-    margin-top: 100px;
+.login {
+    &_form {
+        @include center;
+        width: 35%;
+        margin-top: 100px;
+    }
+    &_input {
+        width: 97.5%;
+    }
+    &_submit {
+        @include button_properties;
+        @include center;
+        width: 95%;
+    }
 }
 
-.login_input {
-    width: 97.5%;
-}
-
-.login_submit {
-    @include button_properties;
-    @include center;
-    width: 95%;
-}
 
 .form_links {
-    text-align: center;
     > span {
-        font-size: .8rem;
+        font-size: $nh-font-small;
         > button {
             font-size: 1em;
             text-align: left;
@@ -127,34 +138,31 @@ textarea:not(textarea[class="search_bar"]) {
             cursor: pointer;
         }
     }
-}
-
-.form_links button:hover {
-    text-decoration: underline;
+    & button:hover {
+        text-decoration: underline;
+    }
 }
 
 // Sign Up 
 
 .top_div {
-    text-align: center;
     padding-bottom: 90px;
 }
 
-.signup_form {
-    @include center;
-    width: 70%;
-}
-
-.signup_fieldset {
-    padding-left: 25px;
-}
-
-.signup_fields {
-    padding-bottom: 5px;
-}
-
-.signup_input {
-    width: 95%;
+.signup {
+    &_form {
+        @include center;
+        width: 70%;
+    }
+    &_fieldset {
+        padding-left: $nh-padding-top-l;
+    }
+    &_fields {
+        padding-bottom: $nh-padding-left;
+    }
+    &_input {
+        width: 95%;
+    }
 }
 
 .geo_location {
@@ -162,38 +170,29 @@ textarea:not(textarea[class="search_bar"]) {
     display: inline;
 }
 
-label[for="newsletter"] {
-    text-align: center;
-}
-
 .newsletter_div {
-    text-align: center;
     padding: 11px 0;
 }
 
 label[for="payment"] {
     margin-bottom: -3px;
     display: block;
-    text-align: center;
 }
 
-.pay_buttons_div {
-    @include center;
-    width: 100%;
-}
-
-.pay_button {
-    @include button_properties;
-    width: 21%;
-    margin-right: 27px;
-    margin-top: 5px;
-    margin-bottom: 3px;
-}
-
-.pay_with_div {
-    text-align: center;
-    margin-left: -32px;
-    padding: 10px 0;
+.pay {
+    &_buttons_div {
+        @include center;
+        width: 100%;
+    }
+    &_button {
+        @include button_properties;
+        width: 21%;
+        margin: 5px 27px 3px 0;
+    }
+    &_with_div {
+        margin-left: -32px;
+        padding: $nh-form-margin;
+    }
 }
 
 .paypal_btn {
@@ -209,14 +208,14 @@ label[for="payment"] {
 .agreement_p {
     text-align:center;
     @include center;
-    width: 50%;
+    width: $nh-form-width;
     padding-top: 90px;
 }
 
 // Forgot Password
 
 .security_question {
-    width: 50%;
+    width: $nh-form-width;
 }
 
 .security_submit {
@@ -225,21 +224,21 @@ label[for="payment"] {
 }
 
 .resend_email_span {
-    padding-top: 25px;
+    padding-top: $nh-padding-top-l;
 }
 
 // Contact
 
 .contact_form {
     @include center;
-    width: 50%;
+    width: $nh-form-width;
 }
 
 // Article
 
 .see_comments_btn {
     @include center;
-    margin-top: 25px;
+    margin-top: $nh-padding-top-l;
 }
 
 .see_comments_btn:nth-of-type(2), .comment_btn:nth-of-type(2) {
@@ -254,36 +253,43 @@ label[for="payment"] {
 .text_btn {
     border: none;
     background-color: inherit !important;
-}
-
-.text_btn:hover {
-    cursor: pointer;
-    background-color: inherit !important;
-    text-decoration: underline;
+    &:hover {
+        cursor: pointer;
+        background-color: inherit !important;
+        text-decoration: underline;
+    }
 }
 
 // Comment
 
-.comment_form, .response_form, .comment_form_1_0, .comment_form_1_1 {
+.comment_form {
     display: none;
-}
-
-.comment_form_field {
-    > svg {
-        float: right;
-        cursor: pointer;
+    &_1_0, &_1_1 {
+        display: none;
+    }
+    &_field {
+        > svg {
+            float: right;
+            cursor: pointer;
+        }
     }
 }
 
-.response_container ~ form > fieldset > svg {
-    float: right;
-    cursor: pointer;
+.response {
+    &_form {
+        display: none;
+    }
+    &_container ~ form > fieldset > svg {
+        float: right;
+        cursor: pointer;
+    }
 }
 
 // Authenticated Nav
 
 .search_bar {
     height: 25px;
+    width: 150px;
     resize: none;
     margin-top: -3px;
     position: relative;

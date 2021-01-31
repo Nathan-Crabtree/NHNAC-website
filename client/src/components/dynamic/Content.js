@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ContentNav from './static/ContentNav';
+import ContentNav from '../static/ContentNav';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-//import { __RouterContext } from 'react-router';
 
 export default class Content extends Component {
 
@@ -11,45 +10,48 @@ export default class Content extends Component {
         super();
         this.state = {
             header: null,
-            top_aside: null,
-            bottom_aside: null
         }
         this.setStateHandler = this.setStateHandler.bind(this);
     }
 
-  /**
-   * setStateHandler() function - takes query string variables from URL and parses them into object properties
-   * for proper page rendering.
-   * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered 
-   * with only one click.
-   */
-  setStateHandler() { 
-    const parsedQString = queryString.parse(this.props.location.search);
+    /**
+     * setStateHandler() function - Takes query string variable from URL and parses it into an object property
+     * for proper page rendering.
+     * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered 
+     * with only one click.
+     * 
+     */
+    setStateHandler() { 
+        const parsedQString = queryString.parse(this.props.location.search);
 
-    // Change state values of query properties to that of query strings in URL
-    this.setState({ header: parsedQString.header, 
-        top_aside: parsedQString.top_aside,
-        bottom_aside: parsedQString.bottom_aside });
+        // Change state value of query property to that of query string in URL
+        this.setState({ header: parsedQString.header });
 
-        // Capialize the first letter of header string for page rendering 
-        if (this.state.header != null) {
-            this.props.reviseName(this.state.header,[],'headerContent', false);
-        }
-
-        // Capialize the first letter of top_aside string for page rendering 
-        if (this.state.top_aside != null) {
-            this.props.reviseName(this.state.top_aside,[],'topAsideContent', false);
-        }
-
-        // Render proper text for bottom_aside span tag according to string value
-        switch(this.state.bottom_aside) {
-            case "events":
+        // Render proper text for bottom_aside and top_aside span tag according to string value
+        switch(this.state.header) {
+            case "news":
+              document.getElementById("headerContent").innerHTML = "News";
+              document.getElementById("topAsideContent").innerHTML = "Calendar";
               document.getElementById("bottomAsideContent").innerHTML = "Events";
               break;
-            case "most_viewed":
+            case "articles":
+              document.getElementById("headerContent").innerHTML = "Articles";
+              document.getElementById("topAsideContent").innerHTML = "Archive";
               document.getElementById("bottomAsideContent").innerHTML = "Most Viewed";
               break;
-            case "popular":
+            case "blogs":
+              document.getElementById("headerContent").innerHTML = "Blogs";
+              document.getElementById("topAsideContent").innerHTML = "Archive";
+              document.getElementById("bottomAsideContent").innerHTML = "Most Viewed";
+              break;
+            case "updates":
+              document.getElementById("headerContent").innerHTML = "Updates";
+              document.getElementById("topAsideContent").innerHTML = "Archive";
+              document.getElementById("bottomAsideContent").innerHTML = "Popular";
+              break;
+            case "podcasts":
+              document.getElementById("headerContent").innerHTML = "Podcasts";
+              document.getElementById("topAsideContent").innerHTML = "Archive";
               document.getElementById("bottomAsideContent").innerHTML = "Popular";
               break;
             default:
@@ -59,6 +61,9 @@ export default class Content extends Component {
 
    componentDidMount() {
         this.setStateHandler();
+
+        // When component is rendered, bring user to top of page.
+        window.scrollTo(0, 0);
    }
 
     render() {
@@ -67,55 +72,55 @@ export default class Content extends Component {
                 <ContentNav setStateHandler={this.setStateHandler} />
                 <div className="MsoNormal header_content"><strong><span id="headerContent"></span></strong></div>
                 <div className="grid-container">
-                    <div className="main_content">
+                    <div className="content_container1">
                         <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Downtown New York at dusk." />
+                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
                                     <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Stock profile for development purposes." /></Link>
+                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
                         </section>
                         <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Downtown New York at dusk." />
+                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
                                     <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Stock profile for development purposes." /></Link>
+                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
                         </section>
                         <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Downtown New York at dusk." />
+                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
                                     <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Stock profile for development purposes." /></Link>
+                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
                         </section>
                         <Link className="more_articles_link" to="/">Click here to see more</Link>
                     </div>
-                    <div className="aside_content">
+                    <div className="content_container2">
                         <aside className="top_aside">
                             <div className="MsoNormal"><strong><span id="topAsideContent"></span></strong></div>
                             <ul>
@@ -152,7 +157,7 @@ export default class Content extends Component {
 
 Content.propTypes = {
     podcast: PropTypes.string.isRequired,
-    profileImgSmall: PropTypes.string.isRequired,
-    articleImgLink: PropTypes.string.isRequired,
+    profileImgSmall: PropTypes.string,
+    articleImgLink: PropTypes.string,
     reviseName: PropTypes.func.isRequired
 }

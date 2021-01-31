@@ -1,13 +1,16 @@
 //NOTE: Interesting, props can only be traversed for components with classes, not hooks. - Zane
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Slideshow } from './Static.js';
-import Container from '../Container.js';
+import { Slideshow } from './Static';
+import Container from '../Container';
 import $ from 'jquery';
  
 export default class Home extends Component {
 
     componentDidMount() {
+        // When component is rendered, bring user to top of page.
+        window.scrollTo(0, 0);
+
         if (!this.props.cookiePolicyDisplayed) {
             $(function() {
                 document.getElementsByClassName('modal_button')[0].click();

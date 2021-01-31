@@ -42,7 +42,6 @@ function onSubmit(event) {
 
 return (
         <div>
-            {/*<h3 align="center">Thank you for your feedback!</h3>*/}
             <form className="modal_form" onSubmit={onSubmit}>
                 <h2 className="newsletter_h2">Feedback</h2>
                 <fieldset>
