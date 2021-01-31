@@ -1,11 +1,11 @@
 {
   "name": "client",
-  "version": "0.5.7",
+  "version": "0.6.2",
   "private": true,
   "dependencies": {
     "axios": "^0.21.1",
-    "focus-trap-react": "^8.3.2",
-    "interweave": "^12.6.0",
+    "focus-trap-react": "^8.4.1",
+    "interweave": "^12.7.0",
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",
     "query-string": "^6.13.8",
@@ -15,7 +15,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "sass": "^1.32.4",
+    "sass": "^1.32.5",
     "uuid": "^8.3.2"
   },
   "devDependencies": {},

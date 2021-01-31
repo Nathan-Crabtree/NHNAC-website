@@ -12,7 +12,7 @@ return (
             <p>We use cookies to personalize your experience. By continuing to visit this website you agree to our use of cookies.</p>
             <fieldset>
                 <button className="submit_btn" type="submit">Got It</button>
-                <div className="form_links">
+                <div className="form_links center_text">
                     <span><a href="/privacy_policy" className="form_links_btn" onClick={closeModal}>Read our privacy policy</a></span>
                 </div>
             </fieldset>

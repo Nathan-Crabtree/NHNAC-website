@@ -1,3 +1,5 @@
+// Login
+
 .login_display {
     background-image: url("../images/login.jpeg");
     background-size: cover;
@@ -10,6 +12,8 @@
         color: $nh-white;
     }
 }
+
+// About
 
 .donate_image {
     width: 100%;
@@ -33,13 +37,19 @@
 .indian_image {
     @include center;
     width: 50%;
-    height: 50%;
+    height: auto;
 }
 
 .indian_image_desc {
     @include img-desc-properties;
     margin: -30px 25.75% 0 25.75%;
 }
+
+iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
+    @include center;
+}
+
+// Donate
 
 .image_display {
     @include center;
@@ -59,6 +69,8 @@
     transition: opacity 0.25s;
 }
 
+// Sign up
+
 .bitcoin_link {
     text-align: center;
 }
@@ -71,21 +83,15 @@
     @include center;
 }
 
-// Might need to go in a separate sass file
-iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
-    @include center;
-}
+// Use variables for profile and article images in the future. - Zane
+
+// Content
 
 .profile_img_small {
-    padding-left: 5px;
+    padding-left: $nh-padding-left;
     border-radius: 50%;
     width: 50px;
-    height: auto;
-}
-
-.article_img_med {
-    border-radius: 4px;
-    width: calc(649px*.90);
+    height: 45px;
 }
 
 .podcast_img {
@@ -93,23 +99,41 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
    height: auto; 
 }
 
-.article_image {
-    width: 90%;
-    @include center;
-    @include img-properties;
+// Article
+
+.article {
+    &_img_med {
+        border-radius: 4px;
+        width: calc(649px*.90);
+    }
+    &_image {
+        width: $nh-article-img-width;
+        @include center;
+        @include img-properties;
+    }
+    &_image_desc {
+        width: $nh-article-img-width;
+        margin: auto !important;
+        margin-top: -20px !important;
+        @include img-desc-properties;
+    }
 }
 
-.article_image_desc {
-    width: 90%;
-    margin: auto !important;
-    margin-top: -20px !important;
-    @include img-desc-properties;
-}
+// Authenicated nav
 
 .magnifying_glass {
-    width: 20px;
+    width: 23px;
     height: auto;
     position: absolute;
-    right: 430px;
     cursor: pointer;
+    border: 2px solid white;
+    background: white;
+    margin-top: -2px;
+}
+
+// Profile
+
+.profile_img_large {
+    width: 332px;
+    height: 252px;
 }

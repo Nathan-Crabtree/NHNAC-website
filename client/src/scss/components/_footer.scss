@@ -1,7 +1,7 @@
 footer > div:first-child > ul {
     padding: 0% 3% 2%;
     li {
-        padding-top: 25px;
+        padding-top: $nh-padding-top-l;
         h4 {
             margin: 0;
         }
@@ -12,7 +12,7 @@ footer > div:first-child > ul {
 }
 
 footer > div:nth-child(2) li {
-    padding-left: 5px;
+    padding-left: $nh-padding-left;
 }
 
 footer > div:nth-child(2) li:first-child {

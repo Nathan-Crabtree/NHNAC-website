@@ -1,7 +1,6 @@
 import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-//import { __RouterContext } from 'react-router'; //idk why this was and still is here. - Zane
 
 const About = ({indian, tribe, emailIsValid, reviseName}) => {
 
@@ -113,7 +112,7 @@ const About = ({indian, tribe, emailIsValid, reviseName}) => {
                 <p className="indian_image_desc image_desc">&emsp;Photo description: {indianAlt}</p>
             </div>
             <p>&emsp;We are a legally established independent Native American Church that desires to protect and restore to the world our religious and personal freedoms as a Native American Religious Culture. For thousands of years, native plants such as peyote, ayahuasca, and others have been used in some Native American Ceremonies.  Many of these plants are now deemed to be illegal by federal and state governments except for Church Ceremonial use.</p>
-            <Link className="about_link" to="/legal_rights">Read more about our legal rights</Link>
+            <Link className="about_link center_text" to="/legal_rights">Read more about our legal rights</Link>
             <p>&emsp;Sadly because of monetary and political whims, new laws to control and enslave the population continue to "creep" into our legal system.  These new laws are classifying other natural substances, like essential oils and healing plants, to be illegal when used for healing purposes.  Because these new laws were "sneaked" into our legal system, many people do not realize they are committing a felony every time they use them.</p>
             <em>&emsp;For example, even a full blooded tribal card carrying Native American massage therapist is at risk of being sent federal prison if they use therapeutic essential oils on any client off their reservation.</em>
             <p>&emsp;So once again we see another step to take away our God given freedoms.  Because of this, many Natural Healers and individuals ask, “What can we do?”</p>
@@ -128,8 +127,8 @@ const About = ({indian, tribe, emailIsValid, reviseName}) => {
                     <li>Native American Ceremonies</li>
                 </ul>
             </div>
-            <Link className="about_link" to="/constitution">Read Our Constitution</Link><br />
-            <Link className="about_link" to="/ethical_code_of_conduct">Read our Ethical Code Of Conduct</Link>
+            <Link className="about_link center_text" to="/constitution">Read Our Constitution</Link><br />
+            <Link className="about_link center_text" to="/ethical_code_of_conduct">Read our Ethical Code Of Conduct</Link>
             <div className="image_display">
                 <img className="tribe_image" srcSet={tribe} alt="Tribe logo." />
                 <p className="tribe_image_desc image_desc">&emsp;Photo description: {tribeAlt}</p>

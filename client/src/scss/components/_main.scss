@@ -34,14 +34,9 @@ a {
     color: $nh-black;
     font-weight: bold;
     text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-.about_link {
-    display: block;
-    text-align: center;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .error_description {
@@ -52,20 +47,24 @@ a:hover {
     text-align: center;
 }
 
+.clear {
+    clear: both;
+}
+
+// About page 
+
+.about_link {
+    display: block;
+}
+
 .experiences_div {
     @include center;
     width: 50%;
 }
 
-.clear {
-    clear: both;
-}
+// Content page
 
-/*******************
-    Content Page
-********************/
-
-.main_content {
+.content_container1 {
     > section {
         background-color: white;
         border-radius: 4px;
@@ -78,14 +77,10 @@ a:hover {
     }
 }
 
-.aside_content {
+.content_container2 {
     padding-left: 20px;
     > aside:not(:nth-child(3)) {
-        background-color: white;
-        border-radius: 4px;
-        box-shadow: 0px 3px 6px #100B0098;
-        margin: 25px 0;
-        width: calc(649px*.70);  
+        @extend %content_container_section;
     }
 }
 
@@ -118,7 +113,7 @@ a:hover {
         padding: 25px 25px 0 25px;
         > li {
             list-style-type: none;
-            padding-bottom: 25px;
+            padding-bottom: $nh-padding-top-l;
         }
     }
     > a {
@@ -129,12 +124,10 @@ a:hover {
 .more_articles_link {
     width: 65%;
     float: right;
-    padding-top: 10px;
+    padding-top: $nh-padding-right;
 }
 
-/*******************
-    Article Page
-********************/
+// Article page
 
 .top_aside_container {
     display: block;
@@ -145,7 +138,7 @@ a:hover {
         float: right;
         margin-top: 14px;
         > a {
-            padding-right: 10px;
+            padding-right: $nh-padding-right;
         }
     }
 }
@@ -157,20 +150,20 @@ a:hover {
         > ul {
             margin-left: -40px;
             > li {
-                padding-right: 10px;
+                padding-right: $nh-padding-right;
                 list-style-type: none;
                 display: inline;
             }
         }
         > p {
-            font-size: .8rem;
+            font-size: $nh-font-small;
         }
     }
     > div:nth-child(2) {
         float: right;
         margin-top: 14px;
         > a {
-            padding-right: 10px;
+            padding-right: $nh-padding-right;
         }
     }
 }
@@ -178,7 +171,6 @@ a:hover {
 .back_to_articles_link {
     padding-top: 50px;
     width: 100%;
-    text-align: center;
 }
 
 .comment_section_container {
@@ -191,16 +183,12 @@ a:hover {
 }
 
 .blur_text_container {
-    text-align: center;
     position: absolute;
     top: 125%;
-    right: 81%;
-    margin-right: -50%;
+    right: 31%;
 }
 
-/**********************
-    Comment Section
-***********************/
+// Comment section
 
 .comment_container {
     > div:nth-of-type(1) {
@@ -213,9 +201,9 @@ a:hover {
             float: right;
             margin-top: -10px;
             > div > p {
-                width: 90%;
+                width: $nh-article-img-width;
                 margin-top: -5px;
-                font-size: .8rem;
+                font-size: $nh-font-small;
             }
         }
     } 
@@ -226,52 +214,34 @@ a:hover {
         > div:first-of-type {
             float: left;
             > p {
-                font-size: .8rem;
+                font-size: $nh-font-small;
             }
         }
-        > ul {
-            margin-left: -38px;
-        }
-        > ul:first-of-type {
-            float: right;
-            margin-top: 0;
-            list-style-type: none;
-            > li {
-                display: inline-block;
-                margin-left: -10px;
-            }
-            > li:first-child {
-                > img {
-                    width: 50%;
-                }
-            }
-            > li:nth-child(2) {
-                font-size: .8rem;
-            }
-        }
+        @extend %comment_container_ul;
         > div:nth-of-type(3) {
-            padding-bottom: 5px;
+            padding-bottom: $nh-padding-left;
             > ul {
                 list-style-type: none;
                 padding: 15px 0 5px 0;
-                font-size: .8rem;
+                font-size: $nh-font-small;
                 > li {
                     display: inline-block;
-                    padding-right: 5px;
+                    padding-right: $nh-padding-left;
+                    &:nth-child(3) {
+                        @extend %report_li;
+                    }
                 }
             }
         }
     }
 }
 
-/**********************
-    Response Section
-***********************/
+// Response section
 
 .response_container {
     > div {
         width: 100%;
-        padding: 10px;
+        padding: $nh-padding-right;
         float: right;
         > div:first-of-type {
             float: left;
@@ -281,50 +251,34 @@ a:hover {
             }
             > div {
                 float: right;
-                margin-top: -10px;
+                margin: -10px 0 0 10px;
                 > div > p {
                     margin-top: -5px;
-                    font-size: .8rem;
+                    font-size: $nh-font-small;
                 }
             }
         }
         > div:nth-of-type(2) {
             float: left;
             > p {
-                font-size: .8rem;
+                font-size: $nh-font-small;
             }
         }
-        > ul {
-            margin-left: -38px;
-        }
-        > ul:first-of-type {
-            float: right;
-            margin-top: 0;
-            list-style-type: none;
-            > li {
-                display: inline-block;
-                margin-left: -10px;
-            }
-            > li:first-child {
-                > img {
-                    width: 50%;
-                }
-            }
-            > li:nth-child(2) {
-                font-size: .8rem;
-            }
-        }
+        @extend %comment_container_ul;
         > div:nth-of-type(4) {
-            padding-bottom: 5px;
+            padding-bottom: $nh-padding-left;
         }
         > ul:nth-of-type(2) {
             list-style-type: none;
-            padding-bottom: 5px;
-            font-size: .8rem;
+            padding-bottom: $nh-padding-left;
+            font-size: $nh-font-small;
             margin-left: -38px;
             > li {
                 display: inline-block;
-                padding-right: 5px;
+                padding-right: $nh-padding-left;
+                &:nth-child(3) {
+                    @extend %report_li;
+                }
             }
         }
     }
@@ -332,4 +286,95 @@ a:hover {
 
 .response_section_container {
     display: none;
+}
+
+// Profile page
+
+.profile_container1 {
+    float: left;
+    > div {
+        > div:first-of-type { 
+            float: left;
+            padding-right: $nh-padding-top-l;
+            .profile_img_large {
+                position: absolute;
+            }
+            > button {
+                position: relative;
+                color: #FFFCF4;
+                background-color: lightgray;
+                border: none;
+                cursor: pointer;
+                margin: 207px 0 0 9px;
+                width: 314px;
+                height: 33px;
+                &:hover {
+                    background-color: lightgray !important;
+                }
+                &:active {
+                    background-color: #a09e9e !important;  
+                }
+            }
+        }   
+        > section:first-of-type {
+            float: right;
+            > h2 {
+                margin-top: $nh-padding-left;
+                padding-bottom: 15px;
+            }
+            > p {
+                margin-top: -15px;
+                &:nth-of-type(4) {
+                    margin-bottom: 0;
+                    margin-top: -20px;
+                }
+            }
+            > div:nth-of-type(2) {
+                p {
+                    margin: -15px 0 0 0;
+                    display: inline;
+                }
+                button {
+                    margin-left: -6px;
+                }
+            }
+            > button {
+                margin-left: -6px;
+            }
+            > div:nth-of-type(3) {
+                margin-top: 14px;
+                > a {
+                    padding-right: $nh-padding-right;
+                }
+            }
+        }
+    }
+    > button {
+        margin: 25px 0;
+        width: 332px;
+        > h4 {
+            margin-top: $nh-padding-left;
+        }
+    }
+    > section:nth-of-type(1) {
+        a:first-child {
+            color: $nh-error;
+        } 
+        .modal_button {
+            color: $nh-black;
+        }
+    }
+    > section:nth-of-type(2), > section:last-of-type {
+        @extend %content_container_section;
+        @extend %profile_container_section_ul;
+    }
+}
+
+.profile_container2 {
+    float: right;
+    margin-top: -25px;
+    > section {
+        @extend %content_container_section;
+        @extend %profile_container_section_ul;
+    }
 }

@@ -1,3 +1,4 @@
+// Color variables
 $nh-black: #100B00;
 $nh-white: #FFFCF4;
 $nh-body: #E2E1E0;
@@ -5,3 +6,21 @@ $nh-main: #EAEAE8;
 $nh-error: #C31F01;
 $nh-button: #CCF9C6;
 $nh-button-hover: rgba(161, 214, 165);
+
+// Form variables
+$checkbox-shadow: 0 1px 2px rgba(0,0,0,0.05);
+$checkbox-shadow-inset: inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+$nh-form-margin: 10px 0;
+$nh-form-width: 50%;
+
+// Padding variables
+$nh-padding-top-l: 25px;
+$nh-padding-top-m: 15px;
+$nh-padding-right: 10px;
+$nh-padding-left: 5px;
+
+// Image variables
+$nh-article-img-width: 90%;
+
+// Font variables
+$nh-font-small: .8rem;

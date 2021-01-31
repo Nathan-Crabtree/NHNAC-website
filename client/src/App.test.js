@@ -2,16 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App, { setGeoDataExists, onSubmit, resetToggleDisplay, removeNoJavaScriptDiv, 
 emailIsValid, reviseName, setCookiePolicyDisplayed, deauthenticate } from './App';
-import { toggleDisplayNav, onSubmit as onSubmitHeader } from './components/Header';
+import { toggleDisplayNav, onSubmit as onSubmitHeader } from './components/dynamic/Header';
 import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } from './components/Container';
 import { displayForm } from './components/Modal';
 import { onSubmit as onSubmitFeedback } from './components/Feedback';
+import { onSubmit as onSubmitReport } from './components/Report';
 import { onSubmit as onSubmitAbout } from './components/static/About';
 import { onSubmit as onSubmitSignUp } from './components/static/SignUp';
 import { plusSides, currentSlide, showSlides, showSlidesAuto } from './components/static/Slideshow';
-import { setStateHandler } from './components/Content';
+import { setStateHandler } from './components/dynamic/Content';
 import { displayComments, hideComments, hideResponses, displayForm as displayFormArticle, hideForm,
-         onSubmit as onSubmitArticle } from './components/Article';
+         onSubmit as onSubmitArticle } from './components/dynamic/Article';
+import { countDaysLeft } from './components/dynamic/Suspended';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -129,6 +131,13 @@ it("doesn't output anything", () => {
   expect(onSubmitFeedback).toBeUndefined();
 });
 
+// REPORT.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/Report.js
+it("doesn't output anything", () => {
+  expect(onSubmitReport).toBeUndefined();
+});
+
 // ABOUT.JS FUNCTION(S)
 
 // onSubmit testing; src: client/src/components/static/About.js
@@ -214,4 +223,11 @@ it("doesn't output anything", () => {
 // onSubmit testing; src: client/src/components/Article.js
 it("doesn't output anything", () => {
   expect(onSubmitArticle).toBeUndefined();
+});
+
+// SUSPENDED.JS FUNCTION(S)
+
+// countDaysLeft testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(countDaysLeft).toBeUndefined();
 });

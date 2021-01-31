@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import { Newsletter } from './Newsletter';
 import { Feedback } from './Feedback';
 import { Cookies } from './Cookies';
+import { Report } from './Report';
+import { Connections } from './Connections';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
 
@@ -18,7 +20,8 @@ export const Modal = ({
     onSubmit,
     triggerText,
     displayForm,
-    emailIsValid
+    emailIsValid,
+    className
 }) => {
 
 /**
@@ -33,6 +36,10 @@ displayForm = () => {
             return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
         case "Cookies":
             return <Cookies onSubmit={onSubmit} closeModal={closeModal} />
+        case "Report":
+            return <Report onSubmit={onSubmit} closeModal={closeModal} className={className} />
+        case "Connections":
+            return <Connections onSubmit={onSubmit} closeModal={closeModal} />
         default:
             break;
     }

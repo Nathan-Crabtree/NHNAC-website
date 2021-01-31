@@ -33,12 +33,7 @@ console.log("entering Models.js");
 
 //Multiple Chapters (branches of the church) managed by database
 class Chapter extends Model{}
-  Chapter.init ({
-    // ChapterID: {
-    //   type: DataTypes.INTEGER.UNSIGNED,
-    //   autoIncrement: true,
-    //   primaryKey: true
-    // },     
+  Chapter.init ({    
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
@@ -106,12 +101,13 @@ class User extends Model{}
     Email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
+      // Email validation is being done on the client-side. - Zane
+      /* validate: {
         isEmail: {
           args: [true],
           msg: 'Error: Not an Email Address'
         }
-      }
+      } */
     },
     Password: {
       type: DataTypes.STRING,
@@ -135,7 +131,7 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: true
     },
-    //No minimum age required as of current notice
+    // No minimum age required as of current notice.
     Birthday: {
       type: DataTypes.DATE,
       allowNull: false
@@ -151,17 +147,17 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: false
     },
-    //E-signature will be stored into a pdf in the server hard drive.
+    // E-signature will be stored into a pdf in the server hard drive.
     ESignatureFilePath: {
       type: DataTypes.TEXT,
       allowNull: false     
     },
-    //Uses a boolean to determine if user is subscribed to newsletter or not
+    // Uses a boolean to determine if user is subscribed to newsletter or not.
     SubscribedToNewsLetter: {
       type: DataTypes.BOOLEAN,
       defaultValue: false     
     },
-    //Uses a boolean to determine if user is subscribed to podcast or not
+    // Uses a boolean to determine if user is subscribed to podcast or not.
     SubscribedToPodcast: {
       type: DataTypes.BOOLEAN,
       defaultValue: false     
@@ -210,6 +206,24 @@ class User extends Model{}
     Twitter: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    // Strikes are used to tally up no. of times a the user has been warned to not post offensive content 
+    // (max 2 before being suspended). - Zane
+    Strikes: {
+      type: DataTypes.TINYINT,
+      defaultValue: 0
+    },
+    // If a user is suspended after having 2 or more strikes, they will be prevented from accessing their 
+    // account with this field. - Zane
+    Suspended: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    // Once user is suspended, they will not be able to access their account within 30 days following the date 
+    // they've been suspended. - Zane 
+    DateTimeSuspended: {
+      type: DataTypes.DATE, 
+      allowNull: false
     }
   }, {
     hooks: {
@@ -313,7 +327,6 @@ class CouncilUserRole extends Model{}
         autoIncrement: true,
         primaryKey: true
     },
-    //CouncilName: {
     CouncilID: {  //edited by Nathan
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
@@ -345,7 +358,7 @@ class CouncilUserRole extends Model{}
 );
 console.log("CouncilUserRoleLoaded: " + (CouncilUserRole === sequelize.models.CouncilUserRole)); //true
 
-//Badge tags and references to images stored in the server hard drive
+// Badge tags and references to images stored in the server hard drive
 class Badge extends Model{}
   Badge.init ({
     ID:{
@@ -357,7 +370,7 @@ class Badge extends Model{}
       type: DataTypes.STRING,
       allowNull: false
     },
-    //reference to where the image file is stored in the hard drive. 
+    // Reference to where the image file is stored in the hard drive. 
     FilePath: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -381,7 +394,6 @@ class UserBadge extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    //Badge: {
     BadgeID: { //Changed by Nathan to fix associtation
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
@@ -389,7 +401,6 @@ class UserBadge extends Model{}
           key: 'ID'
       },
     },
-    //User: {
     UserID: {  //Changed by Nathan to fix association 
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
@@ -413,6 +424,14 @@ Address.init({
     autoIncrement: true,
     primaryKey: true
   },
+  UserID: { //Nathan
+   type: DataTypes.INTEGER.UNSIGNED,
+    references: {
+      model: User,
+      key: 'ID'
+    },
+    allowNull: false
+  },
   Address: {
     type: DataTypes.TEXT,
     allowNull: true
@@ -432,15 +451,6 @@ Address.init({
   Zip: {
     type: DataTypes.MEDIUMINT.UNSIGNED,
     allowNull: true
-  },
-  //User: {
-  UserID: { //Nathan
-   type: DataTypes.INTEGER.UNSIGNED,
-    references: {
-      model: User,
-      key: 'ID'
-    },
-    allowNull: false
   }
 }, {
     sequelize,
@@ -664,6 +674,11 @@ class Message extends Model{}
     Time: {
       type: DataTypes.TIME,
       allowNull: false 
+    },
+    // Using this to check if message has been read by receiver for alert purposes on profile page. - Zane
+    Read: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   }, {
     sequelize,
@@ -689,6 +704,33 @@ class Comment extends Model{}
       },
       allowNull: false
     },
+    // Links comment to article (if orig. source). Can be NULL. - Zane
+    ArticleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Article,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    // Links comment to event (if orig. source). Can be NULL. - Zane
+    EventID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Event,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    // Links comment to forum post (if orig. source). Can be NULL. - Zane
+    ForumPostID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: ForumPost,
+        key: 'ID'
+      },
+      allowNull: true
+    },
     Content: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -708,6 +750,44 @@ class Comment extends Model{}
   }
 );
 console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
+
+// Each response belongs to a comment
+class Response extends Model{}
+  Comment.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    // How the response will be linked to a comment
+    CommentID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Comment,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    Content: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
+    }
+  }, {
+    sequelize,
+    modelName: 'Response',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("ResponseLoaded: " + (Response === sequelize.models.Response)); //true
 
 class Certification extends Model{}
   Certification.init({
@@ -748,8 +828,8 @@ class Certification extends Model{}
 );
 console.log("CertificationLoaded: " + (Certification === sequelize.models.Certification)); //true
 
-//This table is for the actual PDF data documents that people have earned
-//or for references to the PDF documents on the server storage
+// This table is for the actual PDF data documents that people have earned
+// or for references to the PDF documents on the server storage
 class Certificate extends Model{}
   Certificate.init({
     //token primary key
@@ -774,7 +854,7 @@ class Certificate extends Model{}
       },
       allowNull: false
     },
-    //This field holds either the binary PDF file, or a pointer to that file on the server storage
+    // This field holds either the binary PDF file, or a pointer to that file on the server storage
     UserCertFilePath: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -1171,11 +1251,25 @@ class Article extends Model{}
       type: DataTypes.STRING,
       allowNull: false
     },
+    // Type can be either "blog", "podcast" or "article". - Zane
+    Type: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     ImageMedium: {
       type: DataTypes.TEXT,
       allowNull: true
     },
     ImageLarge: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageDescription: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    // If type=podcast, then this value can't be null. - Zane
+    PodcastLink: {
       type: DataTypes.TEXT,
       allowNull: true
     },
@@ -1237,6 +1331,10 @@ class Event extends Model{}
     ImageLarge: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    ImageDescription: {
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     Content: {
       type: DataTypes.TEXT,
@@ -1496,7 +1594,7 @@ class ForumPost extends Model{}
       },
       allowNull: true
     },
-    //Posts on the forum can be archived for future reference by User.
+    // Posts on the forum can be archived for future reference by User.
     Archived: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -1548,15 +1646,32 @@ class Answer extends Model{}
 );
 console.log("AnswerLoaded: " + (Answer === sequelize.models.Answer)); //true
 
-//User Associations
+// Report table exists to document reports that have been made. - Zane
+class Report extends Model{}
+  Report.init({
+    // As of now (1/24/2020), only the ID field is needed to show report no. - Zane 
+    ID: {
+      type: DataTypes.BIGINT.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+  }, {
+    sequelize,
+    modelName: 'Report',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("ReportLoaded: " + (Report === sequelize.models.Report)); //true
+
+// User Associations
 User.belongsTo(Chapter);
 Chapter.hasMany(User);
 
-//Council Associations
+// Council Associations
 Council.belongsTo(Chapter);
 Chapter.hasMany(Council);
 
-//CouncilUserRole Associations
+// CouncilUserRole Associations
 CouncilUserRole.belongsTo(Council);
 Council.hasMany(CouncilUserRole);
 //CouncilUserRole.belongsTo(CouncilRoleName);
@@ -1566,37 +1681,37 @@ CouncilRole.hasMany(CouncilUserRole); //edited by nathan
 
 
 
-//UserBadge Associations
+// UserBadge Associations
 UserBadge.belongsTo(Badge);
 Badge.hasMany(UserBadge);
 UserBadge.belongsTo(User);
 User.hasMany(UserBadge);
 
-//Address Associations
+// Address Associations
 Address.belongsTo(User);
 User.hasMany(Address);
 
-//UpdatesTable Associations
+// UpdatesTable Associations
 UpdatesTable.belongsTo(User);
 User.hasMany(UpdatesTable);
 
-//CertificationsTable Associations
+// CertificationsTable Associations
 CertificationsTable.belongsTo(User);
 User.hasMany(CertificationsTable);
 
-//RecentActivityTable Associations
+// RecentActivityTable Associations
 RecentActivityTable.belongsTo(User);
 User.hasMany(RecentActivityTable);
 
-//RecentBadgesTable Associations
+// RecentBadgesTable Associations
 RecentBadgesTable.belongsTo(User);
 User.hasMany(RecentBadgesTable);
 
-//CouncilsTable Associations
+// CouncilsTable Associations
 CouncilsTable.belongsTo(User);
 User.hasMany(CouncilsTable);
 
-//Message Associations
+// Message Associations
 //Message.belongsTo(Sender);
 Message.belongsTo(User, {as: 'Email', foreignKey: 'Sender'}); //Nathan
 //Sender.hasMany(Message); //nathan
@@ -1605,89 +1720,89 @@ Message.belongsTo(User, {as: 'Email', foreignKey: 'Sender'}); //Nathan
 //Receiver.hasMany(Message); //nathan
 User.hasMany(Message);
 
-//Comment Associations
+// Comment Associations
 Comment.belongsTo(User);
 User.hasMany(Comment);
 
-//Certificate Associations
+// Certificate Associations
 Certificate.belongsTo(User);
 User.hasMany(Certificate);
 Certificate.belongsTo(Certification);
 Certification.hasMany(Certificate);
 
-//Course Associations
+// Course Associations
 Course.belongsTo(User);
 User.hasMany(Course);
 
-// //CoursePreReq Associations //nathan
+// // CoursePreReq Associations //nathan
 // CoursePreReq.belongsTo(CoursePreReq);
 // CoursePreReq.hasMany(CoursePreReq);
 // CoursePreReq.belongsTo(Course);
 // Course.hasMany(CoursePreReq);
 
-// //CertificationPreReq Associations
+// // CertificationPreReq Associations
 // CertificationPreReq.belongsTo(CoursePreReq);
 // CoursePreReq.hasMany(CertificationPreReq);
 // CertificationPreReq.belongsTo(Certification);
 // Certification.hasMany(CertificationPreReq);
 
-//UserCourse Associations
+// UserCourse Associations
 UserCourse.belongsTo(User);
 User.hasMany(UserCourse);
 UserCourse.belongsTo(Course);
 Course.hasMany(UserCourse);
 
-//Sections Associations
+// Sections Associations
 Section.belongsTo(Course);
 Course.hasMany(Section);
 
-//UserSection Associations
+// UserSection Associations
 UserSection.belongsTo(User);
 User.hasMany(UserSection);
 UserSection.belongsTo(Section);
 Section.hasMany(UserSection);
 
-//Content Associations
+// Content Associations
 Content.belongsTo(Section);
 Section.hasMany(Content);
 
-//UserContent Associations
+// UserContent Associations
 UserContent.belongsTo(User);
 User.hasMany(UserContent);
 UserContent.belongsTo(Content);
 Content.hasMany(UserContent);
 
-//Article Associations
+// Article Associations
 Article.belongsTo(Tag); 
 Tag.hasMany(Article);
 Article.belongsTo(User);
 User.hasMany(Article);
 
-//Event Associations
+// Event Associations
 Event.belongsTo(Tag);
 Tag.hasMany(Event);
 Event.belongsTo(User);
 User.hasMany(Event);
 
-//EventUser Associations
+// EventUser Associations
 EventUser.belongsTo(User);
 User.hasMany(EventUser);
 EventUser.belongsTo(Event);
 Event.hasMany(EventUser);
 
-//UserResource Associations
+// UserResource Associations
 UserResource.belongsTo(User);
 User.hasMany(UserResource);
 UserResource.belongsTo(Resource);
 Resource.hasMany(UserResource);
 
-//Quiz Associations
+// Quiz Associations
 Quiz.belongsTo(Course);
 Course.hasMany(Quiz);
 Quiz.belongsTo(Section);
 Section.hasMany(Quiz);
 
-//UserQuiz Associations
+// UserQuiz Associations
 UserQuiz.belongsTo(User);
 User.hasMany(UserQuiz);
 UserQuiz.belongsTo(Course);
@@ -1695,19 +1810,23 @@ Course.hasMany(UserQuiz);
 UserQuiz.belongsTo(Section);
 Section.hasMany(UserQuiz);
 
-//Question Associations
+// Question Associations
 Question.belongsTo(Quiz);
 Quiz.hasMany(Question);
 
-//UserQuestion Associations //nathan
+// UserQuestion Associations //nathan
 ForumPost.belongsTo(User);
 User.hasMany(ForumPost);
 
-//Answer Associations
+// Answer Associations
 Answer.belongsTo(Question);
 Question.hasMany(Answer);
+
+// Response Associations
+Response.belongsTo(Comment);
+Comment.hasMany(Response);
    
-//Kept this in file for future reference. - Zane  
+// Kept this in file for future reference. - Zane  
 /* //User.hasMany(Role, {through: UserRole, foreignKey: UserName, otherKey: Role});
 User.belongsToMany(Role, {through: UserRole, foreignKey: 'UserName', otherKey: 'Role'});
 Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'UserName'});

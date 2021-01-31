@@ -7,6 +7,11 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
     // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane 
     var slideIndex = 0;
 
+    /**
+     * showSlides function() - Renders and hides images in the order they were placed and edits styling of the viewer.
+     * 
+     * @param {integer} n 
+     */
     function showSlides(n) {
         var i;
         var slides = document.getElementsByClassName("mySlides");
@@ -23,17 +28,29 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
         dots[slideIndex-1].className += " active";
     }
 
-    // Next/previous controls
+    /**
+     * plusSlides() function - Next and previous controls for the slideshow viewer.
+     * 
+     * @param {integer} n 
+     */
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
   
-    // Thumbnail image controls
+    /**
+     * currentSlide() function - Thumbnail image controls.
+     * 
+     * @param {integer} n 
+     */
     function currentSlide(n) {
         showSlides(slideIndex = n);
     }
 
     useEffect(() => { 
+        /**
+         * showSlidesAuto() function - Automated version of showSlides(). 
+         * 
+         */
         const showSlidesAuto = () => {
             var i;
             var slides = document.getElementsByClassName("mySlides");
@@ -50,7 +67,6 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
             if (slideIndex > slides.length) {slideIndex = 1}
             slides[slideIndex-1].style.display = "block";
             dots[slideIndex-1].className += " active";
-            //timer = setTimeout(showSlidesAuto, 5000); 
         }
 
         // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout - Zane

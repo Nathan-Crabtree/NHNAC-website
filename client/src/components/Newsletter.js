@@ -15,7 +15,7 @@ return (
                     <input className="login_input" type="text" id="email" name="email" placeholder="Enter your email"/><br />
                 </div>
                 <button className="submit_btn" type="submit">Subscribe</button>
-                <div className="form_links">
+                <div className="form_links center_text">
                     <span><button className="form_links_btn" type="button" onClick={closeModal}>No thanks</button></span>
                 </div>
             </fieldset>
