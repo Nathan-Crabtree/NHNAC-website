@@ -87,6 +87,41 @@ class Council extends Model{}
 );
 console.log("CouncilLoaded: " + (Council === sequelize.models.Council)); //true
 
+class Address extends Model{}
+Address.init({
+  ID: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  Street: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  Country: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  State: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  City: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  Zip: {
+    type: DataTypes.MEDIUMINT.UNSIGNED,
+    allowNull: true
+  }
+}, {
+    sequelize,
+    modelName: 'Address',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
+
 class User extends Model{}
   User.init ({
     ID: {
@@ -94,14 +129,22 @@ class User extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    //A user may belong to a chapter, possibly no value or default value "0" here could infere a default "New Haven" Chapter
+    //A user may belong to a chapter, possibly no value or default value "1" here could infere a default "New Haven" Chapter
     ChapterID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Chapter,
           key: 'ID'
       },
-      defaultValue: '0' //changed from string "new haven"
+      //defaultValue: '1' //changed from string "new haven"
+    },
+    AddressID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Address,
+        key: 'ID'
+      },
+      allowNull: false
     },
     Email: {
       type: DataTypes.STRING,
@@ -126,16 +169,17 @@ class User extends Model{}
     FirstName: {
       type: DataTypes.STRING,
       allowNull: false
+    //},
     },
-    NickName: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
+    // NickName: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
     LastName: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    //No minimum age required as of current notice
+    // //No minimum age required as of current notice
     Birthday: {
       type: DataTypes.DATE,
       allowNull: false
@@ -150,78 +194,69 @@ class User extends Model{}
     SecurityAnswer: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    //E-signature will be stored into a pdf in the server hard drive.
-    ESignatureFilePath: {
-      type: DataTypes.TEXT,
-      allowNull: false     
-    },
-    //Uses a boolean to determine if user is subscribed to newsletter or not
-    SubscribedToNewsLetter: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false     
-    },
-    //Uses a boolean to determine if user is subscribed to podcast or not
-    SubscribedToPodcast: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false     
-    },
-    Points: {
-      type: DataTypes.SMALLINT.UNSIGNED,
-      defaultValue: 0
-    },
-    Status: {
-      type: DataTypes.STRING,
-      allowNull: true    
-    },
-    ProfilePicLarge: {
-      type: DataTypes.STRING,
-      allowNull: true    
-    },
-    ProfilePicMedium: {
-      type: DataTypes.STRING,
-      allowNull: true    
-    },
-    ProfilePicSmall: {
-      type: DataTypes.STRING,
-      allowNull: true 
-    },
-    //These two can be combined //nathan
-    // DateLoggedIn: {
-    //   type: DataTypes.DATE,
-    //   allowNull: false 
-    // },
-    // TimeLoggedIn: {
-    //   type: DataTypes.TIME,
-    //   allowNull: false 
-    // },
-    DateTimeLoggedIn: {
-      type: DataTypes.DATE, 
-      allowNull: false
-    },
-    Facebook: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    Instagram: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    Twitter: {
-      type: DataTypes.STRING,
-      allowNull: true
     }
+    // //E-signature will be stored into a pdf in the server hard drive.
+    // ESignatureFilePath: {
+    //   type: DataTypes.TEXT,
+    //   allowNull: false     
+    // },
+    // //Uses a boolean to determine if user is subscribed to newsletter or not
+    // SubscribedToNewsLetter: {
+    //   type: DataTypes.BOOLEAN,
+    //   defaultValue: false     
+    // },
+    // //Uses a boolean to determine if user is subscribed to podcast or not
+    // SubscribedToPodcast: {
+    //   type: DataTypes.BOOLEAN,
+    //   defaultValue: false     
+    // },
+    // Points: {
+    //   type: DataTypes.SMALLINT.UNSIGNED,
+    //   defaultValue: 0
+    // },
+    // Status: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true    
+    // },
+    // ProfilePicLarge: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true    
+    // },
+    // ProfilePicMedium: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true    
+    // },
+    // ProfilePicSmall: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true 
+    // },
+    // DateTimeLoggedIn: {
+    //   type: DataTypes.DATE, 
+    //   allowNull: false
+    // },
+    // Facebook: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // Instagram: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // Twitter: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // }
   }, {
-    hooks: {
-      beforeCreate: (user) => { 
-        //either beforeCreate or AfterValidate is fine
-        //afterValidate: (user) => {
-        user.Password = bcrypt.hashSync('${user.Password}', 8); //copied from Pluralsight Sequelize tutorial
+    // hooks: {
+    //   beforeCreate: (user) => { 
+    //     //either beforeCreate or AfterValidate is fine
+    //     //afterValidate: (user) => {
+    //     user.Password = bcrypt.hashSync('${user.Password}', 8); //copied from Pluralsight Sequelize tutorial
         
-        //To check if password is correct for authentication:
-        //bcrypt.compareSync(myPlaintextPassword, hash); // true
-      }
-    },
+    //     //To check if password is correct for authentication:
+    //     //bcrypt.compareSync(myPlaintextPassword, hash); // true
+    //   }
+    // },
     //This was in the "Column Options" section of the sequilize manual
     sequelize,
     modelName: 'User',
@@ -405,50 +440,6 @@ class UserBadge extends Model{}
   }
 ); 
 console.log("UserBadgeLoaded: " + (UserBadge === sequelize.models.UserBadge)); //true
-
-class Address extends Model{}
-Address.init({
-  ID: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  Address: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  Country: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  State: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  City: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  Zip: {
-    type: DataTypes.MEDIUMINT.UNSIGNED,
-    allowNull: true
-  },
-  //User: {
-  UserID: { //Nathan
-   type: DataTypes.INTEGER.UNSIGNED,
-    references: {
-      model: User,
-      key: 'ID'
-    },
-    allowNull: false
-  }
-}, {
-    sequelize,
-    modelName: 'Address',
-    indexes: [{ unique: true, fields: ['ID'] }]
-  }
-);
-console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
 
 class UpdatesTable extends Model{}
   UpdatesTable.init({
@@ -1573,8 +1564,8 @@ UserBadge.belongsTo(User);
 User.hasMany(UserBadge);
 
 //Address Associations
-Address.belongsTo(User);
-User.hasMany(Address);
+// Address.belongsTo(User);
+User.hasOne(Address);
 
 //UpdatesTable Associations
 UpdatesTable.belongsTo(User);
