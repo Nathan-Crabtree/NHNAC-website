@@ -28,7 +28,6 @@ export default class SignUp extends Component {
         let firstName = event.target.first_name.value;
         let revisedFirstName = [];
         let lastName = event.target.last_name.value;
-        let chapterID = 1;
         let revisedLastName = [];
         const email = event.target.email.value;
         const birthday = event.target.birthday.value;
@@ -38,13 +37,13 @@ export default class SignUp extends Component {
         const state = event.target.state.value;
         const city = event.target.city.value;
         const zip = event.target.zip.value;
-        // const chapter = event.target.chapter.value;
+        const chapter = event.target.chapter.value;
         const securityQuestion = event.target.security_question.value;
         const securityAnswer = event.target.security_answer.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirm_password.value;
-        // const redeemableCode = event.target.redeemable_code.value;
-        //const payment = parseInt(event.target.payment.value.split("").filter(string => string !== "$").join(""));
+        const redeemableCode = event.target.redeemable_code.value;
+        const payment = parseInt(event.target.payment.value.split("").filter(string => string !== "$").join(""));
 
 
         // Create error array
@@ -93,7 +92,7 @@ export default class SignUp extends Component {
             this.props.reviseName(lastName, revisedLastName, "lastName", true);
         } 
 
-        //Check for valid email input
+        // Check for valid email input
         if (!(this.props.emailIsValid(email))) {
             if (!errorsThatExist[1]) {
                 // Render error text and change boolean
@@ -141,7 +140,7 @@ export default class SignUp extends Component {
             }
         }
 
-        //Check for address input
+        // Check for address input
         if (street === "" || country === "" || state === "" || city === "" || zip === "") {
             if (!errorsThatExist[4]) {
                 // Render error text and change boolean
@@ -166,20 +165,20 @@ export default class SignUp extends Component {
         }
 
         // Check for chapter selection
-        // if (chapter === "Chapter") {
-        //     if (!errorsThatExist[5]) {
-        //         // Render error text and change boolean
-        //         const formField = document.getElementsByClassName("signup_fields")[5];
-        //         const input = document.getElementById("chapter");
-        //         error[5].innerHTML = '*Please select a chapter.';
-        //         error[5].className = "error_5";
-        //         error[5].style.fontSize = '.9rem';
-        //         error[5].style.color = '#C31F01';
-        //         formField.appendChild(error[5]);
-        //         input.style.borderColor = '#C31F01';
-        //         errorsThatExist[5] = true;
-        //     }
-        // }
+        if (chapter === "Chapter") {
+            if (!errorsThatExist[5]) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("signup_fields")[5];
+                const input = document.getElementById("chapter");
+                error[5].innerHTML = '*Please select a chapter.';
+                error[5].className = "error_5";
+                error[5].style.fontSize = '.9rem';
+                error[5].style.color = '#C31F01';
+                formField.appendChild(error[5]);
+                input.style.borderColor = '#C31F01';
+                errorsThatExist[5] = true;
+            }
+        }
 
         // Check for security question selection
         if (securityQuestion === "Choose a security question") {
@@ -237,27 +236,27 @@ export default class SignUp extends Component {
         }
 
         // Check for valid reedemable code input
-        // if (redeemableCode === "XGDV9DJZ") {
-        //     this.setState({
-        //         hasReedemableCode: true
-        //     });
-        // }
+        if (redeemableCode === "XGDV9DJZ") {
+            this.setState({
+                hasReedemableCode: true
+            });
+        }
 
         // Check if pay field is greater than 0
-        // if (payment === 0) {
-        //     if (!errorsThatExist[9]) {
-        //         // Render error text and change boolean
-        //         const formField = document.getElementsByClassName("signup_fields")[10];
-        //         const input = document.getElementById("payment");
-        //         error[9].innerHTML = '*Please enter a value greater than 0.';
-        //         error[9].className = "error_9";
-        //         error[9].style.fontSize = '.9rem';
-        //         error[9].style.color = '#C31F01';
-        //         formField.appendChild(error[9]);
-        //         input.style.borderColor = '#C31F01';
-        //         errorsThatExist[9] = true;
-        //     }
-        // }
+        if (payment === 0) {
+            if (!errorsThatExist[9]) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("signup_fields")[10];
+                const input = document.getElementById("payment");
+                error[9].innerHTML = '*Please enter a value greater than 0.';
+                error[9].className = "error_9";
+                error[9].style.fontSize = '.9rem';
+                error[9].style.color = '#C31F01';
+                formField.appendChild(error[9]);
+                input.style.borderColor = '#C31F01';
+                errorsThatExist[9] = true;
+            }
+        }
 
         // Check if any errors exists before sending data to API
         for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {
@@ -265,54 +264,93 @@ export default class SignUp extends Component {
                 return;
             }
         }
-
-        let addressID = 0; //not sure if variable needs to be declared here
-        let api_url = `http://localhost:8001/createAddress/${street}/${country}/${state}/${city}/${zip}/` ;
-        axios.post(api_url)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-            console.log("ADDRESSID11: " + res.data.ID);
-            addressID = res.data.ID;
-        })
-        .catch(error => {
-            console.log("error");
-            if (error.response){
-                // When response status code is out of 2xx range 
-                console.log(error.response.data)
-                console.log(error.response.status)
-                console.log(error.response.headers)
-            } else if(error.request) {
-                // When no response was recieved after request was made
-                console.log(error.request)
-            } else {
-                console.log(error.message)
-            }
-        });
-
-        console.log("ADDRESSID: " + addressID);
-        api_url = `http://localhost:8001/createUser/${addressID}/${email}/${password}/${firstName}/${lastName}/${birthday}/${gender}/${securityQuestion}/${securityAnswer}` ;
         
-        axios.post(api_url)
-        //axios.post(api_url, {testChapter})
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
-        .catch(error => {
-            console.log("error");
-            if (error.response){
-                // When response status code is out of 2xx range 
-                console.log(error.response.data)
-                console.log(error.response.status)
-                console.log(error.response.headers)
-            } else if(error.request) {
-                // When no response was recieved after request was made
-                console.log(error.request)
-            } else {
-                console.log(error.message)
-            }
-        });
+        // Take the data and send it to API 
+        console.log(revisedFirstName.join(""));
+        console.log(revisedLastName.join(""));
+        console.log(email);
+        console.log(birthday);
+        console.log(gender);
+        console.log(street);
+        console.log(country);
+        console.log(state);
+        console.log(city);
+        console.log(zip);
+        console.log(chapter);
+        console.log(securityQuestion);
+        console.log(securityAnswer);
+        console.log(password);
+        console.log(confirmPassword);
+        console.log(redeemableCode);
+        console.log(payment);
+
+        // const options = {
+        //     method: 'Post';
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     //body: JSON.stringify(user),
+        //     body: JSON.stringify(testChapter)
+        // }
+        // console.log("Begginging API fetch() POST")
+        // fetch(api_url, options)
+        //     .then(res => res.json())
+        //     .then(res => console.log(res))
+        //     .catch((error) => console.log(error));
+        // console.log("Finished API FETCH POST")
+
+        //const api_url = "http://localhost:8001/createChapter:testChapter";
+        // const testChapter = {
+        //     Name: 'testChapter'
+        // };
+        const api_url = "http://localhost:8001/createUser";
+
+        const user = {
+            Email: email,
+            Password: password,
+            FirstName: revisedFirstName.join(""),
+            LastName: revisedLastName.join(""),
+            NickName: "nickname",
+            Birthday: birthday,
+            Gender: gender,
+            SecurityQuestion: securityQuestion,
+            SecurityAnswer: securityAnswer,
+            ESignatureFilePath: "filepath",
+            SubscribedToNewsLetter: false,
+            SubscribedToPodcast: false,
+            Points: 0,
+            Status: "status",
+            ProfilePicLarge: "filepath",
+            ProfilePicMedium: "filepath",
+            ProfilePicSmall: "profile",
+            DateTimeLoggedIn: new Date(),
+            Facebook: "facebook",
+            Instagram: "instagram",
+            Twitter: "twitter",
+            ChapterID: 1          
+        }
+        console.log("Begginging API axios POST")
+
+        axios.post(api_url, {user})
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.log("error");
+                if (error.response){
+                    // When response status code is out of 2xx range 
+                    console.log(error.response.data)
+                    console.log(error.response.status)
+                    console.log(error.response.headers)
+                } else if(error.request) {
+                    // When no response was recieved after request was made
+                    console.log(error.request)
+                } else {
+                    console.log(error.message)
+                }
+            });
+
 
     // Write after-submit code here 
         // Write after-submit code here 
