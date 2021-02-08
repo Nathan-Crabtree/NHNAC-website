@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Container from '../Container.js';
+import Container from '../Container';
 
 export default class Footer extends Component {
 
@@ -24,7 +24,7 @@ export default class Footer extends Component {
                         <li><h4><u>Information</u></h4></li>
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/FAQ">F.A.Q.</Link></li>
-                        {/*<li><Container onSubmit={this.props.onSubmit} onSubmit={this.props.emailIsValid} triggerText="Newsletter" /></li>*/}
+                        {/*<li><Container onSubmit={this.props.onSubmit} emailIsValid={this.props.emailIsValid} triggerText="Newsletter" /></li>*/}
                     </ul>
                 </div>
                 <div className="social_links">

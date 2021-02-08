@@ -22,12 +22,12 @@ export default class Login extends Component {
                             <input type="checkbox" id="rememberMe" name="remember_me" />
                             <label htmlFor="rememberMe">Remember me</label><br />
                         </div>
-                        <div className="form_links">
+                        <div className="form_links center_text">
                             <span><Link to="/forgot_password">Click here if you forgot your password.</Link></span>
                         </div>
                         <button className="login_submit" type="submit">Sign In</button>
                     </fieldset>
-                    <div className="form_links">
+                    <div className="form_links center_text">
                         <span>New member? <Link to="/signup">Click here to become adopted.</Link></span>
                     </div>
                 </form>

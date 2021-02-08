@@ -1,4 +1,3 @@
-
 const express = require('express');
 const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 //const { User } = require('./src/Models.js');

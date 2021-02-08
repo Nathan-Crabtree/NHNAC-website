@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import ReactDOM from 'react-dom'
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Content from './Content';
@@ -109,7 +108,7 @@ export default class Header extends Component {
     }
 
     /**
-     * onSubmit() function - This function grabs the input value of the search query and sends a request to the API and returns 
+     * onSubmit() function - Grabs the input value of the search query and sends a request to the API and returns 
      * relevant results on the search page.
      * 
      */
@@ -160,12 +159,12 @@ export default class Header extends Component {
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content?header=articles&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Articles</Link>
+                                    <Link to="/content?header=articles" onClick={ () => <Content /> }>Articles</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content?header=news&top_aside=calendar&bottom_aside=events" onClick={ () => <Content /> }>News</Link>
-                                        <Link to="/content?header=updates&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content?header=blogs&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Blogs</Link>
-                                        <Link to="/content?header=podcasts&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Podcast</Link>
+                                        <Link to="/content?header=news" onClick={ () => <Content /> }>News</Link>
+                                        <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -183,12 +182,12 @@ export default class Header extends Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content?header=news&top_aside=calendar&bottom_aside=events" onClick={ () => <Content /> }>News</Link>
+                                    <Link to="/content?header=news" onClick={ () => <Content /> }>News</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content?header=articles&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Articles</Link>
-                                        <Link to="/content?header=updates&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content?header=blogs&top_aside=archive&bottom_aside=most_viewed" onClick={ () => <Content /> }>Blogs</Link>
-                                        <Link to="/content?header=podcasts&top_aside=archive&bottom_aside=popular" onClick={ () => <Content /> }>Podcast</Link>
+                                        <Link to="/content?header=articles" onClick={ () => <Content /> }>Articles</Link>
+                                        <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>

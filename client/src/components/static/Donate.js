@@ -50,10 +50,11 @@ export default class Donate extends Component {
                 <br />
                 <p><em>&quot;It does not take a majority to prevail... but rather an irate, tireless minority, keen on setting brushfires of freedom in the minds of men.&quot; - Samuel Adams</em></p>
                 <Link to="#"><img className="paypal_bitcoin paypal_link" srcSet={this.props.paypal} alt="Donate with PayPal." /></Link><br />
-                <div className="bitcoin_link">
+                {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
+                {/* <div className="bitcoin_link">
                     <Link to="#"><img className="paypal_bitcoin" srcSet={this.props.bitcoin} alt="Donate with Bitcoin." /></Link><br />
                     <span className="bitcoin_span">Got crypto? We're now accepting bitcoin donations!</span>
-                </div>
+                </div> */}
             </React.Fragment>
         );
     }

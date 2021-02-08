@@ -341,7 +341,7 @@ export default class SignUp extends Component {
         return ( 
             <React.Fragment>
                     <form className="signup_form" onSubmit={this.onSubmit}>
-                        <div className="top_div">
+                        <div className="top_div center_text">
                             <h2>Adoption form</h2>
                             <p>Pay what you'd like. Join our church today!</p>
                         </div>
@@ -419,9 +419,9 @@ export default class SignUp extends Component {
                             </div>
                             {/* Code snippet for newsletter checkbox, which is currently an unavailable feature in the beta release. - Zane */}
                             {/*<div className="signup_fields">
-                                <div className="newsletter_div">
+                                <div className="newsletter_div center_text">
                                     <input type="checkbox" id="newsletter" name="newsletter" />
-                                    <label htmlFor="newsletter">Check this box to sign up for our newsletter</label><br />
+                                    <label className="center_text" htmlFor="newsletter">Check this box to sign up for our newsletter</label><br />
                                 </div>
                             </div>*/}
                             {/* Insert e-signature widget here */}
@@ -430,7 +430,7 @@ export default class SignUp extends Component {
                                 <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" placeholder="Redeemable Code" /><br />          
                             </div>
                             <div className="signup_fields">
-                                <label htmlFor="payment">Pay Us What You'd Like</label><br />
+                                <label className="center_text" htmlFor="payment">Pay Us What You'd Like</label><br />
                                 <input className="signup_input" type="string" id="payment" name="payment" placeholder="0" defaultValue="$0.00"/><br />
                                 <div className="pay_buttons_div">
                                     <button className="pay_button" type="button" value="1" onClick={() => { document.getElementById("payment").value = "$1.00"} }>$1</button>
@@ -440,7 +440,7 @@ export default class SignUp extends Component {
                                 </div>
                             </div>
                             <div className="signup_fields">
-                                <div className="pay_with_div">
+                                <div className="pay_with_div center_text">
                                     <button className="paypal_btn" type="submit">Pay with PayPal</button>
                                     {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
                                     {/*<p>Or</p>

@@ -13,18 +13,19 @@ nav > div {
     li {
         display: inline;
         padding: 1% 2.75%;
-    }
-    // For li tags with class "vertical_bar" 
-    li:nth-child(even) {
-        color: $nh-white;
-        cursor: default;
-        ::selection {
-            color: none;
-            background: none;
+        
+        // For li tags with class "vertical_bar" 
+        &:nth-child(even) {
+            color: $nh-white;
+            cursor: default;
+            &::selection {
+                color: none;
+                background: none;
+            }           
         }
-    }
-    li:nth-child(odd):hover {
-        background-color: rgb(136,132,123);
+        &:nth-child(odd):hover {
+            background-color: rgb(136,132,123);
+        }
     }
 }
 
@@ -57,7 +58,7 @@ nav > div {
     box-shadow: 0px 8px 16px 0px $nh-black;
     z-index: 1;
     margin: 16px 0 0 -15px; 
-    padding: 10px 0; /* top+bottom left+right */
+    padding: $nh-form-margin; /* top+bottom left+right */
 }
   
 /* Links inside the dropdown */
