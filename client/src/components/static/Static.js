@@ -9,13 +9,12 @@ import SignUp from './SignUp';
 import About from './About';
 import Constitution from './Constitution';
 import LegalRights from './LegalRights';
-import Adoption from './Adoption';
 import CodeOfConduct from './CodeOfConduct';
 import Home from './Home';
 import Slideshow from './Slideshow';
 
 export { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, Adoption, CodeOfConduct, Home, 
+         LegalRights, CodeOfConduct, Home, 
          Slideshow
         };

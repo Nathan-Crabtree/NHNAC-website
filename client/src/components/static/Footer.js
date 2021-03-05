@@ -16,7 +16,7 @@ export default class Footer extends Component {
                     </ul>
                     <ul>
                         <li><h4><u>Connect</u></h4></li>
-                        <li><Link to="/about#contact">Contact</Link></li>
+                        <li><Link to="/about#contactDiv">Contact</Link></li>
                         <li><Link to="/donate">Donate</Link></li>
                         <li><Container onSubmit={this.props.onSubmit} triggerText="Feedback" /></li>
                     </ul>
@@ -29,8 +29,6 @@ export default class Footer extends Component {
                 </div>
                 <div className="social_links">
                     <ul>
-                        <li><a href="mailto:info@newhavennativeamericanchurch.org">info@newhavennativeamericanchurch.org</a></li>
-                        <li className="vertical_bar">|</li>
                         <li><a href="https://www.facebook.com/groups/NewHavenNativeAmericanChurch/" target="_blank" rel="noopener noreferrer" className="nav-footer-link" onClick={this.resetToggleDisplay}><img srcSet={this.props.fbLogo} alt="Facebook" width="16px" height="16px" /></a></li>
                         <li className="vertical_bar">|</li>
                         <li>©2020 All rights reserved.</li>

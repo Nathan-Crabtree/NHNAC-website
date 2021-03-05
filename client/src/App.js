@@ -7,7 +7,7 @@ import $ from 'jquery';
 import { logo, hbIcon, fbLogo, donate, paypal, bitcoin, indian, 
   tribe, hands, homes, people, podcast, articleImgLink, profileImgSmall,
   profileImgLarge, fbMini, instaMini, twitterMini, thumbsUp, magnifyingGlass,
-  apple, book, badge
+  apple, book, badge, messageIcon
  } from './images/Images';
 
 // Import miscellaneous
@@ -17,7 +17,7 @@ import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, Adoption, CodeOfConduct, Home
+         LegalRights, CodeOfConduct, Home
         } from './components/static/Static';
 import { Header, Error, Login, Content,
           Article, ForgotPassword, Verification, Profile, 
@@ -61,7 +61,7 @@ export default class App extends Component {
   onSubmit = (event) => {
     event.preventDefault(event);
     console.log(event.target.name.value);
-    console.log(event.target.email.value);
+    //console.log(event.target.email.value); //nathan
   }
 
   /**
@@ -77,14 +77,14 @@ export default class App extends Component {
       const main = document.getElementsByTagName("main")[0];
       const footer = document.getElementsByTagName("footer")[0];
       
-      // Change hamburgerIcon's display to block;
+      // Change hamburgerIcon's display to block.
       hamburgerIcon.style.display = "block";
       
       // Change navDiv margin and transition settings.
       navDiv.style.marginTop = "-485.72px";
       navDiv.style.transition = "margin-top 0s";
 
-      // Set body overflow style property to scroll
+      // Set body overflow style property to scroll.
       body.style.overflow = "scroll";
 
       // Set page-content brightness style property back to 100% and remove the style attribute.
@@ -111,7 +111,7 @@ export default class App extends Component {
 
   /**
    * emailIsValid() function - Checks for valid email input.
-   * Source: https://ui.dev/validate-email-address-javascript/
+   * Source: https://ui.dev/validate-email-address-javascript/. - Zane
    * 
    * @param {string} email 
    */
@@ -191,10 +191,11 @@ export default class App extends Component {
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy />} />
                 <Route exact path="/content" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} 
                 articleImgLink={articleImgLink} reviseName={this.reviseName} />} />
-                <Route exact path="/article" component={ () => <Article articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
+                <Route exact path="/article" component={ (props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
                 profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} onSubmit={this.onSubmit} /> } />
                 <Route exact path="/profile" component={ () => <Profile apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} 
-                twitterMini={twitterMini} profileImgLarge={profileImgLarge} badge={badge} onSubmit={this.onSubmit} /> } />
+                twitterMini={twitterMini} profileImgLarge={profileImgLarge} badge={badge} onSubmit={this.onSubmit} profileImgSmall={profileImgSmall} 
+                messageIcon={messageIcon} /> } />
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService />} />
                 <Route exact path="/FAQ" component={ () => <FAQ />} />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} />} />
@@ -203,9 +204,8 @@ export default class App extends Component {
                 setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName}/>} />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
                 <Route exact path="/verification" component={ () => <Verification />} />
-                <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} emailIsValid={this.emailIsValid} reviseName={this.reviseName} />} />
+                <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} />} />
                 <Route exact path="/constitution" component={ () => <Constitution ConstitutionPdf={ConstitutionPdf} />} />
-                <Route exact path="/adoption_agreement" component={ () => <Adoption /> } />
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
                 <Route exact path="/suspended" component={ () => <Suspended /> } />

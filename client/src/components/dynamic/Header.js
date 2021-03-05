@@ -197,9 +197,11 @@ export default class Header extends Component {
                                     <Link to="/about">About</Link>
                                     <div className="dropdown-content">
                                         <Link to="/constitution">Constitution</Link>
-                                        <Link to="/about#contact">Contact</Link>
+                                        <Link to="/about#contactDiv">Contact</Link>
                                     </div>
                                 </li>
+                                <li className="vertical_bar">|</li>
+                                <li><Link to="/faq">F.A.Q.</Link></li>
                                 <li className="vertical_bar">|</li>
                                 <li><Link to="/donate">Donate</Link></li>
                             </ul>

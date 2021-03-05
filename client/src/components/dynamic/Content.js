@@ -9,7 +9,7 @@ export default class Content extends Component {
     constructor(){
         super();
         this.state = {
-            header: null,
+            header: null
         }
         this.setStateHandler = this.setStateHandler.bind(this);
     }
@@ -24,10 +24,10 @@ export default class Content extends Component {
     setStateHandler() { 
         const parsedQString = queryString.parse(this.props.location.search);
 
-        // Change state value of query property to that of query string in URL
+        // Change state value of query property to that of query string in URL.
         this.setState({ header: parsedQString.header });
-
-        // Render proper text for bottom_aside and top_aside span tag according to string value
+        
+        // Render proper text for bottom_aside and top_aside span tag according to string value.
         switch(this.state.header) {
             case "news":
               document.getElementById("headerContent").innerHTML = "News";
@@ -90,35 +90,30 @@ export default class Content extends Component {
                         </section>
                         <section>
                             <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
-                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
+                            <h3>EVENT: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
-                                    <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
+                                    <p className="event_info">Date/Time: 12-20-2020 Tue 12:30pm, Location: Main church</p>
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article?type=event&id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
                         </section>
                         <section>
                             <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
-                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
+                            <h3>PODCAST: Excepteur sint occaecat.</h3>
                             <div className="sub_article_container">
-                                <div className="author_content">
-                                    <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
-                                </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article?type=podcast&id=1">Click here to listen {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
                         </section>
-                        <Link className="more_articles_link" to="/">Click here to see more</Link>
+                        <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
                     </div>
                     <div className="content_container2">
                         <aside className="top_aside">
@@ -129,7 +124,7 @@ export default class Content extends Component {
                                 <li>April 2020</li>
                                 <li>March 2020</li>
                             </ul>
-                            <Link to="/">Click here to see more</Link>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
                             <div className="clear"></div>
                         </aside>
                         <aside className="bottom_aside">
@@ -140,11 +135,11 @@ export default class Content extends Component {
                                 <li>5/4/2020 - Nullam non nisi.</li>
                                 <li>6/4/2020 - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <Link to="/">Click here to see more</Link>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
                             <div className="clear"></div>
                         </aside>
                         <aside>
-                            <Link to="/content?header=podcasts&top_aside=archive&bottom_aside=popular">
+                            <Link to="/content?header=podcasts">
                                 <img className="podcast_img" srcSet={this.props.podcast} alt="Tune in to our podcast! New episodes every Friday." onClick={ () => {this.setStateHandler()}} />
                             </Link>
                         </aside>

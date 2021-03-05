@@ -83,16 +83,7 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
     @include center;
 }
 
-// Use variables for profile and article images in the future. - Zane
-
 // Content
-
-.profile_img_small {
-    padding-left: $nh-padding-left;
-    border-radius: 50%;
-    width: 50px;
-    height: 45px;
-}
 
 .podcast_img {
    width: 454.3px;
@@ -104,7 +95,7 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
 .article {
     &_img_med {
         border-radius: 4px;
-        width: calc(649px*.90);
+        width: $nh-article-img-m-width;
     }
     &_image {
         width: $nh-article-img-width;
@@ -133,7 +124,31 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
 
 // Profile
 
-.profile_img_large {
-    width: 332px;
-    height: 252px;
+.profile_img {
+    &_small {
+        padding-left: $nh-padding-left;
+        border-radius: 50%;
+        width: $nh-profile-img-s-width;
+        height: $nh-profile-img-s-height;
+    }
+    &_med {
+        padding-left: $nh-padding-left;
+        border-radius: 50%;
+        width: $nh-profile-img-m-width;
+        height: $nh-profile-img-m-height;
+    }
+    &_large {
+        width: $nh-profile-img-l-width;
+        height: $nh-profile-img-l-height;
+    }
+}
+
+// Connections
+
+.message_icon {
+    width: 62%;
+    padding-bottom: 20px;
+    &_a {
+        float: right;
+    }
 }

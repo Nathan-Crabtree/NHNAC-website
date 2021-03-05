@@ -1,5 +1,5 @@
 // NOTE:: Majority of this code is starter code. 
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -21,7 +21,9 @@ export const Modal = ({
     triggerText,
     displayForm,
     emailIsValid,
-    className
+    className,
+    profileImgSmall,
+    messageIcon
 }) => {
 
 /**
@@ -31,15 +33,15 @@ export const Modal = ({
 displayForm = () => {
     switch (triggerText) {
         case "Feedback":
-            return <Feedback onSubmit={onSubmit} closeModal={closeModal} />
+            return <Feedback onSubmit={onSubmit} />
         case "Newsletter":
             return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
         case "Cookies":
             return <Cookies onSubmit={onSubmit} closeModal={closeModal} />
         case "Report":
-            return <Report onSubmit={onSubmit} closeModal={closeModal} className={className} />
+            return <Report onSubmit={onSubmit} className={className} />
         case "Connections":
-            return <Connections onSubmit={onSubmit} closeModal={closeModal} />
+            return <Connections onSubmit={onSubmit} profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
         default:
             break;
     }
@@ -93,5 +95,7 @@ Modal.propTypes = {
     closeModal: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     triggerText: PropTypes.string.isRequired,
-    emailIsValid: PropTypes.func
+    emailIsValid: PropTypes.func,
+    profileImgSmall: PropTypes.string,
+    messageIcon: PropTypes.string
 }

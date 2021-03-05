@@ -10,8 +10,7 @@ textarea:not(.search_bar) {
 
 label[for="rememberMe"], 
 label[for="newsletter"], 
-.resend_email_span, 
-.agreement_p {
+.resend_email_span {
     font-size: .9rem;
 }
 
@@ -145,13 +144,19 @@ textarea:not(.search_bar) {
 
 // Sign Up 
 
+.adoption_agreement {
+    padding-bottom: $nh-signup-padding-bottom;
+}
+
 .top_div {
-    padding-bottom: 90px;
+    padding-bottom: calc(#{$nh-signup-padding-bottom} * 2);
 }
 
 .signup {
     &_form {
         @include center;
+        margin-bottom: $nh-signup-padding-bottom;
+        padding-bottom: $nh-signup-padding-bottom;
         width: 70%;
     }
     &_fieldset {
@@ -163,6 +168,10 @@ textarea:not(.search_bar) {
     &_input {
         width: 95%;
     }
+}
+
+.agreement_div {
+    padding-top: calc(#{$nh-signup-padding-bottom} * 2);
 }
 
 .geo_location {
@@ -205,13 +214,6 @@ label[for="payment"] {
     width: 92.25%;
 }
 
-.agreement_p {
-    text-align:center;
-    @include center;
-    width: $nh-form-width;
-    padding-top: 90px;
-}
-
 // Forgot Password
 
 .security_question {
@@ -225,13 +227,6 @@ label[for="payment"] {
 
 .resend_email_span {
     padding-top: $nh-padding-top-l;
-}
-
-// Contact
-
-.contact_form {
-    @include center;
-    width: $nh-form-width;
 }
 
 // Article
@@ -269,8 +264,7 @@ label[for="payment"] {
     }
     &_field {
         > svg {
-            float: right;
-            cursor: pointer;
+            @extend %form_svg;
         }
     }
 }
@@ -280,8 +274,7 @@ label[for="payment"] {
         display: none;
     }
     &_container ~ form > fieldset > svg {
-        float: right;
-        cursor: pointer;
+        @extend %form_svg;
     }
 }
 
@@ -293,4 +286,43 @@ label[for="payment"] {
     resize: none;
     margin-top: -3px;
     position: relative;
+}
+
+// Event
+
+.guest_form {
+    @include center;
+    padding: 20px 20px;
+    width: 50%;
+    > label, br, input {
+        margin-top: 15px;
+    }
+    > input {
+        width: 100%;
+    }
+    > button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+// Profile
+
+.status {
+    &_form {
+        display: none;
+        margin: $nh-form-margin;
+        > fieldset > div {
+            > svg {
+                @extend %form_svg;
+            }
+            > textarea {
+                height: 50px;
+            }
+        }
+    }
+    &_p {
+        margin: 0;
+        width: 12%;       
+    }
 }

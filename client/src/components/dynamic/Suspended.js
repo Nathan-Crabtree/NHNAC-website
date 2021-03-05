@@ -21,11 +21,11 @@ export default class Suspended extends Component {
      * 
      */
     countDaysLeft() {
-        // Convert dateAccountSuspended into MM/DD/YYYY form
+        // Convert dateAccountSuspended into MM/DD/YYYY form.
         let tempArray = this.state.dateAccountSuspended.split("");
         let revisedDateAccountSuspended = `${tempArray[5]}${tempArray[6]}/${tempArray[8]}${tempArray[9]}/${tempArray[0]}${tempArray[1]}${tempArray[2]}${tempArray[3]}`;
 
-        // Convert currentDate into MM/DD/YYYY form
+        // Convert currentDate into MM/DD/YYYY form.
         let currentMonth;
         if (this.state.currentDate.getMonth() <= 9) {
             currentMonth = `0${this.state.currentDate.getMonth() + 1}`;    
@@ -34,14 +34,14 @@ export default class Suspended extends Component {
         }
         let revisedCurrentDate = `${currentMonth}/${this.state.currentDate.getDate()}/${this.state.currentDate.getFullYear()}`;
 
-        // Store revisedCurrentDate and revisedDateAccountSuspended into Date objects
+        // Store revisedCurrentDate and revisedDateAccountSuspended into Date objects.
         let suspendedDate = new Date(revisedDateAccountSuspended);
         let currentDate = new Date(revisedCurrentDate);
 
-        // To calculate the time difference of two dates 
+        // To calculate the time difference of two dates. 
         var differenceInTime = currentDate.getTime() - suspendedDate.getTime(); 
         
-        // To calculate the no. of days between two dates 
+        // To calculate the no. of days between two dates. 
         var differenceInDays = differenceInTime / (1000 * 3600 * 24); 
 
         // Return the result if value is not null, else reset user's suspension and warning data.
