@@ -51,7 +51,7 @@ a {
     clear: both;
 }
 
-// About page 
+// About 
 
 .about_link {
     display: block;
@@ -59,10 +59,19 @@ a {
 
 .experiences_div {
     @include center;
-    width: 50%;
+    width: 25%;
 }
 
-// Content page
+#contactDiv {
+    text-align: center;
+    > div {
+        p {
+            font-weight: bold;
+        }
+    }
+}
+
+// Content
 
 .content_container1 {
     > section {
@@ -71,9 +80,12 @@ a {
         box-shadow: 0px 3px 6px #100B0098;
         margin: 25px 0;
         width: calc(649px*.90);
-        > h3 {
+        h3 {
             text-align: center;
         }
+    }
+    > button {
+        @include center;
     }
 }
 
@@ -84,7 +96,7 @@ a {
     }
 }
 
-// Src: https://coder-coder.com/display-divs-side-by-side/
+// Src: https://coder-coder.com/display-divs-side-by-side/. - Zane
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -98,6 +110,10 @@ a {
 .author_content {
     > p, img {
         float: left;
+        
+    }
+    .event_info {
+        width: 50%;
     }
     margin: 10px 10px;
 }
@@ -109,15 +125,15 @@ a {
 }
 
 .top_aside, .bottom_aside {
-    > div, ul, a {
+    > div, ul, button {
         padding: 25px 25px 0 25px;
         > li {
             list-style-type: none;
             padding-bottom: $nh-padding-top-l;
         }
     }
-    > a {
-        text-align: center;
+    > button {
+        @include center;
     }
 }
 
@@ -127,7 +143,7 @@ a {
     padding-top: $nh-padding-right;
 }
 
-// Article page
+// Article
 
 .top_aside_container {
     display: block;
@@ -143,9 +159,48 @@ a {
     }
 }
 
+.location_time_section {
+    margin-top: 45px;
+    padding: 20px 20px;
+    @include center;
+    @extend %content_container_section;
+    > div {
+        margin-top: 20px;
+    }
+}
+
+.event_attendees_div {
+    padding-top: 20px;
+    @include center;
+    width: 40%;
+    > section {
+        @extend %content_container_section;
+        @extend %profile_container_section_ul;
+    }
+    > button {
+        width: 35%;
+        @include center;
+    }
+}
+
+.event_info_container {
+    display: flex;
+}
+
 .bottom_aside_container {
     display: block;
     > div:first-child {
+        padding-top: 100px;
+        padding-bottom: 5px;
+        a {
+            background-color: white;
+            border: 1px solid $nh-black;
+            border-radius: 4px;
+            padding: 5px 5px;
+            margin-right: $nh-padding-left;
+        }
+    }
+    > div:nth-child(2) {
         float: left;
         > ul {
             margin-left: -40px;
@@ -159,7 +214,7 @@ a {
             font-size: $nh-font-small;
         }
     }
-    > div:nth-child(2) {
+    > div:nth-child(3) {
         float: right;
         margin-top: 14px;
         > a {
@@ -188,7 +243,11 @@ a {
     right: 31%;
 }
 
-// Comment section
+.figure_podcast {
+    padding-bottom: 20px;
+}
+
+// Comment
 
 .comment_container {
     > div:nth-of-type(1) {
@@ -236,7 +295,7 @@ a {
     }
 }
 
-// Response section
+// Response
 
 .response_container {
     > div {
@@ -288,11 +347,11 @@ a {
     display: none;
 }
 
-// Profile page
+// Profile
 
 .profile_container1 {
     float: left;
-    > div {
+    > div:first-of-type {
         > div:first-of-type { 
             float: left;
             padding-right: $nh-padding-top-l;
@@ -315,12 +374,12 @@ a {
                     background-color: #a09e9e !important;  
                 }
             }
-        }   
+        } 
         > section:first-of-type {
             float: right;
             > h2 {
                 margin-top: $nh-padding-left;
-                padding-bottom: 15px;
+                padding-bottom: $nh-padding-top-m;
             }
             > p {
                 margin-top: -15px;
@@ -340,13 +399,16 @@ a {
             }
             > button {
                 margin-left: -6px;
+                &:nth-of-type(2) {
+                    display: none;
+                }
             }
             > div:nth-of-type(3) {
                 margin-top: 14px;
                 > a {
                     padding-right: $nh-padding-right;
                 }
-            }
+            }          
         }
     }
     > button {
@@ -363,18 +425,72 @@ a {
         .modal_button {
             color: $nh-black;
         }
+        > div > p {
+            margin: 0;
+        }
     }
-    > section:nth-of-type(2), > section:last-of-type {
-        @extend %content_container_section;
-        @extend %profile_container_section_ul;
+    .profile_container1_and_half {
+        padding-top: $nh-padding-top-m;
+        width: 484.3px;
+        > div > section {
+            @extend %content_container_section;
+            margin: 0;
+            @extend %profile_container_section_ul;
+        }  
     }
 }
 
 .profile_container2 {
     float: right;
+    padding-top: $nh-padding-top-m;
     margin-top: -25px;
-    > section {
+    > div > section {
         @extend %content_container_section;
+        margin: 0;
         @extend %profile_container_section_ul;
+    }
+}
+
+.profile_drop_zone {
+    padding: 15px 15px;
+    &--over, &--empty {
+        opacity: 0.5;
+        background-color: white;        
+    }
+}
+
+@for $profile-container from 1 through 2 {
+    @for $section-container from 1 through 4 {
+        @if $profile-container == 1 and $section-container > 2 {
+            .profile_container#{$profile-container}_section_container#{$section-container} {
+                // Src: https://stackoverflow.com/questions/391440/how-to-make-div-resizeable. - Zane
+                resize: none;
+                overflow: auto; /* something other than visible */
+            }
+        } @else if $profile-container == 2 {
+            .profile_container#{$profile-container}_section_container#{$section-container} {
+                resize: none;
+                overflow: auto;
+            }            
+        }
+    }  
+}  
+
+.table--clicked {
+    border: 1px solid $nh-black;
+}
+
+// Connections 
+
+.connections_modal_ul {
+    margin-left: -40px;
+    > li {
+        list-style-type: none;
+        > img {
+            float: left;
+        }
+        > div:first-of-type {
+            margin-left: 120px;
+        }
     }
 }

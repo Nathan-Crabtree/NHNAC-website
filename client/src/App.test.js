@@ -7,13 +7,15 @@ import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } fr
 import { displayForm } from './components/Modal';
 import { onSubmit as onSubmitFeedback } from './components/Feedback';
 import { onSubmit as onSubmitReport } from './components/Report';
-import { onSubmit as onSubmitAbout } from './components/static/About';
 import { onSubmit as onSubmitSignUp } from './components/static/SignUp';
 import { plusSides, currentSlide, showSlides, showSlidesAuto } from './components/static/Slideshow';
 import { setStateHandler } from './components/dynamic/Content';
 import { displayComments, hideComments, hideResponses, displayForm as displayFormArticle, hideForm,
-         onSubmit as onSubmitArticle } from './components/dynamic/Article';
+         onSubmit as onSubmitArticle, displayTypeComponent, setTypeHeader, setTypeBackLink, displayProperContent } from './components/dynamic/Article';
 import { countDaysLeft } from './components/dynamic/Suspended';
+import { addAttendee, removeAttendee, displayAttendBtnOrForm } from './components/dynamic/EventType';
+import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable, 
+  displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/Profile';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -138,13 +140,6 @@ it("doesn't output anything", () => {
   expect(onSubmitReport).toBeUndefined();
 });
 
-// ABOUT.JS FUNCTION(S)
-
-// onSubmit testing; src: client/src/components/static/About.js
-it("doesn't output anything", () => {
-  expect(onSubmitAbout).toBeUndefined();
-});
-
 // HEADER.JS FUNCTION(S)
 
 // toggleDisplayNav testing; src: client/src/components/Header.js
@@ -225,9 +220,93 @@ it("doesn't output anything", () => {
   expect(onSubmitArticle).toBeUndefined();
 });
 
+// displayTypeComponent testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(displayTypeComponent).toBeUndefined();
+});
+
+// setTypeHeader testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(setTypeHeader).toBeUndefined();
+});
+
+// setTypeBackLink testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(setTypeBackLink).toBeUndefined();
+});
+
+// displayProperContent testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(displayProperContent).toBeUndefined();
+});
+
 // SUSPENDED.JS FUNCTION(S)
 
 // countDaysLeft testing; src: client/src/components/Article.js
 it("doesn't output anything", () => {
   expect(countDaysLeft).toBeUndefined();
+});
+
+// EVENTTYPE.JS FUNCTION(S)
+
+// removeAttendee testing; src: client/src/components/EventType.js
+it("doesn't output anything", () => {
+  expect(removeAttendee).toBeUndefined();
+});
+
+// addAttendee testing; src: client/src/components/EventType.js
+it("doesn't output anything", () => {
+  expect(addAttendee).toBeUndefined();
+});
+
+// displayAttendBtnOrForm testing; src: client/src/components/EventType.js
+it("doesn't output anything", () => {
+  expect(displayAttendBtnOrForm).toBeUndefined();
+});
+
+// PROFILE.JS FUNCTION(S)
+
+// displayForm testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(displayFormProfile).toBeUndefined();
+});
+
+// hideForm testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(hideFormProfile).toBeUndefined();
+});
+
+// onSubmit testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(onSubmitProfile).toBeUndefined();
+});
+
+// collapseDataTable testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(collapseDataTable).toBeUndefined();
+});
+
+// expandDataTable testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(expandDataTable).toBeUndefined();
+});
+
+// displayCollapsedDataTableHeaderAndExpandBtn testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(displayCollapsedDataTableHeaderAndExpandBtn).toBeUndefined();
+});
+
+// resizeDataTable testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(resizeDataTable).toBeUndefined();
+});
+
+// customizePage testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(customizePage).toBeUndefined();
+});
+
+// saveSettings testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(saveSettings).toBeUndefined();
 });

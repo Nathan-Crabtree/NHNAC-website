@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 export const Slideshow = ({hands, homes, people, onSubmit}) => {
 
-    // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane 
-    var slideIndex = 0;
+    // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane 
+    var slideIndex = useRef(0);
 
     /**
      * showSlides function() - Renders and hides images in the order they were placed and edits styling of the viewer.
@@ -16,16 +16,16 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
         var i;
         var slides = document.getElementsByClassName("mySlides");
         var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
+        if (n > slides.length) {slideIndex.current = 1}
+        if (n < 1) {slideIndex.current = slides.length}
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
         for (i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" active", "");
         }
-        slides[slideIndex-1].style.display = "block";
-        dots[slideIndex-1].className += " active";
+        slides[slideIndex.current-1].style.display = "block";
+        dots[slideIndex.current-1].className += " active";
     }
 
     /**
@@ -34,7 +34,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
      * @param {integer} n 
      */
     function plusSlides(n) {
-        showSlides(slideIndex += n);
+        showSlides(slideIndex.current += n);
     }
   
     /**
@@ -43,10 +43,10 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
      * @param {integer} n 
      */
     function currentSlide(n) {
-        showSlides(slideIndex = n);
+        showSlides(slideIndex.current = n);
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         /**
          * showSlidesAuto() function - Automated version of showSlides(). 
          * 
@@ -61,18 +61,17 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
             for (i = 0; i < dots.length; i++) {
                 dots[i].className = dots[i].className.replace(" active", "");
             }
-            slideIndex++;
+            slideIndex.current++;
 
-            // eslint-disable-next-line
-            if (slideIndex > slides.length) {slideIndex = 1}
-            slides[slideIndex-1].style.display = "block";
-            dots[slideIndex-1].className += " active";
+            if (slideIndex.current > slides.length) {slideIndex.current = 1}
+            slides[slideIndex.current-1].style.display = "block";
+            dots[slideIndex.current-1].className += " active";
         }
 
-        // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout - Zane
+        // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout. - Zane
         let functionDone = false;
 
-        // Change image every 5 seconds
+        // Change image every 5 seconds.
         let timeout = setTimeout(function() {
             showSlidesAuto();
             functionDone = true;
@@ -80,7 +79,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
 
         $(function() {
             if (!functionDone) {
-                // Clear time interval function once new page loads
+                // Clear time interval function once new page loads.
                 clearTimeout(timeout);
 
                 showSlidesAuto();
@@ -91,7 +90,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
     return(
         <React.Fragment>
             {/* NOTE: Majority of this code is starter code. */}
-            {/* Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane */}
+            {/* Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane */}
             {/* Slideshow wrapper */}
             <div className="slideshow_wrapper">
                 <div className="slideshow-container">
@@ -133,5 +132,6 @@ export default Slideshow;
 Slideshow.propTypes = {
     hands: PropTypes.string.isRequired,
     homes: PropTypes.string.isRequired,
-    people: PropTypes.string.isRequired
+    people: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func
 }

@@ -1,18 +1,18 @@
-// NOTE: To compile a compressed .css version, use "sass --watch scss/style.scss css/style.css --style compressed" - Zane 
+// NOTE: To compile a compressed .css version, use "sass --watch scss/style.scss css/style.css --style compressed". - Zane 
 
-// import utilities partials
+// Import utilities partials
 @import "utilities/variables";
 @import "utilities/mixins";
 @import "utilities/extends";
 
-// import Bitter font from Google Fonts
+// Import Bitter font from Google Fonts
 @import url('https://fonts.googleapis.com/css2?family=Bitter&display=swap');
 
-// import base partials
+// Import base partials
 @import "base/normalize";
 @import "base/base";
 
-// import component partials
+// Import component partials
 @import "components/header";
 @import "components/footer";
 @import "components/main";

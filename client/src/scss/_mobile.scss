@@ -1,8 +1,6 @@
 @media (max-width: 375px) {
 
-    /*********************
-          Base Content 
-    **********************/
+    // Base 
 
     body {
         background-color: $nh-main;
@@ -13,9 +11,7 @@
         padding: 5% 0% 5% 0%;
     }
 
-    /*********************
-        Header Content 
-    **********************/
+    // Header
 
     .cross {
         display: block;
@@ -54,9 +50,7 @@
         display: block;
     }
 
-    /*********************
-        Footer Content 
-    **********************/
+    // Footer
 
     footer > div,
     footer > div:last-child ul {
@@ -75,9 +69,7 @@
         }
     }
 
-    /*********************
-        Section Content 
-    **********************/
+    // Section 
 
     bdt, a > span {
         word-break: break-word;

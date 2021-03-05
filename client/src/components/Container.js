@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code. 
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
 
 import React, { Component } from 'react';
 import { Modal } from './Modal';
@@ -32,7 +32,7 @@ export default class Container extends Component {
     };
      
     /**
-     * closeModal() function - Negates the effect of showModal()
+     * closeModal() function - Negates the effect of showModal().
      * 
      */
     closeModal = () => {
@@ -90,6 +90,8 @@ export default class Container extends Component {
                     onClickOutside={this.onClickOutside}
                     emailIsValid={this.props.emailIsValid}
                     className={this.props.className}
+                    profileImgSmall={this.props.profileImgSmall}
+                    messageIcon={this.props.messageIcon}
                 />
                 ) : null}
             </React.Fragment>
@@ -102,5 +104,7 @@ Container.propTypes = {
     triggerText: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
     className: PropTypes.string,
-    emailIsValid: PropTypes.func
+    emailIsValid: PropTypes.func,
+    profileImgSmall: PropTypes.string,
+    messageIcon: PropTypes.string
 }

@@ -23,7 +23,7 @@ export default class ForgotPassword extends Component {
                 <label htmlFor="securityQuestion">{this.state.securityQuestion}</label><br />
                 <input type="text" className="security_question" id="securityOuestion" name="security_answer" placeholder=" Type your security answer here" /><br />
                 <button className="security_submit" type="submit">Submit</button><br />
-                <span className="resend_email_span">Need assistance? <Link to="#">Click here to contact us.</Link></span>
+                <span className="resend_email_span">Need assistance? <Link to="/about#contact">Click here to contact us.</Link></span>
             </React.Fragment>
          );
     }

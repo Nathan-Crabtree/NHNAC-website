@@ -1,4 +1,4 @@
-//NOTE: Interesting, props can only be traversed for components with classes, not hooks. - Zane
+// NOTE: Interestingly, props can only be traversed upward for components with classes, not hooks. - Zane
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Slideshow } from './Static';

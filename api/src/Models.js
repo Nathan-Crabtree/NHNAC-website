@@ -82,41 +82,6 @@ class Council extends Model{}
 );
 console.log("CouncilLoaded: " + (Council === sequelize.models.Council)); //true
 
-class Address extends Model{}
-Address.init({
-  ID: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  Street: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-  Country: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  State: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  City: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  Zip: {
-    type: DataTypes.MEDIUMINT.UNSIGNED,
-    allowNull: true
-  }
-}, {
-    sequelize,
-    modelName: 'Address',
-    indexes: [{ unique: true, fields: ['ID'] }]
-  }
-);
-console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
-
 class User extends Model{}
   User.init ({
     ID: {
@@ -124,14 +89,14 @@ class User extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    //A user may belong to a chapter, possibly no value or default value "1" here could infere a default "New Haven" Chapter
+    //A user may belong to a chapter, possibly no value or default value "0" here could infere a default "New Haven" Chapter
     ChapterID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
           model: Chapter,
           key: 'ID'
       },
-      //defaultValue: '1' //changed from string "new haven"
+      defaultValue: '0' //changed from string "new haven"
     },
     AddressID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -165,21 +130,16 @@ class User extends Model{}
     FirstName: {
       type: DataTypes.STRING,
       allowNull: false
-    //},
     },
-    // NickName: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true
-    // },
+    NickName: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     LastName: {
       type: DataTypes.STRING,
       allowNull: true
     },
-<<<<<<< HEAD
-    // //No minimum age required as of current notice
-=======
     // No minimum age required as of current notice.
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
     Birthday: {
       type: DataTypes.DATE,
       allowNull: false
@@ -194,13 +154,6 @@ class User extends Model{}
     SecurityAnswer: {
       type: DataTypes.STRING,
       allowNull: false
-<<<<<<< HEAD
-    }
-    // //E-signature will be stored into a pdf in the server hard drive.
-    // ESignatureFilePath: {
-    //   type: DataTypes.TEXT,
-    //   allowNull: false     
-=======
     },
     // E-signature will be stored into a pdf in the server hard drive.
     ESignatureFilePath: {
@@ -237,63 +190,13 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: true 
     },
-    //These two can be combined //nathan
-    // DateLoggedIn: {
-    //   type: DataTypes.DATE,
-    //   allowNull: false 
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
-    // },
-    // //Uses a boolean to determine if user is subscribed to newsletter or not
-    // SubscribedToNewsLetter: {
-    //   type: DataTypes.BOOLEAN,
-    //   defaultValue: false     
-    // },
-<<<<<<< HEAD
-    // //Uses a boolean to determine if user is subscribed to podcast or not
-    // SubscribedToPodcast: {
-    //   type: DataTypes.BOOLEAN,
-    //   defaultValue: false     
-    // },
-    // Points: {
-    //   type: DataTypes.SMALLINT.UNSIGNED,
-    //   defaultValue: 0
-    // },
-    // Status: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true    
-    // },
-    // ProfilePicLarge: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true    
-    // },
-    // ProfilePicMedium: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true    
-    // },
-    // ProfilePicSmall: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true 
-    // },
-    // DateTimeLoggedIn: {
-    //   type: DataTypes.DATE, 
-    //   allowNull: false
-    // },
-    // Facebook: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true
-    // },
-    // Instagram: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true
-    // },
-    // Twitter: {
-    //   type: DataTypes.STRING,
-    //   allowNull: true
-    // }
-=======
-    DateTimeLoggedIn: {
-      type: DataTypes.DATE, 
-      allowNull: false
+    DateLoggedIn: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    TimeLoggedIn: {
+      type: DataTypes.TIME,
+      allowNull: false 
     },
     Facebook: {
       type: DataTypes.STRING,
@@ -324,8 +227,11 @@ class User extends Model{}
     DateTimeSuspended: {
       type: DataTypes.DATE, 
       allowNull: false
+    },
+    AgreedToTerms: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,      
     }
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
   }, {
     // hooks: {
     //   beforeCreate: (user) => { 
@@ -518,8 +424,6 @@ class UserBadge extends Model{}
 ); 
 console.log("UserBadgeLoaded: " + (UserBadge === sequelize.models.UserBadge)); //true
 
-<<<<<<< HEAD
-=======
 class Address extends Model{}
 Address.init({
   ID: {
@@ -527,15 +431,7 @@ Address.init({
     autoIncrement: true,
     primaryKey: true
   },
-  UserID: { //Nathan
-   type: DataTypes.INTEGER.UNSIGNED,
-    references: {
-      model: User,
-      key: 'ID'
-    },
-    allowNull: false
-  },
-  Address: {
+  Street: {
     type: DataTypes.TEXT,
     allowNull: true
   },
@@ -563,7 +459,6 @@ Address.init({
 );
 console.log("AddressLoaded: " + (Address === sequelize.models.Address)); //true
 
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
 class UpdatesTable extends Model{}
   UpdatesTable.init({
     ID: {
@@ -579,14 +474,17 @@ class UpdatesTable extends Model{}
       },
       allowNull: false
     },
+    // State determines whether this table is collapsed or not.
     State: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
     Position: {
       type: DataTypes.TINYINT,
       defaultValue: 0
     },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
@@ -614,14 +512,17 @@ class CertificationsTable extends Model{}
       },
       allowNull: false
     },
+    // State determines whether this table is collapsed or not.
     State: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
     Position: {
       type: DataTypes.TINYINT,
-      defaultValue: 1
+      defaultValue: 2
     },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
@@ -649,14 +550,17 @@ class RecentActivityTable extends Model{}
       },
       allowNull: false
     },
+    // State determines whether this table is collapsed or not.
     State: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
     Position: {
       type: DataTypes.TINYINT,
-      defaultValue: 2
+      defaultValue: 3
     },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
@@ -684,14 +588,17 @@ class RecentBadgesTable extends Model{}
       },
       allowNull: false
     },
+    // State determines whether this table is collapsed or not.
     State: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
     Position: {
       type: DataTypes.TINYINT,
-      defaultValue: 3
+      defaultValue: 5
     },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
@@ -703,6 +610,44 @@ class RecentBadgesTable extends Model{}
   }
 );
 console.log("RecentBadgesTableLoaded: " + (RecentBadgesTable === sequelize.models.RecentBadgesTable)); //true
+
+class RecentAchievementsTable extends Model{}
+RecentAchievementsTable.init({
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    UserID: { //Nathan
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    // State determines whether this table is collapsed or not.
+    State: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
+    Position: {
+      type: DataTypes.TINYINT,
+      defaultValue: 7
+    },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
+    Length: {
+      type: DataTypes.TINYINT,
+      defaultValue: 0
+    }
+  }, {
+    sequelize,
+    modelName: 'RecentAchievementsTable',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("RecentAchievementsTableLoaded: " + (RecentAchievementsTable === sequelize.models.RecentAchievementsTable)); //true
 
 class CouncilsTable extends Model{}
   //token primary key
@@ -720,14 +665,17 @@ class CouncilsTable extends Model{}
       },
       allowNull: false
     },
+    // State determines whether this table is collapsed or not.
     State: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    // Position that the table has on the profile page (.profile_container1_and_half has 0-2, .profile_container2 has 3-10).
     Position: {
       type: DataTypes.TINYINT,
-      defaultValue: 4
+      defaultValue: 9
     },
+    // Length can only be two values, 1 or 0. table1 of length 0 -> table2 of length 1 is table1*2 length.
     Length: {
       type: DataTypes.TINYINT,
       defaultValue: 0
@@ -808,33 +756,6 @@ class Comment extends Model{}
       },
       allowNull: false
     },
-    // Links comment to article (if orig. source). Can be NULL. - Zane
-    ArticleID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Article,
-        key: 'ID'
-      },
-      allowNull: true
-    },
-    // Links comment to event (if orig. source). Can be NULL. - Zane
-    EventID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: Event,
-        key: 'ID'
-      },
-      allowNull: true
-    },
-    // Links comment to forum post (if orig. source). Can be NULL. - Zane
-    ForumPostID: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      references: {
-        model: ForumPost,
-        key: 'ID'
-      },
-      allowNull: true
-    },
     Content: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -854,6 +775,106 @@ class Comment extends Model{}
   }
 );
 console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
+
+// Links comment to content type (article, podcast, update, etc.). - Zane
+class CommentContent extends Model{}
+  CommentContent.init({
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    CommentID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Comment,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    ArticleID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Article,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    BlogID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Blog,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    PodcastID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Podcast,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    UpdateID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Update,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    EventID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Event,
+        key: 'ID'
+      },
+      allowNull: true
+    }
+  }, {
+    sequelize,
+    modelName: 'CommentContent',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("CommentContent: " + (CommentContent === sequelize.models.CommentContent)); //true
+
+// Links comment to forum post and checks if solution. - Zane
+class CommentForumPost extends Model{}
+  CommentForumPost.init({
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    CommentID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Comment,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    ForumPostID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: ForumPost,
+        key: 'ID'
+      },
+      allowNull: true
+    },
+    Solution: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+  }, {
+    sequelize,
+    modelName: 'CommentForumPost',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("CommentForumPost: " + (CommentForumPost === sequelize.models.CommentForumPost)); //true
 
 // Each response belongs to a comment
 class Response extends Model{}
@@ -1031,69 +1052,69 @@ class Course extends Model{}
 );
 console.log("CourseLoaded: " + (Course === sequelize.models.Course)); //true
 
-// class CoursePreReq extends Model{} //nathan
-//   CoursePreReq.init({
-//     //token primary key
-//     CoursePreReqsID: {
-//       type: DataTypes.INTEGER.UNSIGNED,
-//       allowNull: false,
-//       primaryKey: true
-//     },
-//     CoursePreReq: {
-//       type: DataTypes.STRING,
-//       references: {
-//         model: Course,
-//         key: 'Name'
-//       },
-//       allowNull: false
-//     },
-//     Course: {
-//       type: DataTypes.STRING,
-//       references: {
-//         model: Course,
-//         key: 'Name'
-//       },
-//       allowNull: false
-//     }
-//   }, {
-//     sequelize,
-//     modelName: 'CoursePreReq',
-//     indexes: [{ unique: true, fields: ['CoursePreReqID'] }]
-//   }
-// );
-// console.log("CoursePreReqLoaded: " + CoursePreReq === sequelize.models.CoursePreReq); //true
+class CoursePreReq extends Model{}
+  CoursePreReq.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      primaryKey: true
+    },
+    CoursePreReq: {
+      type: DataTypes.STRING,
+      references: {
+        model: Course,
+        key: 'Name'
+      },
+      allowNull: false
+    },
+    Course: {
+      type: DataTypes.STRING,
+      references: {
+        model: Course,
+        key: 'Name'
+      },
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'CoursePreReq',
+    indexes: [{ unique: true, fields: ['CoursePreReqID'] }]
+  }
+);
+console.log("CoursePreReqLoaded: " + CoursePreReq === sequelize.models.CoursePreReq); //true
 
-// class CertificationPreReq extends Model{} //Nathan
-//   CertificationPreReq.init({
-//     //token primary key
-//     CertificationPreReqID: {
-//       type: DataTypes.INTEGER.UNSIGNED,
-//       allowNull: false,
-//       primaryKey: true
-//     },
-//     CoursePreReq: {
-//       type: DataTypes.STRING,
-//       references: {
-//         model: Course,
-//         key: 'Name'
-//       },
-//       allowNull: false
-//     },
-//     Certification: {
-//       type: DataTypes.STRING,
-//       references: {
-//         model: Certification,
-//         key: 'Name'
-//       },
-//       allowNull: false
-//     }
-//   }, {
-//     sequelize,
-//     modelName: 'CertificationPreReq',
-//     indexes: [{ unique: true, fields: ['CertificationPreReqID'] }]
-//   }
-// );
-// console.log("CertificationPreReqLoaded: " + CoursePreReq === sequelize.models.CertificationPreReq); //true
+class CertificationPreReq extends Model{}
+  CertificationPreReq.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      primaryKey: true
+    },
+    CoursePreReq: {
+      type: DataTypes.STRING,
+      references: {
+        model: Course,
+        key: 'Name'
+      },
+      allowNull: false
+    },
+    Certification: {
+      type: DataTypes.STRING,
+      references: {
+        model: Certification,
+        key: 'Name'
+      },
+      allowNull: false
+    }
+  }, {
+    sequelize,
+    modelName: 'CertificationPreReq',
+    indexes: [{ unique: true, fields: ['CertificationPreReqID'] }]
+  }
+);
+console.log("CertificationPreReqLoaded: " + CoursePreReq === sequelize.models.CertificationPreReq); //true
 
 class UserCourse extends Model{} 
   UserCourse.init({
@@ -1219,6 +1240,7 @@ class UserSection extends Model{}
 );
 console.log("UserSectionLoaded: " + (UserSection === sequelize.models.UserSection)); //true
 
+// Content that belongs to a section of a course. - Zane
 class Content extends Model{} 
   Content.init({
     //token primary key
@@ -1355,11 +1377,6 @@ class Article extends Model{}
       type: DataTypes.STRING,
       allowNull: false
     },
-    // Type can be either "blog", "podcast" or "article". - Zane
-    Type: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     ImageMedium: {
       type: DataTypes.TEXT,
       allowNull: true
@@ -1369,11 +1386,6 @@ class Article extends Model{}
       allowNull: true
     },
     ImageDescription: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    // If type=podcast, then this value can't be null. - Zane
-    PodcastLink: {
       type: DataTypes.TEXT,
       allowNull: true
     },
@@ -1399,6 +1411,183 @@ class Article extends Model{}
     indexes: [{ unique: true, fields: ['ID'] }]
 });
 console.log("ArticleLoaded: " + (Article === sequelize.models.Article)); //true
+
+class Blog extends Model{}
+  Blog.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },    
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Tag,
+        key: 'ID'
+      },
+      allowNull: true    
+    },
+    UserID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    Name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ImageMedium: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageLarge: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    Content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    Likes: {       
+      type: DataTypes.INTEGER.UNSIGNED,
+      defaultValue: 0
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
+    }
+  }, {
+    sequelize,
+    modelName: 'Blog',
+    indexes: [{ unique: true, fields: ['ID'] }]
+});
+console.log("BlogLoaded: " + (Blog === sequelize.models.Article)); //true
+
+class Podcast extends Model{}
+  Podcast.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },    
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Tag,
+        key: 'ID'
+      },
+      allowNull: true    
+    },
+    Name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ImageMedium: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageLarge: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    PodcastLink: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    Content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    Likes: {       
+      type: DataTypes.INTEGER.UNSIGNED,
+      defaultValue: 0
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
+    }
+  }, {
+    sequelize,
+    modelName: 'Podcast',
+    indexes: [{ unique: true, fields: ['ID'] }]
+});
+console.log("PodcastLoaded: " + (Podcast === sequelize.models.Podcast)); //true
+
+class Update extends Model{}
+  Update.init({
+    //token primary key
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },    
+    TagID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: Tag,
+        key: 'ID'
+      },
+      allowNull: true    
+    },
+    Name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    ImageMedium: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageLarge: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    ImageDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    Content: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    Likes: {       
+      type: DataTypes.INTEGER.UNSIGNED,
+      defaultValue: 0
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
+    }
+  }, {
+    sequelize,
+    modelName: 'Update',
+    indexes: [{ unique: true, fields: ['ID'] }]
+});
+console.log("UpdateLoaded: " + (Update === sequelize.models.Update)); //true
 
 class Event extends Model{}
   Event.init({
@@ -1438,7 +1627,7 @@ class Event extends Model{}
     },
     ImageDescription: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     Content: {
       type: DataTypes.TEXT,
@@ -1489,15 +1678,15 @@ class EventUser extends Model{}
         key: 'ID'
       }
     },
+    GuestName: {
+      type: DataTypes.STRING,
+    },
     EventID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Event,
         key: 'ID'
       }
-    },
-    GoingToEvent: {
-      type: DataTypes.STRING
     }
   }, {
     sequelize,
@@ -1710,6 +1899,14 @@ class ForumPost extends Model{}
     Resolved: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
     }
   }, {
     sequelize,
@@ -1740,7 +1937,16 @@ class Answer extends Model{}
     },
     //Is this answer the correct answer to the question?
     Correct: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    Date: {
+      type: DataTypes.DATE,
+      allowNull: false 
+    },
+    Time: {
+      type: DataTypes.TIME,
+      allowNull: false 
     }
   }, {
       sequelize,
@@ -1767,7 +1973,7 @@ class Report extends Model{}
 );
 console.log("ReportLoaded: " + (Report === sequelize.models.Report)); //true
 
-// User Associations
+// Chapter Associations
 User.belongsTo(Chapter);
 Chapter.hasMany(User);
 
@@ -1775,15 +1981,11 @@ Chapter.hasMany(User);
 Council.belongsTo(Chapter);
 Chapter.hasMany(Council);
 
-// CouncilUserRole Associations
+// CouncilUserRole and CouncilRole Associations
 CouncilUserRole.belongsTo(Council);
 Council.hasMany(CouncilUserRole);
-//CouncilUserRole.belongsTo(CouncilRoleName);
 CouncilUserRole.belongsTo(CouncilRole); //edited by Nathan
-//CouncilRoleName.hasMany(CouncilUserRole);
 CouncilRole.hasMany(CouncilUserRole); //edited by nathan
-
-
 
 // UserBadge Associations
 UserBadge.belongsTo(Badge);
@@ -1791,15 +1993,10 @@ Badge.hasMany(UserBadge);
 UserBadge.belongsTo(User);
 User.hasMany(UserBadge);
 
-<<<<<<< HEAD
-//Address Associations
-// Address.belongsTo(User);
-User.hasOne(Address);
-=======
 // Address Associations
+User.hasOne(Address);
 Address.belongsTo(User);
 User.hasMany(Address);
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
 
 // UpdatesTable Associations
 UpdatesTable.belongsTo(User);
@@ -1821,6 +2018,10 @@ User.hasMany(RecentBadgesTable);
 CouncilsTable.belongsTo(User);
 User.hasMany(CouncilsTable);
 
+// RecentAchievementsTable Associations
+RecentAchievementsTable.belongsTo(User);
+User.hasMany(RecentAchievementsTable);
+
 // Message Associations
 //Message.belongsTo(Sender);
 Message.belongsTo(User, {as: 'Email', foreignKey: 'Sender'}); //Nathan
@@ -1833,6 +2034,8 @@ User.hasMany(Message);
 // Comment Associations
 Comment.belongsTo(User);
 User.hasMany(Comment);
+Comment.belongsTo(CommentContent);
+CommentContent.hasMany(Comment);
 
 // Certificate Associations
 Certificate.belongsTo(User);
@@ -1844,17 +2047,17 @@ Certification.hasMany(Certificate);
 Course.belongsTo(User);
 User.hasMany(Course);
 
-// // CoursePreReq Associations //nathan
-// CoursePreReq.belongsTo(CoursePreReq);
-// CoursePreReq.hasMany(CoursePreReq);
-// CoursePreReq.belongsTo(Course);
-// Course.hasMany(CoursePreReq);
+// CoursePreReq Associations
+CoursePreReq.belongsTo(CoursePreReq);
+CoursePreReq.hasMany(CoursePreReq);
+CoursePreReq.belongsTo(Course);
+Course.hasMany(CoursePreReq);
 
-// // CertificationPreReq Associations
-// CertificationPreReq.belongsTo(CoursePreReq);
-// CoursePreReq.hasMany(CertificationPreReq);
-// CertificationPreReq.belongsTo(Certification);
-// Certification.hasMany(CertificationPreReq);
+// CertificationPreReq Associations
+CertificationPreReq.belongsTo(CoursePreReq);
+CoursePreReq.hasMany(CertificationPreReq);
+CertificationPreReq.belongsTo(Certification);
+Certification.hasMany(CertificationPreReq);
 
 // UserCourse Associations
 UserCourse.belongsTo(User);
@@ -1887,12 +2090,50 @@ Article.belongsTo(Tag);
 Tag.hasMany(Article);
 Article.belongsTo(User);
 User.hasMany(Article);
+Article.belongsTo(Comment);
+Comment.hasMany(Article);
+Article.belongsTo(CommentContent);
+CommentContent.hasMany(Article);
+
+// Blog Associations
+Blog.belongsTo(Tag); 
+Tag.hasMany(Blog);
+Blog.belongsTo(User);
+User.hasMany(Blog);
+Blog.belongsTo(Comment);
+Comment.hasMany(Blog);
+Blog.belongsTo(CommentContent);
+CommentContent.hasMany(Blog);
+
+// Podcast Associations
+Podcast.belongsTo(Tag); 
+Tag.hasMany(Podcast);
+Podcast.belongsTo(User);
+User.hasMany(Podcast);
+Podcast.belongsTo(Comment);
+Comment.hasMany(Podcast);
+Podcast.belongsTo(CommentContent);
+CommentContent.hasMany(Podcast);
 
 // Event Associations
 Event.belongsTo(Tag);
 Tag.hasMany(Event);
 Event.belongsTo(User);
 User.hasMany(Event);
+Event.belongsTo(Comment);
+Comment.hasMany(Event);
+Event.belongsTo(CommentContent);
+CommentContent.hasMany(Event);
+
+// Update Associations
+Update.belongsTo(Tag);
+Tag.hasMany(Update);
+Update.belongsTo(User);
+User.hasMany(Update);
+Update.belongsTo(Comment);
+Comment.hasMany(Update);
+Update.belongsTo(CommentContent);
+CommentContent.hasMany(Update);
 
 // EventUser Associations
 EventUser.belongsTo(User);
@@ -1924,9 +2165,15 @@ Section.hasMany(UserQuiz);
 Question.belongsTo(Quiz);
 Quiz.hasMany(Question);
 
-// UserQuestion Associations //nathan
+// ForumPost Associations //nathan
+ForumPost.belongsTo(Tag);
+Tag.hasMany(ForumPost);
 ForumPost.belongsTo(User);
 User.hasMany(ForumPost);
+ForumPost.belongsTo(Comment);
+Comment.hasMany(ForumPost);
+ForumPost.belongsTo(CommentForumPost);
+CommentForumPost.hasMany(ForumPost);
 
 // Answer Associations
 Answer.belongsTo(Question);
@@ -1954,13 +2201,13 @@ Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'User
 sequelize.sync({ force: true });
 
 module.exports = {
-  Badge,
   Chapter,
   Council,
   Role,
   UserRole,
   CouncilRole,
   CouncilUserRole,
+  Badge,
   User,
   UserBadge,
   Address,
@@ -1968,14 +2215,18 @@ module.exports = {
   CertificationsTable,
   RecentActivityTable,
   RecentBadgesTable,
+  RecentAchievementsTable,
   CouncilsTable,
   Message,
   Comment,
+  CommentContent,
+  CommentForumPost,
+  Response,
   Certification,
   Certificate,
   Course,
-  //CertificationPreReq,
-  //CoursePreReq,
+  CertificationPreReq,
+  CoursePreReq,
   UserCourse,
   Section,
   UserSection,
@@ -1983,6 +2234,9 @@ module.exports = {
   UserContent,
   Tag,
   Article,
+  Blog,
+  Podcast,
+  Update,
   Event,
   EventUser,
   Resource,
@@ -1991,6 +2245,8 @@ module.exports = {
   UserQuiz,
   Question,
   ForumPost,
-  Answer
+  Answer,
+  Report
 }
 console.log("Exiting Models.js");
+

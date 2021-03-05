@@ -25,12 +25,8 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
-<<<<<<< HEAD
     "cors": "^2.8.5",
-    "cross-env": "^7.0.2",
-=======
     "cross-env": "^7.0.3",
->>>>>>> 9aac2391e367b74aa9be2aa2905f0e360aecc569
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "jest": "^26.4.2",

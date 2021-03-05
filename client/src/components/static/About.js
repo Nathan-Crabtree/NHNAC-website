@@ -2,94 +2,13 @@ import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const About = ({indian, tribe, emailIsValid, reviseName}) => {
+const About = ({indian, tribe}) => {
 
     const indianAlt = "A Native American Indian.";
     const tribeAlt = "Tribe logo.";
     const devURL = 'http://localhost:3000/about';
     const prodURL = 'https://newhavennativeamericanchurch.org/about';
     const prodURLInsecure = 'http://newhavennativeamericanchurch.org/about';
-    let errorsThatExist = [];
-
-    /**
-    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if message
-    * content is > 3 characters, validates email input, submits and renders HTML according to condition.
-    * NOTE: Could be further refactored to reduce runtime. - Zane
-    * 
-    * @param {object} event 
-    */
-    function onSubmit(event) {
-        event.preventDefault(event);
-
-        const messageContent = event.target.message.value;
-        const email = event.target.email.value;
-        let name = event.target.name.value;
-        let revisedName = [];
-
-        // Create error array
-        let error = [];
-        error[0] = document.createElement('p');
-        error[1] = document.createElement('p');
-
-        reviseName(name, revisedName, "name", true);
-
-        // Clear error text if it currently exists on the DOM
-        for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {
-            if (errorsThatExist[errorNo]) {
-                const element = document.getElementsByClassName(`error_${errorNo}`)[0];
-                element.parentElement.removeChild(element);
-                errorsThatExist[errorNo] = false;
-            }
-        }
-
-        // Check for valid email input
-        if (!(emailIsValid(email))) {
-            if (!errorsThatExist[0]) {
-                // Render error text and change boolean
-                const formField = document.getElementsByClassName("email_form_field")[0];
-                const input = document.getElementById("email");
-                error[0].innerHTML = '*Please enter a valid email address.';
-                error[0].className = "error_0";
-                error[0].style.fontSize = '.9rem';
-                error[0].style.color = '#C31F01';
-                formField.appendChild(error[0]);
-                input.style.borderColor = '#C31F01';
-                errorsThatExist[0] = true;
-            }
-        }
-
-        // Check if messageContent value is greater than 3 characters
-        if (messageContent.length <= 3) {
-            if (!errorsThatExist[1]) {
-                // Render error text and change boolean
-                const formField = document.getElementsByClassName("contact_form_fields")[0];
-                const input = document.getElementById("message");
-                error[1].innerHTML = '*Please type in more than 3 characters.';
-                error[1].className = "error_1";
-                error[1].style.fontSize = '.9rem';
-                error[1].style.color = '#C31F01';
-                formField.appendChild(error[1]);
-                input.style.borderColor = '#C31F01';
-                errorsThatExist[1] = true;
-            }
-        } 
-
-        // Check if any errors exists before sending data to API
-        for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {
-            if (errorsThatExist[errorNo]) {
-                return;
-            }
-        }
-        
-        // Take the data and send it to API 
-        console.log(messageContent);
-        console.log(email);
-        console.log(revisedName.join(""));
-    
-        // Render on the modal feedback text 
-        const modalForm = document.getElementsByClassName("contact_form")[0];
-        modalForm.innerHTML = '<h3 align="center">Your inquiry has been sent.</h3>';
-    }
 
     useEffect(() => {
         // When component is rendered, bring user to top of page iff(if and only if) URL doesn't reference to home#contact 
@@ -99,7 +18,7 @@ const About = ({indian, tribe, emailIsValid, reviseName}) => {
         window.location.href === prodURLInsecure) {
             window.scrollTo(0, 0);
         } else {
-            document.getElementById('contact').scrollIntoView();
+            document.getElementById('contactDiv').scrollIntoView();
         }
     }, []);
 
@@ -133,22 +52,15 @@ const About = ({indian, tribe, emailIsValid, reviseName}) => {
                 <img className="tribe_image" srcSet={tribe} alt="Tribe logo." />
                 <p className="tribe_image_desc image_desc">&emsp;Photo description: {tribeAlt}</p>
             </div>
-            <form id="contact" className="contact_form" onSubmit={onSubmit}>
-                <h2 className="newsletter_h2">Contact Us</h2>
-                <fieldset>
-                    <div className="contact_form_fields">
-                        <label htmlFor="name">First Name</label><br />
-                        <input className="login_input" type="text" id="name" name="name" /><br />
-                        <div className="email_form_field">
-                            <label htmlFor="email">Email</label><br />
-                            <input className="login_input" type="text" id="email" name="email" /><br />
-                        </div>
-                        <label htmlFor="message">Comment or Message</label><br />
-                        <textarea className="login_input" type="text" id="message" name="message" /><br />
-                    </div>
-                    <button className="submit_btn submit_padding" type="submit">Submit</button>
-                </fieldset>
-            </form>
+            <div id="contactDiv">
+                <p>If you have questions or concerns, we implore you to read our <Link to="/faq">F.A.Q</Link> page or our <Link to="/community">Community</Link> section. You're also more than welcomed to write a letter to us at the following address: </p>
+                <div>
+                    <p>New Haven NAC</p>
+                    <p>P.O. Box 2045</p>
+                    <p>Ava, MO 65608</p>
+                    <p>U.S.A.</p>
+                </div>
+            </div>
         </React.Fragment> 
     );
 }
@@ -158,6 +70,5 @@ export default About;
 // PropTypes for jest testing in App.test.js
 About.propTypes = {
     indian: PropTypes.string.isRequired,
-    emailIsValid: PropTypes.func.isRequired,
-    reviseName: PropTypes.func.isRequired
+    tribe: PropTypes.string.isRequired,
 }

@@ -49,6 +49,7 @@ export default class Donate extends Component {
                 <p>&emsp;As our Church membership grows, many services will be abundantly provided and shared with all those who are interested. Thank you, thank you, thank you for supporting our cause and choosing an organization that is truly committed to making a real difference in the world!</p>
                 <br />
                 <p><em>&quot;It does not take a majority to prevail... but rather an irate, tireless minority, keen on setting brushfires of freedom in the minds of men.&quot; - Samuel Adams</em></p>
+                {/* Donate to PayPal option needs a link. */}
                 <Link to="#"><img className="paypal_bitcoin paypal_link" srcSet={this.props.paypal} alt="Donate with PayPal." /></Link><br />
                 {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
                 {/* <div className="bitcoin_link">

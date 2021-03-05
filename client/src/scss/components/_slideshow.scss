@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code. 
-// Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane
+// Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane
 
 * {box-sizing:border-box}
 
@@ -92,7 +92,6 @@
 
 /* The dots/bullets/indicators */
 .dot {
-  cursor: pointer;
   height: 15px;
   width: 15px;
   margin: 0 2px;
@@ -106,6 +105,7 @@
 .active, .dot:hover {
   background-color: rgb(136,132,123);
   opacity: 100%;
+  cursor: pointer;
 }
 
 /* Fading animation */

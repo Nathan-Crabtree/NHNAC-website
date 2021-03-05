@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code. 
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 export const Report = ({className}) => {
 
 /**
-* onSubmit() function - 
+* onSubmit() function - Prevents default action (page refresh), takes the data and sends it to the API, and renders HTML
+* acknowledging submission.
 * 
 * @param {object} event 
 */
@@ -15,11 +16,11 @@ function onSubmit(event) {
     event.preventDefault(event);
     const reportType = event.target.type.value;
     
-    // Take the data and send it to the API
+    // Take the data and send it to the API.
     console.log(className);
     console.log(reportType);
   
-    // Render on the modal thank you text 
+    // Render on the modal thank you text.
     const modalForm = document.getElementsByClassName("modal_form")[0];
     modalForm.parentElement.innerHTML = '<h3 align="center">Thank you for your submission. We will be looking into this.</h3>';
 }
@@ -61,6 +62,5 @@ export default Report;
 // PropTypes for jest testing in App.test.js
 Report.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    closeModal: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired
 }
