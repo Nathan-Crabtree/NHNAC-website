@@ -448,7 +448,7 @@ Address.init({
     allowNull: true
   },
   Zip: {
-    type: DataTypes.MEDIUMINT.UNSIGNED,
+    type: DataTypes.STRING(5),
     allowNull: true
   }
 }, {

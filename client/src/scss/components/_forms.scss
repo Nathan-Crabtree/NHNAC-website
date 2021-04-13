@@ -10,6 +10,8 @@ textarea:not(.search_bar) {
 
 label[for="rememberMe"], 
 label[for="newsletter"], 
+label[for="by_email"], 
+label[for="by_mail"], 
 .resend_email_span {
     font-size: .9rem;
 }
@@ -22,7 +24,9 @@ select:focus {
 }
 
 label[for="rememberMe"], 
-label[for="newsletter"] {
+label[for="newsletter"],
+label[for="by_email"], 
+label[for="by_mail"]  {
     margin-left: $nh-padding-left; 
 }
 
@@ -324,5 +328,19 @@ label[for="payment"] {
     &_p {
         margin: 0;
         width: 12%;       
+    }
+}
+
+// Request ID
+
+.request_id_form {
+    @include center;
+    width: 75%;
+}
+
+.request_id_checkboxes {
+    display: flex;
+    > div:first-of-type {
+        padding-right: $nh-padding-right;
     }
 }

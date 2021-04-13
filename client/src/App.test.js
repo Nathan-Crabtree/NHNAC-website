@@ -16,6 +16,7 @@ import { countDaysLeft } from './components/dynamic/Suspended';
 import { addAttendee, removeAttendee, displayAttendBtnOrForm } from './components/dynamic/EventType';
 import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable, 
   displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/Profile';
+import { hideForm as hideFormRequestID, displayForm as displayFormRequestID, onSubmit as onSubmitRequestID } from './components/static/RequestID';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -309,4 +310,21 @@ it("doesn't output anything", () => {
 // saveSettings testing; src: client/src/components/Profile.js
 it("doesn't output anything", () => {
   expect(saveSettings).toBeUndefined();
+});
+
+// REQUESTID.JS FUNCTION(S)
+
+// displayForm testing; src: client/src/components/RequestID.js
+it("doesn't output anything", () => {
+  expect(displayFormRequestID).toBeUndefined();
+});
+
+// hideForm testing; src: client/src/components/RequestID.js
+it("doesn't output anything", () => {
+  expect(hideFormRequestID).toBeUndefined();
+});
+
+// onSubmit testing; src: client/src/components/RequestID.js
+it("doesn't output anything", () => {
+  expect(onSubmitRequestID).toBeUndefined();
 });

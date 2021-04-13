@@ -95,7 +95,7 @@
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: rgb(136,132,123);
+  background-color: $nh-gray;
   opacity: 50%;
   border-radius: 50%;
   display: inline-block;
@@ -103,7 +103,7 @@
 }
 
 .active, .dot:hover {
-  background-color: rgb(136,132,123);
+  background-color: $nh-gray;
   opacity: 100%;
   cursor: pointer;
 }

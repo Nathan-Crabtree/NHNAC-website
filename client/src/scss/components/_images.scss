@@ -120,6 +120,9 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
     border: 2px solid white;
     background: white;
     margin-top: -2px;
+    &:hover {
+        background-color: lightgray;
+    }
 }
 
 // Profile
