@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-//import axios from 'axios';
+import axios from 'axios';
 
 export default class SignUp extends Component {
 
@@ -29,7 +29,7 @@ export default class SignUp extends Component {
         let firstName = event.target.first_name.value;
         let revisedFirstName = [];
         let lastName = event.target.last_name.value;
-        let chapterID = 1;
+        //let chapterID = 1;
         let revisedLastName = [];
         const email = event.target.email.value;
         const birthday = event.target.birthday.value;
@@ -38,14 +38,13 @@ export default class SignUp extends Component {
         const country = event.target.country.value;
         const state = event.target.state.value;
         const city = event.target.city.value;
-        const zip = event.target.zip.value;
+        const zip = event.target.zip.value.toString();
         const securityQuestion = event.target.security_question.value;
         const securityAnswer = event.target.security_answer.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirm_password.value;
         //const redeemableCode = event.target.redeemable_code.value;
         //const payment = parseInt(event.target.payment.value.split("").filter(string => string !== "$").join(""));
-
 
         // Create error array
         let error = [];
@@ -298,8 +297,6 @@ export default class SignUp extends Component {
                 console.log(error.message)
             }
         });
-
-        // Write after-submit code here 
     }
 
     componentDidMount() {

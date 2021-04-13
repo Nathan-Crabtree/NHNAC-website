@@ -17,7 +17,7 @@ import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, CodeOfConduct, Home
+         LegalRights, CodeOfConduct, Home, RequestID
         } from './components/static/Static';
 import { Header, Error, Login, Content,
           Article, ForgotPassword, Verification, Profile, 
@@ -46,9 +46,10 @@ export default class App extends Component {
   }
   
   /**
-   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists.
+   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists[ComponentName].
+   * 
    */
-  setGeoDataExists = () => {
+  setGeoDataExists()  {
     this.setState({ geoDataExists: true });
   }
 
@@ -110,7 +111,7 @@ export default class App extends Component {
   }
 
   /**
-   * emailIsValid() function - Checks for valid email input.
+   * emailIsValid() function - Checks for valid email input. Returns a boolean.
    * Source: https://ui.dev/validate-email-address-javascript/. - Zane
    * 
    * @param {string} email 
@@ -209,6 +210,7 @@ export default class App extends Component {
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
                 <Route exact path="/suspended" component={ () => <Suspended /> } />
+                <Route exact path="/request_id" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}/> } />
                 <Route component={Error} />
             </Switch>
           </main>
