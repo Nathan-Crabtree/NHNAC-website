@@ -38,8 +38,8 @@ sequelize
     });
 
 //sequelize.sync({force: true}); //doesn't actually drop tables??
-Models.User.destroy({truncate: {}});
 Models.Address.destroy({truncate: {}});
+Models.User.destroy({truncate: {}});
 
 // console.log('About to bulk create');
 // sequelize.sync({force: true})
@@ -58,7 +58,9 @@ Models.Address.destroy({truncate: {}});
 //     });
 //  console.log('Done with Bulk Create');
 
-sequelize.sync({});
+//sequelize.sync({});
+sequelize.sync({force: true});
+
 // .then(() => {
 //     User.create({
 //         UserName: 'joeschmoe',
