@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import RequestIDSubmitted from './RequestIDSubmitted';
 
 export default class RequestID extends Component { 
 
@@ -16,7 +17,8 @@ export default class RequestID extends Component {
             userZip: "02345",
             userTier: "Ayahuasca Roadman",
             userEmail: "miltonmiles@gmail.com",
-            errorsThatExist: []
+            errorsThatExist: [],
+            renderChild: false, 
         };
         this.displayForm = this.displayForm.bind(this);
         this.hideForm = this.hideForm.bind(this);
@@ -156,9 +158,18 @@ export default class RequestID extends Component {
         }
 
         if (form === "request_id") {
+            let userData = [this.state.userFirstName, this.state.userLastName, this.state.userStreet, this.state.userCountry, 
+            this.state.userState, this.state.userCity, this.state.userZip, this.state.userTier, this.state.userEmail];
+
             // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected.
-            // Redirect to form submitted page (import submitted component on this page to pass props).
-            console.log("Form submitted.");
+            // Redirect to form submitted page.
+            for (let data = 0; data < userData.length; data++) {
+                if (data == null) {
+                    return;
+                } else {
+                    this.setState({ renderChild: true });
+                }
+            }
         }
     }
 
@@ -182,7 +193,11 @@ export default class RequestID extends Component {
     }
 
     render() {
-        return(
+        return( this.state.renderChild ? 
+            <RequestIDSubmitted userFirstName={this.state.userFirstName} userLastName={this.state.userLastName} userStreet={this.state.userStreet} 
+            userCountry={this.state.userCountry} userState={this.state.userState} userCity={this.state.userCity} userZip={this.state.userZip} 
+            userTier={this.state.userTier} userEmail={this.state.userEmail} /> 
+            : 
             <div className="request_id_form">
                 <div>
                     <div className="center_text">

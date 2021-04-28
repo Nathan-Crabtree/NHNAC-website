@@ -210,7 +210,7 @@ export default class App extends Component {
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
                 <Route exact path="/suspended" component={ () => <Suspended /> } />
-                <Route exact path="/request_id" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}/> } />
+                <Route exact path="/id_request" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}/> } />
                 <Route component={Error} />
             </Switch>
           </main>
