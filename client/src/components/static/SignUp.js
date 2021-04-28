@@ -92,7 +92,7 @@ export default class SignUp extends Component {
             this.props.reviseName(lastName, revisedLastName, "lastName", true);
         } 
 
-        //Check for valid email input
+        // Check for valid email input and if it's already in use
         if (!(this.props.emailIsValid(email))) {
             if (!errorsThatExist[1]) {
                 // Render error text and change boolean
@@ -106,7 +106,28 @@ export default class SignUp extends Component {
                 input.style.borderColor = '#C31F01';
                 errorsThatExist[1] = true;
             }
+        } else {
+            // Do a query search in database to check if email entered in is unique. If it isn't, change value of boolean
+            let emailAlreadyExists = false;
+
+            // Do query search here 
+
+            if (emailAlreadyExists) {
+                if (!errorsThatExist[1]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("signup_fields")[1];
+                    const input = document.getElementById("email");
+                    error[1].innerHTML = '*Email address already exists.';
+                    error[1].className = "error_1";
+                    error[1].style.fontSize = '.9rem';
+                    error[1].style.color = '#C31F01';
+                    formField.appendChild(error[1]);
+                    input.style.borderColor = '#C31F01';
+                    errorsThatExist[1] = true;
+                }
+            }
         }
+
 
         // Check for birthday input
         if (birthday === "") {
@@ -140,7 +161,7 @@ export default class SignUp extends Component {
             }
         }
 
-        //Check for address input
+        // Check for address input
         if (street === "" || country === "" || state === "" || city === "" || zip === "") {
             if (!errorsThatExist[4]) {
                 // Render error text and change boolean
