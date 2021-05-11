@@ -15,8 +15,12 @@ import { displayComments, hideComments, hideResponses, displayForm as displayFor
 import { countDaysLeft } from './components/dynamic/Suspended';
 import { addAttendee, removeAttendee, displayAttendBtnOrForm } from './components/dynamic/EventType';
 import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable, 
-  displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/Profile';
+  displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/ProfileUser';
+import { checkUserConnection, connectUser, cancelConnect } from './components/dynamic/ProfileViewer';
+import { displayViewComponent } from './components/dynamic/Profile';
 import { hideForm as hideFormRequestID, displayForm as displayFormRequestID, onSubmit as onSubmitRequestID } from './components/static/RequestID';
+import { approveOrReject } from './components/Connections';
+import { displayConnections } from './components/dynamic/DirectMessage';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -265,51 +269,75 @@ it("doesn't output anything", () => {
   expect(displayAttendBtnOrForm).toBeUndefined();
 });
 
-// PROFILE.JS FUNCTION(S)
+// PROFILEUSER.JS FUNCTION(S)
 
-// displayForm testing; src: client/src/components/Profile.js
+// displayForm testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(displayFormProfile).toBeUndefined();
 });
 
-// hideForm testing; src: client/src/components/Profile.js
+// hideForm testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(hideFormProfile).toBeUndefined();
 });
 
-// onSubmit testing; src: client/src/components/Profile.js
+// onSubmit testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(onSubmitProfile).toBeUndefined();
 });
 
-// collapseDataTable testing; src: client/src/components/Profile.js
+// collapseDataTable testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(collapseDataTable).toBeUndefined();
 });
 
-// expandDataTable testing; src: client/src/components/Profile.js
+// expandDataTable testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(expandDataTable).toBeUndefined();
 });
 
-// displayCollapsedDataTableHeaderAndExpandBtn testing; src: client/src/components/Profile.js
+// displayCollapsedDataTableHeaderAndExpandBtn testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(displayCollapsedDataTableHeaderAndExpandBtn).toBeUndefined();
 });
 
-// resizeDataTable testing; src: client/src/components/Profile.js
+// resizeDataTable testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(resizeDataTable).toBeUndefined();
 });
 
-// customizePage testing; src: client/src/components/Profile.js
+// customizePage testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(customizePage).toBeUndefined();
 });
 
-// saveSettings testing; src: client/src/components/Profile.js
+// saveSettings testing; src: client/src/components/ProfileUser.js
 it("doesn't output anything", () => {
   expect(saveSettings).toBeUndefined();
+});
+
+// PROFILEVIEWER.JS FUNCTION(S)
+
+// checkUserConnection testing; src: client/src/components/ProfileViewer.js
+it("doesn't output anything", () => {
+  expect(checkUserConnection).toBeUndefined();
+});
+
+// connectUser testing; src: client/src/components/ProfileViewer.js
+it("doesn't output anything", () => {
+  expect(connectUser).toBeUndefined();
+});
+
+// cancelConnect testing; src: client/src/components/ProfileViewer.js
+it("doesn't output anything", () => {
+  expect(cancelConnect).toBeUndefined();
+});
+
+// PROFILE.JS FUNCTION(S)
+
+// displayViewComponent testing; src: client/src/components/Profile.js
+it("doesn't output anything", () => {
+  expect(displayViewComponent).toBeUndefined();
 });
 
 // REQUESTID.JS FUNCTION(S)
@@ -327,4 +355,18 @@ it("doesn't output anything", () => {
 // onSubmit testing; src: client/src/components/RequestID.js
 it("doesn't output anything", () => {
   expect(onSubmitRequestID).toBeUndefined();
+});
+
+// CONNECTIONS.JS FUNCTION(S)
+
+// approveOrReject testing; src: client/src/components/Connections.js
+it("doesn't output anything", () => {
+  expect(approveOrReject).toBeUndefined();
+});
+
+// DIRECTMESSAGE.JS FUNCTION(S)
+
+// displayConnections testing; src: client/src/components/dynamic/DirectMessage.js
+it("doesn't output anything", () => {
+  expect(displayConnections).toBeUndefined();
 });

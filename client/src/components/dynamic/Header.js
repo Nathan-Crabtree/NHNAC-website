@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Content from './Content';
+import Container from '../Container';
 
 export default class Header extends Component {
 
@@ -130,13 +131,13 @@ export default class Header extends Component {
                         { this.props.isAuthenticated ?  
                                 <ul className="header_links">
                                 <li className="dropdown">
-                                    <Link to="/profile?userid=1&view=user">Profile</Link>
+                                    <Link to="/profile?userid=1&view=user&customize=false">Profile</Link>
                                     <div className="dropdown-content">
-                                        <Link to="#">Account Settings</Link>
-                                        <Link to="#">Customize Page</Link>
-                                        <Link to="#">Messages</Link>
-                                        <Link to="#">Connections</Link>
-                                        <Link to="#">Request ID</Link>
+                                        <Link to="/account_settings?userid=1">Account Settings</Link>
+                                        <Link to="/profile?userid=1&view=user&customize=true">Customize Page</Link>
+                                        <Link to="/direct_message?senderid=1&receiverid=null">Messages</Link>
+                                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />
+                                        <Link to="/id_request?userid=1">Request ID</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -219,5 +220,8 @@ Header.propTypes = {
     hbIcon: PropTypes.string.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     deauthenticate: PropTypes.func.isRequired,
-    magnifyingGlass: PropTypes.string.isRequired
+    magnifyingGlass: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    profileImgSmall: PropTypes.string,
+    messageIcon: PropTypes.string.isRequired
 }

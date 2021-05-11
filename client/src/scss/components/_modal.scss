@@ -124,7 +124,7 @@ p.lorem-text {
 }
 
 .submit_btn {
-  @include button_properties;
+  @include button_properties($nh-button);
   width: 97.5%;
   height: 50px !important;
 }

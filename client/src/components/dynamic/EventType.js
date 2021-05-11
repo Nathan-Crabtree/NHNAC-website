@@ -35,9 +35,9 @@ export default class EventType extends Component {
      */
     addAttendee(e) {
         if (this.state.isAuthenticated) {
-            // Add the attendee's info onto the database and reload the component
+            // Add the attendee's info onto the database and reload the component.
         } else {
-            // Add the guest attendee's name onto the database and reload the component
+            // Add the guest attendee's name onto the database and reload the component. Add validation for guest name.
         }
     }
 
@@ -114,7 +114,7 @@ export default class EventType extends Component {
                             </ul>
                             <Link to="/">Click here to see more</Link>
                         </section>
-                        {this.displayAttendBtnOrForm()}
+                        { this.displayAttendBtnOrForm() }
                     </div>
                     <section className="location_time_section">
                         <h2>Time and location</h2>
