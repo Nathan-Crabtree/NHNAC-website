@@ -91,7 +91,8 @@ input:not([type='checkbox']):not([type="radio"]) {
     }
 }
 
-button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_modal-close"]):hover {
+button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_modal-close"]):hover, 
+div.paypal_btn:hover {
     background-color: $nh-button-hover;
 }
 
@@ -120,7 +121,7 @@ textarea:not(.search_bar) {
         width: 97.5%;
     }
     &_submit {
-        @include button_properties;
+        @include button_properties($nh-button);
         @include center;
         width: 95%;
     }
@@ -198,7 +199,7 @@ label[for="payment"] {
         width: 100%;
     }
     &_button {
-        @include button_properties;
+        @include button_properties($nh-button);
         width: 21%;
         margin: 5px 27px 3px 0;
     }
@@ -209,12 +210,12 @@ label[for="payment"] {
 }
 
 .paypal_btn {
-    @include button_properties;
+    @include button_properties($nh-button);
     width: 92.25%;
 }
 
 .bitcoin_btn {
-    @include alt_button_properties;
+    @include button_properties(white);
     width: 92.25%;
 }
 
@@ -225,7 +226,7 @@ label[for="payment"] {
 }
 
 .security_submit {
-    @include button_properties;
+    @include button_properties($nh-button);
     width: 12.5%;
 }
 
@@ -328,6 +329,30 @@ label[for="payment"] {
     &_p {
         margin: 0;
         width: 12%;       
+    }
+}
+
+.connect_btn {
+    padding-top: $nh-padding-top-m;
+    > h4 {
+        margin-top: 0;
+    }
+}
+
+.pending_btn {
+    @include button-properties(blue);
+    &:hover {
+        background-color: lightblue !important; 
+    }
+    > button {
+        border: none;
+        background-color: inherit;
+        color: white;
+        height: 0;
+        cursor: pointer;
+        > h4 {
+            margin-top: 15px;
+        }
     }
 }
 

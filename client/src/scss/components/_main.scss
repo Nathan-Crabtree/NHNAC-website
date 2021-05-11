@@ -110,7 +110,6 @@ a {
 .author_content {
     > p, img {
         float: left;
-        
     }
     .event_info {
         width: 50%;
@@ -418,16 +417,42 @@ a {
             margin-top: $nh-padding-left;
         }
     }
-    > section:nth-of-type(1) {
-        a:first-child {
-            color: $nh-error;
+    .profile_container1_section_container2 {
+        & {
+            a:first-child {
+                color: $nh-error;
+            } 
+            .modal_button {
+                color: $nh-black;
+            }
+            > div > p {
+                margin: 0;
+            }
+        }
+        &--viewer {
+            padding-top: $nh-padding-right;
+            .modal_button {
+                color: $nh-black;
+            }
+            > button {
+                width: 50%;
+                border-radius: 25px;
+                > h4 {
+                    margin: 0;
+                }
+            }
+            > div {
+                width: 50%;
+                border-radius: 25px;
+                margin-bottom: $nh-padding-top-m;
+                > button {
+                    @include center;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
         } 
-        .modal_button {
-            color: $nh-black;
-        }
-        > div > p {
-            margin: 0;
-        }
     }
     .profile_container1_and_half {
         padding-top: $nh-padding-top-m;
@@ -491,6 +516,25 @@ a {
         }
         > div:first-of-type {
             margin-left: 120px;
+        }
+        > section:first-of-type {
+            float: right;
+            padding-bottom: 20px;
+            > button:first-of-type {
+                background-color: blue;
+                color: white;
+                &:hover {
+                    background-color: blue;
+                }
+            }
+            > button:nth-of-type(2) {
+                background-color: red;
+                color: white;
+                margin-left: 5px;
+                &:hover {
+                    background-color: red;
+                }
+            }
         }
     }
 }

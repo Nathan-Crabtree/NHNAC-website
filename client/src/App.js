@@ -1,3 +1,5 @@
+// NOTE: Pass {...props} and as callback into routed component in order to properly use query strings. - Zane 
+
 // Import React libraries
 import React,{ Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'; 
@@ -183,18 +185,19 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Header logo={logo} hbIcon={hbIcon} setStateHandler={this.setStateHandler} isAuthenticated={this.state.isAuthenticated} 
-        deauthenticate={this.deauthenticate} magnifyingGlass={magnifyingGlass} />
+        deauthenticate={this.deauthenticate} magnifyingGlass={magnifyingGlass} profileImgSmall={profileImgSmall} 
+        messageIcon={messageIcon} onSubmit={this.onSubmit} />
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
                 <Route exact path="/">{ this.state.suspended ? <Redirect to={`/suspended?userid=${this.state.userId}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} 
-                hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} /> }</Route>
+                hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} isAuthenticated={this.state.isAuthenticated} /> }</Route>
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy />} />
                 <Route exact path="/content" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} 
                 articleImgLink={articleImgLink} reviseName={this.reviseName} />} />
                 <Route exact path="/article" component={ (props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
                 profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} onSubmit={this.onSubmit} /> } />
-                <Route exact path="/profile" component={ () => <Profile apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} 
+                <Route exact path="/profile" component={ (props) => <Profile {...props} apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} 
                 twitterMini={twitterMini} profileImgLarge={profileImgLarge} badge={badge} onSubmit={this.onSubmit} profileImgSmall={profileImgSmall} 
                 messageIcon={messageIcon} /> } />
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService />} />

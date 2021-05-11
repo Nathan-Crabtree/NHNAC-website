@@ -196,16 +196,16 @@ export default class Article extends Component {
     displayProperContent() {
         if ((!this.props.isAuthenticated && this.state.type === "event") || (!this.props.isAuthenticated && this.state.type === "update")) {
             return <div>
-                {this.displayTypeComponent()}
+                { this.displayTypeComponent() }
             </div>; 
         } else if (this.props.isAuthenticated) {
             return <div>
-                {this.displayTypeComponent()}
+                { this.displayTypeComponent() }
             </div>; 
         } else {
             return <div>
                 <div className="blur_container">
-                    {this.displayTypeComponent()}
+                    { this.displayTypeComponent() }
                 </div>
                 <div className="blur_text_container">
                     <p>Become adopted to the New Haven Native American Church community today to unlock this article.</p>
@@ -246,9 +246,9 @@ export default class Article extends Component {
                     </div>
                     <div className="clear"></div>
                 </aside>
-                {this.displayProperContent()}
+                { this.displayProperContent() }
                 <div className="back_to_articles_link center_text">
-                    {/* Snippet currently disabled because it causes a warning to appear. - Zane */}
+                    {/* Snippet currently disabled because it causes a warning to appear. Switch to a button. - Zane */}
                     {/* <Link to={this.setTypeBackLink()}>Back to content</Link> */}
                 </div>
             </React.Fragment>

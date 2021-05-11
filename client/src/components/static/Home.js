@@ -12,14 +12,26 @@ export default class Home extends Component {
         window.scrollTo(0, 0);
 
         if (!this.props.cookiePolicyDisplayed) {
-            $(function() {
-                document.getElementsByClassName('modal_button')[0].click();
-            });
+            if (this.props.isAuthenticated) {
+                $(function() {
+                    document.getElementsByClassName('modal_button')[1].click();
+                });
+            } else {
+                $(function() {
+                    document.getElementsByClassName('modal_button')[0].click();
+                });
+            }
             this.props.setCookiePolicyDisplayed();
         }
-        $(function() {
-            document.getElementsByClassName('modal_button')[0].style.display = "none";
-        });
+        if (this.props.isAuthenticated) {
+            $(function() {
+                document.getElementsByClassName('modal_button')[1].style.display = "none";
+            });
+        } else {
+            $(function() {
+                document.getElementsByClassName('modal_button')[0].style.display = "none";
+            });            
+        }
     }
 
     render() {
@@ -191,5 +203,6 @@ Home.propTypes = {
     people: PropTypes.string.isRequired,
     cookiePolicyDisplayed: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func,
-    setCookiePolicyDisplayed: PropTypes.func.isRequired
+    setCookiePolicyDisplayed: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired
 }
