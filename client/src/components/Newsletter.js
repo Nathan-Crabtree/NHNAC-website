@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Newsletter = ({ onSubmit, closeModal, emailIsValid }) => {
+export const Newsletter = ({ onSubmit, closeModal, emailIsValid, setNewsletterEmailAddress }) => {
 
 return (
         <form className="modal_form" onSubmit={onSubmit}>
@@ -29,5 +29,6 @@ export default Newsletter;
 Newsletter.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
-    emailIsValid: PropTypes.func.isRequired
+    emailIsValid: PropTypes.func.isRequired,
+    setNewsletterEmailAddress: PropTypes.func.isRequired
 }

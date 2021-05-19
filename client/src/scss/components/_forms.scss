@@ -358,14 +358,26 @@ label[for="payment"] {
 
 // Request ID
 
-.request_id_form {
-    @include center;
-    width: 75%;
-}
-
-.request_id_checkboxes {
-    display: flex;
-    > div:first-of-type {
-        padding-right: $nh-padding-right;
+.request_id {
+    &_form {
+        @include center;
+        width: 75%;
+    }
+    &_checkboxes {
+        display: flex;
+        > div:first-of-type {
+            padding-right: $nh-padding-right;
+        }
     }
 }
+
+// Account Settings
+
+@for $form-class-name from 1 through 10 {
+    .#{nth($nh-account-settings-forms, $form-class-name)}_form {
+        display: none;
+        &_field > svg {
+            @extend %form_svg;
+        }
+    }
+}  

@@ -24,7 +24,7 @@ export default class Footer extends Component {
                         <li><h4><u>Information</u></h4></li>
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/FAQ">F.A.Q.</Link></li>
-                        {/*<li><Container onSubmit={this.props.onSubmit} emailIsValid={this.props.emailIsValid} triggerText="Newsletter" /></li>*/}
+                        {/*<li><Container onSubmit={this.props.onSubmit} emailIsValid={this.props.emailIsValid} setNewsletterEmailAddress={this.props.setNewsletterEmailAddress} triggerText="Newsletter" /></li>*/}
                     </ul>
                 </div>
                 <div className="social_links">
@@ -42,6 +42,7 @@ export default class Footer extends Component {
 // PropTypes for jest testing in App.test.js
 Footer.propTypes = {
     fbLogo: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func,
-    emailIsValid: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    emailIsValid: PropTypes.func.isRequired,
+    setNewsletterEmailAddress: PropTypes.func.isRequired
 }

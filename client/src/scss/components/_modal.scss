@@ -129,6 +129,13 @@ p.lorem-text {
   height: 50px !important;
 }
 
+.close_btn {
+  @include button_properties(white);
+  width: 97.5%;
+  height: 50px !important;
+  margin-top: $nh-padding-top-m;
+}
+
 .newsletter_h2, 
 .newsletter_h2 ~ p {
   text-align: center;

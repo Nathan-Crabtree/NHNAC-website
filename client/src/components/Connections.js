@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export const Connections = ({profileImgSmall, messageIcon, approveOrReject}) => {
+export const Connections = ({ profileImgSmall, messageIcon, approveOrReject}) => {
     
 /**
  * approveOrReject() function - Change status in Connection table with auth. user and connecting user to "Approved" in database if
@@ -74,7 +74,6 @@ export default Connections;
 
 // PropTypes for jest testing in App.test.js
 Connections.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
     profileImgSmall: PropTypes.string,
     messageIcon: PropTypes.string.isRequired
 }

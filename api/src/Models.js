@@ -174,7 +174,7 @@ class User extends Model{}
       type: DataTypes.STRING,
       allowNull: true
     },
-    // No minimum age required as of current notice.
+    // No minimum age required as of current notice. Format is unknown. - Zane
     Birthday: {
       type: DataTypes.DATE,
       allowNull: false
@@ -210,7 +210,7 @@ class User extends Model{}
       defaultValue: 0
     },
     Status: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(32),
       allowNull: true    
     },
     ProfilePicLarge: {
@@ -288,6 +288,42 @@ class User extends Model{}
 );
 console.log("UserLoaded: " + (User === sequelize.models.User)); //true
 
+class Connection extends Model{}
+  Connection.init({
+    ID: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    User1: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    User2: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      references: {
+        model: User,
+        key: 'ID'
+      },
+      allowNull: false
+    },
+    // Status can either only be Pending or Approved. - Zane 
+    Status: {
+      type: DataTypes.STRING(8),
+      allowNull: false
+    },
+  }, {
+    sequelize,
+    modelName: 'Connection',
+    indexes: [{ unique: true, fields: ['ID'] }]
+  }
+);
+console.log("ConnectionLoaded: " + (Connection === sequelize.models.Role)); // true
+
 //Roles: systemRole, userRole, councilRole, churchRole
 
 //This table will store the names of the various Roles that people within the church play
@@ -300,7 +336,9 @@ class Role extends Model{}
       primaryKey: true
     }, 
     Name: {
-      type: DataTypes.STRING    }
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Role',
@@ -349,7 +387,8 @@ class CouncilRole extends Model{}
       primaryKey: true
     },
     Name: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1305,6 +1344,7 @@ class Certification extends Model{}
     },
     Name: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     Description: {
       type: DataTypes.TEXT,
@@ -1633,8 +1673,8 @@ class Content extends Model{}
     SectionID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
-      model: Section,
-      key: 'ID'
+        model: Section,
+        key: 'ID'
       },
       allowNull: false
     },
@@ -1726,6 +1766,7 @@ class EventUser extends Model{}
     },
     GuestName: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     EventID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -2213,6 +2254,7 @@ module.exports = {
   CouncilUserRole,
   Badge,
   User,
+  Connection,
   UserBadge,
   Address,
   UpdatesTable,

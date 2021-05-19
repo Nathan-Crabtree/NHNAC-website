@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App, { setGeoDataExists, onSubmit, resetToggleDisplay, removeNoJavaScriptDiv, 
-emailIsValid, reviseName, setCookiePolicyDisplayed, deauthenticate } from './App';
+emailIsValid, reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress } from './App';
 import { toggleDisplayNav, onSubmit as onSubmitHeader } from './components/dynamic/Header';
 import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } from './components/Container';
 import { displayForm } from './components/Modal';
@@ -21,6 +21,7 @@ import { displayViewComponent } from './components/dynamic/Profile';
 import { hideForm as hideFormRequestID, displayForm as displayFormRequestID, onSubmit as onSubmitRequestID } from './components/static/RequestID';
 import { approveOrReject } from './components/Connections';
 import { displayConnections } from './components/dynamic/DirectMessage';
+import { hideForm as hideFormAccountSettings, displayForm as displayFormAccountSettings, onSubmit as onSubmitAccountSettings, unsubscribe, displaySubscription } from './components/dynamic/AccountSettings';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -100,6 +101,11 @@ it("doesn't output anything", () => {
 // deauthenticate testing; src: client/src/components/static/App.js
 it("doesn't output anything", () => {
   expect(deauthenticate).toBeUndefined();
+});
+
+// setNewsletterEmailAddress testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(setNewsletterEmailAddress).toBeUndefined();
 });
 
 // CONTAINER.JS FUNCTION(S)
@@ -370,3 +376,31 @@ it("doesn't output anything", () => {
 it("doesn't output anything", () => {
   expect(displayConnections).toBeUndefined();
 });
+
+// ACCOUNTSETTINGS.JS FUNCTION(S)
+
+// hideForm testing; src: client/src/components/dynamic/AccountSettings.js
+it("doesn't output anything", () => {
+  expect(hideFormAccountSettings).toBeUndefined();
+});
+
+// displayForm testing; src: client/src/components/dynamic/AccountSettings.js
+it("doesn't output anything", () => {
+  expect(displayFormAccountSettings).toBeUndefined();
+});
+
+// onSubmit testing; src: client/src/components/dynamic/AccountSettings.js
+it("doesn't output anything", () => {
+  expect(onSubmitAccountSettings).toBeUndefined();
+});
+
+// unsubscribe testing; src: client/src/components/dynamic/AccountSettings.js
+it("doesn't output anything", () => {
+  expect(unsubscribe).toBeUndefined();
+});
+
+// displaySubscription testing; src: client/src/components/dynamic/AccountSettings.js
+it("doesn't output anything", () => {
+  expect(displaySubscription).toBeUndefined();
+});
+
