@@ -222,7 +222,8 @@ export default class ProfileUser extends Component {
                 <div className="profile_container1">
                     <div>
                         <div>
-                            <img srcSet={this.props.profileImgLarge} alt="Portrait of user." />
+                            <img className="profile_img_large" srcSet={this.props.profileImgLarge} alt="Portrait of user." />
+                            <button onClick={ () => { window.location.href="/account_settings?userid=1&edit_profile_pic=true" } } type="button">Edit Profile Picture</button>
                         </div>
                         <section>
                             <h2>Harper "Kiss" Young</h2>
@@ -247,7 +248,7 @@ export default class ProfileUser extends Component {
                                 <button onClick={ () => { this.displayForm() } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                             </div>
                             <div className="clear"></div>
-                            <Link to="/account_settings?userid=1">Account Settings</Link><br />
+                            <Link to="/account_settings?userid=1&edit_profile_pic=false">Account Settings</Link><br />
                             <button onClick={this.customizePage} className="text_btn" type="button"><b>Customize Page</b></button>
                             <button onClick={this.saveSettings} className="text_btn" type="button"><b>Save Settings</b></button>
                             <div>

@@ -9,8 +9,10 @@ import ForgotPassword from './ForgotPassword';
 import Verification from './Verification';
 import Profile from './Profile';
 import Suspended from './Suspended';
+import AccountSettings from './AccountSettings';
+import Confirmation from './Confirmation';
 
 export { Header, Error, Login, Content,
          Article, ForgotPassword, Verification, Profile, 
-         Suspended
+         Suspended, AccountSettings, Confirmation
         };

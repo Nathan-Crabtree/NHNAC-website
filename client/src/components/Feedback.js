@@ -2,7 +2,6 @@
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
 export const Feedback = () => {
 
@@ -64,8 +63,3 @@ return (
 };
 
 export default Feedback;
-
-// PropTypes for jest testing in App.test.js
-Feedback.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-}

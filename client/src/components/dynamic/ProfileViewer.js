@@ -7,7 +7,7 @@ export default class ProfileViewer extends Component {
     constructor() {
         super();
         this.state = {
-            status: "pending"
+            status: ""
         };
         this.checkUserConnection = this.checkUserConnection.bind(this);
         this.connectUser = this.connectUser.bind(this);
@@ -114,7 +114,7 @@ export default class ProfileViewer extends Component {
                                 <h2>Certifications</h2>
                                 <ul>
                                     <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                    <li>1/1/2021, 1:50pm - Tempor incididunt ut labore et dolore magna aliqua.</li>
+                                    <li>1/1/2021, 1:50xpm - Tempor incididunt ut labore et dolore magna aliqua.</li>
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>

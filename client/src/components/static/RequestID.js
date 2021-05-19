@@ -239,7 +239,6 @@ export default class RequestID extends Component {
                                     </svg><br />
                                     <br />
                                     <div>
-                                        <label htmlFor="userEmail">Email</label><br />
                                         <input className="signup_input" type="text" id="userEmail" name="user_email" placeholder={`${this.state.userEmail}`} /><br />
                                     </div>
                                 </div>

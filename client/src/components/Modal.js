@@ -8,6 +8,7 @@ import { Feedback } from './Feedback';
 import { Cookies } from './Cookies';
 import { Report } from './Report';
 import { Connections } from './Connections';
+import { Delete } from './Delete';
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
 
@@ -33,15 +34,17 @@ export const Modal = ({
 displayForm = () => {
     switch (triggerText) {
         case "Feedback":
-            return <Feedback onSubmit={onSubmit} />
+            return <Feedback />
         case "Newsletter":
             return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
         case "Cookies":
             return <Cookies onSubmit={onSubmit} closeModal={closeModal} />
         case "Report":
-            return <Report onSubmit={onSubmit} className={className} />
+            return <Report className={className} />
         case "Connections":
-            return <Connections onSubmit={onSubmit} profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
+            return <Connections profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
+        case "Delete Account":
+            return <Delete onSubmit={onSubmit} closeModal={closeModal} />
         default:
             break;
     }

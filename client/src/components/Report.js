@@ -61,6 +61,5 @@ export default Report;
 
 // PropTypes for jest testing in App.test.js
 Report.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired
 }

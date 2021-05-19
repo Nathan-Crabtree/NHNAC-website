@@ -19,11 +19,11 @@ import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ, 
          Donate, SignUp, About, Constitution, 
-         LegalRights, CodeOfConduct, Home, RequestID
+         LegalRights, CodeOfConduct, Home, RequestID, Deleted
         } from './components/static/Static';
 import { Header, Error, Login, Content,
           Article, ForgotPassword, Verification, Profile, 
-          Suspended
+          Suspended, AccountSettings, Confirmation
          } from './components/dynamic/Dynamic';
 
 export default class App extends Component {
@@ -35,7 +35,8 @@ export default class App extends Component {
       cookiePolicyDisplayed: false,
       isAuthenticated: true,
       suspended: false,
-      userId: 1
+      userId: 1,
+      newsletterEmailAddress: "example@example.com"
     }
     this.setGeoDataExists = this.setGeoDataExists.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -45,6 +46,7 @@ export default class App extends Component {
     this.reviseName = this.reviseName.bind(this);
     this.setCookiePolicyDisplayed = this.setCookiePolicyDisplayed.bind(this);
     this.deauthenticate = this.deauthenticate.bind(this);
+    this.setNewsletterEmailAddress = this.setNewsletterEmailAddress.bind(this);
   }
   
   /**
@@ -164,6 +166,16 @@ export default class App extends Component {
     this.setState({ isAuthenticated: false });
   }
 
+  /**
+   * setNewsletterEmailAddress() funcion - When newsletter form is submitted, this function executes to change 
+   * this.state.newsletterEmailAddress for the verification page.
+   * 
+   * @param {string} email 
+   */
+  setNewsletterEmailAddress(email) {
+    this.setState({ newsletterEmailAddress: email });
+  }
+
   componentDidMount() {
     let noJavaScriptDiv = document.getElementsByClassName("no_javascript_div")[0];
     let links = document.getElementsByTagName("a");
@@ -207,17 +219,22 @@ export default class App extends Component {
                 <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} emailIsValid={this.emailIsValid} 
                 setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName}/>} />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword />} />
-                <Route exact path="/verification" component={ () => <Verification />} />
+                <Route exact path="/verification" component={ () => <Verification newsletterEmailAddress={this.props.newsletterEmailAddress} />} />
+                <Route exact path="/confirmation" component={ () => <Confirmation newsletterEmailAddress={this.props.newsletterEmailAddress} />} />
                 <Route exact path="/about" component={ () => <About indian={indian} tribe={tribe} />} />
                 <Route exact path="/constitution" component={ () => <Constitution ConstitutionPdf={ConstitutionPdf} />} />
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
                 <Route exact path="/suspended" component={ () => <Suspended /> } />
+                <Route exact path="/deleted" component={ () => <Deleted onSubmit={this.onSubmit} /> } />
                 <Route exact path="/id_request" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}/> } />
+                <Route exact path="/account_settings" component={ (props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini} 
+                twitterMini={twitterMini} emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName} 
+                onSubmit={this.onSubmit} /> } />
                 <Route component={Error} />
             </Switch>
           </main>
-          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} emailIsValid={this.emailIsValid} />
+          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} emailIsValid={this.emailIsValid} setNewsletterEmailAddress={this.setNewsletterEmailAddress} />
         </div>
       </BrowserRouter>
     );

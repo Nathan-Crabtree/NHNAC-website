@@ -133,7 +133,7 @@ export default class Header extends Component {
                                 <li className="dropdown">
                                     <Link to="/profile?userid=1&view=user&customize=false">Profile</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/account_settings?userid=1">Account Settings</Link>
+                                        <Link to="/account_settings?userid=1&edit_profile_pic=false">Account Settings</Link>
                                         <Link to="/profile?userid=1&view=user&customize=true">Customize Page</Link>
                                         <Link to="/direct_message?senderid=1&receiverid=null">Messages</Link>
                                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />

@@ -373,7 +373,7 @@ a {
                     background-color: #a09e9e !important;  
                 }
             }
-        } 
+        }
         > section:first-of-type {
             float: right;
             > h2 {
@@ -534,6 +534,61 @@ a {
                 &:hover {
                     background-color: red;
                 }
+            }
+        }
+    }
+}
+
+// Account Settings
+
+.account_settings_container {
+    @include center;
+    width: 63%;
+    padding-bottom: $nh-signup-padding-bottom;
+    > div:first-of-type { 
+        float: left;
+        padding-right: $nh-padding-top-l;
+        .profile_img_large {
+            position: absolute;
+        }
+        > button {
+            position: relative;
+            color: #FFFCF4;
+            background-color: lightgray;
+            border: none;
+            cursor: pointer;
+            margin: 207px 0 0 9px;
+            width: 314px;
+            height: 33px;
+            &:hover {
+                background-color: lightgray !important;
+            }
+            &:active {
+                background-color: #a09e9e !important;  
+            }
+        }
+    }
+    > div:nth-of-type(2) {
+        float: right;
+        @extend %report_li;
+        > div:nth-of-type(3) {
+            > div > div {
+                padding-top: $nh-padding-top-l; 
+                > img {
+                    padding-right: $nh-padding-right;
+                }
+            }
+        }
+    }
+    > div:nth-of-type(4) {
+        > section {
+            padding-top: $nh-padding-top-l; 
+            > h5:first-child {
+                text-align: center;
+                width: 150px;
+                border: 1px solid $nh-black;
+                border-radius: 5px;
+                padding: $nh-padding-right;
             }
         }
     }
