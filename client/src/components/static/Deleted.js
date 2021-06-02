@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export default class Deleted extends Component {
 
     componentDidMount() {
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }
 

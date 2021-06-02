@@ -1,11 +1,11 @@
 // NOTE: Majority of this code is starter code. 
-// Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane
+// Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane
 
 * {box-sizing:border-box}
 
 /* Add padding for slideshow wrapper */
 .slideshow_wrapper {
-  padding: 25px 0;
+  padding: $nh-padding-xl 0;
 }
 
 /* Slideshow container */
@@ -52,7 +52,7 @@
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
-  // Kept in case, needing to revert... - Zane
+  // Kept; in case needing to revert... - Zane
   //border-radius: 0 3px 3px 0; 
   user-select: none;
 }
@@ -60,13 +60,13 @@
 /* Position the "next button" to the right */
 .next {
   right: 0;
-  // Kept in case, needing to revert... - Zane
+  // Kept; in case needing to revert... - Zane
   //border-radius: 3px 0 0 3px; 
 }
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  // Kept in case, needing to revert... - Zane
+  // Kept; in case needing to revert... - Zane
   //background-color: $nh-black;
 }
 

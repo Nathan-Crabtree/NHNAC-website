@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 const LegalRights = () => {
 
     useEffect(() => {
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }, []);
 

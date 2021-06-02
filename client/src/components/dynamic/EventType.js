@@ -35,9 +35,11 @@ export default class EventType extends Component {
      */
     addAttendee(e) {
         if (this.state.isAuthenticated) {
-            // Add the attendee's info onto the database and reload the component.
+            // Add the attendee's info onto the database and reload the component
         } else {
-            // Add the guest attendee's name onto the database and reload the component. Add validation for guest name.
+            // Add validation for guest name
+
+            // Add the guest attendee's name onto the database and reload the component
         }
     }
 
@@ -251,7 +253,7 @@ export default class EventType extends Component {
                                             <hr />
                                         </div>
                                     </section> 
-                                    { /* classes "response_form" and "comment_form" exist because they're to represent the creation of a new comment or response. - Zane */}
+                                    { /* Classes "response_form" and "comment_form" exist because they're to represent the creation of a new comment or response. - Zane */}
                                     <form id="response" className="response_form" onSubmit={ this.props.onSubmit }>
                                         <fieldset>
                                             <div className="comment_form_field">
@@ -293,6 +295,7 @@ export default class EventType extends Component {
     }
 }
 
+// PropTypes for jest testing in App.test.js
 EventType.propTypes = {
     thumbsUp: PropTypes.string.isRequired,
     instaMini: PropTypes.string.isRequired,

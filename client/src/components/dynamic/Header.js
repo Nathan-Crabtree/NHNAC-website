@@ -50,23 +50,23 @@ export default class Header extends Component {
             const main = document.getElementsByTagName("main")[0];
             const footer = document.getElementsByTagName("footer")[0];
 
-            // Change hamburgerIcon's display to block; change navDiv margin and transition settings.
+            // Change hamburgerIcon's display to block; change navDiv margin and transition settings
             hamburgerIcon.style.display = "block";
             navDiv.style.marginTop = "-485.72px";
             navDiv.style.transition = "margin-top 1s";
 
-            // Set body overflow style property to scroll.
+            // Set body overflow style property to scroll
             body.style.overflow = "scroll";
 
-            // Set page brightness style property back to 100% and remove the style attribute.
+            // Set page brightness style property back to 100% and remove the style attribute
             main.style.filter = "brightness(100%)";
             main.removeAttribute("style");
             
-            // Set footer brightness style property back to 100% and remove the style attribute.
+            // Set footer brightness style property back to 100% and remove the style attribute
             footer.style.filter = "brightness(100%)";
             footer.removeAttribute("style");
 
-            // Set global boolean variable of toggle state to false.
+            // Set global boolean variable of toggle state to false
             this.setState({ toggleDisplay: false });   
         } else {
             const hamburgerIcon = document.getElementsByClassName("hamburger_icon")[0];
@@ -76,34 +76,34 @@ export default class Header extends Component {
             const main = document.getElementsByTagName("main")[0];
             const footer = document.getElementsByTagName("footer")[0];
 
-            // Change hamburgerIcon's display to none; change headerLinks display to block.
+            // Change hamburgerIcon's display to none; change headerLinks display to block
             hamburgerIcon.style.display = "none";
             headerLinks.style.display = "block";
 
-            // Change navDiv margin and transition settings.
+            // Change navDiv margin and transition settings
             navDiv.style.marginTop  = "0px";
             navDiv.style.transition = "margin-top 1s";
 
-            // Set body overflow style property to hidden.
+            // Set body overflow style property to hidden
             body.style.overflow = "hidden";
             
-            // Set page brightness style property to 50% and z-index with position.
+            // Set page brightness style property to 50% and z-index with position
             main.style.filter = "brightness(50%)";
             main.style.position = "relative";
             main.style.zIndex = "-1";
 
-            // Set footer brightness style property to 50% and z-index with position.
+            // Set footer brightness style property to 50% and z-index with position
             footer.style.filter = "brightness(50%)";
             footer.style.position = "relative";
             footer.style.zIndex = "-1";
             
-            // Iterate through all <li> tags of class "header_links" and set display to block and add padding-bottom of 25px.
+            // Iterate through all <li> tags of class "header_links" and set display to block and add padding-bottom of 25px
             for (let childNode = 0; childNode < headerLinks.childNodes.length; childNode += 2) {
                 headerLinks.childNodes[childNode].style.display = "block";
                 headerLinks.childNodes[childNode].style.paddingBottom = "25px";
             }
             
-            // Set global boolean variable of toggle state to true.
+            // Set global boolean variable of toggle state to true
             this.setState({ toggleDisplay: true });
         }
     }
@@ -114,8 +114,8 @@ export default class Header extends Component {
      * 
      */
     onSubmit() {
-        const searchQuery = document.getElementById("search").value;
-        console.log(searchQuery);
+        const searchQuery = document.getElementById("search-input").value;
+        window.location.href = `/search?query=${searchQuery}&page=1`;
     }
 
     render() {
@@ -129,7 +129,7 @@ export default class Header extends Component {
                         </svg>
                         <img className="logo" srcSet={this.props.logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
                         { this.props.isAuthenticated ?  
-                                <ul className="header_links">
+                            <ul className="header_links">
                                 <li className="dropdown">
                                     <Link to="/profile?userid=1&view=user&customize=false">Profile</Link>
                                     <div className="dropdown-content">
@@ -170,10 +170,10 @@ export default class Header extends Component {
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li>
-                                    <div>
-                                        <textarea className="login_input search_bar" type="text" id="search" name="search" placeholder="Search..." />
-                                        <img className="magnifying_glass" onClick={ this.onSubmit } srcSet={this.props.magnifyingGlass} alt="Submit your search query." />
-                                    </div>
+                                    <form id="search" role="search" aria-label="Sitewide">
+                                        <input type="search" className="login_input search_input" id="search-input" name="search" spellCheck="false" placeholder="Search..." />
+                                        <img className="magnifying_glass" srcSet={this.props.magnifyingGlass} onClick={ this.onSubmit } alt="Submit your search query." />
+                                    </form>
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li><Link onClick={ this.props.deauthenticate } to="/">Log Out</Link></li>

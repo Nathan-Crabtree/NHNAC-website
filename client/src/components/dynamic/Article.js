@@ -116,7 +116,7 @@ export default class Article extends Component {
      * 
      */
     setTypeHeader() {
-        // Render proper header according to "type" string value.
+        // Render proper header according to "type" string value
         switch(this.state.type) {
             case "podcast":
                 return "PODCAST: ";
@@ -136,7 +136,7 @@ export default class Article extends Component {
      * 
      */
     displayTypeComponent() {
-        // Render proper component according to "type" string value.
+        // Render proper component according to "type" string value
         switch(this.state.type) {
             case "article":
                 return <ArticleType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini} 
@@ -173,7 +173,7 @@ export default class Article extends Component {
      * 
      */
     setTypeBackLink() {
-        // Render proper header according to "type" string value.
+        // Render proper header according to "type" string value
         switch(this.state.type) {
             case "podcast":
                 return "/content?header=podcast";
@@ -218,10 +218,10 @@ export default class Article extends Component {
     componentDidMount() {
         const parsedQString = queryString.parse(this.props.location.search);
 
-        // Change state value of query property to that of query string in URL.
+        // Change state value of query property to that of query string in URL
         this.setState({ type: parsedQString.type });
 
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }
 
@@ -256,6 +256,7 @@ export default class Article extends Component {
     }
 }
 
+// PropTypes for jest testing in App.test.js
 Article.propTypes = {
     articleImg: PropTypes.string,
     fbMini: PropTypes.string.isRequired,

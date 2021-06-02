@@ -11,7 +11,7 @@ export default class Error extends Component {
     }
 
     componentDidMount() {
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }
 

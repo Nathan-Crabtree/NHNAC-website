@@ -1,5 +1,5 @@
-// NOTE:: Majority of this code is starter code. 
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
+// NOTE: Majority of this code is starter code. 
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 import React from 'react';
 import ReactDOM from 'react-dom';

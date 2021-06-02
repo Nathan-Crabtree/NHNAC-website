@@ -18,6 +18,7 @@ export default class SignUp extends Component {
     /**
     * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values from are fit for submission. 
     * Submits and renders HTML or transfer to PayPal website according to condition.
+    * 
     * NOTE: Could be further refactored to reduce runtime. - Zane
     * 
     * @param {object} event 
@@ -321,12 +322,12 @@ export default class SignUp extends Component {
     }
 
     componentDidMount() {
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
 
         // This script tag is important htmlFor sign-up form to work properly. 
         // Provides country data htmlFor users to help insert exact address location. 
-        // Source: https://geodata.solutions. - Zane
+        // Source: https://geodata.solutions - Zane
         if (!this.props.geoDataExists) {
             const script = document.createElement("script");
 
@@ -442,7 +443,7 @@ export default class SignUp extends Component {
                                         <label className="center_text" htmlFor="newsletter">Check this box to sign up for our newsletter</label><br />
                                     </div>
                                 </div>*/}
-                                {/* Insert e-signature widget here */}
+                                {/* Insert e-signature widget here. */}
                                 <div className="signup_fields">
                                     <label htmlFor="redeemableCode">Redeemable Code</label><br />
                                     <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" placeholder="Redeemable Code" /><br />          

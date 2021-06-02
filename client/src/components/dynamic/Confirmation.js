@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const Confirmation = ({newsletterEmailAddress}) => {
+export const Confirmation = ({newsletterEmailAddress}) => {
 
     useEffect(() => {
-      // When component is rendered, bring user to top of page.
+      // When component is rendered, bring user to top of page
       window.scrollTo(0, 0);
     }, []);
 

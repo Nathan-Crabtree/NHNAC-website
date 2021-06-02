@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import Container from '../Container';
 import queryString from 'query-string';
 
-// Work on styling. Create profile pic form. Page needs validation function. Create ResetPassword page. - Zane
-function AccountSettings(props, { hideForm, displayForm, onSubmit, unsubscribe, displaySubscription }) {
-  // eslint-disable-next-line 
+// TODO: Work on styling. Create profile pic form. Page needs validation function. Create ResetPassword page. - Zane
+export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubscribe, displaySubscription }) => {
   const [userId, setUserId] = useState(null);
   const [editProfilePic, setEditProfilePic] = useState(null);
 
@@ -93,7 +92,7 @@ function AccountSettings(props, { hideForm, displayForm, onSubmit, unsubscribe, 
   useEffect(() => {
     const parsedQString = queryString.parse(props.location.search);
 
-    // Change value of query variable to that of query string in URL.
+    // Change value of query variable to that of query string in URL
     setUserId(parsedQString.userid);
     setEditProfilePic(parsedQString.editProfilePic);
 
@@ -102,12 +101,12 @@ function AccountSettings(props, { hideForm, displayForm, onSubmit, unsubscribe, 
       displayForm("profile_pic");
     }
 
-    // When component is rendered, bring user to top of page.
+    // When component is rendered, bring user to top of page
     window.scrollTo(0, 0);
 
     // This script tag is important htmlFor sign-up form to work properly. 
     // Provides country data htmlFor users to help insert exact address location. 
-    // Source: https://geodata.solutions. - Zane
+    // Source: https://geodata.solutions - Zane
     if (!props.geoDataExists) {
       const script = document.createElement("script");
 
@@ -364,6 +363,7 @@ function AccountSettings(props, { hideForm, displayForm, onSubmit, unsubscribe, 
 
 export default AccountSettings;
 
+// PropTypes for jest testing in App.test.js
 AccountSettings.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     profileImgLarge: PropTypes.string,

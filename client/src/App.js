@@ -23,7 +23,7 @@ import { Footer, PrivacyPolicy, TermsOfService, FAQ,
         } from './components/static/Static';
 import { Header, Error, Login, Content,
           Article, ForgotPassword, Verification, Profile, 
-          Suspended, AccountSettings, Confirmation
+          Suspended, AccountSettings, Confirmation, Search
          } from './components/dynamic/Dynamic';
 
 export default class App extends Component {
@@ -36,17 +36,19 @@ export default class App extends Component {
       isAuthenticated: true,
       suspended: false,
       userId: 1,
-      newsletterEmailAddress: "example@example.com"
+      newsletterEmailAddress: "example@example.com",
+      searchFilters: []
     }
     this.setGeoDataExists = this.setGeoDataExists.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.resetToggleDisplay = this.resetToggleDisplay.bind(this);
-    this.removeNoJavaScriptDiv = this.removeNoJavaScriptDiv.bind(this);
     this.emailIsValid = this.emailIsValid.bind(this);
     this.reviseName = this.reviseName.bind(this);
     this.setCookiePolicyDisplayed = this.setCookiePolicyDisplayed.bind(this);
     this.deauthenticate = this.deauthenticate.bind(this);
     this.setNewsletterEmailAddress = this.setNewsletterEmailAddress.bind(this);
+    this.setSearchFilters = this.setSearchFilters.bind(this);
+    this.getSearchFilters = this.getSearchFilters.bind(this);
   }
   
   /**
@@ -65,12 +67,13 @@ export default class App extends Component {
    */
   onSubmit = (event) => {
     event.preventDefault(event);
+    
     console.log(event.target.name.value);
     //console.log(event.target.email.value); //nathan
   }
 
   /**
-   * resetToggleDisplay() funcion - An event handler for whenever a link is clicked on phone,
+   * resetToggleDisplay() function - An event handler for whenever a link is clicked on phone,
    * the menu automatically disappears to avoid usage interference.
    * 
    */
@@ -103,20 +106,8 @@ export default class App extends Component {
   }
 
   /**
-   * removeNoJavaScriptDiv() funcion - Remove "noJavaScriptDiv" <div> tag because JavaScript works in browser.
-   * UPDATE: jQuery solved the "App render testing" test issue in App.test.js by having the document load first before changing the styling. - Zane
-   *
-   * @param {string} className 
-   */
-  removeNoJavaScriptDiv(className) {
-    $(function() {
-      className.style.display = "none";
-    });
-  }
-
-  /**
    * emailIsValid() function - Checks for valid email input. Returns a boolean.
-   * Source: https://ui.dev/validate-email-address-javascript/. - Zane
+   * Source: https://ui.dev/validate-email-address-javascript/ - Zane
    * 
    * @param {string} email 
    */
@@ -167,7 +158,7 @@ export default class App extends Component {
   }
 
   /**
-   * setNewsletterEmailAddress() funcion - When newsletter form is submitted, this function executes to change 
+   * setNewsletterEmailAddress() function - When newsletter form is submitted, this function executes to change 
    * this.state.newsletterEmailAddress for the verification page.
    * 
    * @param {string} email 
@@ -176,20 +167,34 @@ export default class App extends Component {
     this.setState({ newsletterEmailAddress: email });
   }
 
+  /**
+   * setSearchFilters() function - Whenever the filter form is updated on the search page, the searchFilters state
+   * array is updated.
+   * 
+   * @param {array} lFilters
+   */
+  setSearchFilters(lFilters) {
+    this.setState({ searchFilters: lFilters });
+  }
+
+  /**
+  * getSearchFilters() function - Returns value of this.state.searchFilters.
+  * 
+  */
+  getSearchFilters() {
+    return this.state.searchFilters;
+  }
+
   componentDidMount() {
-    let noJavaScriptDiv = document.getElementsByClassName("no_javascript_div")[0];
     let links = document.getElementsByTagName("a");
 
-    // Remove "noJavaScriptDiv" <div> tag because JavaScript works in browser.
-    this.removeNoJavaScriptDiv(noJavaScriptDiv);
-
     // This code allows all <a> tags to have the resetToggleDisplay() function implemented to 
-    // remove any user interference from the nav menu in mobile mode.
+    // remove any user interference from the nav menu in mobile mode
     for (let link = 0; link < links.length; link++) {
       links[link].onclick = this.resetToggleDisplay();
     }
 
-    // When component is rendered, bring user to top of page.
+    // When component is rendered, bring user to top of page
     window.scrollTo(0, 0);
   }
 
@@ -231,6 +236,8 @@ export default class App extends Component {
                 <Route exact path="/account_settings" component={ (props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini} 
                 twitterMini={twitterMini} emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName} 
                 onSubmit={this.onSubmit} /> } />
+                <Route exact path="/search" component={ (props) => <Search {...props} searchFilters={this.state.searchFilters} setSearchFilters={this.setSearchFilters}
+                getSearchFilters={this.getSearchFilters} /> } />
                 <Route component={Error} />
             </Switch>
           </main>
