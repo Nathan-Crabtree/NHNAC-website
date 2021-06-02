@@ -161,8 +161,9 @@ export default class RequestID extends Component {
             let userData = [this.state.userFirstName, this.state.userLastName, this.state.userStreet, this.state.userCountry, 
             this.state.userState, this.state.userCity, this.state.userZip, this.state.userTier, this.state.userEmail];
 
-            // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected.
-            // Redirect to form submitted page.
+            // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected
+
+            // Redirect to form submitted page
             for (let data = 0; data < userData.length; data++) {
                 if (data == null) {
                     return;
@@ -174,12 +175,12 @@ export default class RequestID extends Component {
     }
 
     componentDidMount() {
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
 
         // This script tag is important for sign-up form to work properly. 
         // Provides country data for users to help insert exact address location. 
-        // Source: https://geodata.solutions. - Zane
+        // Source: https://geodata.solutions - Zane
         if (!this.props.geoDataExists) {
             const script = document.createElement("script");
 

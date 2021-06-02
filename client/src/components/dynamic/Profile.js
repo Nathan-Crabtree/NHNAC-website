@@ -22,7 +22,7 @@ export default class Profile extends Component {
      * 
      */
     displayViewComponent() {
-        // Render proper component according to "type" string value.
+        // Render proper component according to "type" string value
         switch(this.state.view) {
             case "user":
                 return <ProfileUser apple={this.props.apple} book={this.props.book} twitterMini={this.props.twitterMini}
@@ -41,10 +41,10 @@ export default class Profile extends Component {
     componentDidMount() {
         const parsedQString = queryString.parse(this.props.location.search);
 
-        // Change state value of query property to that of query string in URL.
+        // Change state value of query property to that of query string in URL
         this.setState({ view: parsedQString.view, customize: parsedQString.customize });
 
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }
 
@@ -57,6 +57,7 @@ export default class Profile extends Component {
     }
 } 
 
+// PropTypes for jest testing in App.test.js
 Profile.propTypes = {
     apple: PropTypes.string.isRequired,
     book: PropTypes.string.isRequired,

@@ -1,10 +1,10 @@
 // Base
 
 label, 
-input, 
+input:not(.search_input), 
 .form_links, 
 select[id="gender"],
-textarea:not(.search_bar) {
+textarea {
     margin: $nh-form-margin;
 }
 
@@ -27,7 +27,7 @@ label[for="rememberMe"],
 label[for="newsletter"],
 label[for="by_email"], 
 label[for="by_mail"]  {
-    margin-left: $nh-padding-left; 
+    margin-left: 5px; 
 }
 
 input[type="checkbox"] {
@@ -51,10 +51,8 @@ input[type="checkbox"] {
     }
 }
 
-form {
-    background-color: white;
-    border-radius: 4px;
-    box-shadow: 0px 3px 6px #100B0098;
+form:not(#search) {
+    @extend %div_section;
     padding: $nh-form-margin;
     > ul {
         list-style-type: none;
@@ -72,22 +70,22 @@ select {
     height: 40px;
 }
 
-input:not([type='checkbox']):not([type="radio"]) {
-    height: 40px;
+input:not([type='checkbox']):not([type="radio"]):not(.search_input) {
     @include input-properties;
+    height: 40px;
 }
 
 .report_label {
-    padding-top: $nh-padding-top-m;
+    padding-top: $nh-padding-m;
 }
 
 .report_radio {
-    padding-top: $nh-padding-top-m;
+    padding-top: $nh-padding-m;
     &:nth-of-type(4) {
-        padding-bottom: $nh-padding-top-m;
+        padding-bottom: $nh-padding-m;
     }
     > label {
-        padding-left: $nh-padding-left;
+        padding-left: $nh-padding-xs;
     }
 }
 
@@ -100,7 +98,7 @@ button:focus {
     outline: none;
 }
 
-textarea:not(.search_bar) {
+textarea {
     @include input-properties;
     height: 100px;
 }
@@ -165,10 +163,10 @@ textarea:not(.search_bar) {
         width: 70%;
     }
     &_fieldset {
-        padding-left: $nh-padding-top-l;
+        padding-left: $nh-padding-xl;
     }
     &_fields {
-        padding-bottom: $nh-padding-left;
+        padding-bottom: $nh-padding-xs;
     }
     &_input {
         width: 95%;
@@ -231,14 +229,14 @@ label[for="payment"] {
 }
 
 .resend_email_span {
-    padding-top: $nh-padding-top-l;
+    padding-top: $nh-padding-xl;
 }
 
 // Article
 
 .see_comments_btn {
     @include center;
-    margin-top: $nh-padding-top-l;
+    margin-top: 25px;
 }
 
 .see_comments_btn:nth-of-type(2), .comment_btn:nth-of-type(2) {
@@ -285,7 +283,7 @@ label[for="payment"] {
 
 // Authenticated Nav
 
-.search_bar {
+.search_input {
     height: 25px;
     width: 150px;
     resize: none;
@@ -297,16 +295,15 @@ label[for="payment"] {
 
 .guest_form {
     @include center;
-    padding: 20px 20px;
+    padding: $nh-padding-l;
     width: 50%;
     > label, br, input {
         margin-top: 15px;
     }
-    > input {
+    > input, button {
         width: 100%;
     }
     > button {
-        width: 100%;
         margin-top: 10px;
     }
 }
@@ -333,7 +330,7 @@ label[for="payment"] {
 }
 
 .connect_btn {
-    padding-top: $nh-padding-top-m;
+    padding-top: $nh-padding-m;
     > h4 {
         margin-top: 0;
     }
@@ -366,7 +363,7 @@ label[for="payment"] {
     &_checkboxes {
         display: flex;
         > div:first-of-type {
-            padding-right: $nh-padding-right;
+            padding-right: $nh-padding-s;
         }
     }
 }

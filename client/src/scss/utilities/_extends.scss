@@ -14,17 +14,21 @@
                     }
                 }
                 &:nth-child(2) {
-                    font-size: .8rem;
+                    font-size: $nh-font-small;
                 }
             }
         }
     }
 }
 
-%content_container_section {
+%div_section {
     background-color: white;
     border-radius: 4px;
-    box-shadow: 0px 3px 6px #100B0098;
+    box-shadow: 0px 3px 6px #100B0098;    
+}
+
+%content_container_section {
+    @extend %div_section;
     margin: 25px 0;
     width: calc(649px*.70);
     > h2 {
@@ -42,7 +46,7 @@
         cursor: grab;
         float: right;
         margin: -10px 20px 0 0;
-        width: $nh-padding-top-m;
+        width: 15px;
         height: auto;
     }
     > img:active {
@@ -52,12 +56,12 @@
 }
 
 %profile_container_section_ul {
-    padding: 10px 0 25px 20px;
+    padding: $nh-padding-s 0 $nh-padding-xl $nh-padding-l;
     > ul {
-        padding-top: 20px;
+        padding-top: $nh-padding-l;
         list-style-type: none;
         > li {
-            padding-bottom: 25px;
+            padding-bottom: $nh-padding-xl;
             > .badge {
                 width: 89px;
                 height: auto;

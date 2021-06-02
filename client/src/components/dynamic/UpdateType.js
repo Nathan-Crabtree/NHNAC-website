@@ -150,7 +150,7 @@ export default class UpdateType extends Component {
                                             <hr />
                                         </div>
                                     </section> 
-                                    { /* classes "response_form" and "comment_form" exist because they're to represent the creation of a new comment or response. - Zane */}
+                                    { /* Classes "response_form" and "comment_form" exist because they're to represent the creation of a new comment or response. - Zane */}
                                     <form id="response" className="response_form" onSubmit={ this.props.onSubmit }>
                                         <fieldset>
                                             <div className="comment_form_field">
@@ -192,6 +192,7 @@ export default class UpdateType extends Component {
     }
 }
 
+// PropTypes for jest testing in App.test.js
 UpdateType.propTypes = {
     thumbsUp: PropTypes.string.isRequired,
     instaMini: PropTypes.string.isRequired,

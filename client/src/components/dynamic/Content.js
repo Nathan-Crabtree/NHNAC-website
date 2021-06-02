@@ -17,6 +17,7 @@ export default class Content extends Component {
     /**
      * setStateHandler() function - Takes query string variable from URL and parses it into an object property
      * for proper page rendering.
+     * 
      * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered 
      * with only one click.
      * 
@@ -24,10 +25,10 @@ export default class Content extends Component {
     setStateHandler() { 
         const parsedQString = queryString.parse(this.props.location.search);
 
-        // Change state value of query property to that of query string in URL.
+        // Change state value of query property to that of query string in URL
         this.setState({ header: parsedQString.header });
         
-        // Render proper text for bottom_aside and top_aside span tag according to string value.
+        // Render proper text for bottom_aside and top_aside span tag according to string value
         switch(this.state.header) {
             case "news":
               document.getElementById("headerContent").innerHTML = "News";
@@ -62,7 +63,7 @@ export default class Content extends Component {
    componentDidMount() {
         this.setStateHandler();
 
-        // When component is rendered, bring user to top of page.
+        // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
    }
 
@@ -150,6 +151,7 @@ export default class Content extends Component {
     }
 }
 
+// PropTypes for jest testing in App.test.js
 Content.propTypes = {
     podcast: PropTypes.string.isRequired,
     profileImgSmall: PropTypes.string,

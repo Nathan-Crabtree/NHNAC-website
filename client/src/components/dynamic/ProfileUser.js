@@ -68,11 +68,11 @@ export default class ProfileUser extends Component {
         expandedTable.style.resize = "none";
         expandedTable.style.display = "none";
 
-        // Src: https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array. - Zane
+        // Src: https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array - Zane
         const joined = this.state.collapsedTables.concat(newJSX);
         this.setState({ collapsedTables: joined });        
 
-        // Increment the value of key to have it remain unique for the next array value.
+        // Increment the value of key to have it remain unique for the next array value
         const newKey = this.state.key + 1;
         this.setState({ key: newKey });
     }
@@ -90,10 +90,10 @@ export default class ProfileUser extends Component {
         collapsedTable.style.resize = "vertical";
         collapsedTable.style.display = "block";
 
-        // Search array for correlated child component to pop.
+        // Search array for correlated child component to pop
         for (let collapsedTable = 0; collapsedTable < this.state.collapsedTables.length; collapsedTable++) {
             if (this.state.collapsedTables[collapsedTable].props.className === className) {
-                // Src: https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react. - Zane
+                // Src: https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react - Zane
                 var array = [...this.state.collapsedTables]; // make a separate copy of the array
                 array.pop(collapsedTable);
                 this.setState({collapsedTables: array});
@@ -137,13 +137,13 @@ export default class ProfileUser extends Component {
      * 
      */
     customizePage() {
-        // Replace "Customize Page" with "Save Settings".
+        // Replace "Customize Page" with "Save Settings"
         document.getElementsByClassName("text_btn")[1].style.display = "none"; 
         document.getElementsByClassName("text_btn")[2].style.display = "block"
 
         // Edit the styling of all data tables to show buttons and allow customization.
         // Utilizing the Drag and Drop API.
-        // Src: https://www.youtube.com/watch?v=OHTudicK7nY. - Zane
+        // Src: https://www.youtube.com/watch?v=OHTudicK7nY - Zane
         let dataTables = [];
         dataTables[0] = document.querySelector("#profileContainer1SectionContainer3");
         dataTables[1] = document.querySelector("#profileContainer1SectionContainer4");
@@ -159,13 +159,13 @@ export default class ProfileUser extends Component {
                 this.state.clickedDataTable.classList.add("table--clicked");
             });
 
-            // Setting the display style of data table's resizing feature and collapse link to block.
+            // Setting the display style of data table's resizing feature and collapse link to block
             dataTables[dataTable].children[0].style.display = "block";
             dataTables[dataTable].style.resize = "vertical";
         }
 
         for (const dropZone of document.querySelectorAll(".profile_drop_zone")) {
-            // When draggable element is over a drop zone.
+            // When draggable element is over a drop zone
             dropZone.addEventListener("dragover", e => {
                 e.preventDefault();
                 dropZone.classList.add("profile_drop_zone--over");
@@ -174,13 +174,13 @@ export default class ProfileUser extends Component {
                 }
             });
 
-            // When draggable element is no longer over drop zone.
+            // When draggable element is no longer over drop zone
             dropZone.addEventListener("dragleave", e => {
                 dropZone.classList.remove("profile_drop_zone--over");
                 dropZone.classList.remove("profile_drop_zone--empty");
             });
 
-            // When draggable element is dropped onto drop zone.
+            // When draggable element is dropped onto drop zone
             dropZone.addEventListener("drop", e => {
                 e.preventDefault();
 
@@ -204,9 +204,9 @@ export default class ProfileUser extends Component {
      * 
      */
     saveSettings() {
-        // Check the styling of each data table to see if any changes need to made for user's preference data on back-end.
+        // Check the styling of each data table to see if any changes need to made for user's preference data on back-end
         
-        // Force reload the page to show new settings and revert changed styling.
+        // Force reload the page to show new settings and revert changed styling
         window.location.href = '/profile?userid=1&view=user';
     }
 
@@ -357,6 +357,7 @@ export default class ProfileUser extends Component {
     }
 } 
 
+// PropTypes for jest testing in App.test.js
 ProfileUser.propTypes = {
     apple: PropTypes.string.isRequired,
     book: PropTypes.string.isRequired,

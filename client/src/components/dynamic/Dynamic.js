@@ -11,8 +11,9 @@ import Profile from './Profile';
 import Suspended from './Suspended';
 import AccountSettings from './AccountSettings';
 import Confirmation from './Confirmation';
+import Search from './Search';
 
 export { Header, Error, Login, Content,
          Article, ForgotPassword, Verification, Profile, 
-         Suspended, AccountSettings, Confirmation
+         Suspended, AccountSettings, Confirmation, Search
         };

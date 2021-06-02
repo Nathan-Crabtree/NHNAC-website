@@ -7,7 +7,7 @@ body {
 }
 
 main, 
-.no_javascript_div {
+noscript {
     @include center;
     width: 65%;
     padding: 5% 3%;

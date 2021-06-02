@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const About = ({indian, tribe}) => {
+export const About = ({indian, tribe}) => {
 
     const indianAlt = "A Native American Indian.";
     const tribeAlt = "Tribe logo.";

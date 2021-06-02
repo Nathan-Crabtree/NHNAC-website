@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 export const Slideshow = ({hands, homes, people, onSubmit}) => {
 
-    // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane 
+    // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane 
     var slideIndex = useRef(0);
 
     /**
@@ -68,10 +68,10 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
             dots[slideIndex.current-1].className += " active";
         }
 
-        // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout. - Zane
+        // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout - Zane
         let functionDone = false;
 
-        // Change image every 5 seconds.
+        // Change image every 5 seconds
         let timeout = setTimeout(function() {
             showSlidesAuto();
             functionDone = true;
@@ -79,7 +79,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
 
         $(function() {
             if (!functionDone) {
-                // Clear time interval function once new page loads.
+                // Clear time interval function once new page loads
                 clearTimeout(timeout);
 
                 showSlidesAuto();
@@ -90,7 +90,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
     return(
         <React.Fragment>
             {/* NOTE: Majority of this code is starter code. */}
-            {/* Source: https://www.w3schools.com/howto/howto_js_slideshow.asp. - Zane */}
+            {/* Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane */}
             {/* Slideshow wrapper */}
             <div className="slideshow_wrapper">
                 <div className="slideshow-container">
@@ -129,6 +129,7 @@ export const Slideshow = ({hands, homes, people, onSubmit}) => {
 };
 export default Slideshow;
 
+// PropTypes for jest testing in App.test.js
 Slideshow.propTypes = {
     hands: PropTypes.string.isRequired,
     homes: PropTypes.string.isRequired,

@@ -1,7 +1,7 @@
 footer > div:first-child > ul {
     padding: 0% 3% 2%;
     li {
-        padding-top: $nh-padding-top-l;
+        padding-top: $nh-padding-xl;
         h4 {
             margin: 0;
         }
@@ -12,7 +12,7 @@ footer > div:first-child > ul {
 }
 
 footer > div:nth-child(2) li {
-    padding-left: $nh-padding-left;
+    padding-left: $nh-padding-xs;
 }
 
 // Used for email styling. - Zane

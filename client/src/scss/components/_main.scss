@@ -4,6 +4,7 @@ footer > div:last-child ul  {
     @include flexbox;
 } 
 
+// NOTE: These child tags don't have > because they cause a bug. - Zane
 nav > div, 
 footer {
     background-color: $nh-black;
@@ -64,10 +65,8 @@ a {
 
 #contactDiv {
     text-align: center;
-    > div {
-        p {
-            font-weight: bold;
-        }
+    > div > p {
+        font-weight: bold;
     }
 }
 
@@ -75,9 +74,7 @@ a {
 
 .content_container1 {
     > section {
-        background-color: white;
-        border-radius: 4px;
-        box-shadow: 0px 3px 6px #100B0098;
+        @extend %div_section;
         margin: 25px 0;
         width: calc(649px*.90);
         h3 {
@@ -90,13 +87,13 @@ a {
 }
 
 .content_container2 {
-    padding-left: 20px;
+    padding-left: $nh-padding-l;
     > aside:not(:nth-child(3)) {
         @extend %content_container_section;
     }
 }
 
-// Src: https://coder-coder.com/display-divs-side-by-side/. - Zane
+// Src: https://coder-coder.com/display-divs-side-by-side/ - Zane
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -104,7 +101,7 @@ a {
 }
 
 .header_content {
-    padding: 50px 0 10px 0;
+    padding: calc(#{$nh-padding-s}*5) 0 $nh-padding-s 0; // padding: 50px 0 10px 0;
 }
 
 .author_content {
@@ -114,7 +111,7 @@ a {
     .event_info {
         width: 50%;
     }
-    margin: 10px 10px;
+    margin: 10px;
 }
 
 .sub_article_content {
@@ -125,10 +122,10 @@ a {
 
 .top_aside, .bottom_aside {
     > div, ul, button {
-        padding: 25px 25px 0 25px;
+        padding: $nh-padding-xl $nh-padding-xl 0 $nh-padding-xl;
         > li {
             list-style-type: none;
-            padding-bottom: $nh-padding-top-l;
+            padding-bottom: $nh-padding-xl;
         }
     }
     > button {
@@ -139,7 +136,7 @@ a {
 .more_articles_link {
     width: 65%;
     float: right;
-    padding-top: $nh-padding-right;
+    padding-top: $nh-padding-s;
 }
 
 // Article
@@ -153,32 +150,32 @@ a {
         float: right;
         margin-top: 14px;
         > a {
-            padding-right: $nh-padding-right;
+            padding-right: $nh-padding-s;
         }
     }
 }
 
 .location_time_section {
-    margin-top: 45px;
-    padding: 20px 20px;
     @include center;
     @extend %content_container_section;
+    margin-top: 45px;
+    padding: $nh-padding-l $nh-padding-l;
     > div {
         margin-top: 20px;
     }
 }
 
 .event_attendees_div {
-    padding-top: 20px;
     @include center;
+    padding-top: $nh-padding-l;
     width: 40%;
     > section {
         @extend %content_container_section;
         @extend %profile_container_section_ul;
     }
     > button {
-        width: 35%;
         @include center;
+        width: 35%;
     }
 }
 
@@ -190,13 +187,13 @@ a {
     display: block;
     > div:first-child {
         padding-top: 100px;
-        padding-bottom: 5px;
+        padding-bottom: $nh-padding-xs;
         a {
             background-color: white;
             border: 1px solid $nh-black;
             border-radius: 4px;
-            padding: 5px 5px;
-            margin-right: $nh-padding-left;
+            padding: $nh-padding-xs $nh-padding-xs;
+            margin-right: 5px;
         }
     }
     > div:nth-child(2) {
@@ -204,7 +201,7 @@ a {
         > ul {
             margin-left: -40px;
             > li {
-                padding-right: $nh-padding-right;
+                padding-right: $nh-padding-s;
                 list-style-type: none;
                 display: inline;
             }
@@ -217,7 +214,7 @@ a {
         float: right;
         margin-top: 14px;
         > a {
-            padding-right: $nh-padding-right;
+            padding-right: $nh-padding-s;
         }
     }
 }
@@ -243,7 +240,7 @@ a {
 }
 
 .figure_podcast {
-    padding-bottom: 20px;
+    padding-bottom: $nh-padding-l;
 }
 
 // Comment
@@ -277,14 +274,14 @@ a {
         }
         @extend %comment_container_ul;
         > div:nth-of-type(3) {
-            padding-bottom: $nh-padding-left;
+            padding-bottom: $nh-padding-xs;
             > ul {
                 list-style-type: none;
                 padding: 15px 0 5px 0;
                 font-size: $nh-font-small;
                 > li {
                     display: inline-block;
-                    padding-right: $nh-padding-left;
+                    padding-right: $nh-padding-xs;
                     &:nth-child(3) {
                         @extend %report_li;
                     }
@@ -299,7 +296,7 @@ a {
 .response_container {
     > div {
         width: 100%;
-        padding: $nh-padding-right;
+        padding: $nh-padding-s;
         float: right;
         > div:first-of-type {
             float: left;
@@ -324,16 +321,16 @@ a {
         }
         @extend %comment_container_ul;
         > div:nth-of-type(4) {
-            padding-bottom: $nh-padding-left;
+            padding-bottom: $nh-padding-xs;
         }
         > ul:nth-of-type(2) {
             list-style-type: none;
-            padding-bottom: $nh-padding-left;
+            padding-bottom: $nh-padding-xs;
             font-size: $nh-font-small;
             margin-left: -38px;
             > li {
                 display: inline-block;
-                padding-right: $nh-padding-left;
+                padding-right: $nh-padding-xs;
                 &:nth-child(3) {
                     @extend %report_li;
                 }
@@ -353,7 +350,7 @@ a {
     > div:first-of-type {
         > div:first-of-type { 
             float: left;
-            padding-right: $nh-padding-top-l;
+            padding-right: $nh-padding-xl;
             .profile_img_large {
                 position: absolute;
             }
@@ -377,8 +374,8 @@ a {
         > section:first-of-type {
             float: right;
             > h2 {
-                margin-top: $nh-padding-left;
-                padding-bottom: $nh-padding-top-m;
+                margin-top: 5px;
+                padding-bottom: $nh-padding-l;
             }
             > p {
                 margin-top: -15px;
@@ -405,7 +402,7 @@ a {
             > div:nth-of-type(3) {
                 margin-top: 14px;
                 > a {
-                    padding-right: $nh-padding-right;
+                    padding-right: $nh-padding-s;
                 }
             }          
         }
@@ -414,7 +411,7 @@ a {
         margin: 25px 0;
         width: 332px;
         > h4 {
-            margin-top: $nh-padding-left;
+            margin-top: 5px;
         }
     }
     .profile_container1_section_container2 {
@@ -430,7 +427,7 @@ a {
             }
         }
         &--viewer {
-            padding-top: $nh-padding-right;
+            padding-top: $nh-padding-s;
             .modal_button {
                 color: $nh-black;
             }
@@ -444,7 +441,7 @@ a {
             > div {
                 width: 50%;
                 border-radius: 25px;
-                margin-bottom: $nh-padding-top-m;
+                margin-bottom: 15px;
                 > button {
                     @include center;
                     &:hover {
@@ -455,7 +452,7 @@ a {
         } 
     }
     .profile_container1_and_half {
-        padding-top: $nh-padding-top-m;
+        padding-top: $nh-padding-m;
         width: 484.3px;
         > div > section {
             @extend %content_container_section;
@@ -467,7 +464,7 @@ a {
 
 .profile_container2 {
     float: right;
-    padding-top: $nh-padding-top-m;
+    padding-top: $nh-padding-m;
     margin-top: -25px;
     > div > section {
         @extend %content_container_section;
@@ -477,7 +474,7 @@ a {
 }
 
 .profile_drop_zone {
-    padding: 15px 15px;
+    padding: $nh-padding-m $nh-padding-m;
     &--over, &--empty {
         opacity: 0.5;
         background-color: white;        
@@ -488,7 +485,7 @@ a {
     @for $section-container from 1 through 4 {
         @if $profile-container == 1 and $section-container > 2 {
             .profile_container#{$profile-container}_section_container#{$section-container} {
-                // Src: https://stackoverflow.com/questions/391440/how-to-make-div-resizeable. - Zane
+                // Src: https://stackoverflow.com/questions/391440/how-to-make-div-resizeable - Zane
                 resize: none;
                 overflow: auto; /* something other than visible */
             }
@@ -519,7 +516,7 @@ a {
         }
         > section:first-of-type {
             float: right;
-            padding-bottom: 20px;
+            padding-bottom: $nh-padding-l;
             > button:first-of-type {
                 background-color: blue;
                 color: white;
@@ -547,7 +544,7 @@ a {
     padding-bottom: $nh-signup-padding-bottom;
     > div:first-of-type { 
         float: left;
-        padding-right: $nh-padding-top-l;
+        padding-right: $nh-padding-xl;
         .profile_img_large {
             position: absolute;
         }
@@ -573,23 +570,88 @@ a {
         @extend %report_li;
         > div:nth-of-type(3) {
             > div > div {
-                padding-top: $nh-padding-top-l; 
+                padding-top: $nh-padding-xl; 
                 > img {
-                    padding-right: $nh-padding-right;
+                    padding-right: $nh-padding-s;
                 }
             }
         }
     }
     > div:nth-of-type(4) {
         > section {
-            padding-top: $nh-padding-top-l; 
+            padding-top: $nh-padding-xl; 
             > h5:first-child {
                 text-align: center;
                 width: 150px;
                 border: 1px solid $nh-black;
                 border-radius: 5px;
-                padding: $nh-padding-right;
+                padding: $nh-padding-s;
             }
+        }
+    }
+}
+
+// Search
+
+.search_container {
+    @include center;
+    display: block;
+    width: 90%;
+    > div {
+        float: left;
+        padding: 0 45px;
+        @extend %div_section;
+        width: 70%;
+        > div:first-of-type {
+            text-align: center;
+            > ul > li {
+                display: inline;
+                list-style-type: none;
+            }
+        }
+        > div:nth-of-type(2) {
+            padding-bottom: 45px;
+            > section {
+                padding: $nh-padding-s;
+                @extend %div_section;
+                margin: 25px 0; 
+                > a {
+                    margin: 8px;
+                }
+                > blockquote {
+                    font-style: italic;
+                    > q {
+                        background-image: linear-gradient(to right, $nh-gray 0%, $nh-black 5%, $nh-black 95%, $nh-gray 100%);
+                        // Src: https://fossheim.io/writing/posts/css-text-gradient/ - Zane
+                        background-size: 100%;
+                        -webkit-background-clip: text;
+                        -moz-background-clip: text;
+                        -webkit-text-fill-color: transparent; 
+                        -moz-text-fill-color: transparent;
+                        > mark {
+                            background-color: transparent;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+        > ul {
+            @include center;
+            width: 75%;
+            > li {
+                display: inline;
+                list-style-type: none;
+                padding-right: $nh-padding-m;
+            }
+        }
+    }
+    > form {
+        float: right;
+        width: 25%;
+        padding: $nh-padding-m;
+        > h3 {
+            text-align: center;
         }
     }
 }

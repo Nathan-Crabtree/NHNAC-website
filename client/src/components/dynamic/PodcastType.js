@@ -16,7 +16,7 @@ export default class PodcastType extends Component {
         return(
             <React.Fragment>
                 <article>
-                    {/* Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio. - Zane */}
+                    {/* Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio - Zane */}
                     <figure className="figure_podcast">
                         <figcaption>Listen to the Podcast:</figcaption><br />
                         <audio
@@ -210,6 +210,7 @@ export default class PodcastType extends Component {
     }
 }
 
+// PropTypes for jest testing in App.test.js
 PodcastType.propTypes = {
     thumbsUp: PropTypes.string.isRequired,
     instaMini: PropTypes.string.isRequired,

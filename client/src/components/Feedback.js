@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code. 
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571. - Zane
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 import React from 'react';
 
@@ -17,14 +17,14 @@ function onSubmit(event) {
   event.preventDefault(event);
   const messageContent = event.target.message.value;
   if (messageContent.length > 3) {
-      // Take the data and send it to API. 
+      // Take the data and send it to API
       console.log(messageContent);
 
-      // Render on the modal thank you text.
+      // Render on the modal thank you text
       const modalForm = document.getElementsByClassName("modal_form")[0];
       modalForm.parentElement.innerHTML = '<h3 align="center">Thank you for your feedback!</h3>';
   } else {
-      // Render error text and colors. 
+      // Render error text and colors 
       if (!errorExists) {
         const formField = document.getElementsByClassName("feedback_form_fields")[0];
         const input = document.getElementById("message");

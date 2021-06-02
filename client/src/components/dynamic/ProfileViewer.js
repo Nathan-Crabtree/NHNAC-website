@@ -175,6 +175,7 @@ export default class ProfileViewer extends Component {
     }
 } 
 
+// PropTypes for jest testing in App.test.js
 ProfileViewer.propTypes = {
     apple: PropTypes.string.isRequired,
     book: PropTypes.string.isRequired,

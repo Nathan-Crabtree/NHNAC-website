@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, { setGeoDataExists, onSubmit, resetToggleDisplay, removeNoJavaScriptDiv, 
-emailIsValid, reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress } from './App';
+import App, { setGeoDataExists, onSubmit, resetToggleDisplay, emailIsValid, 
+  reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress, setSearchFilters, getSearchFilters } from './App';
 import { toggleDisplayNav, onSubmit as onSubmitHeader } from './components/dynamic/Header';
 import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } from './components/Container';
 import { displayForm } from './components/Modal';
@@ -22,6 +22,7 @@ import { hideForm as hideFormRequestID, displayForm as displayFormRequestID, onS
 import { approveOrReject } from './components/Connections';
 import { displayConnections } from './components/dynamic/DirectMessage';
 import { hideForm as hideFormAccountSettings, displayForm as displayFormAccountSettings, onSubmit as onSubmitAccountSettings, unsubscribe, displaySubscription } from './components/dynamic/AccountSettings';
+import { updateFilter, displayPageLinks, displayResults, displaySections, displaySimilarTags } from './components/dynamic/Search';
 
 /**
  *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
@@ -43,7 +44,7 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
 });
 
-// Proptype testing for all passed props in components.
+// Proptype testing for all passed props in components
 console.error = message => {
   if (/(Failed prop type)/.test(message)) {
     throw new Error(message);
@@ -52,7 +53,7 @@ console.error = message => {
   originalConsoleError(message);
 };
 
-// This code snippet removes the "Error: Not implemented: window.scrollTo" output when running npm test.
+// This code snippet removes the "Error: Not implemented: window.scrollTo" output when running npm test
 const noop = () => {};
 Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
 
@@ -71,11 +72,6 @@ it("doesn't output anything", () => {
 // resetToggleDisplay testing; src: client/src/App.js
 it("doesn't output anything", () => {
   expect(resetToggleDisplay).toBeUndefined();
-});
-
-// removeNoJavaScriptDiv testing; src: client/src/App.js
-it("doesn't output anything", () => {
-  expect(removeNoJavaScriptDiv).toBeUndefined();
 });
 
 // toggleScrollLock testing; src: client/src/App.js
@@ -106,6 +102,16 @@ it("doesn't output anything", () => {
 // setNewsletterEmailAddress testing; src: client/src/components/static/App.js
 it("doesn't output anything", () => {
   expect(setNewsletterEmailAddress).toBeUndefined();
+});
+
+// setSearchFilters testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(setSearchFilters).toBeUndefined();
+});
+
+// getSearchFilters testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(getSearchFilters).toBeUndefined();
 });
 
 // CONTAINER.JS FUNCTION(S)
@@ -402,5 +408,32 @@ it("doesn't output anything", () => {
 // displaySubscription testing; src: client/src/components/dynamic/AccountSettings.js
 it("doesn't output anything", () => {
   expect(displaySubscription).toBeUndefined();
+});
+
+// SEARCH.JS FUNCTION(S)
+
+// updateFilter testing; src: client/src/components/dynamic/Search.js
+it("doesn't output anything", () => {
+  expect(updateFilter).toBeUndefined();
+});
+
+// displayPageLinks testing; src: client/src/components/dynamic/Search.js
+it("doesn't output anything", () => {
+  expect(displayPageLinks).toBeUndefined();
+});
+
+// displaySections testing; src: client/src/components/dynamic/Search.js
+it("doesn't output anything", () => {
+  expect(displaySections).toBeUndefined();
+});
+
+// displayResults testing; src: client/src/components/dynamic/Search.js
+it("doesn't output anything", () => {
+  expect(displayResults).toBeUndefined();
+});
+
+// displaySimilarTags testing; src: client/src/components/dynamic/Search.js
+it("doesn't output anything", () => {
+  expect(displaySimilarTags).toBeUndefined();
 });
 
