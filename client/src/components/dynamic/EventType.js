@@ -13,7 +13,11 @@ export default class EventType extends Component {
     constructor() {
         super();
         this.state = {
-            position: [36.88, -92.47]
+            position: [36.88, -92.47],
+            attending: false,
+            maxPeopleAllowed: 10,
+            currentPeopleGoing: 5,
+            errorExists: false
         }
         this.removeAttendee = this.removeAttendee.bind(this);
         this.addAttendee = this.addAttendee.bind(this);
@@ -25,7 +29,7 @@ export default class EventType extends Component {
      * 
      */
     removeAttendee() {
-
+        this.setState({ attending: false }); 
     }
 
     /**
@@ -34,12 +38,64 @@ export default class EventType extends Component {
      * @param {event} e 
      */
     addAttendee(e) {
-        if (this.state.isAuthenticated) {
-            // Add the attendee's info onto the database and reload the component
-        } else {
-            // Add validation for guest name
+        let errorExists = false;
 
-            // Add the guest attendee's name onto the database and reload the component
+        e.preventDefault();
+
+        if (this.props.isAuthenticated && this.state.currentPeopleGoing < this.state.maxPeopleAllowed) {
+            // Add the attendee's info onto the database and reload the component
+            this.setState({ attending: true });
+        }
+        
+        if (!this.props.isAuthenticated && this.state.currentPeopleGoing < this.state.maxPeopleAllowed) {
+            // Clear error text if it currently exists on the DOM
+            if (this.state.errorExists) {
+                const element = document.getElementsByClassName("error")[0];
+                element.parentElement.removeChild(element);
+                this.setState({ errorExists: false });
+            }
+            
+            // Validate for guest name
+            let name = e.target.name.value;
+
+            if (name.length === 0) {
+                if (!errorExists) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("guest_form")[0].children[0];
+                    const inputName = document.getElementById("name");
+                    let error = document.createElement("p");
+                    error.innerHTML = '*Please enter your name.';
+                    error.className = "error";
+                    error.style.fontSize = '.9rem';
+                    error.style.color = '#C31F01';
+                    formField.appendChild(error);
+                    inputName.style.borderColor = '#C31F01';
+                    errorExists = true;
+                }
+            } 
+            
+            if (name.length > 0 && name[0] !== name[0].toUpperCase()) {
+                if (!errorExists) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("guest_form")[0].children[0];
+                    const inputName = document.getElementById("name");
+                    let error = document.createElement("p");
+                    error.innerHTML = '*Please capitalize the first letter in your name.';
+                    error.className = "error";
+                    error.style.fontSize = '.9rem';
+                    error.style.color = '#C31F01';
+                    formField.appendChild(error);
+                    inputName.style.borderColor = '#C31F01';
+                    errorExists = true;
+                }
+            }
+
+            if (!errorExists) {
+                // Add the guest attendee's name onto the database and reload the component
+                this.setState({ attending: true });
+            } else {
+                this.setState({ errorExists: true });
+            }
         }
     }
 
@@ -49,14 +105,27 @@ export default class EventType extends Component {
      * 
      */
     displayAttendBtnOrForm() {
+        // Query the database to see if authenticated user is already attending, fill maxPeopleAllowed and location
+
+        // Render proper component according to state variables
         if (!this.props.isAuthenticated) { 
-            return <form className="guest_form" onSubmit={this.addAttendee}>
-                        <label htmlFor="name">First Name: </label><br />
-                        <input className="signup_input" type="text" id="name" name="name" /><br />
-                        <button type="submit" className="paypal_btn">Click to attend</button>
-                    </form>; 
+            if (this.state.attending) {
+                return <button onClick={ () => { window.location.href = "#"; } } className="paypal_btn">Fund this event</button>;
+            } else {
+                return <form className="guest_form" onSubmit={this.addAttendee}>
+                            <fieldset>
+                                <label htmlFor="name">First Name: </label><br />
+                                <input className="signup_input" type="text" id="name" name="name" /><br />
+                            </fieldset>
+                            <button type="submit" className="paypal_btn">Click to attend</button>
+                        </form>;
+            } 
         } else { 
-            return <button onClick={this.addAttendee} className="paypal_btn">Click to attend</button>; 
+            if (this.state.attending) {
+                return <button onClick={ () => { window.location.href = "#"; } } className="paypal_btn">Fund this event</button>;
+            } else {
+                return <button onClick={this.addAttendee} className="paypal_btn">Click to attend</button>; 
+            }
         }
     }
 

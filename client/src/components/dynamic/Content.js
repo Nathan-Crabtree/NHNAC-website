@@ -114,7 +114,7 @@ export default class Content extends Component {
                                 <div className="clear"></div>
                             </div>
                         </section>
-                        <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                        <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                     </div>
                     <div className="content_container2">
                         <aside className="top_aside">
@@ -125,7 +125,7 @@ export default class Content extends Component {
                                 <li>April 2020</li>
                                 <li>March 2020</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                             <div className="clear"></div>
                         </aside>
                         <aside className="bottom_aside">
@@ -136,7 +136,7 @@ export default class Content extends Component {
                                 <li>5/4/2020 - Nullam non nisi.</li>
                                 <li>6/4/2020 - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                             <div className="clear"></div>
                         </aside>
                         <aside>
