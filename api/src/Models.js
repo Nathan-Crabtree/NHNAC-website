@@ -6,7 +6,7 @@
 const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-//const sequelize = secret; //production env
+//const sequelize = secret; // Production env, could be a node environment variable - Zane 
 
 //const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
 //const sequelize = new Sequelize('mysql://newhavenuser:@localhost:3306/newhaven', { logging: console.log }); //development env
@@ -1133,6 +1133,10 @@ class Event extends Model{}
     },
     EventLocation: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    EventMaxPeopleAllowed: {
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
     },
     Date: {

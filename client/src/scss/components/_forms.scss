@@ -296,7 +296,6 @@ label[for="payment"] {
 .guest_form {
     @include center;
     padding: $nh-padding-l;
-    width: 50%;
     > label, br, input {
         margin-top: 15px;
     }

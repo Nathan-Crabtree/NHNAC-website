@@ -303,7 +303,7 @@ export default class RequestID extends Component {
                         </div>
                     </div>
                 </div>
-                <span>Experiencing any problems? Please contact support by clicking <Link to="/about#contact">here</Link>.</span>
+                <span>Experiencing any problems? <Link to="/about#contact">Click here for contact support information</Link>.</span>
             </div>
         );
     }

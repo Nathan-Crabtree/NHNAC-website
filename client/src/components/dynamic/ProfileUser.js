@@ -279,7 +279,7 @@ export default class ProfileUser extends Component {
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                         <div className="profile_drop_zone"></div>
@@ -293,7 +293,7 @@ export default class ProfileUser extends Component {
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                     </div>
@@ -308,7 +308,7 @@ export default class ProfileUser extends Component {
                                 <li>Council 2</li>
                                 <li>Council 3</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
@@ -322,7 +322,7 @@ export default class ProfileUser extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
@@ -336,7 +336,7 @@ export default class ProfileUser extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button> 
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button> 
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
@@ -347,7 +347,7 @@ export default class ProfileUser extends Component {
                             <ul>
                                 <li><img className="badge" srcSet={this.props.badge} alt="User's Silver badge." /></li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to see more</b></button>
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                 </div>

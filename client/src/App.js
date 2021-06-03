@@ -33,7 +33,7 @@ export default class App extends Component {
     this.state = {
       geoDataExists: false,
       cookiePolicyDisplayed: false,
-      isAuthenticated: true,
+      isAuthenticated: false,
       suspended: false,
       userId: 1,
       newsletterEmailAddress: "example@example.com",
