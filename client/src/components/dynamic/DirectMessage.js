@@ -6,14 +6,16 @@ export default class DirectMessage extends Component {
 
     constructor() {
         super();
-        this.displayConnections = this.displayConnections.bind(this);
+        this.getConnections = this.getConnections.bind(this);
     }
 
+    // Use Regex validator when search query is submitted to check if input isn't code for XXE attack
+
     /**
-     * displayConnections() function - Renders auth. user's connections that have status approved on DM UI.
+     * getConnections() function - Renders auth. user's connections that have status approved on DM UI.
      * 
      */
-    displayConnections() {
+    getConnections() {
 
     }
 

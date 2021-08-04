@@ -1,11 +1,11 @@
-nav ul, 
-footer > div, 
+nav ul,
+footer > div,
 footer > div:last-child ul  {
     @include flexbox;
-} 
+}
 
 // NOTE: These child tags don't have > because they cause a bug. - Zane
-nav > div, 
+nav > div,
 footer {
     background-color: $nh-black;
     a, h4 {
@@ -17,7 +17,7 @@ footer {
     }
 }
 
-footer a, 
+footer a,
 footer > div:nth-child(2) li {
     color: $nh-white;
     text-decoration: none;
@@ -52,7 +52,7 @@ a {
     clear: both;
 }
 
-// About 
+// About
 
 .about_link {
     display: block;
@@ -68,6 +68,15 @@ a {
     > div > p {
         font-weight: bold;
     }
+}
+
+.image_credits_div {
+  padding-top: 25px;
+  @include center;
+  width: 40%;
+  > h3 {
+    text-align: center;
+  }
 }
 
 // Content
@@ -114,10 +123,17 @@ a {
     margin: 10px;
 }
 
-.sub_article_content {
-    float: right;
-    clear: right;
-    margin: 0 10px 10px 10px; /* top right bottom left */
+.sub_article {
+    &_content {
+        float: right;
+        clear: right;
+        margin: 0 10px 10px 10px; /* top right bottom left */
+    }
+    &_tags {
+        float: left;
+        clear: left;
+        margin: 0 10px 10px 10px;
+    }
 }
 
 .top_aside, .bottom_aside {
@@ -240,6 +256,10 @@ a {
 
 .figure_podcast {
     padding-bottom: $nh-padding-l;
+    :last-child {
+      padding-top: $nh-padding-l;
+      color: $nh-black;
+    }
 }
 
 // Comment
@@ -260,7 +280,7 @@ a {
                 font-size: $nh-font-small;
             }
         }
-    } 
+    }
     > div:nth-of-type(3) {
         width: 80%;
         margin-top: -105px;
@@ -347,7 +367,7 @@ a {
 .profile_container1 {
     float: left;
     > div:first-of-type {
-        > div:first-of-type { 
+        > div:first-of-type {
             float: left;
             padding-right: $nh-padding-xl;
             .profile_img_large {
@@ -366,7 +386,7 @@ a {
                     background-color: lightgray !important;
                 }
                 &:active {
-                    background-color: #a09e9e !important;  
+                    background-color: #a09e9e !important;
                 }
             }
         }
@@ -403,7 +423,7 @@ a {
                 > a {
                     padding-right: $nh-padding-s;
                 }
-            }          
+            }
         }
     }
     > button {
@@ -417,7 +437,7 @@ a {
         & {
             a:first-child {
                 color: $nh-error;
-            } 
+            }
             .modal_button {
                 color: $nh-black;
             }
@@ -448,7 +468,7 @@ a {
                     }
                 }
             }
-        } 
+        }
     }
     .profile_container1_and_half {
         padding-top: $nh-padding-m;
@@ -457,7 +477,7 @@ a {
             @extend %content_container_section;
             margin: 0;
             @extend %profile_container_section_ul;
-        }  
+        }
     }
 }
 
@@ -476,7 +496,7 @@ a {
     padding: $nh-padding-m $nh-padding-m;
     &--over, &--empty {
         opacity: 0.5;
-        background-color: white;        
+        background-color: white;
     }
 }
 
@@ -492,16 +512,16 @@ a {
             .profile_container#{$profile-container}_section_container#{$section-container} {
                 resize: none;
                 overflow: auto;
-            }            
+            }
         }
-    }  
-}  
+    }
+}
 
 .table--clicked {
     border: 1px solid $nh-black;
 }
 
-// Connections 
+// Connections
 
 .connections_modal_ul {
     margin-left: -40px;
@@ -541,7 +561,7 @@ a {
     @include center;
     width: 63%;
     padding-bottom: $nh-signup-padding-bottom;
-    > div:first-of-type { 
+    > div:first-of-type {
         float: left;
         padding-right: $nh-padding-xl;
         .profile_img_large {
@@ -560,7 +580,7 @@ a {
                 background-color: lightgray !important;
             }
             &:active {
-                background-color: #a09e9e !important;  
+                background-color: #a09e9e !important;
             }
         }
     }
@@ -569,7 +589,7 @@ a {
         @extend %report_li;
         > div:nth-of-type(3) {
             > div > div {
-                padding-top: $nh-padding-xl; 
+                padding-top: $nh-padding-xl;
                 > img {
                     padding-right: $nh-padding-s;
                 }
@@ -578,7 +598,7 @@ a {
     }
     > div:nth-of-type(4) {
         > section {
-            padding-top: $nh-padding-xl; 
+            padding-top: $nh-padding-xl;
             > h5:first-child {
                 text-align: center;
                 width: 150px;
@@ -613,7 +633,7 @@ a {
             > section {
                 padding: $nh-padding-s;
                 @extend %div_section;
-                margin: 25px 0; 
+                margin: 25px 0;
                 > a {
                     margin: 8px;
                 }
@@ -625,7 +645,7 @@ a {
                         background-size: 100%;
                         -webkit-background-clip: text;
                         -moz-background-clip: text;
-                        -webkit-text-fill-color: transparent; 
+                        -webkit-text-fill-color: transparent;
                         -moz-text-fill-color: transparent;
                         > mark {
                             background-color: transparent;

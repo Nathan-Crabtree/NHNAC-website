@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const RequestIDSubmitted = ({userFirstName, userLastName, userStreet, 
+const RequestIDSubmitted = ({userFirstName, userNickName, userLastName, userStreet, 
     userCountry, userState, userCity, userZip, userTier, userEmail}) => {
 
   useEffect(() => {

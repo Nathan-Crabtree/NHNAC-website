@@ -1,4 +1,4 @@
-// NOTE: Majority of this code is starter code. 
+// NOTE: Majority of this code is starter code.
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 import React, { Component } from 'react';
@@ -7,10 +7,10 @@ import TriggerButton from './TriggerButton';
 import PropTypes from 'prop-types';
 
 export default class Container extends Component {
-    
+
     constructor() {
         super();
-        this.state = { 
+        this.state = {
             isShown: false
         }
         this.showModal = this.showModal.bind(this);
@@ -19,10 +19,10 @@ export default class Container extends Component {
         this.onClickOutside = this.onClickOutside.bind(this);
         this.toggleScrollLock = this.toggleScrollLock.bind(this);
     }
-    
+
     /**
      * showModal() function - Changes "isShown" value, locks screen, and shows closeButton.
-     * 
+     *
      */
     showModal = () => {
         this.setState({ isShown: true }, () => {
@@ -30,49 +30,54 @@ export default class Container extends Component {
         });
         this.toggleScrollLock();
     };
-     
+
     /**
      * closeModal() function - Negates the effect of showModal().
-     * 
+     *
      */
     closeModal = () => {
         this.setState({ isShown: false });
         this.TriggerButton.focus();
         this.toggleScrollLock();
     };
-      
+
     /**
      * onKeyDown() function - Event handler that allows "Enter" key to trigger closeModal() by user.
-     * 
-     * @param {object} event 
+     *
+     * @param {object} event
      */
     onKeyDown = (event) => {
       if (event.keyCode === 27) {
         this.closeModal();
         }
     };
-    
+
     /**
      * onClickOutside() function - Allows user to exit out of modal when clicking outside.
-     * 
-     * @param {object} event 
+     *
+     * @param {object} event
      */
     onClickOutside = (event) => {
        if (this.modal && this.modal.contains(event.target)) return;
        this.closeModal();
     };
-     
+
     /**
-     * toggleScrollLock() function - Creates a class for <html> called "scroll-lock" 
-     * that allows CSS to style scroll prevention. 
-     * 
+     * toggleScrollLock() function - Creates a class for <html> called "scroll-lock"
+     * that allows CSS to style scroll prevention.
+     *
      */
     toggleScrollLock = () => {
        document.querySelector('html').classList.toggle('scroll-lock');
     };
 
-    render() { 
-        return( 
+    render() {
+        const {
+          profileImgSmall,
+          messageIcon
+        } = this.props;
+
+        return(
             <React.Fragment>
                 <TriggerButton
                     showModal={this.showModal}
@@ -82,16 +87,18 @@ export default class Container extends Component {
                 {this.state.isShown ? (
                 <Modal
                     triggerText={this.props.triggerText}
-                    onSubmit={this.props.onSubmit}
                     modalRef={(n) => (this.modal = n)}
                     buttonRef={(n) => (this.closeButton = n)}
                     closeModal={this.closeModal}
                     onKeyDown={this.onKeyDown}
                     onClickOutside={this.onClickOutside}
                     emailIsValid={this.props.emailIsValid}
+                    setNewsletterEmailAddress={this.props.setNewsletterEmailAddress}
                     className={this.props.className}
-                    profileImgSmall={this.props.profileImgSmall}
-                    messageIcon={this.props.messageIcon}
+                    profileImgSmall={profileImgSmall}
+                    messageIcon={messageIcon}
+                    sanitizeInput={this.props.sanitizeInput}
+                    displayUnloadMessage={this.props.displayUnloadMessage}
                 />
                 ) : null}
             </React.Fragment>
@@ -100,11 +107,14 @@ export default class Container extends Component {
 }
 
 // PropTypes for jest testing in App.test.js
+// NOTE: isRequired causes DOM errors for emailIsValid and setNewsletterEmailAddress because some modals don't use them. - Zane
 Container.propTypes = {
     triggerText: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     className: PropTypes.string,
     emailIsValid: PropTypes.func,
+    setNewsletterEmailAddress: PropTypes.func,
     profileImgSmall: PropTypes.string,
-    messageIcon: PropTypes.string
+    messageIcon: PropTypes.string,
+    sanitizeInput: PropTypes.func,
+    displayUnloadMessage: PropTypes.func
 }

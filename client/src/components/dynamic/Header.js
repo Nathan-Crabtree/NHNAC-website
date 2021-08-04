@@ -16,27 +16,27 @@ export default class Header extends Component {
     }
 
     /**
-     * 
+     *
      * toggleDisplayNav() funcion - An event handler for hamburger-icon to toggle display the mobile nav.
      * Changes being made to CSS during toggleDisplayNav:
-     * 
+     *
      * nav > div > ul {
      *  display: block;
      *  > li {
      *      display: block;
      *      padding-bottom: 25px;
      * }
-     * 
+     *
      * body {
      *  overflow: hidden;
      * }
-     * 
+     *
      * footer {
      *  filter: brightness(50%);
      *  position: relative;
      *  z-index: -1;
      * }
-     * 
+     *
      * .page
      *  filter: brightness(50%);
      *  position: relative;
@@ -61,13 +61,13 @@ export default class Header extends Component {
             // Set page brightness style property back to 100% and remove the style attribute
             main.style.filter = "brightness(100%)";
             main.removeAttribute("style");
-            
+
             // Set footer brightness style property back to 100% and remove the style attribute
             footer.style.filter = "brightness(100%)";
             footer.removeAttribute("style");
 
             // Set global boolean variable of toggle state to false
-            this.setState({ toggleDisplay: false });   
+            this.setState({ toggleDisplay: false });
         } else {
             const hamburgerIcon = document.getElementsByClassName("hamburger_icon")[0];
             const navDiv = document.getElementsByTagName("div")[1];
@@ -86,7 +86,7 @@ export default class Header extends Component {
 
             // Set body overflow style property to hidden
             body.style.overflow = "hidden";
-            
+
             // Set page brightness style property to 50% and z-index with position
             main.style.filter = "brightness(50%)";
             main.style.position = "relative";
@@ -96,39 +96,60 @@ export default class Header extends Component {
             footer.style.filter = "brightness(50%)";
             footer.style.position = "relative";
             footer.style.zIndex = "-1";
-            
+
             // Iterate through all <li> tags of class "header_links" and set display to block and add padding-bottom of 25px
             for (let childNode = 0; childNode < headerLinks.childNodes.length; childNode += 2) {
                 headerLinks.childNodes[childNode].style.display = "block";
                 headerLinks.childNodes[childNode].style.paddingBottom = "25px";
             }
-            
+
             // Set global boolean variable of toggle state to true
             this.setState({ toggleDisplay: true });
         }
     }
 
     /**
-     * onSubmit() function - Grabs the input value of the search query and sends a request to the API and returns 
+     * onSubmit() function - Grabs the input value of the search query and sends a request to the API and returns
      * relevant results on the search page.
-     * 
+     *
+     * @param {object} e
+     * @returns {boolean} false
      */
-    onSubmit() {
-        const searchQuery = document.getElementById("search-input").value;
-        window.location.href = `/search?query=${searchQuery}&page=1`;
+    onSubmit(e) {
+        e.preventDefault();
+
+        let searchQuery = e.target.search.value;
+
+        // Check if search input is less than 500 characters
+        if (searchQuery.length < 500) {
+            window.location.href = `/search?query=${encodeURIComponent(searchQuery)}&page=1`;
+        } else {
+            return false;
+        }
     }
 
     render() {
+        const {
+          hbIcon,
+          logo,
+          magnifyingGlass,
+          messageIcon,
+          profileImgSmall
+        } = this.props;
+
         return(
-            <header> 
+            <header>
                 <nav>
-                    <img className="hamburger_icon" onClick={this.toggleDisplayNav} srcSet={this.props.hbIcon} alt="Hamburger menu icon" /> 
+                    <img className="hamburger_icon" onClick={this.toggleDisplayNav} srcSet={hbIcon} alt="Hamburger menu icon" />
                     <div>
                         <svg className="exit_cross" onClick={this.toggleDisplayNav} viewBox="0 0 40 40">
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg>
-                        <img className="logo" srcSet={this.props.logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
-                        { this.props.isAuthenticated ?  
+                        <div>
+                          <img className="logo" srcSet={logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
+                          <h5>beta</h5>
+                        </div>
+                        { this.props.isAuthenticated ?
                             <ul className="header_links">
                                 <li className="dropdown">
                                     <Link to="/profile?userid=1&view=user&customize=false">Profile</Link>
@@ -136,7 +157,7 @@ export default class Header extends Component {
                                         <Link to="/account_settings?userid=1&edit_profile_pic=false">Account Settings</Link>
                                         <Link to="/profile?userid=1&view=user&customize=true">Customize Page</Link>
                                         <Link to="/direct_message?senderid=1&receiverid=null">Messages</Link>
-                                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />
+                                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
                                         <Link to="/id_request?userid=1">Request ID</Link>
                                     </div>
                                 </li>
@@ -165,20 +186,21 @@ export default class Header extends Component {
                                         <Link to="/content?header=news" onClick={ () => <Content /> }>News</Link>
                                         <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
                                         <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
-                                        <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link>
+                                        {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
+                                        {/* <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li>
-                                    <form id="search" role="search" aria-label="Sitewide">
-                                        <input type="search" className="login_input search_input" id="search-input" name="search" spellCheck="false" placeholder="Search..." />
-                                        <img className="magnifying_glass" srcSet={this.props.magnifyingGlass} onClick={ this.onSubmit } alt="Submit your search query." />
+                                    <form id="search" onSubmit={this.onSubmit}>
+                                        <input type="text" className="login_input search_input" name="search" maxLength="500" placeholder="Search..." />
+                                        <input type="image" className="magnifying_glass" src={magnifyingGlass} alt="Submit your search query." />
                                     </form>
                                 </li>
                                 <li className="vertical_bar">|</li>
-                                <li><Link onClick={ this.props.deauthenticate } to="/">Log Out</Link></li>
+                                <li><Link onClick={this.props.deauthenticate} to="/">Log Out</Link></li>
                             </ul>
-                            : 
+                            :
                             <ul className="header_links">
                                 <li><Link to="/">Home</Link></li>
                                 <li className="vertical_bar">|</li>
@@ -188,7 +210,8 @@ export default class Header extends Component {
                                         <Link to="/content?header=articles" onClick={ () => <Content /> }>Articles</Link>
                                         <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
                                         <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
-                                        <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link>
+                                        {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
+                                        {/* <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>

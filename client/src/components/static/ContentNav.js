@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class ContentNav extends Component {
 
@@ -20,4 +21,9 @@ export default class ContentNav extends Component {
             </nav>
         );
     }
+}
+
+// PropTypes for jest testing in App.test.js
+ContentNav.propTypes = {
+    setStateHandler: PropTypes.func.isRequired
 }

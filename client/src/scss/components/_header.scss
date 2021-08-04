@@ -1,6 +1,6 @@
-.hamburger_icon, 
+.hamburger_icon,
 .exit_cross {
-    display: none; 
+    display: none;
 }
 
 .logo {
@@ -11,10 +11,23 @@
 // NOTE: li tag doesn't have > because it causes a bug. - Zane
 nav > div {
     padding: $nh-padding-xs 0;
+    > div {
+      @include center;
+      width: 221px;
+      > img {
+        position: relative;
+      }
+      > h5 {
+        position: absolute;
+        color: $nh-white;
+        margin-top: -25px;
+        margin-left: 180px;
+      }
+    }
     li {
         display: inline;
         padding: 1% 2.75%;
-        
+
         // For li tags with class "vertical_bar"
         &:nth-child(even) {
             color: $nh-white;
@@ -22,7 +35,7 @@ nav > div {
             &::selection {
                 color: none;
                 background: none;
-            }           
+            }
         }
         &:nth-child(odd):hover {
             background-color: $nh-gray;
@@ -49,7 +62,7 @@ nav > div {
     display: inline-block;
     padding-top: 1%;
 }
-  
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
@@ -58,10 +71,10 @@ nav > div {
     min-width: 160px;
     box-shadow: 0 8px 16px 0 $nh-black;
     z-index: 1;
-    margin: 16px 0 0 -15px; 
+    margin: 16px 0 0 -15px;
     padding: $nh-padding-s 0; /* top+bottom left+right */
 }
-  
+
 /* Links inside the dropdown */
 .dropdown-content {
     > button, a {
@@ -70,8 +83,8 @@ nav > div {
         text-decoration: none;
         display: block;
     }
-} 
-  
+}
+
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;

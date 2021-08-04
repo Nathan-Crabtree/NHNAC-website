@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export default class Content extends Component {
 
-    constructor(){
+    constructor() {
         super();
         this.state = {
             header: null
@@ -17,47 +17,48 @@ export default class Content extends Component {
     /**
      * setStateHandler() function - Takes query string variable from URL and parses it into an object property
      * for proper page rendering.
-     * 
-     * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered 
-     * with only one click.
-     * 
+     *
+     * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered
+     * with only one click. - Zane
+     *
      */
-    setStateHandler() { 
+    setStateHandler() {
         const parsedQString = queryString.parse(this.props.location.search);
 
         // Change state value of query property to that of query string in URL
-        this.setState({ header: parsedQString.header });
-        
-        // Render proper text for bottom_aside and top_aside span tag according to string value
-        switch(this.state.header) {
-            case "news":
-              document.getElementById("headerContent").innerHTML = "News";
-              document.getElementById("topAsideContent").innerHTML = "Calendar";
-              document.getElementById("bottomAsideContent").innerHTML = "Events";
-              break;
-            case "articles":
-              document.getElementById("headerContent").innerHTML = "Articles";
-              document.getElementById("topAsideContent").innerHTML = "Archive";
-              document.getElementById("bottomAsideContent").innerHTML = "Most Viewed";
-              break;
-            case "blogs":
-              document.getElementById("headerContent").innerHTML = "Blogs";
-              document.getElementById("topAsideContent").innerHTML = "Archive";
-              document.getElementById("bottomAsideContent").innerHTML = "Most Viewed";
-              break;
-            case "updates":
-              document.getElementById("headerContent").innerHTML = "Updates";
-              document.getElementById("topAsideContent").innerHTML = "Archive";
-              document.getElementById("bottomAsideContent").innerHTML = "Popular";
-              break;
-            case "podcasts":
-              document.getElementById("headerContent").innerHTML = "Podcasts";
-              document.getElementById("topAsideContent").innerHTML = "Archive";
-              document.getElementById("bottomAsideContent").innerHTML = "Popular";
-              break;
-            default:
-              break;
-        }
+        this.setState({ header: parsedQString.header }, () => {         
+            // Render proper text for bottom_aside and top_aside span tag according to string value
+            switch(this.state.header) {
+                case "news":
+                    document.getElementById("headerContent").innerText = "News";
+                    document.getElementById("topAsideContent").innerText = "Calendar";
+                    document.getElementById("bottomAsideContent").innerText = "Events";
+                    break;
+                case "articles":
+                    document.getElementById("headerContent").innerText = "Articles";
+                    document.getElementById("topAsideContent").innerText = "Archive";
+                    document.getElementById("bottomAsideContent").innerText = "Most Viewed";
+                    break;
+                case "blogs":
+                    document.getElementById("headerContent").innerText = "Blogs";
+                    document.getElementById("topAsideContent").innerText = "Archive";
+                    document.getElementById("bottomAsideContent").innerText = "Most Viewed";
+                    break;
+                case "updates":
+                    document.getElementById("headerContent").innerText = "Updates";
+                    document.getElementById("topAsideContent").innerText = "Archive";
+                    document.getElementById("bottomAsideContent").innerText = "Popular";
+                break;
+                    // NOTE: Podcasts will be unavailable in beta release. - Zane
+                    // case "podcasts":
+                    //   document.getElementById("headerContent").innerText = "Podcasts";
+                    //   document.getElementById("topAsideContent").innerText = "Archive";
+                    //   document.getElementById("bottomAsideContent").innerText = "Popular";
+                    //  break;
+                default:
+                    break;
+            }
+        });
    }
 
    componentDidMount() {
@@ -68,6 +69,12 @@ export default class Content extends Component {
    }
 
     render() {
+        const {
+          profileImgSmall,
+          articleImgLink,
+          podcast
+        } = this.props;
+
         return(
             <React.Fragment>
                 <ContentNav setStateHandler={this.setStateHandler} />
@@ -75,12 +82,12 @@ export default class Content extends Component {
                 <div className="grid-container">
                     <div className="content_container1">
                         <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
+                            <img className="article_img_med" srcSet={articleImgLink} alt="Stock for development purposes." />
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
                                     <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></Link>
+                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." /></Link>
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
@@ -90,7 +97,7 @@ export default class Content extends Component {
                             </div>
                         </section>
                         <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
+                            <img className="article_img_med" srcSet={articleImgLink} alt="Stock for development purposes." />
                             <h3>EVENT: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
@@ -103,8 +110,9 @@ export default class Content extends Component {
                                 <div className="clear"></div>
                             </div>
                         </section>
-                        <section>
-                            <img className="article_img_med" srcSet={this.props.articleImgLink} alt="Stock for development purposes." />
+                        {/* NOTE: Podcasts will be unavailable in beta release. - Zane */}
+                        {/* <section>
+                            <img className="article_img_med" srcSet={articleImgLink} alt="Stock for development purposes." />
                             <h3>PODCAST: Excepteur sint occaecat.</h3>
                             <div className="sub_article_container">
                                 <div className="sub_article_content">
@@ -113,7 +121,7 @@ export default class Content extends Component {
                                 </div>
                                 <div className="clear"></div>
                             </div>
-                        </section>
+                        </section> */}
                         <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                     </div>
                     <div className="content_container2">
@@ -139,11 +147,12 @@ export default class Content extends Component {
                             <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                             <div className="clear"></div>
                         </aside>
-                        <aside>
+                        {/* Podcast promotion is commented out for beta release. - Zane */}
+                        {/* <aside>
                             <Link to="/content?header=podcasts">
-                                <img className="podcast_img" srcSet={this.props.podcast} alt="Tune in to our podcast! New episodes every Friday." onClick={ () => {this.setStateHandler()}} />
+                                <img className="podcast_img" srcSet={podcast} alt="Tune in to our podcast! New episodes every Friday." onClick={ () => {this.setStateHandler()}} />
                             </Link>
-                        </aside>
+                        </aside> */}
                     </div>
                 </div>
             </React.Fragment>

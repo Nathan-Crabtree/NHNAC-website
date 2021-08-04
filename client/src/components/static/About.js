@@ -11,7 +11,7 @@ export const About = ({indian, tribe}) => {
     const prodURLInsecure = 'http://newhavennativeamericanchurch.org/about';
 
     useEffect(() => {
-        // When component is rendered, bring user to top of page iff(if and only if) URL doesn't reference to home#contact 
+        // When component is rendered, bring user to top of page iff(if and only if) URL doesn't reference to home#contact
         // else bring home#contact into view.
         if (window.location.href === devURL ||
         window.location.href === prodURL ||
@@ -22,7 +22,7 @@ export const About = ({indian, tribe}) => {
         }
     }, []);
 
-    return ( 
+    return (
 
         <React.Fragment>
             <div className="MsoNormal center_text"><strong><span>About</span></strong></div>
@@ -61,10 +61,16 @@ export const About = ({indian, tribe}) => {
                     <p>U.S.A.</p>
                 </div>
             </div>
-        </React.Fragment> 
+            <div className="image_credits_div">
+              <h3>Image Credits:</h3>
+              <ul>
+                <li><div>Icons made by <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
+              </ul>
+            </div>
+        </React.Fragment>
     );
 }
- 
+
 export default About;
 
 // PropTypes for jest testing in App.test.js

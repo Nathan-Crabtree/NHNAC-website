@@ -1,4 +1,4 @@
-// NOTE: Majority of this code is starter code. 
+// NOTE: Majority of this code is starter code.
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 body {
@@ -11,13 +11,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
-  
+
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
-  
+
 .App {
   width: 90%;
   max-width: 700px;
@@ -26,8 +26,8 @@ body {
 
 p.lorem-text {
   text-align: justify;
-} 
-  
+}
+
 .modal-cover {
   position: fixed;
   top: 0;
@@ -38,7 +38,7 @@ p.lorem-text {
   transform: translateZ(0);
   background-color: rgba(0, 0, 0, 0.8);
 }
-  
+
 .modal-area {
   position: fixed;
   top: 0;
@@ -52,7 +52,7 @@ p.lorem-text {
   -webkit-overflow-scrolling: touch;
   border-radius: 16px;
 }
-  
+
 // Media CSS for modal might be useful in the future. - Zane
 @media screen and (min-width: 500px) {
   .modal-area {
@@ -63,8 +63,8 @@ p.lorem-text {
     max-width: 30em;
     max-height: calc(100% - 1em);
   }
-} 
-  
+}
+
 ._modal-close {
   position: absolute;
   top: 0;
@@ -76,7 +76,7 @@ p.lorem-text {
   box-shadow: 0;
   cursor: pointer;
 }
-  
+
 ._modal-close-icon {
   width: 25px;
   height: 25px;
@@ -86,7 +86,7 @@ p.lorem-text {
   stroke-width: 8;
   margin: 5px 5px 0 0;
 }
-  
+
 .modal-body {
   padding-top: 0.25em;
 }
@@ -102,11 +102,11 @@ p.lorem-text {
   width: 1px !important;
   white-space: nowrap !important;
 }
-  
+
 .scroll-lock {
   overflow: hidden;
   margin-right: 17px;
-} 
+}
 
 .modal_button {
 	font-size: 1em;
@@ -136,11 +136,45 @@ p.lorem-text {
   margin-top: 15px;
 }
 
-.newsletter_h2, 
+.newsletter_h2,
 .newsletter_h2 ~ p {
   text-align: center;
 }
 
 .modal_form {
-  box-shadow: none !important; 
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+// Share Podcast 
+
+.social_media_field {
+  @include center;
+  width: 432px;
+  margin-left: 30px;
+  > div {
+    float: left;
+    width: 144px;
+  }
+  > a {
+    float: left;
+    width: 144px;
+  }
+  > br {
+    clear: left;
+  }
+}
+
+.share_link_field {
+  #shareLink {
+    width: 235px;
+    padding-right: $nh-padding-xs;
+    margin-right: 15px;
+  }
+  .share_btn {
+    @include button_properties($nh-button);
+    width: 150px;
+    height: 50px !important;
+    margin-top: 15px;
+  }
 }

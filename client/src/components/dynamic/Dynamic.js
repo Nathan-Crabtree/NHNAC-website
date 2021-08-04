@@ -12,8 +12,10 @@ import Suspended from './Suspended';
 import AccountSettings from './AccountSettings';
 import Confirmation from './Confirmation';
 import Search from './Search';
+import DirectMessage from './DirectMessage';
 
 export { Header, Error, Login, Content,
          Article, ForgotPassword, Verification, Profile, 
-         Suspended, AccountSettings, Confirmation, Search
+         Suspended, AccountSettings, Confirmation, Search,
+         DirectMessage
         };

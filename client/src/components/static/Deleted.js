@@ -3,9 +3,75 @@ import PropTypes from 'prop-types';
 
 export default class Deleted extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            errorExists: false,
+            formActive: false
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    /**
+    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if message
+    * content is > 3 and < 500 characters, submits and renders HTML according to condition.
+    *
+    * @param {object} event
+    */
+    onSubmit(event) {
+        event.preventDefault(event);
+    
+        let messageContent = event.target.message.value;
+        messageContent = this.props.sanitizeInput(messageContent);
+    
+        if (messageContent.length > 3 && messageContent.length <= 500 ) {
+            // Take the data and send it to API
+            console.log(messageContent);
+    
+            // Render on the modal thank you text
+            const modalForm = document.getElementsByClassName("modal_form")[0];
+            const thankYouBlock = document.createElement("h3");
+            thankYouBlock.innerText = "Thank you for your feedback!";
+            thankYouBlock.style.textAlign = "center";
+            modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
+
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            this.setState({ formActive: false });
+        } else {
+                // Render error text and colors
+                if (!this.state.errorExists) {
+                const formField = event.target.children[1].firstChild;
+                const input = event.target.children[1].firstChild.children[6];
+                const error = document.createElement('p');
+                error.innerText = '*Please type in more than 3 characters.';
+                error.style.fontSize = '.9rem';
+                error.style.color = '#C31F01';
+                formField.appendChild(error);
+                input.style.borderColor = '#C31F01';
+                this.setState({ errorExists: true });
+            }
+        }
+    }
+
     componentDidMount() {
         // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
+
+        if (!this.state.formActive) {
+            // Add pop-up warning of unsaved data if user attempts to leave page
+            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            this.setState({ formActive: true });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.state.formActive) {
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+        }        
     }
 
     render() {
@@ -13,7 +79,7 @@ export default class Deleted extends Component {
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Your account has been deleted.</span></strong></div><br />
                 <p>We’re sorry to see you go. Please take a few moments to complete our feedback form to let us know how we can improve!</p><br />
-                <form onSubmit={this.props.onSubmit}>
+                <form className="feedback_form" onSubmit={this.onSubmit}>
                     <h2 className="newsletter_h2">Feedback</h2>
                     <fieldset>
                         <div className="feedback_form_fields">
@@ -24,11 +90,11 @@ export default class Deleted extends Component {
                                 <option value="suggestion">Suggestion</option>
                             </select><br />
                             <label htmlFor="message">Comment</label><br />
-                            <textarea className="login_input" type="text" id="message" name="message" /><br />
+                            <textarea className="login_input" type="text" id="message" name="message" maxLength="500" /><br />
                         </div>
                         <button className="submit_btn submit_padding" type="submit">Submit</button>
                     </fieldset>
-                </form>                
+                </form>
             </React.Fragment>
         );
     }
@@ -36,5 +102,6 @@ export default class Deleted extends Component {
 
 // PropTypes for jest testing in App.test.js
 Deleted.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }
