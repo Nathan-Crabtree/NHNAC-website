@@ -18,13 +18,13 @@ export default class Footer extends Component {
                         <li><h4><u>Connect</u></h4></li>
                         <li><Link to="/about#contactDiv">Contact</Link></li>
                         <li><Link to="/donate">Donate</Link></li>
-                        <li><Container onSubmit={this.props.onSubmit} triggerText="Feedback" /></li>
+                        <li><Container sanitizeInput={this.props.sanitizeInput} displayUnloadMessage={this.props.displayUnloadMessage} triggerText="Feedback" /></li>
                     </ul>
                     <ul>
                         <li><h4><u>Information</u></h4></li>
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/FAQ">F.A.Q.</Link></li>
-                        {/*<li><Container onSubmit={this.props.onSubmit} emailIsValid={this.props.emailIsValid} setNewsletterEmailAddress={this.props.setNewsletterEmailAddress} triggerText="Newsletter" /></li>*/}
+                        {/* <li><Container emailIsValid={this.props.emailIsValid} setNewsletterEmailAddress={this.props.setNewsletterEmailAddress} triggerText="Newsletter" /></li> */}
                     </ul>
                 </div>
                 <div className="social_links">
@@ -44,5 +44,7 @@ Footer.propTypes = {
     fbLogo: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
     emailIsValid: PropTypes.func.isRequired,
-    setNewsletterEmailAddress: PropTypes.func.isRequired
+    setNewsletterEmailAddress: PropTypes.func.isRequired,
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

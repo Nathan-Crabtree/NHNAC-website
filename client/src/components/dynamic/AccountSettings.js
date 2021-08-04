@@ -4,85 +4,663 @@ import PropTypes from 'prop-types';
 import Container from '../Container';
 import queryString from 'query-string';
 
-// TODO: Work on styling. Create profile pic form. Page needs validation function. Create ResetPassword page. - Zane
 export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubscribe, displaySubscription }) => {
   const [userId, setUserId] = useState(null);
   const [editProfilePic, setEditProfilePic] = useState(null);
+  const [formsActive, setFormsActive] = useState(false); 
+  const [numOfActiveForms, setNumOfActiveForms] = useState(0);
+  const [errorsThatExist, setErrorsThatExist] = useState([]);
+  const {
+    profileImgLarge,
+    fbMini,
+    twitterMini,
+    instaMini
+  } = props;
 
   /**
-  * onSubmit() function - Takes any content submitted from user and sends to API and then gets added to database; 
+  * onSubmit() function - Takes any content submitted from user and sends to API and then gets added to database;
   * the page is then refreshed to include the new content.
-  * 
-  * @param {object} e, @param {string} tagClassName  
-  * 
+  *
+  * @param {object} e, @param {string} tagID
+  * @returns {boolean} false
   */
-  onSubmit = (e, tagClassName) => {
+  onSubmit = (e, tagID) => {
       e.preventDefault();
-      console.log(e.target.status.value);
+      console.log(e.target.className);
+
+      // Array of form input IDs
+      const formInputIds = ["profilePicLink", "firstName", "lastName", "fb_input", "twitter_input", "insta_input", "email_input", "birthday_input", "streetId",
+      "countryId", "stateId", "cityId", "zipId", "oldPassword", "newPassword", "confirmPassword"];
+
+      // Create error array
+      let error = [];
+      for (let input = 0; input < 9; input++) {
+        error[input] = document.createElement('p');
+      }
+
+      // Use temporary variable to help clear error text if it currently exists on the DOM
+      let tempErrorsThatExist = errorsThatExist;
+
+      switch(tagID) {
+        case "profile_pic":
+            let profilePicLink = e.target.profilePicLink.value;
+            profilePicLink = props.sanitizeInput(profilePicLink);
+
+            // Change border color of input and select tag back to normal
+            props.changeBorderColor(formInputIds[0]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[0]) {
+              const element = document.getElementsByClassName(`error_0`)[0];
+              element.parentElement.removeChild(element);
+              tempErrorsThatExist[0] = false;
+            }
+
+            // Check for valid directory input with a supported image file
+            if (!(props.filePathIsValid(profilePicLink, ["gif", "jpe?g", "tiff?", "png", "webp", "bmp"]))) {
+                if (!errorsThatExist[0]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("profile_pic_form_field")[0];
+                    const input = document.getElementById("profilePicLink");
+                    error[0].innerText = '*Please enter a valid file path link with a supported image format (.gif, .jpg, .jpeg, .tiff, .png, .webp, .bmp).';
+                    error[0].className = "error_0";
+                    error[0].style.fontSize = '.9rem';
+                    error[0].style.color = '#C31F01';
+                    formField.appendChild(error[0]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[0] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+
+                console.log("Passed! :D");
+            }
+            break;
+        case "name":
+            let firstName = e.target.first_name.value;
+            let revisedFirstName = [];
+            let nickName = e.target.nick_name.value;
+            let revisedNickName = [];
+            let lastName = e.target.last_name.value;
+            let revisedLastName = [];
+            firstName = props.sanitizeInput(firstName);
+            nickName = props.sanitizeInput(nickName);
+            lastName = props.sanitizeInput(lastName);
+
+            // Change border color of all input and select tags back to normal
+            for (let id = 1; id < 3; id++) {
+              props.changeBorderColor(formInputIds[id]);
+            }
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[1]) {
+                const element = document.getElementsByClassName(`error_1`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[1] = false;
+            }
+
+            // Capitalize the first letter of any names if haven't been done so by user
+            if (firstName.length > 0) {
+                firstName = props.reviseName(firstName, revisedFirstName, "firstName", true);
+            }
+            if (nickName.length > 0) {
+                nickName = props.reviseName(nickName, revisedNickName, "nickName", true);
+            }
+            if (lastName.length > 0) {
+                lastName = props.reviseName(lastName, revisedLastName, "lastName", true);
+            }
+
+            // Check if first name, nick name and last name exist
+            if (firstName.length === 0 || lastName.length === 0) {
+                if (!errorsThatExist[1]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("name_form_field")[0];
+                    const inputFirstName = document.getElementById("firstName");
+                    const inputLastName = document.getElementById("lastName");
+                    error[1].innerText = '*Please enter both your first and last name.';
+                    error[1].className = "error_1";
+                    error[1].style.fontSize = '.9rem';
+                    error[1].style.color = '#C31F01';
+                    formField.appendChild(error[1]);
+                    if (firstName.length === 0) {
+                        inputFirstName.style.borderColor = '#C31F01';
+                    }
+                    if (lastName.length === 0) {
+                        inputLastName.style.borderColor = '#C31F01';
+                    }
+                    tempErrorsThatExist[1] = true;
+                }
+            } else {
+              // Submit input to the API and database
+
+              // Decrement numOfActiveForms
+              setNumOfActiveForms(numOfActiveForms - 1);
+
+              if (numOfActiveForms === 0) {
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                if (formsActive) {
+                  setFormsActive(false);
+                }
+              }
+
+              // Page refresh
+            }
+            break;
+        case "fb":
+            let fb = e.target.fb.value;
+            fb = encodeURIComponent(props.sanitizeInput(fb));
+
+            // Change border color of input and select tag back to normal
+            props.changeBorderColor(formInputIds[3]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[2]) {
+                const element = document.getElementsByClassName(`error_2`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[2] = false;
+            }
+
+            // Check for valid URL input
+            if (!(props.urlIsValid(fb))) {
+                if (!errorsThatExist[2]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("fb_form_field")[0];
+                    const input = document.getElementById("fb_input");
+                    error[2].innerText = '*Please enter a valid URL link.';
+                    error[2].className = "error_2";
+                    error[2].style.fontSize = '.9rem';
+                    error[2].style.color = '#C31F01';
+                    formField.appendChild(error[2]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[2] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+            }
+            break;
+        case "twitter":
+            let twitter = e.target.twitter.value;
+            twitter = encodeURIComponent(props.sanitizeInput(twitter));
+
+            // Change border color of input and select tag back to normal
+            props.changeBorderColor(formInputIds[4]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[3]) {
+                const element = document.getElementsByClassName(`error_3`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[3] = false;
+            }
+
+            // Check for valid URL input
+            if (!(props.urlIsValid(twitter))) {
+                if (!errorsThatExist[3]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("twitter_form_field")[0];
+                    const input = document.getElementById("twitter_input");
+                    error[3].innerText = '*Please enter a valid URL link.';
+                    error[3].className = "error_3";
+                    error[3].style.fontSize = '.9rem';
+                    error[3].style.color = '#C31F01';
+                    formField.appendChild(error[3]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[3] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+            }
+            break;
+        case "insta":
+            let insta = e.target.insta.value;
+            insta = encodeURIComponent(props.sanitizeInput(insta));
+
+            // Change border color of all input and select tags back to normal
+            props.changeBorderColor(formInputIds[5]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[4]) {
+                const element = document.getElementsByClassName(`error_4`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[4] = false;
+            }
+
+            // Check for valid URL input
+            if (!(props.urlIsValid(insta))) {
+                if (!errorsThatExist[4]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("insta_form_field")[0];
+                    const input = document.getElementById("insta_input");
+                    error[4].innerText = '*Please enter a valid URL link.';
+                    error[4].className = "error_4";
+                    error[4].style.fontSize = '.9rem';
+                    error[4].style.color = '#C31F01';
+                    formField.appendChild(error[4]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[4] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+            }
+            break;
+        case "email":
+            let email = e.target.email.value;
+
+            // Change border color of input and select tag back to normal
+            props.changeBorderColor(formInputIds[6]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[5]) {
+                const element = document.getElementsByClassName(`error_5`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[5] = false;
+            }
+
+            // Check for valid email input and if it's already in use
+            if (!(props.emailIsValid(email))) {
+                if (!errorsThatExist[5]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("email_form_field")[0];
+                    const input = document.getElementById("email_input");
+                    error[5].innerText = '*Please enter a valid email address.';
+                    error[5].className = "error_5";
+                    error[5].style.fontSize = '.9rem';
+                    error[5].style.color = '#C31F01';
+                    formField.appendChild(error[5]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[5] = true;
+                }
+            } else {
+                // Do a query search in database to check if email entered in is unique. If it isn't, change value of boolean
+                let emailAlreadyExists = false;
+
+                // Do query search here
+
+                if (emailAlreadyExists) {
+                    if (!errorsThatExist[5]) {
+                        // Render error text and change boolean
+                        const formField = document.getElementsByClassName("email_form_field")[0];
+                        const input = document.getElementById("email_input");
+                        error[5].innerText = '*Email address already exists.';
+                        error[5].className = "error_5";
+                        error[5].style.fontSize = '.9rem';
+                        error[5].style.color = '#C31F01';
+                        formField.appendChild(error[5]);
+                        input.style.borderColor = '#C31F01';
+                        tempErrorsThatExist[5] = true;
+                    }
+                }
+            }
+
+            if (!errorsThatExist[5]) {
+              // Submit input to the API and database
+
+              // Decrement numOfActiveForms
+              setNumOfActiveForms(numOfActiveForms - 1);
+                
+              if (numOfActiveForms === 0) {
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                if (formsActive) {
+                  setFormsActive(false);
+                }
+              }
+
+              // Page refresh
+            }
+            break;
+        case "birthday":
+            const birthday = e.target.birthday.value;
+
+            // Check if birthday and current date match variables
+            const date = new Date();
+            const currentDate = [date.getFullYear(),date.getMonth()+1,date.getDate()];
+            const birthYear = parseInt(birthday[0] + birthday[1] + birthday[2] + birthday[3]);
+            const birthMonth = parseInt(birthday[5] + birthday[6]);
+            const birthDay = parseInt(birthday[8] + birthday[9]);
+            const checkYears = birthYear <= currentDate[0];
+            const checkMonths = birthMonth <= currentDate[1];
+            const checkDays = birthDay <= currentDate[2];
+            const checkDates = props.checkDates(checkYears, checkMonths, checkDays, birthYear, birthMonth, currentDate[0], currentDate[1]);
+
+            // Change border color of input and select tag back to normal
+            props.changeBorderColor(formInputIds[7]);
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[6]) {
+              const element = document.getElementsByClassName(`error_6`)[0];
+              element.parentElement.removeChild(element);
+              tempErrorsThatExist[6] = false;
+            }
+
+            // Check birthday input
+            if (birthday === "" || !checkDates) {
+                if (!errorsThatExist[6]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("birthday_form_field")[0];
+                    const input = document.getElementById("birthday_input");
+                    error[6].innerText = '*Please select a birthday that is under the current date.';
+                    error[6].className = "error_6";
+                    error[6].style.fontSize = '.9rem';
+                    error[6].style.color = '#C31F01';
+                    formField.appendChild(error[6]);
+                    input.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[6] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                  
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+            }
+            break;
+        case "address":
+            console.log("case address is activiated");
+            let street = e.target.street.value;
+            const country = e.target.country.value;
+            const state = e.target.state.value;
+            const city = e.target.city.value;
+            let zip = e.target.zip.value.toString();
+            const formField = document.getElementsByClassName("address_form_field")[0];
+            const inputStreet = document.getElementById("streetId");
+            street = props.sanitizeInput(street);
+            zip = props.sanitizeInput(zip);
+
+            // Change border color of all input and select tags back to normal
+            for (let id = 8; id < 13; id++) {
+              props.changeBorderColor(formInputIds[id]);
+            }
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[7]) {
+                const element = document.getElementsByClassName(`error_7`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[7] = false;
+            }
+
+            // Check for address input
+            if (street === "" || country === "" || state === "" || city === "" || zip === "") {
+                if (!errorsThatExist[7]) {
+                    // Render error text and change boolean
+                    const inputCountry = document.getElementById("countryId");
+                    const inputState = document.getElementById("stateId");
+                    const inputCity = document.getElementById("cityId");
+                    const inputZip = document.getElementById("zipId");
+                    error[7].innerText = '*Please enter or select a value in all address-related fields.';
+                    error[7].className = "error_7";
+                    error[7].style.fontSize = '.9rem';
+                    error[7].style.color = '#C31F01';
+                    formField.appendChild(error[7]);
+                    inputStreet.style.borderColor = '#C31F01';
+                    inputCountry.style.borderColor = '#C31F01';
+                    inputState.style.borderColor = '#C31F01';
+                    inputCity.style.borderColor = '#C31F01';
+                    inputZip.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[7] = true;
+                 }
+            } else if (street.length > 150) {
+                 if (!errorsThatExist[7]) {
+                    // Render error text and change boolean
+                    error[7].innerText = '*Please enter a value in the "street" field less than 150 characters.';
+                    error[7].className = "error_7";
+                    error[7].style.fontSize = '.9rem';
+                    error[7].style.color = '#C31F01';
+                    formField.appendChild(error[4]);
+                    inputStreet.style.borderColor = '#C31F01';
+                    inputCountry.style.borderColor = '#C31F01';
+                    inputState.style.borderColor = '#C31F01';
+                    inputCity.style.borderColor = '#C31F01';
+                    inputZip.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[7] = true;
+                 }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                  
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh             
+            }
+            break;
+        case "password":
+            let oldPassword = e.target.old_password.value;
+            let newPassword = e.target.new_password.value;
+            let confirmPassword = e.target.confirm_password.value;
+
+            // Do query search to find user's current password
+            let currentPassword = null;
+
+            // Change border color of all input and select tags back to normal
+            for (let id = 13; id < formInputIds.length; id++) {
+                props.changeBorderColor(formInputIds[id]);
+            }
+
+            // Clear error text if it currently exists on the DOM
+            if (errorsThatExist[8]) {
+                const element = document.getElementsByClassName(`error_8`)[0];
+                element.parentElement.removeChild(element);
+                tempErrorsThatExist[8] = false;
+            }
+
+            // NOTE: Password fields aren't being sanitized because they're being hashed/encoded. - Zane
+
+            // Check if password fields match
+            if (oldPassword === "" || newPassword === "" || confirmPassword === "" || oldPassword !== currentPassword || newPassword !== confirmPassword) {
+                if (!errorsThatExist[8]) {
+                    // Render error text and change boolean
+                    const formField = document.getElementsByClassName("password_form_field")[0];
+                    const inputOldPassword = document.getElementById("oldPassword");
+                    const inputNewPassword = document.getElementById("newPassword");
+                    const inputConfirmPassword = document.getElementById("confirmPassword");
+                    if (oldPassword === "" || newPassword === "" || confirmPassword === "" || newPassword.length < 3 || newPassword.length > 30 || confirmPassword.length < 3 || confirmPassword.length > 30) {
+                        error[8].innerText = '*Please enter a password between 3 and 30 characters.';
+                    } else if (oldPassword !== currentPassword) {
+                        error[8].innerText = '*Your password is incorrect.';
+                    } else if (newPassword !== confirmPassword) {
+                        error[8].innerText = '*Your password inputs do not match.';
+                    }
+                    error[8].className = "error_8";
+                    error[8].style.fontSize = '.9rem';
+                    error[8].style.color = '#C31F01';
+                    formField.appendChild(error[8]);
+                    inputOldPassword.style.borderColor = '#C31F01';
+                    inputNewPassword.style.borderColor = '#C31F01';
+                    inputConfirmPassword.style.borderColor = '#C31F01';
+                    tempErrorsThatExist[8] = true;
+                }
+            } else {
+                // Submit input to the API and database
+
+                // Decrement numOfActiveForms
+                setNumOfActiveForms(numOfActiveForms - 1);
+                  
+                if (numOfActiveForms === 0) {
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+                  if (formsActive) {
+                    setFormsActive(false);
+                  }
+                }
+
+                // Page refresh
+            }
+            break;
+        default:
+            break;
+      }
+
+      // set errorsThatExist array to tempErrorsThatExist
+      setErrorsThatExist(tempErrorsThatExist);
+
+      // Check if any errors exists before sending data to API
+      for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {
+          if (errorsThatExist[errorNo]) {
+              return false;
+          }
+      }
   }
 
   /**
   * hideForm() function - Hides the section's form that the comment belongs to and shows the associated "edit" button.
-  * 
+  *
   * @param {string} tagClassName
   */
   hideForm = (tagClassName) => {
     document.getElementsByClassName(`${tagClassName}_form`)[0].style.display = "none";
     document.getElementsByClassName(`edit_${tagClassName}_btn`)[0].style.display = "block";
-    document.getElementsByClassName(`${tagClassName}_tag`)[0].style.display = "block"; 
+    document.getElementsByClassName(`${tagClassName}_tag`)[0].style.display = "block";
+
+    // Decrement numOfActiveForms
+    setNumOfActiveForms(numOfActiveForms - 1);
+
+    if (numOfActiveForms === 0) {
+      // Remove pop-up warning of unsaved data if user attempts to leave page
+      window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+
+      if (formsActive) {
+        setFormsActive(false);
+      }
+    }
   }
 
   /**
   * displayForm() function - Shows the section's form that the comment belongs to and hides the associated "edit" button.
-  * 
+  *
   * @param {string} tagClassName
   */
   displayForm = (tagClassName) => {
     document.getElementsByClassName(`${tagClassName}_form`)[0].style.display = "block";
     document.getElementsByClassName(`edit_${tagClassName}_btn`)[0].style.display = "none";
-    document.getElementsByClassName(`${tagClassName}_tag`)[0].style.display = "none"; 
+    document.getElementsByClassName(`${tagClassName}_tag`)[0].style.display = "none";
+    
+    // Increment numOfActiveForms
+    setNumOfActiveForms(numOfActiveForms + 1);
+
+    if (numOfActiveForms > 0 && !formsActive) {
+      // Remove pop-up warning of unsaved data if user attempts to leave page
+      window.addEventListener("beforeunload", props.displayUnloadMessage, false);
+      
+      setFormsActive(true);
+    }
   }
 
   /**
    * unsubscribe() function - Unsubscribes the user from selected subscription topic by changing the boolean value
    * of user's subscription value column in the database table to false.
-   * 
+   *
    * @param {string} subscription
    */
   unsubscribe = (subscription) => {
     if (subscription === "newsletter") {
       // Turn boolean value of user's subscription value column in database table to false
 
-      // Refresh the page
-
     } else if (subscription === "podcast") {
       // Turn boolean value of user's subscription value column in database table to false
 
-      // Refresh the page
-
     }
+    // Refresh the page
   }
 
   /**
-   * displaySubscription() function - Checks boolean value of user's subscription value column in database table via parameter 
+   * displaySubscription() function - Checks boolean value of user's subscription value column in database table via parameter
    * to render within DOM the proper markup content.
-   * 
+   *
    * @param {string} subscription
+   * @returns {class} Component - A React component.
    */
   displaySubscription = (subscription) => {
     let subscribed = true;
 
     if (subscription === "newsletter") {
-      // Check and set boolean value of user's subscription value column in database table within "subscribed" 
-      
-      // If true then return markup
+      // Check and set boolean value of user's subscription value column in database table within "subscribed"
+
+      // If true then return this markup
       if (subscribed) {
         return <React.Fragment><p>Newsletter</p>&nbsp;<button className="unsubscribe_btn text_btn" onClick={ unsubscribe("newsletter") }><b>unsubscribe</b></button></React.Fragment>;
       }
     } else if (subscription === "podcast") {
-      // Check and set boolean value of user's subscription value column in database table within "subscribed" 
-      
-      // If true then return markup
+      // Check and set boolean value of user's subscription value column in database table within "subscribed"
+
+      // If true then return this markup
       if (subscribed) {
         return <React.Fragment><p>Podcast</p>&nbsp;<button className="unsubscribe_btn text_btn" onClick={ unsubscribe("podcast") }><b>unsubscribe</b></button></React.Fragment>
       }
@@ -94,36 +672,42 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
 
     // Change value of query variable to that of query string in URL
     setUserId(parsedQString.userid);
-    setEditProfilePic(parsedQString.editProfilePic);
+    setEditProfilePic(parsedQString.edit_profile_pic);
 
     // Display "Edit Profile Picture" form if editProfilePic is true
-    if (editProfilePic) {
+    if (editProfilePic == "true") {
       displayForm("profile_pic");
     }
 
     // When component is rendered, bring user to top of page
     window.scrollTo(0, 0);
 
-    // This script tag is important htmlFor sign-up form to work properly. 
-    // Provides country data htmlFor users to help insert exact address location. 
+    // This script tag is important htmlFor sign-up form to work properly.
+    // Provides country data htmlFor users to help insert exact address location.
     // Source: https://geodata.solutions - Zane
     if (!props.geoDataExists) {
       const script = document.createElement("script");
 
       script.src = "//geodata.solutions/includes/countrystatecity.js";
       script.async = true;
-  
+
       document.body.appendChild(script);
 
       props.setGeoDataExists();
     }
-  }, [props, displayForm, editProfilePic]);
+
+    // componentWillUnmount() substitute for React Hooks 
+    return () => {
+      // Remove pop-up warning of unsaved data if user attempts to leave page
+      window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+    }
+  }, [props, editProfilePic]);
 
   return (
     <div className="account_settings_container">
       {/* Profile Pic Section */}
       <div>
-        <img className="profile_img_large profile_pic_tag" srcSet={props.profileImgLarge} alt="Portrait of user." />
+        <img className="profile_img_large profile_pic_tag" srcSet={profileImgLarge} alt="Portrait of user." />
         <form id="profilePic" className="profile_pic_form" onSubmit={ (e) => { onSubmit(e, "profile_pic") } }>
           <fieldset>
             <div className="profile_pic_form_field">
@@ -157,11 +741,11 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                       <br />
                       <div>
                           <label htmlFor="firstName">First Name</label><br />
-                          <input className="signup_input" type="text" id="firstName" name="first_name" placeholder="Harper" /><br />
+                          <input className="signup_input" type="text" id="firstName" name="first_name" placeholder="Harper" maxLength="50" /><br />
                           <label htmlFor="nickName">Nick Name</label><br />
-                          <input className="signup_input" type="text" id="nickName" name="nick_name" placeholder="Kiss" /><br />
+                          <input className="signup_input" type="text" id="nickName" name="nick_name" placeholder="Kiss" maxLength="50" /><br />
                           <label htmlFor="lastName">Last Name</label><br />
-                          <input className="signup_input" type="text" id="lastName" name="last_name" placeholder="Young" /><br />
+                          <input className="signup_input" type="text" id="lastName" name="last_name" placeholder="Young" maxLength="50" /><br />
                       </div>
                   </div>
                   <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -193,7 +777,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           {/* Facebook URL */}
           <div>
             <div>
-              <img srcSet={props.fbMini} alt="User's facebook link." />
+              <img srcSet={fbMini} alt="User's facebook link." />
               <Link target="_blank" to="https://www.facebook.com" className="fb_tag">https://www.facebook.com</Link>
             </div>
             <form id="fb" className="fb_form" onSubmit={ (e) => { onSubmit(e, "fb") } }>
@@ -203,7 +787,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                   <svg onClick={ () => { hideForm("fb") } } className="_modal-close-icon" viewBox="0 0 40 40">
                     <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                   </svg><br />
-                  <textarea className="login_input" type="text" id="fb_textarea" name="fb" readOnly value="https://wwww.facebook.com" /><br />
+                  <input className="login_input" id="fb_input" type="text" name="fb" readOnly maxLength="200" value="https://wwww.facebook.com" /><br />
                 </div>
                 <button className="submit_btn submit_padding" type="submit">Submit</button>
               </fieldset>
@@ -213,7 +797,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           {/* Twitter URL */}
           <div>
             <div>
-              <img srcSet={props.twitterMini} alt="User's twitter link." />
+              <img srcSet={twitterMini} alt="User's twitter link." />
               <Link target="_blank" to="https://www.twitter.com" className="twitter_tag">https://www.twitter.com</Link>
             </div>
             <form id="twitter" className="twitter_form" onSubmit={ (e) => { onSubmit(e, "twitter") } }>
@@ -223,7 +807,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                   <svg onClick={ () => { hideForm("twitter") } } className="_modal-close-icon" viewBox="0 0 40 40">
                     <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                   </svg><br />
-                  <textarea className="login_input" type="text" id="twitter_textarea" name="twitter" readOnly value="https://twitter.com" /><br />
+                  <input className="login_input" type="text" id="twitter_input" name="twitter" readOnly maxLength="200" value="https://twitter.com" /><br />
                 </div>
                 <button className="submit_btn submit_padding" type="submit">Submit</button>
               </fieldset>
@@ -233,7 +817,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           {/* Instagram URL */}
           <div>
             <div>
-              <img srcSet={props.instaMini} alt="User's instagram link." />
+              <img srcSet={instaMini} alt="User's instagram link." />
               <Link target="_blank" to="https://www.instagram.com" className="insta_tag">https://www.instagram.com</Link>
             </div>
             <form id="insta" className="insta_form" onSubmit={ (e) => { onSubmit(e, "insta") } }>
@@ -243,7 +827,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                   <svg onClick={ () => { hideForm("insta") } } className="_modal-close-icon" viewBox="0 0 40 40">
                     <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                   </svg><br />
-                  <textarea className="login_input" type="text" id="insta_textarea" name="insta" readOnly value="https://www.instagram.com" /><br />
+                  <input className="login_input" type="text" id="insta_input" name="insta" readOnly maxLength="200" value="https://www.instagram.com" /><br />
                 </div>
                 <button className="submit_btn submit_padding" type="submit">Submit</button>
               </fieldset>
@@ -266,7 +850,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                     <svg onClick={ () => { hideForm("email") } } className="_modal-close-icon" viewBox="0 0 40 40">
                         <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                     </svg><br />
-                    <input className="signup_input" type="text" id="email" name="email" placeholder="example@example.com" /><br />
+                    <input className="signup_input" type="text" id="email_input" name="email" maxLength="320" placeholder="example@example.com" /><br />
                   </div>
                   <button className="submit_btn submit_padding" type="submit">Submit</button>
               </fieldset>
@@ -283,7 +867,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                       <svg onClick={ () => { hideForm("birthday") } } className="_modal-close-icon" viewBox="0 0 40 40">
                           <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                       </svg><br />
-                      <input className="signup_input" type="date" id="birthday" name="birthday" /><br /> 
+                      <input className="signup_input" type="date" id="birthday_input" name="birthday" /><br />
                   </div>
                   <button className="submit_btn submit_padding" type="submit">Submit</button>
               </fieldset>
@@ -293,7 +877,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
         {/* Address Section */}
         <div>
             <p className="address_tag">Address: none</p>
-            <form id="address" className="address_form" onSubmit={ (e) => { this.onSubmit(e, "address") }}>
+            <form id="address" className="address_form" onSubmit={ (e) => { onSubmit(e, "address") }}>
                 <fieldset>
                     <div className="address_form_field">
                         <label htmlFor="address">Address</label><br />
@@ -301,7 +885,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg><br />
                         <div>
-                            <input className="signup_input" type="text" name="street" id="streetId" placeholder="Building number, Street name, Apartment ID" />
+                            <input className="signup_input" type="text" name="street" id="streetId" maxLength="150" placeholder="Building number, Street name, Apartment ID" />
                             <div className="geo_location">
                                 <select name="country" className="countries" id="countryId">
                                     <option value="">Select Country</option>
@@ -317,7 +901,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                                     <option value="">Select City</option>
                                 </select>
                             </div><br />
-                            <input type="text" name="zip" id="zipId" placeholder="Zip" /><br />
+                            <input type="text" name="zip" id="zipId" maxLength="10" placeholder="Zip" /><br />
                         </div>
                     </div>
                     <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -339,9 +923,9 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                           <label htmlFor="oldPassword">Old Password</label><br />
                           <input className="signup_input" type="password" id="oldPassword" name="old_password" /><br />
                           <label htmlFor="newPassword">New Password</label><br />
-                          <input className="signup_input" type="password" id="newPassword" name="new_password" /><br />
+                          <input className="signup_input" type="password" id="newPassword" name="new_password" minLength="3" maxLength="30" /><br />
                           <label htmlFor="confirmPassword">Confirm Password</label><br />
-                          <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" /><br />
+                          <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" /><br />
                       </div>
                   </div>
                   <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -367,11 +951,17 @@ export default AccountSettings;
 AccountSettings.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     profileImgLarge: PropTypes.string,
-    fbMini: PropTypes.string.isRequired, 
+    fbMini: PropTypes.string.isRequired,
     instaMini: PropTypes.string.isRequired,
     twitterMini: PropTypes.string.isRequired,
     emailIsValid: PropTypes.func.isRequired,
     geoDataExists: PropTypes.bool.isRequired,
     setGeoDataExists: PropTypes.func.isRequired,
-    reviseName: PropTypes.func.isRequired
+    reviseName: PropTypes.func.isRequired,
+    checkDates: PropTypes.func.isRequired,
+    urlIsValid: PropTypes.func.isRequired,
+    filePathIsValid: PropTypes.func.isRequired,
+    changeBorderColor: PropTypes.func.isRequired,
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

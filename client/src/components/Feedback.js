@@ -1,43 +1,71 @@
-// NOTE: Majority of this code is starter code. 
+// NOTE: Majority of this code is starter code.
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-export const Feedback = () => {
+export const Feedback = ({ sanitizeInput, displayUnloadMessage }) => {
 
-let errorExists = false;
+const [errorExists, setErrorExists] = useState(false);
+const [formActive, setFormActive] = useState(false);
 
 /**
 * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if message
-* content is > 3 characters, submits and renders HTML according to condition.
-* 
-* @param {object} event 
+* content is > 3 and < 500 characters, submits and renders HTML according to condition.
+*
+* @param {object} event
 */
 function onSubmit(event) {
   event.preventDefault(event);
-  const messageContent = event.target.message.value;
-  if (messageContent.length > 3) {
+
+  let messageContent = event.target.message.value;
+  messageContent = sanitizeInput(messageContent);
+
+  if (messageContent.length > 3 && messageContent.length <= 500 ) {
       // Take the data and send it to API
       console.log(messageContent);
 
       // Render on the modal thank you text
       const modalForm = document.getElementsByClassName("modal_form")[0];
-      modalForm.parentElement.innerHTML = '<h3 align="center">Thank you for your feedback!</h3>';
+      const thankYouBlock = document.createElement("h3");
+      thankYouBlock.innerText = "Thank you for your feedback!";
+      thankYouBlock.style.textAlign = "center";
+      modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
+
+      // Remove pop-up warning of unsaved data if user attempts to leave page
+      window.removeEventListener("beforeunload", displayUnloadMessage, false);
+
+      setFormActive(false);
   } else {
-      // Render error text and colors 
+      // Render error text and colors
       if (!errorExists) {
-        const formField = document.getElementsByClassName("feedback_form_fields")[0];
-        const input = document.getElementById("message");
+        const formField = event.target.children[1].firstChild;
+        const input = event.target.children[1].firstChild.children[6];
         const error = document.createElement('p');
-        error.innerHTML = '*Please type in more than 3 characters.';
+        error.innerText = '*Please type in more than 3 characters.';
         error.style.fontSize = '.9rem';
         error.style.color = '#C31F01';
         formField.appendChild(error);
         input.style.borderColor = '#C31F01';
-        errorExists = true;
+        setErrorExists(true);
       }
   }
 }
+
+useEffect(() => {
+    // Add pop-up warning of unsaved data if user attempts to leave page
+    window.addEventListener("beforeunload", displayUnloadMessage, false);
+
+    setFormActive(true);
+
+    // componentWillUnmount() substitute for React Hooks 
+    return () => {
+        if (formActive) {
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", displayUnloadMessage, false);
+        }
+    }
+}, [])
 
 return (
         <div>
@@ -52,14 +80,20 @@ return (
                             <option value="suggestion">Suggestion</option>
                         </select><br />
                         <label htmlFor="message">Comment</label><br />
-                        <textarea className="login_input" type="text" id="message" name="message" /><br />
+                        <textarea className="login_input" type="text" id="message" name="message" maxLength="500" /><br />
                     </div>
                     <button className="submit_btn submit_padding" type="submit">Submit</button>
                 </fieldset>
             </form>
-        </div>   
+        </div>
     );
 
 };
 
 export default Feedback;
+
+// PropTypes for jest testing in App.test.js
+Feedback.propTypes = {
+  sanitizeInput: PropTypes.func.isRequired,
+  displayUnloadMessage: PropTypes.func.isRequired
+}

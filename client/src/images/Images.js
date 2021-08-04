@@ -28,6 +28,7 @@ import apple from './profile/apple.png';
 import book from './profile/book.png';
 import badge from './profile/badge.png';
 import messageIcon from './profile/message_icon.png';
+import avatar from './profile/avatar.png';
 
 // Content
 import podcast from './content/podcast.png';
@@ -40,5 +41,5 @@ import thumbsUp from './content/thumbs-up.png';
 export { logo, hbIcon, fbLogo, donate, paypal, bitcoin, indian, 
          tribe, hands, homes, people, podcast, articleImgLink, profileImgSmall,
          profileImgLarge, fbMini, instaMini, twitterMini, thumbsUp, magnifyingGlass,
-         apple, book, badge, messageIcon
+         apple, book, badge, messageIcon, avatar
         };

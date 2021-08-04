@@ -1,10 +1,9 @@
-// NOTE: Interestingly, props can only be traversed upward for components with classes, not hooks. - Zane
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Slideshow } from './Static';
 import Container from '../Container';
 import $ from 'jquery';
- 
+
 export default class Home extends Component {
 
     componentDidMount() {
@@ -30,16 +29,22 @@ export default class Home extends Component {
         } else {
             $(function() {
                 document.getElementsByClassName('modal_button')[0].style.display = "none";
-            });            
+            });
         }
     }
 
     render() {
+        const {
+          hands,
+          homes,
+          people
+        } = this.props;
+
         return(
             <React.Fragment>
                 <Container onSubmit={this.props.onSubmit} triggerText="Cookies" />
                 <div className="MsoNormal center_text"><strong><span>Home</span></strong></div>
-                <Slideshow hands={this.props.hands} homes={this.props.homes} people={this.props.people} />
+                <Slideshow hands={hands} homes={homes} people={people} />
                 <p><b>Welcome!</b></p>
                 <p>&emsp;We are a legally established and authorized independent
                 Native American Church that desires to protect and

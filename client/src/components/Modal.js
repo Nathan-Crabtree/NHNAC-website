@@ -1,4 +1,4 @@
-// NOTE: Majority of this code is starter code. 
+// NOTE: Majority of this code is starter code.
 // Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
 
 import React from 'react';
@@ -9,6 +9,7 @@ import { Cookies } from './Cookies';
 import { Report } from './Report';
 import { Connections } from './Connections';
 import { Delete } from './Delete';
+import { SharePodcast } from './SharePodcast'
 import FocusTrap from 'focus-trap-react';
 import PropTypes from 'prop-types';
 
@@ -18,33 +19,38 @@ export const Modal = ({
     modalRef,
     buttonRef,
     closeModal,
-    onSubmit,
     triggerText,
     displayForm,
     emailIsValid,
+    setNewsletterEmailAddress,
     className,
     profileImgSmall,
-    messageIcon
+    messageIcon,
+    sanitizeInput,
+    displayUnloadMessage
 }) => {
 
 /**
  * displayForm() function - Renders following component according to what value triggerText has.
- * 
+ *
+ * @returns {class} Component - A React Component.
  */
 displayForm = () => {
     switch (triggerText) {
         case "Feedback":
-            return <Feedback />
+            return <Feedback sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />
         case "Newsletter":
-            return <Newsletter onSubmit={onSubmit} closeModal={closeModal} emailIsValid={emailIsValid} />
+            return <Newsletter closeModal={closeModal} emailIsValid={emailIsValid} setNewsletterEmailAddress={setNewsletterEmailAddress} />
         case "Cookies":
-            return <Cookies onSubmit={onSubmit} closeModal={closeModal} />
+            return <Cookies closeModal={closeModal} />
         case "Report":
             return <Report className={className} />
         case "Connections":
             return <Connections profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
         case "Delete Account":
-            return <Delete onSubmit={onSubmit} closeModal={closeModal} />
+            return <Delete closeModal={closeModal} />
+        case "Share this podcast":
+            return <SharePodcast />
         default:
             break;
     }
@@ -90,15 +96,19 @@ return ReactDOM.createPortal(
 export default Modal;
 
 // PropTypes for jest testing in App.test.js
+// NOTE: emailIsValid and setNewsletterEmailAddress aren't marked as required to avoid warnings when
+// non-newsletter modals are activated. - Zane
 Modal.propTypes = {
     onClickOutside: PropTypes.func.isRequired,
     onKeyDown: PropTypes.func.isRequired,
     modalRef: PropTypes.func.isRequired,
     buttonRef: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     triggerText: PropTypes.string.isRequired,
     emailIsValid: PropTypes.func,
+    setNewsletterEmailAddress: PropTypes.func,
     profileImgSmall: PropTypes.string,
-    messageIcon: PropTypes.string
+    messageIcon: PropTypes.string,
+    sanitizeInput: PropTypes.func,
+    displayUnloadMessage: PropTypes.func
 }

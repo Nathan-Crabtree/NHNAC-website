@@ -16,13 +16,18 @@ export default class Error extends Component {
     }
 
     render() {
+        const {
+          errorStatus,
+          errorDescription
+        } = this.state;
+
         return(
             <div>
                 <p>Oops. There seems to be a problem with finding this page.</p>
                 &nbsp;
-                <p>Status: <b>{this.state.errorStatus}</b></p>
+                <p>Status: <b>{errorStatus}</b></p>
                 &nbsp;
-                <p className="error_description">Description: {this.state.errorDescription}</p>
+                <p className="error_description">Description: {errorDescription}</p>
             </div>
         );
     }

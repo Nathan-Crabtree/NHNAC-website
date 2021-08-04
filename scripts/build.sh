@@ -2,6 +2,8 @@
 #
 # build.sh
 #
+# NOTE: This script is meant for reading only. It has not been tested or known to work. - Zane
+#
 # Steps:
 # 1) before running script, make sure you have an SSH key setup for accessing github repo, 
 # also have the latest full MySQL Community Server .tar.xz file downloaded from https://dev.mysql.com/downloads/mysql/.

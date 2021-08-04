@@ -19,16 +19,18 @@ export default class Profile extends Component {
 
     /**
      * displayViewComponent() function - Grabs the "view" query string value and renders the proper component according to the view of profile.
-     * 
+     *
+     * @returns {class} Component - A React Component.
      */
     displayViewComponent() {
         // Render proper component according to "type" string value
+        // TODO: Break ProfileUser and ProfileViewer into smaller resuable components. - Zane
         switch(this.state.view) {
             case "user":
                 return <ProfileUser apple={this.props.apple} book={this.props.book} twitterMini={this.props.twitterMini}
                 fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
-                profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon} 
-                customize={this.state.customize} />
+                profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon}
+                customize={this.state.customize} sanitizeInput={this.props.sanitizeInput} displayUnloadMessage={this.props.displayUnloadMessage} />
             case "viewer":
                 return <ProfileViewer apple={this.props.apple} book={this.props.book} twitterMini={this.props.twitterMini}
                 fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
@@ -55,7 +57,7 @@ export default class Profile extends Component {
             </React.Fragment>
         );
     }
-} 
+}
 
 // PropTypes for jest testing in App.test.js
 Profile.propTypes = {
@@ -67,5 +69,7 @@ Profile.propTypes = {
     profileImgLarge: PropTypes.string,
     profileImgSmall: PropTypes.string.isRequired,
     badge: PropTypes.string,
-    messageIcon: PropTypes.string.isRequired
+    messageIcon: PropTypes.string.isRequired,
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

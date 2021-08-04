@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+import queryString, { parse } from 'query-string';
 
 export const Search = (props) => {
   // Source: https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react - Zane 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  const [totalResults, setTotalResults] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [query, setQuery] = useState(null);
+  const [qPage, setQPage] = useState(null);
+  const [qTag, setQTag] = useState(null);
+  const [page, setPage] = useState({ min: 0, max: 0 });
 
-  let filters, tags, activeFilters, results = [];
-  let page = {min: 0, max: 0};
-  let query, qPage = null;
-  let totalResults, totalPages = 0;
+  // Arrays
+  const [filters, setFilters] = useState([]);
+  const [activeFilters, setActiveFilters] = useState([]); 
+  const [tags, setTags] = useState([]);
+  const [results, setResults] = useState([]);
 
   /**
    * updateFilter() function - Once filter request form has been submitted, this function updates the "filter" query string to the correct value displaying results
@@ -40,22 +47,29 @@ export const Search = (props) => {
 
   /**
   * displayResults() function - Performs query search and counts results. Returns h3 component with result values according to page.
+  * Conducts web scraping and displays marks or tags according to boolean value of query string "tag"
   * 
   */ 
   const displayResults = () => {
     activeFilters = props.getSearchFilters();
 
     // Determine page's min and mix result numbers for heading
-    page.min =  qPage;
-    page.max = qPage + 9;
+    setPage({ min: qPage, max: qPage + 9 });
 
     // Search database for filtered-related content containing query and append to results array
     for (let activeFilter = 0; activeFilter < activeFilters.length; activeFilter++) {
-        // Do query search
+        // Do query search procedure according to qTag value
+        if (qTag) {
+            // Query for results tag-related
+
+        } else {
+            // Query for results that contain a matching word to search query
+
+        }
 
         // Append queried data to results array 
 
-        // Increment totalResults
+        // Increment totalResults with setTotalResults
 
     }
 
@@ -91,7 +105,7 @@ export const Search = (props) => {
   * 
   */
   const displayPageLinks = () => {
-    totalPages = totalResults / 10;
+    setTotalPages(totalResults/10);
 
     // Check conditions for rendering proper navigation component; current page will be unclickable
     if (totalPages <= 5) {
@@ -116,11 +130,18 @@ export const Search = (props) => {
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    query = parsedQString.query;
-    qPage = parseInt(parsedQString.page);
+    setQuery(parsedQString.query);
+    setQPage(parseInt(parsedQString.page));
 
-    filters = [articles, updates, events, podcasts, community, user];
-    activeFilters = props.getSearchFilters();
+    // Check if tag or not
+    if (parsedQString.query[0] === "#") {
+        setQTag(true);
+    } else {
+        setQTag(false);
+    }
+
+    setFilters([articles, updates, events, podcasts, community, user]);
+    setActiveFilters(props.getSearchFilters());
 
     // Check content types that have already been filtered 
     for (let activeFilter = 0; activeFilter < activeFilters.length; activeFilter++) {
@@ -141,25 +162,25 @@ export const Search = (props) => {
                 <div>
                     <hgroup>
                         <h2>Search Results</h2>
-                        { displayResults() }
+                        { displayResults }
                         {/* Hard-coded h3 is for reference only. - Zane */}
-                        <h3>Displaying {`${page.min}-${page.max}`} of {totalResults} results</h3>
+                        <h3>Displaying {`${page.min}-${page.max}`} of {totalResults} results for {query}</h3>
                     </hgroup>
-                    { displaySimilarTags() }
+                    { displaySimilarTags }
                     {/* Hard-coded ul is for reference only. - Zane */}
                     <ul>
                         <li>
-                            Did you mean <Link to="/search?query=tag1&page=1">Tag1</Link>
+                            Did you mean <Link to="/search?query=monk&page=1">monk</Link>
                         </li>
                         <li>, or </li>
                         <li>
-                            <Link to="/search?query=tag2&page=1">Tag2</Link>?
+                            <Link to="/search?query=monkier&page=1">monkier</Link>?
                         </li>
                     </ul>
                 </div>
                 {/* Search result sections */}
                 <div>
-                    { displaySections() }
+                    { displaySections }
                     {/* Hard-coded sections are for reference only. - Zane */}
                     <section>
                         <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
@@ -173,20 +194,12 @@ export const Search = (props) => {
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
-                            <div className="clear"></div>
-                        </div>
-                    </section>
-                    <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
-                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
-                        imperdiet massa tincidunt.</q></blockquote>
-                        <div className="sub_article_container">
-                            <div className="author_content">
-                                <p>by Milton Miles</p>
-                            </div>
-                            <div className="sub_article_content">
-                                <p>Type: Article</p>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
                             </div>
                             <div className="clear"></div>
                         </div>
@@ -203,20 +216,12 @@ export const Search = (props) => {
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
-                            <div className="clear"></div>
-                        </div>
-                    </section>
-                    <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
-                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
-                        imperdiet massa tincidunt.</q></blockquote>
-                        <div className="sub_article_container">
-                            <div className="author_content">
-                                <p>by Milton Miles</p>
-                            </div>
-                            <div className="sub_article_content">
-                                <p>Type: Article</p>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
                             </div>
                             <div className="clear"></div>
                         </div>
@@ -233,20 +238,12 @@ export const Search = (props) => {
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
-                            <div className="clear"></div>
-                        </div>
-                    </section>
-                    <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
-                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
-                        imperdiet massa tincidunt.</q></blockquote>
-                        <div className="sub_article_container">
-                            <div className="author_content">
-                                <p>by Milton Miles</p>
-                            </div>
-                            <div className="sub_article_content">
-                                <p>Type: Article</p>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
                             </div>
                             <div className="clear"></div>
                         </div>
@@ -263,20 +260,12 @@ export const Search = (props) => {
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
-                            <div className="clear"></div>
-                        </div>
-                    </section>
-                    <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
-                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
-                        imperdiet massa tincidunt.</q></blockquote>
-                        <div className="sub_article_container">
-                            <div className="author_content">
-                                <p>by Milton Miles</p>
-                            </div>
-                            <div className="sub_article_content">
-                                <p>Type: Article</p>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
                             </div>
                             <div className="clear"></div>
                         </div>
@@ -293,6 +282,13 @@ export const Search = (props) => {
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
+                            </div>
                             <div className="clear"></div>
                         </div>
                     </section>
@@ -307,13 +303,108 @@ export const Search = (props) => {
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
+                            </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
+                            </div>
+                            <div className="clear"></div>
+                        </div>
+                    </section>
+                    <section>
+                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
+                        imperdiet massa tincidunt.</q></blockquote>
+                        <div className="sub_article_container">
+                            <div className="author_content">
+                                <p>by Milton Miles</p>
+                            </div>
+                            <div className="sub_article_content">
+                                <p>Type: Article</p>
+                            </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
+                            </div>
+                            <div className="clear"></div>
+                        </div>
+                    </section>
+                    <section>
+                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
+                        imperdiet massa tincidunt.</q></blockquote>
+                        <div className="sub_article_container">
+                            <div className="author_content">
+                                <p>by Milton Miles</p>
+                            </div>
+                            <div className="sub_article_content">
+                                <p>Type: Article</p>
+                            </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
+                            </div>
+                            <div className="clear"></div>
+                        </div>
+                    </section>
+                    <section>
+                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
+                        imperdiet massa tincidunt.</q></blockquote>
+                        <div className="sub_article_container">
+                            <div className="author_content">
+                                <p>by Milton Miles</p>
+                            </div>
+                            <div className="sub_article_content">
+                                <p>Type: Article</p>
+                            </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
+                            </div>
+                            <div className="clear"></div>
+                        </div>
+                    </section>
+                    <section>
+                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
+                        imperdiet massa tincidunt.</q></blockquote>
+                        <div className="sub_article_container">
+                            <div className="author_content">
+                                <p>by Milton Miles</p>
+                            </div>
+                            <div className="sub_article_content">
+                                <p>Type: Article</p>
+                            </div>
+                            <div className="sub_article_tags">
+                                <p>Tags:&nbsp; 
+                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
+                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                 </div>
                 {/* Search page selection */}
-                { displayPageLinks() }
+                { displayPageLinks }
                 {/* Hard-coded ul is for reference only. - Zane */}
                 <ul>
                     <li>
@@ -375,5 +466,5 @@ export default Search;
 Search.propTypes = {
     searchFilters: PropTypes.array.isRequired,
     setSearchFilters: PropTypes.func.isRequired,
-    getSearchFilters: PropTypes.func.isRequired,
+    getSearchFilters: PropTypes.func.isRequired
 }

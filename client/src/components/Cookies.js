@@ -6,6 +6,16 @@ import PropTypes from 'prop-types';
 
 export const Cookies = ({ onSubmit, closeModal }) => {
 
+/**
+ * onSubmit() function - 
+ * 
+ * @param {object} event
+ */
+onSubmit = (event) => {
+    event.preventDefault(event);
+
+}
+
 return (
         <form className="modal_form" onSubmit={onSubmit}>
             <h2 className="newsletter_h2">Cookie Policy</h2>
@@ -24,6 +34,5 @@ export default Cookies;
 
 // PropTypes for jest testing in App.test.js
 Cookies.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired
 }

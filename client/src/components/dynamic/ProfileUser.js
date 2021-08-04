@@ -10,7 +10,9 @@ export default class ProfileUser extends Component {
         this.state = {
             collapsedTables: [],
             key: 0,
-            clickedDataTable: null
+            clickedDataTable: null,
+            errorExists: false,
+            formActive: false
         }
         this.displayForm = this.displayForm.bind(this);
         this.hideForm = this.hideForm.bind(this);
@@ -25,41 +27,80 @@ export default class ProfileUser extends Component {
 
     /**
      * displayForm() function - Shows the section's form that the comment belongs to and hides the associated "edit" button.
-     * 
+     *
      */
     displayForm() {
         document.getElementsByClassName("status_form")[0].style.display = "block";
         document.getElementsByClassName("edit_status_btn")[0].style.display = "none";
         document.getElementsByClassName("status_p")[0].style.display = "none";
+
+        if (!this.state.formActive) {
+            // Add pop-up warning of unsaved data if user attempts to leave page
+            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            this.setState({ formActive: true });
+        }
     }
 
     /**
      * hideForm() function - Hides the section's form that the comment belongs to and shows the associated "edit" button.
-     * 
+     *
      */
     hideForm() {
         document.getElementsByClassName("status_form")[0].style.display = "none";
         document.getElementsByClassName("edit_status_btn")[0].style.display = "block";
         document.getElementsByClassName("status_p")[0].style.display = "block";
+
+        if (this.state.formActive) {
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            this.setState({ formActive: false});
+        }
     }
 
     /**
-     * onSubmit() function - Takes status content submitted from user and sends to API and then gets added to database; 
+     * onSubmit() function - Takes status content submitted from user and sends to API and then gets added to database;
      * the page is then refreshed to include the new status.
-     * 
-     * @param {object} e  
-     * 
+     *
+     * @param {object} e
      */
     onSubmit(e) {
         e.preventDefault();
         console.log(e.target.status.value);
+
+        let status = e.target.status.value;
+        status = this.props.sanitizeInput(status);
+
+        // Check if status input is less than 32 characters
+        if (status.length > 32) {
+            if (!this.state.errorExists) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("status_form_field")[0];
+                const input = document.getElementById("status_textarea");
+                let error = document.createElement("p");
+                error.innerText = '*Please enter a status less than 32 characters.';
+                error.style.fontSize = '.9rem';
+                error.style.color = '#C31F01';
+                formField.appendChild(error);
+                input.style.borderColor = '#C31F01';
+                this.setState({ errorExists: true });
+            }
+        } else {
+            // Do code here
+
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            this.setState({ formActive: false });
+        }
     }
 
     /**
      * collapseDataTable() function - Collapses the Table associated with "className" and replaces it with tableHeader
      * and the option to expand it in section with class "proflie_container1_section_container2".
-     * 
-     * @param {string} className, @param {string} tableHeader 
+     *
+     * @param {string} className, @param {string} tableHeader
      */
     collapseDataTable(className, tableHeader) {
         const expandedTable = document.getElementsByClassName(className)[0];
@@ -70,7 +111,7 @@ export default class ProfileUser extends Component {
 
         // Src: https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array - Zane
         const joined = this.state.collapsedTables.concat(newJSX);
-        this.setState({ collapsedTables: joined });        
+        this.setState({ collapsedTables: joined });
 
         // Increment the value of key to have it remain unique for the next array value
         const newKey = this.state.key + 1;
@@ -81,8 +122,8 @@ export default class ProfileUser extends Component {
      * expandDataTable() function - Expands the Table associated with "className" and removes table's
      * header and the option to expand it in section with class "proflie_container1_section_container2" via popping
      * it out of the collapsedTables array.
-     * 
-     * @param {string} className  
+     *
+     * @param {string} className
      */
     expandDataTable(className) {
         const collapsedTable = document.getElementsByClassName(className)[1];
@@ -103,10 +144,11 @@ export default class ProfileUser extends Component {
 
     /**
      * displayCollapsedDataTableHeaderAndExpandBtn() function - Once collapseDataTable() has been called, displayCollapsedDataTableHeaderAndExpandBtn()
-     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again. A unique 
+     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again. A unique
      * key is also generated for the component within the array.
-     * 
-     * @param {string} className, @param {string} tableHeader, @param {integer} key  
+     *
+     * @param {string} className, @param {string} tableHeader, @param {integer} key
+     * @returns {class} Component - A React Component.
      */
     displayCollapsedDataTableHeaderAndExpandBtn(className, tableHeader, key) {
         return <div key={key} className={className}>
@@ -116,9 +158,9 @@ export default class ProfileUser extends Component {
     }
 
     /**
-     * resizeDataTable() function - Checks to see if user has resized the selected data table. Will automatically change the 
+     * resizeDataTable() function - Checks to see if user has resized the selected data table. Will automatically change the
      * styling to a medium or large height setting.
-     * 
+     *
      * @param {string} id
      */
     resizeDataTable(id) {
@@ -132,13 +174,13 @@ export default class ProfileUser extends Component {
 
     /**
      * customizePage() function - Allows user to collapse, resize, and move around their data tables for desired settings.
-     * When completed, user will click "Save Settings" which will send preference data to the API and reload the page showing 
+     * When completed, user will click "Save Settings" which will send preference data to the API and reload the page showing
      * the new preferred settings.
-     * 
+     *
      */
     customizePage() {
         // Replace "Customize Page" with "Save Settings"
-        document.getElementsByClassName("text_btn")[1].style.display = "none"; 
+        document.getElementsByClassName("text_btn")[1].style.display = "none";
         document.getElementsByClassName("text_btn")[2].style.display = "block"
 
         // Edit the styling of all data tables to show buttons and allow customization.
@@ -160,7 +202,7 @@ export default class ProfileUser extends Component {
             });
 
             // Setting the display style of data table's resizing feature and collapse link to block
-            dataTables[dataTable].children[0].style.display = "block";
+            dataTables[dataTable].firstChild.style.display = "block";
             dataTables[dataTable].style.resize = "vertical";
         }
 
@@ -199,13 +241,13 @@ export default class ProfileUser extends Component {
     }
 
     /**
-     * saveSettings() function - Checks the styling of each data table to see if there are any changes made by user in order to 
+     * saveSettings() function - Checks the styling of each data table to see if there are any changes made by user in order to
      * update the preference data to the API and reload the page.
-     * 
+     *
      */
     saveSettings() {
         // Check the styling of each data table to see if any changes need to made for user's preference data on back-end
-        
+
         // Force reload the page to show new settings and revert changed styling
         window.location.href = '/profile?userid=1&view=user';
     }
@@ -216,13 +258,31 @@ export default class ProfileUser extends Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.state.formActive) {
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+        }
+    }
+
     render() {
+        const {
+          profileImgLarge,
+          apple,
+          instaMini,
+          twitterMini,
+          fbMini,
+          profileImgSmall,
+          messageIcon,
+          badge
+        } = this.props;
+
         return(
             <React.Fragment>
                 <div className="profile_container1">
                     <div>
                         <div>
-                            <img className="profile_img_large" srcSet={this.props.profileImgLarge} alt="Portrait of user." />
+                            <img className="profile_img_large" srcSet={profileImgLarge} alt="Portrait of user." />
                             <button onClick={ () => { window.location.href="/account_settings?userid=1&edit_profile_pic=true" } } type="button">Edit Profile Picture</button>
                         </div>
                         <section>
@@ -230,7 +290,7 @@ export default class ProfileUser extends Component {
                             <p>Tier: </p>
                             <p>Points: </p>
                             <p>Age: </p>
-                            <p>Student <img srcSet={this.props.apple} alt="Student account displayed by apple." /></p>
+                            <p>Student <img srcSet={apple} alt="Student account displayed by apple." /></p>
                             <div>
                                 <p className="status_p">Status: none</p>
                                 <form id="status" className="status_form" onSubmit={ this.onSubmit }>
@@ -252,9 +312,9 @@ export default class ProfileUser extends Component {
                             <button onClick={this.customizePage} className="text_btn" type="button"><b>Customize Page</b></button>
                             <button onClick={this.saveSettings} className="text_btn" type="button"><b>Save Settings</b></button>
                             <div>
-                                <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><img srcSet={this.props.instaMini} alt="Author's instagram link." /></a>
-                                <a target="_blank" rel="noopener noreferrer" href="https://www.twitter.com/"><img srcSet={this.props.twitterMini} alt="Author's twitter link." /></a>
-                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/"><img srcSet={this.props.fbMini} alt="Author's facebook link." /></a>
+                                <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><img srcSet={instaMini} alt="Author's instagram link." /></a>
+                                <a target="_blank" rel="noopener noreferrer" href="https://www.twitter.com/"><img srcSet={twitterMini} alt="Author's twitter link." /></a>
+                                <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/"><img srcSet={fbMini} alt="Author's facebook link." /></a>
                             </div>
                         </section>
                     </div>
@@ -262,7 +322,7 @@ export default class ProfileUser extends Component {
                     <button className="paypal_btn" type="button"><h4>Go to current course: <br />Course Name (50% complete)</h4></button>
                     <section className="profile_container1_section_container2">
                         <Link to="/direct_message?senderid=1&receiverid=null">Messages (1)</Link><br />
-                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} /><br />
+                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
                         <Link to="/id_request?userid=1">Request new ID card</Link><br />
                         <Link to="/download_archive?userid=1">Download archive</Link><br />
                         <Container onSubmit={ () => {} } triggerText="Feedback" />
@@ -302,7 +362,7 @@ export default class ProfileUser extends Component {
                     <div className="profile_drop_zone">
                         <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer1") } } className="profile_container2_section_container1" id="profileContainer2SectionContainer1" draggable="true">
                             <button onClick={ () => { this.collapseDataTable("profile_container2_section_container1", "Councils") }} className="text_btn" type="button"><b>collapse</b></button>
-                            <h2>Councils</h2> 
+                            <h2>Councils</h2>
                             <ul>
                                 <li>Council 1</li>
                                 <li>Council 2</li>
@@ -315,7 +375,7 @@ export default class ProfileUser extends Component {
                     <div className="profile_drop_zone">
                         <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer2") } } className="profile_container2_section_container2" id="profileContainer2SectionContainer2" draggable="true">
                             <button onClick={ () => { this.collapseDataTable("profile_container2_section_container2", "Recent Activity") }} className="text_btn" type="button"><b>collapse</b></button>
-                            <h2>Recent Activity</h2> 
+                            <h2>Recent Activity</h2>
                             <ul>
                                 <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
                                 <li>1/1/2021, 1:50pm - Tempor incididunt ut labore et dolore magna aliqua.</li>
@@ -336,7 +396,7 @@ export default class ProfileUser extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button> 
+                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
@@ -345,7 +405,7 @@ export default class ProfileUser extends Component {
                             <button onClick={ () => { this.collapseDataTable("profile_container2_section_container4", "Recent Badges") }} className="text_btn" type="button"><b>collapse</b></button>
                             <h2>Recent Badges</h2>
                             <ul>
-                                <li><img className="badge" srcSet={this.props.badge} alt="User's Silver badge." /></li>
+                                <li><img className="badge" srcSet={badge} alt="User's Silver badge." /></li>
                             </ul>
                             <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
@@ -355,7 +415,7 @@ export default class ProfileUser extends Component {
             </React.Fragment>
         );
     }
-} 
+}
 
 // PropTypes for jest testing in App.test.js
 ProfileUser.propTypes = {
@@ -368,5 +428,7 @@ ProfileUser.propTypes = {
     profileImgSmall: PropTypes.string.isRequired,
     badge: PropTypes.string,
     messageIcon: PropTypes.string.isRequired,
-    customize: PropTypes.string.isRequired
+    customize: PropTypes.string.isRequired,
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

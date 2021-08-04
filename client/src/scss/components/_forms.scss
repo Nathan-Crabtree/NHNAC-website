@@ -1,7 +1,7 @@
 // Base
 
 label, 
-input:not(.search_input), 
+input:not(.search_input, .magnifying_glass), 
 .form_links, 
 select[id="gender"],
 textarea {
@@ -16,11 +16,11 @@ label[for="by_mail"],
     font-size: .9rem;
 }
 
-input:focus, 
+input:focus:not([type="checkbox"]), 
 textarea:focus, 
 select:focus {
     outline: none;
-    border: $nh-black solid 2px;
+    border: $nh-black solid 2px !important;
 }
 
 label[for="rememberMe"], 
@@ -70,7 +70,7 @@ select {
     height: 40px;
 }
 
-input:not([type='checkbox']):not([type="radio"]):not(.search_input) {
+input:not([type='checkbox'],[type="radio"],.search_input, .magnifying_glass) {
     @include input-properties;
     height: 40px;
 }
@@ -89,7 +89,7 @@ input:not([type='checkbox']):not([type="radio"]):not(.search_input) {
     }
 }
 
-button:not([class="modal_button"]):not([class="form_links_btn"]):not([class="_modal-close"]):hover, 
+button:not([class="modal_button"],[class="form_links_btn"],[class="_modal-close"]):hover, 
 div.paypal_btn:hover {
     background-color: $nh-button-hover;
 }
@@ -229,7 +229,8 @@ label[for="payment"] {
 }
 
 .resend_email_span {
-    padding-top: $nh-padding-xl;
+    display: block;
+    padding: $nh-padding-xl 0 $nh-padding-s $nh-padding-s;
 }
 
 // Article

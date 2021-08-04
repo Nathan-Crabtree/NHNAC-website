@@ -16,12 +16,18 @@ export default class Donate extends Component {
         window.scrollTo(0, 0);
     }
 
-    render() { 
+    render() {
+        const {
+          donate,
+          paypal,
+          bitcoin
+        } = this.props;
+
         return (
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Donate</span></strong></div>
                 <div className="image_display">
-                    <img className="donate_image" srcSet={this.props.donate} alt={this.state.alt} />
+                    <img className="donate_image" srcSet={donate} alt={this.state.alt} />
                     <p className="donate_image_desc image_desc">&emsp;Photo description: {this.state.alt}</p>
                 </div>
                 <p>&emsp;Many people may wonder about donating and where the funds are being applied. We understand this can be a major concern with so many nonprofit organizations and churches taking in billions of dollars in donations, and then just squandering the money without any real benefit to the world or their members. New Haven Native American Church is quite saddened by this exploitation and sees the problems of this world all stem from this type of selfishness and greed. We are dedicated to assisting our members and all others and this is the path we follow! We encourage all to join us in making a real difference in this world.</p>
@@ -50,10 +56,10 @@ export default class Donate extends Component {
                 <br />
                 <p><em>&quot;It does not take a majority to prevail... but rather an irate, tireless minority, keen on setting brushfires of freedom in the minds of men.&quot; - Samuel Adams</em></p>
                 {/* Donate to PayPal option needs a link. */}
-                <Link to="#"><img className="paypal_bitcoin paypal_link" srcSet={this.props.paypal} alt="Donate with PayPal." /></Link><br />
+                <Link to="#"><img className="paypal_bitcoin paypal_link" srcSet={paypal} alt="Donate with PayPal." /></Link><br />
                 {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
                 {/* <div className="bitcoin_link">
-                    <Link to="#"><img className="paypal_bitcoin" srcSet={this.props.bitcoin} alt="Donate with Bitcoin." /></Link><br />
+                    <Link to="#"><img className="paypal_bitcoin" srcSet={bitcoin} alt="Donate with Bitcoin." /></Link><br />
                     <span className="bitcoin_span">Got crypto? We're now accepting bitcoin donations!</span>
                 </div> */}
             </React.Fragment>

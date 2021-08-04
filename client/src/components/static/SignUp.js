@@ -7,21 +7,22 @@ export default class SignUp extends Component {
 
     constructor() {
         super();
-        this.state = { 
+        this.state = {
             errorsThatExist: [],
-            hasReedemableCode: false
+            hasReedemableCode: false,
+            listenerRemoved: false
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-
     /**
-    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values from are fit for submission. 
+    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values from are fit for submission.
     * Submits and renders HTML or transfer to PayPal website according to condition.
-    * 
+    *
     * NOTE: Could be further refactored to reduce runtime. - Zane
-    * 
-    * @param {object} event 
+    *
+    * @param {object} event
+    * @returns {boolean} false
     */
    onSubmit(event) {
         console.log("onSubmit() called");
@@ -29,28 +30,52 @@ export default class SignUp extends Component {
 
         let firstName = event.target.first_name.value;
         let revisedFirstName = [];
+        let nickName = event.target.nick_name.value;
+        let revisedNickName = [];
         let lastName = event.target.last_name.value;
+        let nameArray = [firstName, nickName, lastName];
         //let chapterID = 1;
         let revisedLastName = [];
-        const email = event.target.email.value;
+        let email = event.target.email.value;
         const birthday = event.target.birthday.value;
-        const gender = event.target.gender.value; 
-        const street = event.target.street.value;
+        const gender = event.target.gender.value;
+        let street = event.target.street.value;
         const country = event.target.country.value;
         const state = event.target.state.value;
         const city = event.target.city.value;
-        const zip = event.target.zip.value.toString();
+        let zip = event.target.zip.value.toString();
+        let addressArray = [street, zip];
         const securityQuestion = event.target.security_question.value;
-        const securityAnswer = event.target.security_answer.value;
+        let securityAnswer = event.target.security_answer.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.confirm_password.value;
-        //const redeemableCode = event.target.redeemable_code.value;
+        //let redeemableCode = event.target.redeemable_code.value;
         //const payment = parseInt(event.target.payment.value.split("").filter(string => string !== "$").join(""));
+
+        // Check if birthday and current date match variables
+        const date = new Date();
+        const currentDate = [date.getFullYear(),date.getMonth()+1,date.getDate()];
+        const birthYear = parseInt(birthday[0] + birthday[1] + birthday[2] + birthday[3]);
+        const birthMonth = parseInt(birthday[5] + birthday[6]);
+        const birthDay = parseInt(birthday[8] + birthday[9]);
+        const checkYears = birthYear <= currentDate[0];
+        const checkMonths = birthMonth <= currentDate[1];
+        const checkDays = birthDay <= currentDate[2];
+        const checkDates = this.props.checkDates(checkYears, checkMonths, checkDays, birthYear, birthMonth, currentDate[0], currentDate[1]);
+
+        // Array of form input IDs
+        const formInputIds = ["firstName", "lastName", "email", "birthday", "gender", "streetId", "countryId", "stateId", "cityId", "zipId",
+        "securityQuestion", "securityAnswer", "password", "payment"];
 
         // Create error array
         let error = [];
         for (let input = 0; input < 11; input++) {
             error[input] = document.createElement('p');
+        }
+
+        // Change border color of all input and select tags back to normal
+        for (let id = 0; id < formInputIds.length; id++) {
+            this.props.changeBorderColor(formInputIds[id]);
         }
 
         // Clear error text if it currently exists on the DOM
@@ -63,21 +88,25 @@ export default class SignUp extends Component {
             }
         }
 
-        // Check if first name and last name exist
+        firstName = this.props.sanitizeInput(firstName);
+        nickName = this.props.sanitizeInput(nickName);
+        lastName = this.props.sanitizeInput(lastName);
+
+        // Check if first name, nick name and last name exist
         if (firstName.length === 0 || lastName.length === 0) {
             if (!errorsThatExist[0]) {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[0];
                 const inputFirstName = document.getElementById("firstName");
                 const inputLastName = document.getElementById("lastName");
-                error[0].innerHTML = '*Please enter both your first and last name.';
+                error[0].innerText = '*Please enter both your first and last name.';
                 error[0].className = "error_0";
                 error[0].style.fontSize = '.9rem';
                 error[0].style.color = '#C31F01';
                 formField.appendChild(error[0]);
                 if (firstName.length === 0) {
                     inputFirstName.style.borderColor = '#C31F01';
-                } 
+                }
                 if (lastName.length === 0) {
                     inputLastName.style.borderColor = '#C31F01';
                 }
@@ -87,11 +116,14 @@ export default class SignUp extends Component {
 
         // Capitalize the first letter of any names if haven't been done so by user
         if (firstName.length > 0) {
-            this.props.reviseName(firstName, revisedFirstName, "firstName", true);
-        } 
+            firstName = this.props.reviseName(firstName, revisedFirstName, "firstName", true);
+        }
+        if (nickName.length > 0) {
+            nickName = this.props.reviseName(nickName, revisedNickName, "nickName", true);
+        }
         if (lastName.length > 0) {
-            this.props.reviseName(lastName, revisedLastName, "lastName", true);
-        } 
+            lastName = this.props.reviseName(lastName, revisedLastName, "lastName", true);
+        }
 
         // Check for valid email input and if it's already in use
         if (!(this.props.emailIsValid(email))) {
@@ -99,7 +131,7 @@ export default class SignUp extends Component {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[1];
                 const input = document.getElementById("email");
-                error[1].innerHTML = '*Please enter a valid email address.';
+                error[1].innerText = '*Please enter a valid email address.';
                 error[1].className = "error_1";
                 error[1].style.fontSize = '.9rem';
                 error[1].style.color = '#C31F01';
@@ -111,14 +143,14 @@ export default class SignUp extends Component {
             // Do a query search in database to check if email entered in is unique. If it isn't, change value of boolean
             let emailAlreadyExists = false;
 
-            // Do query search here 
+            // Do query search here
 
             if (emailAlreadyExists) {
                 if (!errorsThatExist[1]) {
                     // Render error text and change boolean
                     const formField = document.getElementsByClassName("signup_fields")[1];
                     const input = document.getElementById("email");
-                    error[1].innerHTML = '*Email address already exists.';
+                    error[1].innerText = '*Email address already exists.';
                     error[1].className = "error_1";
                     error[1].style.fontSize = '.9rem';
                     error[1].style.color = '#C31F01';
@@ -129,14 +161,13 @@ export default class SignUp extends Component {
             }
         }
 
-
         // Check for birthday input
-        if (birthday === "") {
+        if (birthday === "" || !checkDates) {
             if (!errorsThatExist[2]) {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[2];
                 const input = document.getElementById("birthday");
-                error[2].innerHTML = '*Please select a birthday.';
+                error[2].innerText = '*Please select a birthday that is under the current date.';
                 error[2].className = "error_2";
                 error[2].style.fontSize = '.9rem';
                 error[2].style.color = '#C31F01';
@@ -152,7 +183,7 @@ export default class SignUp extends Component {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[3];
                 const input = document.getElementById("gender");
-                error[3].innerHTML = '*Please select a gender.';
+                error[3].innerText = '*Please select a gender.';
                 error[3].className = "error_3";
                 error[3].style.fontSize = '.9rem';
                 error[3].style.color = '#C31F01';
@@ -161,6 +192,9 @@ export default class SignUp extends Component {
                 errorsThatExist[3] = true;
             }
         }
+
+        street = this.props.sanitizeInput(street);
+        zip = this.props.sanitizeInput(zip);
 
         // Check for address input
         if (street === "" || country === "" || state === "" || city === "" || zip === "") {
@@ -172,7 +206,7 @@ export default class SignUp extends Component {
                 const inputState = document.getElementById("stateId");
                 const inputCity = document.getElementById("cityId");
                 const inputZip = document.getElementById("zipId");
-                error[4].innerHTML = '*Please enter or select a value in all address-related fields.';
+                error[4].innerText = '*Please enter or select a value in all address-related fields.';
                 error[4].className = "error_4";
                 error[4].style.fontSize = '.9rem';
                 error[4].style.color = '#C31F01';
@@ -184,15 +218,48 @@ export default class SignUp extends Component {
                 inputZip.style.borderColor = '#C31F01';
                 errorsThatExist[4] = true;
             }
+        } else if (street.length > 150) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("signup_fields")[4];
+                const inputStreet = document.getElementById("streetId");
+                error[4].innerText = '*Please enter a value in the "street" field less than 150 characters.';
+                error[4].className = "error_4";
+                error[4].style.fontSize = '.9rem';
+                error[4].style.color = '#C31F01';
+                formField.appendChild(error[4]);
+                inputStreet.style.borderColor = '#C31F01';
+                inputCountry.style.borderColor = '#C31F01';
+                inputState.style.borderColor = '#C31F01';
+                inputCity.style.borderColor = '#C31F01';
+                inputZip.style.borderColor = '#C31F01';
+                errorsThatExist[4] = true;
         }
 
         // Check for security question selection
         if (securityQuestion === "Choose a security question") {
+            if (!errorsThatExist[5]) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("signup_fields")[5];
+                const input = document.getElementById("securityQuestion");
+                error[5].innerText = '*Please select a security question.';
+                error[5].className = "error_5";
+                error[5].style.fontSize = '.9rem';
+                error[5].style.color = '#C31F01';
+                formField.appendChild(error[5]);
+                input.style.borderColor = '#C31F01';
+                errorsThatExist[5] = true;
+            }
+        }
+
+        securityAnswer = this.props.sanitizeInput(securityAnswer);
+
+        // Check for security answer input
+        if (securityAnswer === "" || securityAnswer.length > 150) {
             if (!errorsThatExist[6]) {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[6];
-                const input = document.getElementById("securityQuestion");
-                error[6].innerHTML = '*Please select a security question.';
+                const input = document.getElementById("securityAnswer");
+                error[6].innerText = '*Please enter a security answer less than 150 characters.';
                 error[6].className = "error_6";
                 error[6].style.fontSize = '.9rem';
                 error[6].style.color = '#C31F01';
@@ -202,46 +269,45 @@ export default class SignUp extends Component {
             }
         }
 
-        // Check for security answer input
-        if (securityAnswer === "") {
+        // NOTE: Password fields aren't being sanitized because they're being hashed/encoded. - Zane
+
+        // Check if password fields match
+        if (password !== confirmPassword || password === "" || password.length < 3 || password.length > 30) {
             if (!errorsThatExist[7]) {
                 // Render error text and change boolean
                 const formField = document.getElementsByClassName("signup_fields")[7];
-                const input = document.getElementById("securityAnswer");
-                error[7].innerHTML = '*Please enter a security answer.';
+                const inputPassword = document.getElementById("password");
+                const inputConfirmPassword = document.getElementById("confirmPassword");
+                if (password === "" || password.length < 3 || password.length > 30) {
+                    error[7].innerText = '*Please enter a password between 3 and 30 characters.';
+                }
+                if (password !== confirmPassword) {
+                    error[7].innerText = '*Your password inputs do not match.';
+                }
                 error[7].className = "error_7";
                 error[7].style.fontSize = '.9rem';
                 error[7].style.color = '#C31F01';
                 formField.appendChild(error[7]);
-                input.style.borderColor = '#C31F01';
+                inputPassword.style.borderColor = '#C31F01';
+                inputConfirmPassword.style.borderColor = '#C31F01';
                 errorsThatExist[7] = true;
             }
         }
 
-        // Check if password fields match
-        if (password !== confirmPassword || password === "") {
-            if (!errorsThatExist[8]) {
-                // Render error text and change boolean
-                const formField = document.getElementsByClassName("signup_fields")[8];
-                const inputPassword = document.getElementById("password");
-                const inputConfirmPassword = document.getElementById("confirmPassword");
-                if (password === "") {
-                    error[8].innerHTML = '*Please enter a password.';
-                }
-                if (password !== confirmPassword) {
-                    error[8].innerHTML = '*Your password inputs do not match.';
-                }
-                error[8].className = "error_8";
-                error[8].style.fontSize = '.9rem';
-                error[8].style.color = '#C31F01';
-                formField.appendChild(error[8]);
-                inputPassword.style.borderColor = '#C31F01';
-                inputConfirmPassword.style.borderColor = '#C31F01';
-                errorsThatExist[8] = true;
-            }
-        }
+        // Input sanitization for redeemableCode
+        // for (let inputIndex = 0; inputIndex < redeemableCode.length; inputIndex++) {
+        //   if (redeemableCode[inputIndex] === "<") {
+        //     redeemableCode = redeemableCode.replace(redeemableCode[inputIndex], "&lt");
+        //   }
+        //   if (redeemableCode[inputIndex] === ">") {
+        //     redeemableCode = redeemableCode.replace(redeemableCode[inputIndex], "&gt");
+        //   }
+        //   if (redeemableCode[inputIndex] === "&") {
+        //     redeemableCode = redeemableCode.replace(redeemableCode[inputIndex], "&amp;");
+        //   }
+        // }
 
-        // Check for valid reedemable code input
+        // Check for valid redeemable code input offered in promotional email
         // if (redeemableCode === "XGDV9DJZ") {
         //     this.setState({
         //         hasReedemableCode: true
@@ -249,30 +315,37 @@ export default class SignUp extends Component {
         // }
 
         // Check if pay field is greater than 0
-        // if (payment === 0) {
-        //     if (!errorsThatExist[9]) {
-        //         // Render error text and change boolean
-        //         const formField = document.getElementsByClassName("signup_fields")[10];
-        //         const input = document.getElementById("payment");
-        //         error[9].innerHTML = '*Please enter a value greater than 0.';
-        //         error[9].className = "error_9";
-        //         error[9].style.fontSize = '.9rem';
-        //         error[9].style.color = '#C31F01';
-        //         formField.appendChild(error[9]);
-        //         input.style.borderColor = '#C31F01';
-        //         errorsThatExist[9] = true;
-        //     }
-        // }
+        // NOTE: If new user has redeemable code, they can bypass having to pay
+        if (payment === 0 && !this.state.hasReedemableCode) {
+            if (!errorsThatExist[8]) {
+                // Render error text and change boolean
+                const formField = document.getElementsByClassName("signup_fields")[8];
+                const input = document.getElementById("payment");
+                error[8].innerText = '*Please enter a value greater than 0.';
+                error[8].className = "error_8";
+                error[8].style.fontSize = '.9rem';
+                error[8].style.color = '#C31F01';
+                formField.appendChild(error[8]);
+                input.style.borderColor = '#C31F01';
+                errorsThatExist[8] = true;
+            }
+        }
 
         // Check if any errors exists before sending data to API
         for (let errorNo = 0; errorNo < errorsThatExist.length; errorNo++) {
             if (errorsThatExist[errorNo]) {
-                return;
+                return false;
             }
         }
 
-        // Write after-submit code here 
-        let addressID = 0; //not sure if variable needs to be declared here
+        // After-submit code
+
+        // Remove pop-up warning of unsaved data if user attempts to leave page
+        window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);    
+
+        this.setState({ listenerRemoved: true });
+    
+        /* let addressID = 0; //not sure if variable needs to be declared here
         let api_url = `http://localhost:8001/createAddress/${street}/${country}/${state}/${city}/${zip}/` ;
         axios.post(api_url)
         .then(res => {
@@ -284,7 +357,7 @@ export default class SignUp extends Component {
         .catch(error => {
             console.log("error");
             if (error.response){
-                // When response status code is out of 2xx range 
+                // When response status code is out of 2xx range
                 console.log(error.response.data)
                 console.log(error.response.status)
                 console.log(error.response.headers)
@@ -298,7 +371,7 @@ export default class SignUp extends Component {
 
         console.log("ADDRESSID: " + addressID);
         api_url = `http://localhost:8001/createUser/${addressID}/${email}/${password}/${firstName}/${lastName}/${birthday}/${gender}/${securityQuestion}/${securityAnswer}` ;
-        
+
         axios.post(api_url)
         //axios.post(api_url, {testChapter})
         .then(res => {
@@ -308,7 +381,7 @@ export default class SignUp extends Component {
         .catch(error => {
             console.log("error");
             if (error.response){
-                // When response status code is out of 2xx range 
+                // When response status code is out of 2xx range
                 console.log(error.response.data)
                 console.log(error.response.status)
                 console.log(error.response.headers)
@@ -318,29 +391,41 @@ export default class SignUp extends Component {
             } else {
                 console.log(error.message)
             }
-        });
+        }); */
     }
 
     componentDidMount() {
         // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
 
-        // This script tag is important htmlFor sign-up form to work properly. 
-        // Provides country data htmlFor users to help insert exact address location. 
+        // This script tag is important htmlFor sign-up form to work properly.
+        // Provides country data htmlFor users to help insert exact address location.
         // Source: https://geodata.solutions - Zane
         if (!this.props.geoDataExists) {
             const script = document.createElement("script");
 
             script.src = "//geodata.solutions/includes/countrystatecity.js";
             script.async = true;
-    
+
             document.body.appendChild(script);
 
             this.props.setGeoDataExists();
         }
+
+        // Add pop-up warning of unsaved data if user attempts to leave page
+        window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+        this.setState({ listenerRemoved: false });
+    } 
+
+    componentWillUnmount() {
+        if (!this.state.listenerRemoved) {
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);  
+        }
     }
 
-    render() { 
+    render() {
         return (
             <React.Fragment>
                 <div className="adoption_agreement">
@@ -366,7 +451,7 @@ export default class SignUp extends Component {
                         <strong><li>I will strive to establish a Native American Church Chapter in my area, if none is already present, and I will dedicate time, talent and resources, as suggested to me by the Spirit, to forward the purpose of that Chapter.</li></strong><br />
                     </ol><br />
                     <p>Covenant Obligations are the foundation of furthering the New Haven Native American Church's Ministry and Healing the World depends upon your faithfulness. If you feel that you can be true to the Declarations and can place yourself in at least one category above, then your request for Spiritual Adoption will be approved.</p><br />
-                </div>  
+                </div>
                 <React.Fragment>
                         <form className="signup_form" onSubmit={this.onSubmit}>
                             <div className="top_div center_text">
@@ -376,17 +461,19 @@ export default class SignUp extends Component {
                             <fieldset className="signup_fieldset">
                                 <div className="signup_fields">
                                     <label htmlFor="firstName">First Name</label><br />
-                                    <input className="signup_input" type="text" id="firstName" name="first_name" placeholder="First Name" /><br />
+                                    <input className="signup_input" type="text" id="firstName" name="first_name" maxLength="50" placeholder="First Name" /><br />
+                                    <label htmlFor="nickName">Nick Name</label><br />
+                                    <input className="signup_input" type="text" id="nickName" name="nick_name" maxLength="50" placeholder="Nick Name" /><br />
                                     <label htmlFor="lastName">Last Name</label><br />
-                                    <input className="signup_input" type="text" id="lastName" name="last_name" placeholder="Last Name" /><br />
+                                    <input className="signup_input" type="text" id="lastName" name="last_name" maxLength="50" placeholder="Last Name" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="email">Email</label><br />
-                                    <input className="signup_input" type="text" id="email" name="email" placeholder="Email" /><br />       
+                                    <input className="signup_input" type="text" id="email" name="email" maxLength="320" placeholder="Email" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="birthday">Birthday</label><br />
-                                    <input className="signup_input" type="date" id="birthday" name="birthday" /><br /> 
+                                    <input className="signup_input" type="date" id="birthday" name="birthday" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="gender">Gender</label><br />
@@ -399,7 +486,7 @@ export default class SignUp extends Component {
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="address">Physical Address</label><br />
-                                    <input className="signup_input" type="text" name="street" id="streetId" placeholder="Building number, Street name, Apartment ID" />
+                                    <input className="signup_input" type="text" name="street" id="streetId" maxLength="150" placeholder="Building number, Street name, Apartment ID" />
                                     <div className="geo_location">
                                         <select name="country" className="countries" id="countryId">
                                             <option value="">Select Country</option>
@@ -415,7 +502,7 @@ export default class SignUp extends Component {
                                             <option value="">Select City</option>
                                         </select>
                                     </div><br />
-                                    <input type="text" name="zip" id="zipId" placeholder="Zip" /><br />
+                                    <input type="text" name="zip" id="zipId" maxLength="10" placeholder="Zip" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="securityQuestion">Select your security question here</label><br />
@@ -424,17 +511,17 @@ export default class SignUp extends Component {
                                         <option value="question_1">What is your favorite car?</option>
                                         <option value="question_2">What city were you born in?</option>
                                         <option value="question_3">What is your favorite color?</option>
-                                    </select><br />  
+                                    </select><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="securityAnswer">Type your security answer here</label><br />
-                                    <input className="signup_input" type="text" id="securityAnswer" name="security_answer" placeholder="Type your security answer here" /><br />       
+                                    <input className="signup_input" type="text" id="securityAnswer" name="security_answer" maxLength="150" placeholder="Type your security answer here" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label htmlFor="password">Password</label><br />
-                                    <input className="signup_input" type="password" id="password" name="password" placeholder="Password" /><br />                   
+                                    <input className="signup_input" type="password" id="password" name="password" minLength="3" maxLength="30" placeholder="Password" /><br />
                                     <label htmlFor="confirm_password">Confirm Password</label><br />
-                                    <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" /><br />    
+                                    <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" placeholder="Confirm Password" /><br />
                                 </div>
                                 {/* Code snippet for newsletter checkbox, which is currently an unavailable feature in the beta release. - Zane */}
                                 {/*<div className="signup_fields">
@@ -446,7 +533,7 @@ export default class SignUp extends Component {
                                 {/* Insert e-signature widget here. */}
                                 <div className="signup_fields">
                                     <label htmlFor="redeemableCode">Redeemable Code</label><br />
-                                    <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" placeholder="Redeemable Code" /><br />          
+                                    <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" maxLength="8" placeholder="Redeemable Code" /><br />
                                 </div>
                                 <div className="signup_fields">
                                     <label className="center_text" htmlFor="payment">Pay Us What You'd Like</label><br />
@@ -475,7 +562,7 @@ export default class SignUp extends Component {
                             </fieldset>
                         </form>
                 </React.Fragment>
-            </React.Fragment> 
+            </React.Fragment>
         );
     }
 }
@@ -485,5 +572,9 @@ SignUp.propTypes = {
     geoDataExists: PropTypes.bool.isRequired,
     setGeoDataExists: PropTypes.func.isRequired,
     emailIsValid: PropTypes.func.isRequired,
-    reviseName: PropTypes.func.isRequired
+    reviseName: PropTypes.func.isRequired,
+    checkDates: PropTypes.func.isRequired,
+    changeBorderColor: PropTypes.func.isRequired,
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

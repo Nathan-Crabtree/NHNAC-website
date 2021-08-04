@@ -1,39 +1,55 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, { setGeoDataExists, onSubmit, resetToggleDisplay, emailIsValid, 
-  reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress, setSearchFilters, getSearchFilters } from './App';
+
+// App.js
+import App, { setGeoDataExists, onSubmit, resetToggleDisplay, emailIsValid,
+  reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress,
+  setSearchFilters, getSearchFilters, checkDates, urlIsValid, filePathIsValid, changeBorderColor, sanitizeInput,
+  desanitize, displayUnloadMessage } from './App';
+
+// Dynamic
+import { hideForm as hideFormAccountSettings, displayForm as displayFormAccountSettings, onSubmit as onSubmitAccountSettings, unsubscribe, displaySubscription } from './components/dynamic/AccountSettings';
+import { updateFilter, displayPageLinks, displayResults, displaySections, displaySimilarTags } from './components/dynamic/Search';
+import { onSubmit as onSubmitForgotPassword } from './components/dynamic/ForgotPassword';
+import { onSubmit as onSubmitLogin } from './components/dynamic/Login';
 import { toggleDisplayNav, onSubmit as onSubmitHeader } from './components/dynamic/Header';
-import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } from './components/Container';
-import { displayForm } from './components/Modal';
-import { onSubmit as onSubmitFeedback } from './components/Feedback';
-import { onSubmit as onSubmitReport } from './components/Report';
-import { onSubmit as onSubmitSignUp } from './components/static/SignUp';
-import { plusSides, currentSlide, showSlides, showSlidesAuto } from './components/static/Slideshow';
 import { setStateHandler } from './components/dynamic/Content';
 import { displayComments, hideComments, hideResponses, displayForm as displayFormArticle, hideForm,
          onSubmit as onSubmitArticle, displayTypeComponent, setTypeHeader, setTypeBackLink, displayProperContent } from './components/dynamic/Article';
 import { countDaysLeft } from './components/dynamic/Suspended';
 import { addAttendee, removeAttendee, displayAttendBtnOrForm } from './components/dynamic/EventType';
-import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable, 
+import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable,
   displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/ProfileUser';
 import { checkUserConnection, connectUser, cancelConnect } from './components/dynamic/ProfileViewer';
+import { getConnections } from './components/dynamic/DirectMessage';
 import { displayViewComponent } from './components/dynamic/Profile';
+
+// Static
+import { onSubmit as onSubmitSignUp } from './components/static/SignUp';
+import { plusSides, currentSlide, showSlides, showSlidesAuto } from './components/static/Slideshow';
 import { hideForm as hideFormRequestID, displayForm as displayFormRequestID, onSubmit as onSubmitRequestID } from './components/static/RequestID';
+import { onSubmit as onSubmitDeleted } from './components/static/Deleted';
+
+// Modals
 import { approveOrReject } from './components/Connections';
-import { displayConnections } from './components/dynamic/DirectMessage';
-import { hideForm as hideFormAccountSettings, displayForm as displayFormAccountSettings, onSubmit as onSubmitAccountSettings, unsubscribe, displaySubscription } from './components/dynamic/AccountSettings';
-import { updateFilter, displayPageLinks, displayResults, displaySections, displaySimilarTags } from './components/dynamic/Search';
+import { onSubmit as onSubmitNewsletter } from './components/Newsletter';
+import { onSubmit as onSubmitCookies } from './components/Cookies';
+import { showModal, closeModal, onKeyDown, onClickOutside, toggleScrollLock } from './components/Container';
+import { displayForm } from './components/Modal';
+import { onSubmit as onSubmitFeedback } from './components/Feedback';
+import { onSubmit as onSubmitReport } from './components/Report';
+import { copySharingLink } from './components/SharePodcast';
 
 /**
- *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app". 
+ *  Testing library for front-end. Includes boilerplate code originally by using "create-react-app".
  *  To run this file, use "npm test --env=jsdom". - Zane
- * 
+ *
  */
 
 /**
- *  NOTICE: Testing currently is not efficient. It offers no resourceful information for project debugging. 
+ *  NOTICE: Testing currently is not efficient. It offers no resourceful information for project debugging.
  *  App.test.js will be undergoing major maintenance soon. - Zane
- * 
+ *
  */
 
 const originalConsoleError = console.error;
@@ -112,6 +128,41 @@ it("doesn't output anything", () => {
 // getSearchFilters testing; src: client/src/components/static/App.js
 it("doesn't output anything", () => {
   expect(getSearchFilters).toBeUndefined();
+});
+
+// checkDates testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(checkDates).toBeUndefined();
+});
+
+// urlIsValid testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(urlIsValid).toBeUndefined();
+});
+
+// filePathIsValid testing; src: client/src/components/static/App.js
+it("doesn't output anything", () => {
+  expect(filePathIsValid).toBeUndefined();
+});
+
+// changeBorderColor testing; src: client/src/components/dynamic/App.js
+it("doesn't output anything", () => {
+  expect(changeBorderColor).toBeUndefined();
+});
+
+// sanitizeInput testing; src: client/src/components/dynamic/App.js
+it("doesn't output anything", () => {
+  expect(sanitizeInput).toBeUndefined();
+});
+
+// desanitize testing; src: client/src/components/dynamic/App.js
+it("doesn't output anything", () => {
+  expect(desanitize).toBeUndefined();
+});
+
+// displayUnloadMessage testing; src: client/src/components/Article.js
+it("doesn't output anything", () => {
+  expect(displayUnloadMessage).toBeUndefined();
 });
 
 // CONTAINER.JS FUNCTION(S)
@@ -378,9 +429,9 @@ it("doesn't output anything", () => {
 
 // DIRECTMESSAGE.JS FUNCTION(S)
 
-// displayConnections testing; src: client/src/components/dynamic/DirectMessage.js
+// getConnections testing; src: client/src/components/dynamic/DirectMessage.js
 it("doesn't output anything", () => {
-  expect(displayConnections).toBeUndefined();
+  expect(getConnections).toBeUndefined();
 });
 
 // ACCOUNTSETTINGS.JS FUNCTION(S)
@@ -437,3 +488,45 @@ it("doesn't output anything", () => {
   expect(displaySimilarTags).toBeUndefined();
 });
 
+// FORGOTPASSWORD.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/dynamic/ForgotPassword.js
+it("doesn't output anything", () => {
+  expect(onSubmitForgotPassword).toBeUndefined();
+});
+
+// LOGIN.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/dynamic/Login.js
+it("doesn't output anything", () => {
+  expect(onSubmitLogin).toBeUndefined();
+});
+
+// DELETED.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/static/Deleted.js
+it("doesn't output anything", () => {
+  expect(onSubmitDeleted).toBeUndefined();
+});
+
+// NEWSLETTER.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/Newsletter.js
+it("doesn't output anything", () => {
+  expect(onSubmitNewsletter).toBeUndefined();
+});
+
+// COOKIES.JS FUNCTION(S)
+
+// onSubmit testing; src: client/src/components/Cookies.js
+it("doesn't output anything", () => {
+  expect(onSubmitCookies).toBeUndefined();
+});
+
+
+// SHAREPODCAST.JS FUNCTION(S)
+
+// copySharingLink testing; src: client/src/components/SharePodcast.js
+it("doesn't output anything", () => {
+  expect(copySharingLink).toBeUndefined();
+});
