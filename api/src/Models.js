@@ -1,3 +1,4 @@
+"use strict";
 // NOTE: Role and UserRole still need associations. - Zane
 
 //var babel = require("@babel/core");
