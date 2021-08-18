@@ -247,6 +247,12 @@ To set up your environment head into your “api” and “client” directories
 ```
 npm install
 ```
+ 
+If you're working on the front-end, be sure to have Sass installed via:
+ 
+```
+npm install -g sass
+```
 
 To run the servers in each directory, simply put in the terminal for both:
 
