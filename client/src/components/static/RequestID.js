@@ -58,8 +58,12 @@ export default class RequestID extends Component {
             document.getElementsByClassName("edit_status_btn")[classNameIndex].style.display = "none";
             document.getElementsByClassName("signup_fields")[classNameIndex].firstChild.nextSibling.style.display = "none";
 
-            // Add pop-up warning of unsaved data if user attempts to leave page
-            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.addEventListener) { // If event lister supported
+                // Add pop-up warning of unsaved data if user attempts to leave page
+                window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.attachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: true });
         }
@@ -77,8 +81,12 @@ export default class RequestID extends Component {
             document.getElementsByClassName("edit_status_btn")[classNameIndex].style.display = "block";
             document.getElementsByClassName("signup_fields")[classNameIndex].firstChild.nextSibling.style.display = "block";
 
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: false })
         }
@@ -92,6 +100,11 @@ export default class RequestID extends Component {
      * @returns {boolean} false
      */
     onSubmit(e, form) {
+        // Use IE5-8 fallback if event object not present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault();
 
         let errorsThatExist = this.state.errorsThatExist;
@@ -243,8 +256,12 @@ export default class RequestID extends Component {
 
             // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected
 
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             // Redirect to form submitted page
             for (let data = 0; data < userData.length; data++) {
@@ -278,8 +295,12 @@ export default class RequestID extends Component {
 
     componentWillUnmount() {
         if (this.state.formActive) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
         }
     }
 

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Container from '../Container';
 import queryString from 'query-string';
 
+var CryptoJS = require("crypto-js");
+
 export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubscribe, displaySubscription }) => {
   const [userId, setUserId] = useState(null);
   const [editProfilePic, setEditProfilePic] = useState(null);
@@ -25,6 +27,11 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
   * @returns {boolean} false
   */
   onSubmit = (e, tagID) => {
+      // Use IE5-8 fallback if event object isn't present
+      if (!e) {
+        e = window.event;
+      }
+
       e.preventDefault();
       console.log(e.target.className);
 
@@ -77,8 +84,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
 
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -151,8 +162,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
               setNumOfActiveForms(numOfActiveForms - 1);
 
               if (numOfActiveForms === 0) {
-                // Remove pop-up warning of unsaved data if user attempts to leave page
-                window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                if (window.removeEventListener) { // If event listener supported
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                } else {
+                  window.detachEvent("beforeunload", props.displayUnloadMessage);
+                }
 
                 if (formsActive) {
                   setFormsActive(false);
@@ -197,8 +212,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                 
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -243,8 +262,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                 
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -289,8 +312,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                 
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -356,8 +383,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
               setNumOfActiveForms(numOfActiveForms - 1);
                 
               if (numOfActiveForms === 0) {
-                // Remove pop-up warning of unsaved data if user attempts to leave page
-                window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                if (window.removeEventListener) { // If event listener supported
+                  // Remove pop-up warning of unsaved data if user attempts to leave page
+                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                } else {
+                  window.detachEvent("beforeunload", props.displayUnloadMessage);
+                }
 
                 if (formsActive) {
                   setFormsActive(false);
@@ -412,8 +443,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                   
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -489,8 +524,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                   
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -553,8 +592,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                 setNumOfActiveForms(numOfActiveForms - 1);
                   
                 if (numOfActiveForms === 0) {
-                  // Remove pop-up warning of unsaved data if user attempts to leave page
-                  window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+                  } else {
+                    window.detachEvent("beforeunload", props.displayUnloadMessage);
+                  }
 
                   if (formsActive) {
                     setFormsActive(false);
@@ -593,8 +636,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     setNumOfActiveForms(numOfActiveForms - 1);
 
     if (numOfActiveForms === 0) {
-      // Remove pop-up warning of unsaved data if user attempts to leave page
-      window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+      if (window.removeEventListener) { // If event listener supported
+        // Remove pop-up warning of unsaved data if user attempts to leave page
+        window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+      } else {
+        window.detachEvent("beforeunload", props.displayUnloadMessage);
+      }
 
       if (formsActive) {
         setFormsActive(false);
@@ -616,8 +663,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     setNumOfActiveForms(numOfActiveForms + 1);
 
     if (numOfActiveForms > 0 && !formsActive) {
-      // Remove pop-up warning of unsaved data if user attempts to leave page
-      window.addEventListener("beforeunload", props.displayUnloadMessage, false);
+      if (window.addEventListener) { // If event listener supported
+        // Remove pop-up warning of unsaved data if user attempts to leave page
+        window.addEventListener("beforeunload", props.displayUnloadMessage, false);
+      } else {
+        window.attachEvent("beforeunload", props.displayUnloadMessage);
+      }
       
       setFormsActive(true);
     }
@@ -671,7 +722,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    setUserId(parsedQString.userid);
+    setUserId(CryptoJS.AES.decrypt(props.match.params.userId, 'doGeAtCaT12107;/\)').toString(CryptoJS.enc.Utf8));
     setEditProfilePic(parsedQString.edit_profile_pic);
 
     // Display "Edit Profile Picture" form if editProfilePic is true
@@ -698,8 +749,12 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
 
     // componentWillUnmount() substitute for React Hooks 
     return () => {
-      // Remove pop-up warning of unsaved data if user attempts to leave page
-      window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+      if (window.removeEventListener) { // If event listener supported
+        // Remove pop-up warning of unsaved data if user attempts to leave page
+        window.removeEventListener("beforeunload", props.displayUnloadMessage, false);
+      } else {
+        window.detachEvent("beforeunload", props.displayUnloadMessage);
+      }
     }
   }, [props, editProfilePic]);
 
@@ -770,7 +825,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           </form>
           <button onClick={ () => { displayForm("status") } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
         </div>
-        <Link to="/id_request?userid=1">Request new ID card</Link><br />
+        <Link to={`/id_request/${CryptoJS.AES.encrypt(userId, 'doGeAtCaT12107;/\)').toString()}`}>Request new ID card</Link><br />
         <Container onSubmit={props.onSubmit} triggerText="Delete Account" /><br />
         {/* Social Media Links */}
         <div>

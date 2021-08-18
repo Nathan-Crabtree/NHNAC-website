@@ -16,43 +16,42 @@
 // About
 
 .donate_image {
-    @include img-properties;
-    width: 100%;
+    @include img-properties(100%);
 }
 
 .donate_image_desc {
-    @include img-desc-properties;
+    @extend %img-desc-properties;
 }
 
 .tribe_image {
-    @include img-properties;
-    @include center;
+    @include img-properties(initial);
+    @extend %center;
 }
 
 .tribe_image_desc {
-    @include img-desc-properties;
+    @extend %img-desc-properties;
     margin: -20px 30.75% 0 30.75%;
 }
 
 .indian_image {
-    @include center;
+    @extend %center;
     width: 50%;
     height: auto;
 }
 
 .indian_image_desc {
-    @include img-desc-properties;
+    @extend %img-desc-properties;
     margin: -30px 25.75% 0 25.75%;
 }
 
 iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
-    @include center;
+    @extend %center;
 }
 
 // Donate
 
 .image_display {
-    @include center;
+    @extend %center;
     width: 100%;
 }
 
@@ -80,14 +79,14 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
 }
 
 .paypal_bitcoin {
-    @include center;
+    @extend %center;
 }
 
 // Content
 
 .podcast_img {
    width: 454.3px;
-   height: auto; 
+   height: auto;
 }
 
 // Article
@@ -98,15 +97,14 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
         width: $nh-article-img-m-width;
     }
     &_image {
-        width: $nh-article-img-width;
-        @include center;
-        @include img-properties;
+        @extend %center;
+        @include img-properties($nh-article-img-width);
     }
     &_image_desc {
         width: $nh-article-img-width;
-        margin: auto !important;
-        margin-top: -20px !important;
-        @include img-desc-properties;
+        margin: auto;
+        margin-top: -20px;
+        @extend %img-desc-properties;
     }
 }
 
@@ -141,6 +139,7 @@ iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
         height: $nh-profile-img-m-height;
     }
     &_large {
+        padding-bottom: $nh-padding-m;
         width: $nh-profile-img-l-width;
         height: $nh-profile-img-l-height;
     }

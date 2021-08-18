@@ -8,6 +8,8 @@ import markerIconPng from "../../../node_modules/leaflet/dist/images/marker-icon
 import { Icon } from 'leaflet'
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
+var CryptoJS = require("crypto-js");
+
 export default class EventType extends Component {
 
     constructor() {
@@ -22,6 +24,7 @@ export default class EventType extends Component {
         this.removeAttendee = this.removeAttendee.bind(this);
         this.addAttendee = this.addAttendee.bind(this);
         this.displayAttendBtnOrForm = this.displayAttendBtnOrForm.bind(this);
+        this.displayAttendees = this.displayAttendees.bind(this);
     }
 
     /**
@@ -39,6 +42,11 @@ export default class EventType extends Component {
      */
     addAttendee(e) {
         let errorExists = false;
+
+        // Use IE5-8 fallback if event object isn't present
+        if (!e) {
+            e = window.event;
+        }
 
         e.preventDefault();
 
@@ -112,7 +120,7 @@ export default class EventType extends Component {
         // Render proper component according to state variables
         if (!this.props.isAuthenticated) {
             if (this.state.attending) {
-                return <button onClick={ () => { window.location.href = "#"; } } className="paypal_btn">Fund this event</button>;
+                return <button onClick={ () => { } } className="paypal_btn">Fund this event</button>;
             } else {
                 return <form className="guest_form" onSubmit={this.addAttendee}>
                             <fieldset>
@@ -124,10 +132,71 @@ export default class EventType extends Component {
             }
         } else {
             if (this.state.attending) {
-                return <button onClick={ () => { window.location.href = "#"; } } className="paypal_btn">Fund this event</button>;
+                return <button onClick={ () => { } } className="paypal_btn">Fund this event</button>;
             } else {
                 return <button onClick={this.addAttendee} className="paypal_btn">Click to attend</button>;
             }
+        }
+    }
+
+    /**
+     * displayAttendees function() - Queries for users that return true for attending the specific event and renders their profile page links 
+     * and photos within the returned component.
+     * NOTE: In rough stage. - Zane
+     * 
+     * @returns {class} Component - A React Component.
+     */
+    displayAttendees() {
+        if (this.props.isAuthenticated) {
+            return <section>
+                <h2>Going to event (3)</h2>
+                <ul>
+                    <li>
+                        <button className="_modal-close" onClick={this.removeAttendee} ><svg className="_modal-close-icon" viewBox="0 0 40 40">
+                            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+                        </svg></button>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                    <li>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                    <li>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                </ul>
+                <Link to="/">Click here to see more</Link>
+            </section>
+        } else {
+            return <section>
+                <h2>Going to event (3)</h2>
+                <ul>
+                    <li>
+                        <button className="_modal-close" onClick={this.removeAttendee} ><svg className="_modal-close-icon" viewBox="0 0 40 40">
+                            <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
+                        </svg></button>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to="/login">Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                    <li>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to="/login">Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                    <li>
+                        <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
+                        <h4><Link to="/login">Milton Miles</Link></h4>
+                    </li>
+                    <li><hr /></li>
+                </ul>
+                <Link to="/">Click here to see more</Link>
+            </section>            
         }
     }
 
@@ -173,30 +242,7 @@ export default class EventType extends Component {
                 </article>
                 <div className="event_info_container">
                     <div className="event_attendees_div">
-                        <section>
-                            <h2>Going to event (3)</h2>
-                            <ul>
-                                <li>
-                                    <button className="_modal-close" onClick={this.removeAttendee} ><svg className="_modal-close-icon" viewBox="0 0 40 40">
-                                        <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
-                                    </svg></button>
-                                    <p><img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." /></p>
-                                    <p><b>Milton Miles</b></p>
-                                </li>
-                                <li><hr /></li>
-                                <li>
-                                    <p><img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." /></p>
-                                    <p><b>Milton Miles</b></p>
-                                </li>
-                                <li><hr /></li>
-                                <li>
-                                    <p><img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." /></p>
-                                    <p><b>Milton Miles</b></p>
-                                </li>
-                                <li><hr /></li>
-                            </ul>
-                            <Link to="/">Click here to see more</Link>
-                        </section>
+                        { this.displayAttendees() }
                         { this.displayAttendBtnOrForm() }
                     </div>
                     <section className="location_time_section">
@@ -221,9 +267,9 @@ export default class EventType extends Component {
                 </div>
                 <aside className="bottom_aside_container">
                     <div>
-                        <Link to="/search?query=#tag1&page=1">#tag1</Link>
-                        <Link to="/search?query=#tag2&page=1">#tag2</Link>
-                        <Link to="/search?query=#tag3&page=1">#tag3</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                     </div>
                     <div>
                         <ul>
@@ -246,7 +292,7 @@ export default class EventType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to="/profile?userid=1&view=viewer">Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -284,6 +330,7 @@ export default class EventType extends Component {
                                 <ul>
                                     <li><button onClick={ () => { this.props.displayForm("comment_form_1_0", "comment_content_1_0", true) } } className="text_btn" type="button"><b>Edit</b></button></li>
                                     <li><button onClick={ () => {} } className="text_btn" type="button"><b>Delete</b></button></li>
+                                    {/* Report feature is currently disabled. - Zane */}
                                     {/*<li><Container onSubmit={this.props.onSubmitApp} triggerText="Report" /></li>*/}
                                 </ul>
                                 <div className="response_section_container">
@@ -292,7 +339,7 @@ export default class EventType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to="/profile?userid=1&view=viewer">Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>
@@ -329,6 +376,7 @@ export default class EventType extends Component {
                                             <ul>
                                                 <li><button onClick={ () => { this.props.displayForm("comment_form_1_1", "comment_content_1_1", true, true) } } className="text_btn" type="button"><b>Edit</b></button></li>
                                                 <li><button onClick={ () => {} } className="text_btn" type="button"><b>Delete</b></button></li>
+                                                {/* Report feature is currently disabled. - Zane */}
                                                 {/*<li><Container onSubmit={this.props.onSubmitApp} triggerText="Report" /></li>*/}
                                             </ul>
                                             <hr />

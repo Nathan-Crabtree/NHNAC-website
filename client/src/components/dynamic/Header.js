@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Content from './Content';
 import Container from '../Container';
 
-export default class Header extends Component {
+var CryptoJS = require("crypto-js");
+
+class Header extends Component {
 
     constructor() {
         super();
@@ -41,6 +43,7 @@ export default class Header extends Component {
      *  filter: brightness(50%);
      *  position: relative;
      *  z-index: -1;
+     * 
      */
     toggleDisplayNav() {
         if (this.state.toggleDisplay) {
@@ -116,13 +119,18 @@ export default class Header extends Component {
      * @returns {boolean} false
      */
     onSubmit(e) {
+        // Use IE5-8 fallback if event object isn't present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault();
 
         let searchQuery = e.target.search.value;
 
         // Check if search input is less than 500 characters
         if (searchQuery.length < 500) {
-            window.location.href = `/search?query=${encodeURIComponent(searchQuery)}&page=1`;
+            this.props.history.push(`/search?query=${encodeURIComponent(searchQuery)}&page=1`);
         } else {
             return false;
         }
@@ -152,13 +160,13 @@ export default class Header extends Component {
                         { this.props.isAuthenticated ?
                             <ul className="header_links">
                                 <li className="dropdown">
-                                    <Link to="/profile?userid=1&view=user&customize=false">Profile</Link>
+                                    <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?view=user&customize=false`}>Profile</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/account_settings?userid=1&edit_profile_pic=false">Account Settings</Link>
-                                        <Link to="/profile?userid=1&view=user&customize=true">Customize Page</Link>
-                                        <Link to="/direct_message?senderid=1&receiverid=null">Messages</Link>
+                                        <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?edit_profile_pic=false`}>Account Settings</Link>
+                                        <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?view=user&customize=true`}>Customize Page</Link>
+                                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`}>Messages</Link>
                                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
-                                        <Link to="/id_request?userid=1">Request ID</Link>
+                                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}`}>Request ID</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -181,13 +189,13 @@ export default class Header extends Component {
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content?header=articles" onClick={ () => <Content /> }>Articles</Link>
+                                    <Link to="/content/articles" onClick={ () => <Content /> }>Articles</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content?header=news" onClick={ () => <Content /> }>News</Link>
-                                        <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content/news" onClick={ () => <Content /> }>News</Link>
+                                        <Link to="/content/updates" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content/blogs" onClick={ () => <Content /> }>Blogs</Link>
                                         {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
-                                        {/* <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
+                                        {/* <Link to="/content/podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -205,13 +213,13 @@ export default class Header extends Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content?header=news" onClick={ () => <Content /> }>News</Link>
+                                    <Link to="/content/news" onClick={ () => <Content /> }>News</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content?header=articles" onClick={ () => <Content /> }>Articles</Link>
-                                        <Link to="/content?header=updates" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content?header=blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content/articles" onClick={ () => <Content /> }>Articles</Link>
+                                        <Link to="/content/updates" onClick={ () => <Content /> }>Updates</Link>
+                                        <Link to="/content/blogs" onClick={ () => <Content /> }>Blogs</Link>
                                         {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
-                                        {/* <Link to="/content?header=podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
+                                        {/* <Link to="/content/podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -236,6 +244,8 @@ export default class Header extends Component {
         );
     }
 }
+
+export default withRouter(Header);
 
 // PropTypes for jest testing in App.test.js
 Header.propTypes = {

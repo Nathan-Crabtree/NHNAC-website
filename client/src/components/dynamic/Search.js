@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString, { parse } from 'query-string';
 
+var CryptoJS = require("crypto-js");
+
 export const Search = (props) => {
   // Source: https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react - Zane 
   const [, updateState] = React.useState();
@@ -130,7 +132,7 @@ export const Search = (props) => {
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    setQuery(parsedQString.query);
+    setQuery(decodeURIComponent(parsedQString.query));
     setQPage(parseInt(parsedQString.page));
 
     // Check if tag or not
@@ -170,11 +172,11 @@ export const Search = (props) => {
                     {/* Hard-coded ul is for reference only. - Zane */}
                     <ul>
                         <li>
-                            Did you mean <Link to="/search?query=monk&page=1">monk</Link>
+                            Did you mean <Link to={`/search?query=${encodeURIComponent("monk")}&page=1`}>monk</Link>
                         </li>
                         <li>, or </li>
                         <li>
-                            <Link to="/search?query=monkier&page=1">monkier</Link>?
+                            <Link to={`/search?query=${encodeURIComponent("monkier")}&page=1`}>monkier</Link>?
                         </li>
                     </ul>
                 </div>
@@ -183,220 +185,220 @@ export const Search = (props) => {
                     { displaySections }
                     {/* Hard-coded sections are for reference only. - Zane */}
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
                         </div>
                     </section>
                     <section>
-                        <Link to="/article?type=article&id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
-                        <blockquote cite="/article?type=article&id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
+                        <Link to="/article/article?id=1">Lorem ipsum dolor sit amet, consectetur adipiscing elit?</Link>
+                        <blockquote cite="/article/article?id=1"><q>Imperdiet proin fermentum leo vel orci. Habitasse platea dictumst 
                         vestibulum rhoncus est pellentesque. <mark>Mauris</mark> commodo quis 
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <p>by Milton Miles</p>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to="/search?query=%23tag1&page=1">#tag1</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag2&page=1">#tag2</Link>,&nbsp;
-                                    <Link to="/search?query=%23tag3&page=1">#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -408,29 +410,29 @@ export const Search = (props) => {
                 {/* Hard-coded ul is for reference only. - Zane */}
                 <ul>
                     <li>
-                        <Link to="/search?query=monkeys&page=1">Previous Page</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=1`}>Previous Page</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=1">1</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=1`}>1</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=2">2</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=2`}>2</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=3&">3</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=3`}>3</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=5&filter=4">4</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=4&filter=4`}>4</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=6&filter=5">5</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=5&filter=5`}>5</Link>
                     </li>
                     <li>...</li>
                     <li>
-                        <Link to="/search?query=monkeys&page=6&filter=50">50</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=50&filter=6`}>50</Link>
                     </li>
                     <li>
-                        <Link to="/search?query=monkeys&page=2&filter=2">Next Page</Link>
+                        <Link to={`/search?query=${encodeURIComponent("monkeys")}&page=2&filter=2`}>Next Page</Link>
                     </li>
                 </ul>
             </div>

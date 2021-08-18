@@ -1,7 +1,8 @@
 nav ul,
 footer > div,
 footer > div:last-child ul  {
-    @include flexbox;
+    display: flex;
+    justify-content: center;
 }
 
 // NOTE: These child tags don't have > because they cause a bug. - Zane
@@ -59,7 +60,7 @@ a {
 }
 
 .experiences_div {
-    @include center;
+    @extend %center;
     width: 25%;
 }
 
@@ -72,8 +73,8 @@ a {
 
 .image_credits_div {
   padding-top: 25px;
-  @include center;
-  width: 40%;
+  @extend %center;
+  width: 37%;
   > h3 {
     text-align: center;
   }
@@ -84,14 +85,14 @@ a {
 .content_container1 {
     > section {
         @extend %div_section;
-        margin: 25px 0;
-        width: calc(649px*.90);
+        margin: $nh-main-margin;
+        width: 584.1px; // calc(649px * .9)
         h3 {
             text-align: center;
         }
     }
     > button {
-        @include center;
+        @extend %center;
     }
 }
 
@@ -120,19 +121,19 @@ a {
     .event_info {
         width: 50%;
     }
-    margin: 10px;
+    margin: $nh-margin-s;
 }
 
 .sub_article {
     &_content {
         float: right;
         clear: right;
-        margin: 0 10px 10px 10px; /* top right bottom left */
+        margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s; /* top right bottom left */
     }
     &_tags {
         float: left;
         clear: left;
-        margin: 0 10px 10px 10px;
+        margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s;
     }
 }
 
@@ -145,7 +146,7 @@ a {
         }
     }
     > button {
-        @include center;
+        @extend %center;
     }
 }
 
@@ -172,7 +173,7 @@ a {
 }
 
 .location_time_section {
-    @include center;
+    @extend %center;
     @extend %content_container_section;
     margin-top: 45px;
     padding: $nh-padding-l $nh-padding-l;
@@ -182,7 +183,7 @@ a {
 }
 
 .event_attendees_div {
-    @include center;
+    @extend %center;
     padding-top: $nh-padding-l;
     width: 40%;
     > section {
@@ -190,11 +191,12 @@ a {
         @extend %profile_container_section_ul;
     }
     > button {
-        @include center;
+        @extend %center;
     }
 }
 
 .event_info_container {
+    padding-right: 80px;
     display: flex;
 }
 
@@ -248,10 +250,12 @@ a {
     position: relative;
 }
 
+// NOTE: Temporary styling. Needs to be corrected. - Zane
 .blur_text_container {
     position: absolute;
     top: 125%;
     right: 31%;
+    text-align: center;
 }
 
 .figure_podcast {
@@ -269,7 +273,7 @@ a {
         float: left;
         > img {
             float: left;
-            margin: 10px 10px 0 0;
+            margin: $nh-margin-s $nh-margin-s 0 0;
         }
         > div {
             float: right;
@@ -296,7 +300,7 @@ a {
             padding-bottom: $nh-padding-xs;
             > ul {
                 list-style-type: none;
-                padding: 15px 0 5px 0;
+                padding: $nh-padding-m 0 $nh-padding-xs 0;
                 font-size: $nh-font-small;
                 > li {
                     display: inline-block;
@@ -321,11 +325,11 @@ a {
             float: left;
             > img {
                 float: left;
-                margin: 10px 10px 0 0;
+                margin: $nh-margin-s $nh-margin-s 0 0;
             }
             > div {
                 float: right;
-                margin: -10px 0 0 10px;
+                margin: -10px 0 0 $nh-margin-s;
                 > div > p {
                     margin-top: -5px;
                     font-size: $nh-font-small;
@@ -366,28 +370,13 @@ a {
 
 .profile_container1 {
     float: left;
+    width: 58.7%;
     > div:first-of-type {
         > div:first-of-type {
             float: left;
             padding-right: $nh-padding-xl;
             .profile_img_large {
                 position: absolute;
-            }
-            > button {
-                position: relative;
-                color: #FFFCF4;
-                background-color: lightgray;
-                border: none;
-                cursor: pointer;
-                margin: 207px 0 0 9px;
-                width: 314px;
-                height: 33px;
-                &:hover {
-                    background-color: lightgray !important;
-                }
-                &:active {
-                    background-color: #a09e9e !important;
-                }
             }
         }
         > section:first-of-type {
@@ -427,7 +416,7 @@ a {
         }
     }
     > button {
-        margin: 25px 0;
+        margin: $nh-main-margin;
         width: 332px;
         > h4 {
             margin-top: 5px;
@@ -462,7 +451,7 @@ a {
                 border-radius: 25px;
                 margin-bottom: 15px;
                 > button {
-                    @include center;
+                    @extend %center;
                     &:hover {
                         text-decoration: none;
                     }
@@ -558,7 +547,7 @@ a {
 // Account Settings
 
 .account_settings_container {
-    @include center;
+    @extend %center;
     width: 63%;
     padding-bottom: $nh-signup-padding-bottom;
     > div:first-of-type {
@@ -566,22 +555,6 @@ a {
         padding-right: $nh-padding-xl;
         .profile_img_large {
             position: absolute;
-        }
-        > button {
-            position: relative;
-            color: #FFFCF4;
-            background-color: lightgray;
-            border: none;
-            cursor: pointer;
-            margin: 207px 0 0 9px;
-            width: 314px;
-            height: 33px;
-            &:hover {
-                background-color: lightgray !important;
-            }
-            &:active {
-                background-color: #a09e9e !important;
-            }
         }
     }
     > div:nth-of-type(2) {
@@ -613,7 +586,7 @@ a {
 // Search
 
 .search_container {
-    @include center;
+    @extend %center;
     display: block;
     width: 90%;
     > div {
@@ -633,7 +606,7 @@ a {
             > section {
                 padding: $nh-padding-s;
                 @extend %div_section;
-                margin: 25px 0;
+                margin: $nh-main-margin;
                 > a {
                     margin: 8px;
                 }
@@ -656,7 +629,7 @@ a {
             }
         }
         > ul {
-            @include center;
+            @extend %center;
             width: 75%;
             > li {
                 display: inline;

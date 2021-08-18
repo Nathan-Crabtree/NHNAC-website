@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Container from '../Container';
 
-export default class ProfileUser extends Component {
+var CryptoJS = require("crypto-js");
+
+class ProfileUser extends Component {
 
     constructor() {
         super();
@@ -35,8 +37,12 @@ export default class ProfileUser extends Component {
         document.getElementsByClassName("status_p")[0].style.display = "none";
 
         if (!this.state.formActive) {
-            // Add pop-up warning of unsaved data if user attempts to leave page
-            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.addEventListener) { // If event listener supported
+                // Add pop-up warning of unsaved data if user attempts to leave page
+                window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.attachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: true });
         }
@@ -52,8 +58,12 @@ export default class ProfileUser extends Component {
         document.getElementsByClassName("status_p")[0].style.display = "block";
 
         if (this.state.formActive) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: false});
         }
@@ -66,7 +76,13 @@ export default class ProfileUser extends Component {
      * @param {object} e
      */
     onSubmit(e) {
+        // Use IE5-8 fallback if event object not present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault();
+
         console.log(e.target.status.value);
 
         let status = e.target.status.value;
@@ -89,8 +105,12 @@ export default class ProfileUser extends Component {
         } else {
             // Do code here
 
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: false });
         }
@@ -196,6 +216,10 @@ export default class ProfileUser extends Component {
 
         for (let dataTable = 0; dataTable < dataTables.length; dataTable++) {
             dataTables[dataTable].addEventListener("dragstart", e => {
+                // Use IE5-8 fallback if event object not present
+                if (!e) {
+                    e = window.event;
+                }
                 e.dataTransfer.setData("text/plain", dataTables[dataTable].id);
                 this.setState({ clickedDataTable: dataTables[dataTable] });
                 this.state.clickedDataTable.classList.add("table--clicked");
@@ -207,36 +231,49 @@ export default class ProfileUser extends Component {
         }
 
         for (const dropZone of document.querySelectorAll(".profile_drop_zone")) {
-            // When draggable element is over a drop zone
-            dropZone.addEventListener("dragover", e => {
-                e.preventDefault();
-                dropZone.classList.add("profile_drop_zone--over");
-                if (dropZone.children.length < 1) {
-                    dropZone.classList.add("profile_drop_zone--empty");
-                }
-            });
+            if (dropZone.addEventListener) { // If event listener supported
+                // When draggable element is over a drop zone
+                dropZone.addEventListener("dragover", e => {
+                    // Use IE5-8 fallback if event object not present
+                    if (!e) {
+                        e = window.event;
+                    }
 
-            // When draggable element is no longer over drop zone
-            dropZone.addEventListener("dragleave", e => {
-                dropZone.classList.remove("profile_drop_zone--over");
-                dropZone.classList.remove("profile_drop_zone--empty");
-            });
+                    e.preventDefault();
+                    
+                    dropZone.classList.add("profile_drop_zone--over");
+                    if (dropZone.children.length < 1) {
+                        dropZone.classList.add("profile_drop_zone--empty");
+                    }
+                });
+    
+                // When draggable element is no longer over drop zone
+                dropZone.addEventListener("dragleave", e => {
+                    dropZone.classList.remove("profile_drop_zone--over");
+                    dropZone.classList.remove("profile_drop_zone--empty");
+                });
+    
+                // When draggable element is dropped onto drop zone
+                dropZone.addEventListener("drop", e => {
+                    // Use IE5-8 fallback if event object not present
+                    if (!e) {
+                        e = window.event;
+                    }
 
-            // When draggable element is dropped onto drop zone
-            dropZone.addEventListener("drop", e => {
-                e.preventDefault();
-
-                const droppedElementId = e.dataTransfer.getData("text/plain");
-                const droppedElement = document.getElementById(droppedElementId);
-
-                if (dropZone.children.length < 1) {
-                    dropZone.appendChild(droppedElement);
-                }
-
-                dropZone.classList.remove("profile_drop_zone--over");
-                dropZone.classList.remove("profile_drop_zone--empty");
-                this.state.clickedDataTable.classList.remove("table--clicked");
-            });
+                    e.preventDefault();
+    
+                    const droppedElementId = e.dataTransfer.getData("text/plain");
+                    const droppedElement = document.getElementById(droppedElementId);
+    
+                    if (dropZone.children.length < 1) {
+                        dropZone.appendChild(droppedElement);
+                    }
+    
+                    dropZone.classList.remove("profile_drop_zone--over");
+                    dropZone.classList.remove("profile_drop_zone--empty");
+                    this.state.clickedDataTable.classList.remove("table--clicked");
+                });
+            }
         }
     }
 
@@ -249,7 +286,7 @@ export default class ProfileUser extends Component {
         // Check the styling of each data table to see if any changes need to made for user's preference data on back-end
 
         // Force reload the page to show new settings and revert changed styling
-        window.location.href = '/profile?userid=1&view=user';
+        this.props.history.push(`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?view=user`);
     }
 
     componentDidMount() {
@@ -260,8 +297,13 @@ export default class ProfileUser extends Component {
 
     componentWillUnmount() {
         if (this.state.formActive) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
         }
     }
 
@@ -283,7 +325,7 @@ export default class ProfileUser extends Component {
                     <div>
                         <div>
                             <img className="profile_img_large" srcSet={profileImgLarge} alt="Portrait of user." />
-                            <button onClick={ () => { window.location.href="/account_settings?userid=1&edit_profile_pic=true" } } type="button">Edit Profile Picture</button>
+                            <button onClick={ () => { this.props.history.push(`/account_settings/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?edit_profile_pic=true`) } } className="edit_profile_pic_btn" type="button">Edit Profile Picture</button>
                         </div>
                         <section>
                             <h2>Harper "Kiss" Young</h2>
@@ -305,10 +347,11 @@ export default class ProfileUser extends Component {
                                         <button className="submit_btn submit_padding" type="submit">Submit</button>
                                     </fieldset>
                                 </form>
+                                {/* NOTE: Class "edit_status_btn" is kept for display and hiding functionality. - Zane */}
                                 <button onClick={ () => { this.displayForm() } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                             </div>
                             <div className="clear"></div>
-                            <Link to="/account_settings?userid=1&edit_profile_pic=false">Account Settings</Link><br />
+                            <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?edit_profile_pic=false`}>Account Settings</Link><br />
                             <button onClick={this.customizePage} className="text_btn" type="button"><b>Customize Page</b></button>
                             <button onClick={this.saveSettings} className="text_btn" type="button"><b>Save Settings</b></button>
                             <div>
@@ -321,10 +364,10 @@ export default class ProfileUser extends Component {
                     {/* This button needs to link to a specific URL generated by a function that checks the most recent course being worked on by the user. - Zane */}
                     <button className="paypal_btn" type="button"><h4>Go to current course: <br />Course Name (50% complete)</h4></button>
                     <section className="profile_container1_section_container2">
-                        <Link to="/direct_message?senderid=1&receiverid=null">Messages (1)</Link><br />
+                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`}>Messages (1)</Link><br />
                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
-                        <Link to="/id_request?userid=1">Request new ID card</Link><br />
-                        <Link to="/download_archive?userid=1">Download archive</Link><br />
+                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}`}>Request new ID card</Link><br />
+                        <Link to={`/download_archive?userid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}`}>Download archive</Link><br />
                         <Container onSubmit={ () => {} } triggerText="Feedback" />
                         {this.state.collapsedTables}
                     </section>
@@ -416,6 +459,8 @@ export default class ProfileUser extends Component {
         );
     }
 }
+
+export default withRouter(ProfileUser);
 
 // PropTypes for jest testing in App.test.js
 ProfileUser.propTypes = {

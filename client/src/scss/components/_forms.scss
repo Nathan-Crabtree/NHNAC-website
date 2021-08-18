@@ -1,33 +1,33 @@
 // Base
 
-label, 
-input:not(.search_input, .magnifying_glass), 
-.form_links, 
+label,
+input:not(.search_input, .magnifying_glass),
+.form_links,
 select[id="gender"],
 textarea {
     margin: $nh-form-margin;
 }
 
-label[for="rememberMe"], 
-label[for="newsletter"], 
-label[for="by_email"], 
-label[for="by_mail"], 
+label[for="rememberMe"],
+label[for="newsletter"],
+label[for="by_email"],
+label[for="by_mail"],
 .resend_email_span {
     font-size: .9rem;
 }
 
-input:focus:not([type="checkbox"]), 
-textarea:focus, 
+input:focus:not([type="checkbox"]),
+textarea:focus,
 select:focus {
     outline: none;
-    border: $nh-black solid 2px !important;
+    border: $nh-black solid 2px;
 }
 
-label[for="rememberMe"], 
+label[for="rememberMe"],
 label[for="newsletter"],
-label[for="by_email"], 
+label[for="by_email"],
 label[for="by_mail"]  {
-    margin-left: 5px; 
+    margin-left: 5px;
 }
 
 input[type="checkbox"] {
@@ -65,14 +65,12 @@ fieldset {
 }
 
 select {
-    @include input-properties;
+    @include input-properties(40px);
     margin: $nh-form-margin;
-    height: 40px;
 }
 
-input:not([type='checkbox'],[type="radio"],.search_input, .magnifying_glass) {
-    @include input-properties;
-    height: 40px;
+input:not([type='checkbox'], [type="radio"], .search_input, .magnifying_glass) {
+    @include input-properties(40px);
 }
 
 .report_label {
@@ -89,7 +87,7 @@ input:not([type='checkbox'],[type="radio"],.search_input, .magnifying_glass) {
     }
 }
 
-button:not([class="modal_button"],[class="form_links_btn"],[class="_modal-close"]):hover, 
+button:not(.modal_button, .form_links_btn, ._modal-close, .text_btn, .edit_profile_pic_btn):hover,
 div.paypal_btn:hover {
     background-color: $nh-button-hover;
 }
@@ -99,8 +97,7 @@ button:focus {
 }
 
 textarea {
-    @include input-properties;
-    height: 100px;
+    @include input-properties(100px);
 }
 
 .submit_padding {
@@ -111,7 +108,7 @@ textarea {
 
 .login {
     &_form {
-        @include center;
+        @extend %center;
         width: 35%;
         margin-top: 100px;
     }
@@ -119,9 +116,8 @@ textarea {
         width: 97.5%;
     }
     &_submit {
-        @include button_properties($nh-button);
-        @include center;
-        width: 95%;
+        @include button-properties($nh-button, 95%);
+        @extend %center;
     }
 }
 
@@ -145,7 +141,7 @@ textarea {
     }
 }
 
-// Sign Up 
+// Sign Up
 
 .adoption_agreement {
     padding-bottom: $nh-signup-padding-bottom;
@@ -157,8 +153,8 @@ textarea {
 
 .signup {
     &_form {
-        @include center;
-        margin-bottom: $nh-signup-padding-bottom;
+        @extend %center;
+        margin-bottom: 45px;
         padding-bottom: $nh-signup-padding-bottom;
         width: 70%;
     }
@@ -174,11 +170,11 @@ textarea {
 }
 
 .agreement_div {
-    padding-top: calc(#{$nh-signup-padding-bottom} * 2);
+    padding-top: 90px;
 }
 
 .geo_location {
-    margin: 10px 10px 0 0;
+    margin: $nh-margin-s $nh-margin-s 0 0;
     display: inline;
 }
 
@@ -193,12 +189,11 @@ label[for="payment"] {
 
 .pay {
     &_buttons_div {
-        @include center;
+        @extend %center;
         width: 100%;
     }
     &_button {
-        @include button_properties($nh-button);
-        width: 21%;
+        @include button-properties($nh-button, 21%);
         margin: 5px 27px 3px 0;
     }
     &_with_div {
@@ -208,13 +203,11 @@ label[for="payment"] {
 }
 
 .paypal_btn {
-    @include button_properties($nh-button);
-    width: 92.25%;
+    @include button-properties($nh-button, 92.25%);
 }
 
 .bitcoin_btn {
-    @include button_properties(white);
-    width: 92.25%;
+    @include button-properties(white, 92.25%);
 }
 
 // Forgot Password
@@ -224,8 +217,7 @@ label[for="payment"] {
 }
 
 .security_submit {
-    @include button_properties($nh-button);
-    width: 12.5%;
+    @include button-properties($nh-button, 12.5%);
 }
 
 .resend_email_span {
@@ -236,7 +228,7 @@ label[for="payment"] {
 // Article
 
 .see_comments_btn {
-    @include center;
+    @extend %center;
     margin-top: 25px;
 }
 
@@ -251,10 +243,10 @@ label[for="payment"] {
 
 .text_btn {
     border: none;
-    background-color: inherit !important;
+    background-color: inherit;
     &:hover {
         cursor: pointer;
-        background-color: inherit !important;
+        background-color: inherit;
         text-decoration: underline;
     }
 }
@@ -295,7 +287,7 @@ label[for="payment"] {
 // Event
 
 .guest_form {
-    @include center;
+    @extend %center;
     padding: $nh-padding-l;
     > label, br, input {
         margin-top: 15px;
@@ -304,7 +296,7 @@ label[for="payment"] {
         width: 100%;
     }
     > button {
-        margin-top: 10px;
+        margin-top: $nh-margin-s;
     }
 }
 
@@ -325,7 +317,7 @@ label[for="payment"] {
     }
     &_p {
         margin: 0;
-        width: 12%;       
+        width: 12%;
     }
 }
 
@@ -336,10 +328,27 @@ label[for="payment"] {
     }
 }
 
-.pending_btn {
-    @include button-properties(blue);
+.edit_profile_pic_btn {
+    position: relative;
+    color: #FFFCF4;
+    background-color: lightgray;
+    border: none;
+    cursor: pointer;
+    margin: 207px 0 0 0;
+    width: 332px;
+    height: 33px;
     &:hover {
-        background-color: lightblue !important; 
+        background-color: lightgray;
+    }
+    &:active {
+        background-color: #a09e9e;
+    }
+}
+
+.pending_btn {
+    @include button-properties(blue, initial);
+    &:hover {
+        background-color: lightblue;
     }
     > button {
         border: none;
@@ -357,7 +366,7 @@ label[for="payment"] {
 
 .request_id {
     &_form {
-        @include center;
+        @extend %center;
         width: 75%;
     }
     &_checkboxes {
@@ -377,4 +386,4 @@ label[for="payment"] {
             @extend %form_svg;
         }
     }
-}  
+}

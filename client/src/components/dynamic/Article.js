@@ -10,6 +10,8 @@ import UpdateType from './UpdateType';
 import EventType from './EventType';
 import BlogType from './BlogType';
 
+var CryptoJS = require("crypto-js");
+
 export default class Article extends Component {
 
     constructor() {
@@ -84,8 +86,12 @@ export default class Article extends Component {
                 document.getElementsByClassName(formClassName)[0].parentElement.parentElement.getElementsByTagName("ul")[1].style.display = "none";
             }
 
-            // Add pop-up warning of unsaved data if user attempts to leave page
-            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.addEventListener) { // If event listener supported
+                // Add pop-up warning of unsaved data if user attempts to leave page
+                window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.attachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: true });
         }
@@ -121,6 +127,11 @@ export default class Article extends Component {
      * @returns {boolean} false
      */
     onSubmit(e) {
+        // Use IE5-8 fallback if event object isn't present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault();
 
         let comment = e.target.comment.value;
@@ -147,8 +158,12 @@ export default class Article extends Component {
 
             // Upload comment to database through API
 
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported 
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: false });
 
@@ -228,15 +243,15 @@ export default class Article extends Component {
         switch(this.state.type) {
             // NOTE: Podcasts will be unavailable in beta release. - Zane
             // case "podcast":
-            //     return "/content?header=podcast";
+            //     return "/content/podcasts";
             case "blog":
-                return "/content?header=blog";
+                return "/content/blogs";
             case "event":
-                return "/content?header=event";
+                return "/content/news";
             case "update":
-                return "/content?header=update";
+                return "/content/updates";
             case "article":
-                return "/content?header=article";
+                return "/content/articles";
             default:
                 break;
         }
@@ -271,17 +286,15 @@ export default class Article extends Component {
     }
 
     componentDidMount() {
-        const parsedQString = queryString.parse(this.props.location.search);
-
         // Change state value of query property to that of query string in URL
-        this.setState({ type: parsedQString.type });
+        this.setState({ type: this.props.match.params.type });
 
         // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
     }
 
     componentWillUnmount() {
-        if (this.state.formActive) {
+        if (this.state.formActive && window.removeEventListener) { 
             // Remove pop-up warning of unsaved data if user attempts to leave page
             window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
         }
@@ -308,7 +321,7 @@ export default class Article extends Component {
                     <div>
                         <p>Posted on 2-2-20</p>
                         <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
-                        <h4>by <Link to="/profile?userid=1&view=viewer">Milton Miles</Link></h4>
+                        <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </div>
                     <div>
                         <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><img srcSet={instaMini} alt="Author's instagram link." /></a>
@@ -319,7 +332,7 @@ export default class Article extends Component {
                 </aside>
                 { this.displayProperContent() }
                 <div className="back_to_articles_link center_text">
-                    <button className="text_btn" type="button" onClick={ () => { window.location.href = this.setTypeBackLink(); } }><b>Back to content</b></button>
+                    <button className="text_btn" type="button" onClick={ () => { this.props.history.push(this.setTypeBackLink()) } }><b>Back to content</b></button>
                 </div>
             </React.Fragment>
         );

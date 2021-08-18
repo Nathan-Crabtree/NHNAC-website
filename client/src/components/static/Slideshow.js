@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
-export const Slideshow = ({hands, homes, people, onSubmit}) => {
+export const Slideshow = ({hands, homes, people}) => {
 
     // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane 
     var slideIndex = useRef(0);
@@ -133,6 +133,5 @@ export default Slideshow;
 Slideshow.propTypes = {
     hands: PropTypes.string.isRequired,
     homes: PropTypes.string.isRequired,
-    people: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func
+    people: PropTypes.string.isRequired
 }

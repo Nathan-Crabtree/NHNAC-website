@@ -1,3 +1,9 @@
+%center {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 %comment_container_ul {
     > ul {
         margin-left: -38px;
@@ -29,8 +35,8 @@
 
 %content_container_section {
     @extend %div_section;
-    margin: 25px 0;
-    width: calc(649px*.70);
+    margin: $nh-main-margin;
+    width: 454.3px; // calc(649px * .7)
     > h2 {
         text-align: center;
     }
@@ -40,7 +46,7 @@
         height: 240px;
     }
     > button:last-of-type {
-        @include center;
+        @extend %center;
     }
     > img {
         cursor: grab;
@@ -69,7 +75,6 @@
         }
     }
     > button:nth-child(1) {
-        background-color: blue;
         display: none;
     }
 }
@@ -86,4 +91,15 @@
 %form_svg {
     float: right;
     cursor: pointer;
+}
+
+%img-desc-properties {
+    color: $nh-white;
+    background-color: $nh-black;
+    font-size: .75rem; // 75% relative to root font-size (1em = 16px)
+    margin: -27px 0 0 0px; /* top right bottom left */
+    padding: 5px 0;
+    opacity: 0%;
+    border-radius: 4px;
+    transition: opacity 0.25s;
 }

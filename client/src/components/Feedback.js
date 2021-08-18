@@ -16,12 +16,17 @@ const [formActive, setFormActive] = useState(false);
 * @param {object} event
 */
 function onSubmit(event) {
+  // Use IE5-8 fallback if event object not present
+  if (!event) {
+    event = window.event;
+  }
+
   event.preventDefault(event);
 
   let messageContent = event.target.message.value;
   messageContent = sanitizeInput(messageContent);
 
-  if (messageContent.length > 3 && messageContent.length <= 500 ) {
+  if (messageContent.length > 3 && messageContent.length <= 500) {
       // Take the data and send it to API
       console.log(messageContent);
 
@@ -32,8 +37,12 @@ function onSubmit(event) {
       thankYouBlock.style.textAlign = "center";
       modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
 
-      // Remove pop-up warning of unsaved data if user attempts to leave page
-      window.removeEventListener("beforeunload", displayUnloadMessage, false);
+      if (window.removeEventListener) { // If event listener supported
+          // Remove pop-up warning of unsaved data if user attempts to leave page
+          window.removeEventListener("beforeunload", displayUnloadMessage, false);
+      } else {
+          window.detachEvent("beforeunload", displayUnloadMessage);
+      }
 
       setFormActive(false);
   } else {
@@ -53,16 +62,24 @@ function onSubmit(event) {
 }
 
 useEffect(() => {
-    // Add pop-up warning of unsaved data if user attempts to leave page
-    window.addEventListener("beforeunload", displayUnloadMessage, false);
+    if (window.addEventListener) { // If event listener supported
+        // Add pop-up warning of unsaved data if user attempts to leave page
+        window.addEventListener("beforeunload", displayUnloadMessage, false);
+    } else {
+        window.attachEvent("beforeunload", displayUnloadMessage);
+    }
 
     setFormActive(true);
 
     // componentWillUnmount() substitute for React Hooks 
     return () => {
         if (formActive) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", displayUnloadMessage);
+            }
         }
     }
 }, [])

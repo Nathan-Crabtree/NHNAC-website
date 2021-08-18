@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import App, { setGeoDataExists, onSubmit, resetToggleDisplay, emailIsValid,
   reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress,
   setSearchFilters, getSearchFilters, checkDates, urlIsValid, filePathIsValid, changeBorderColor, sanitizeInput,
-  desanitize, displayUnloadMessage } from './App';
+  desanitize, displayUnloadMessage } from './components/App';
 
 // Dynamic
 import { hideForm as hideFormAccountSettings, displayForm as displayFormAccountSettings, onSubmit as onSubmitAccountSettings, unsubscribe, displaySubscription } from './components/dynamic/AccountSettings';
@@ -17,7 +17,7 @@ import { setStateHandler } from './components/dynamic/Content';
 import { displayComments, hideComments, hideResponses, displayForm as displayFormArticle, hideForm,
          onSubmit as onSubmitArticle, displayTypeComponent, setTypeHeader, setTypeBackLink, displayProperContent } from './components/dynamic/Article';
 import { countDaysLeft } from './components/dynamic/Suspended';
-import { addAttendee, removeAttendee, displayAttendBtnOrForm } from './components/dynamic/EventType';
+import { addAttendee, removeAttendee, displayAttendBtnOrForm, displayAttendees } from './components/dynamic/EventType';
 import { displayForm as displayFormProfile, hideForm as hideFormProfile, onSubmit as onSubmitProfile, collapseDataTable, expandDataTable,
   displayCollapsedDataTableHeaderAndExpandBtn, resizeDataTable, customizePage, saveSettings } from './components/dynamic/ProfileUser';
 import { checkUserConnection, connectUser, cancelConnect } from './components/dynamic/ProfileViewer';
@@ -330,6 +330,11 @@ it("doesn't output anything", () => {
 // displayAttendBtnOrForm testing; src: client/src/components/EventType.js
 it("doesn't output anything", () => {
   expect(displayAttendBtnOrForm).toBeUndefined();
+});
+
+// displayAttendees testing; src: client/src/components/EventType.js
+it("doesn't output anything", () => {
+  expect(displayAttendees).toBeUndefined();
 });
 
 // PROFILEUSER.JS FUNCTION(S)

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ContentNav from '../static/ContentNav';
-import queryString from 'query-string';
 import PropTypes from 'prop-types';
+
+var CryptoJS = require("crypto-js");
 
 export default class Content extends Component {
 
@@ -23,10 +24,8 @@ export default class Content extends Component {
      *
      */
     setStateHandler() {
-        const parsedQString = queryString.parse(this.props.location.search);
-
         // Change state value of query property to that of query string in URL
-        this.setState({ header: parsedQString.header }, () => {         
+        this.setState({ header: this.props.match.params.header }, () => {         
             // Render proper text for bottom_aside and top_aside span tag according to string value
             switch(this.state.header) {
                 case "news":
@@ -50,11 +49,11 @@ export default class Content extends Component {
                     document.getElementById("bottomAsideContent").innerText = "Popular";
                 break;
                     // NOTE: Podcasts will be unavailable in beta release. - Zane
-                    // case "podcasts":
-                    //   document.getElementById("headerContent").innerText = "Podcasts";
-                    //   document.getElementById("topAsideContent").innerText = "Archive";
-                    //   document.getElementById("bottomAsideContent").innerText = "Popular";
-                    //  break;
+                    case "podcasts":
+                      document.getElementById("headerContent").innerText = "Podcasts";
+                      document.getElementById("topAsideContent").innerText = "Archive";
+                      document.getElementById("bottomAsideContent").innerText = "Popular";
+                     break;
                 default:
                     break;
             }
@@ -86,12 +85,12 @@ export default class Content extends Component {
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
-                                    <p>by Milton Miles</p>
-                                    <Link to="/profile?userid=1&view=viewer"><img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." /></Link>
+                                    <p>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></p>
+                                    <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?type=article&id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article/article?id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
@@ -105,7 +104,7 @@ export default class Content extends Component {
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?type=event&id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article/event?id=1">Click here to read {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
@@ -117,7 +116,7 @@ export default class Content extends Component {
                             <div className="sub_article_container">
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article?type=podcast&id=1">Click here to listen {'>>'}</Link>
+                                    <Link to="/article/podcast?id=1">Click here to listen {'>>'}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
@@ -149,8 +148,8 @@ export default class Content extends Component {
                         </aside>
                         {/* Podcast promotion is commented out for beta release. - Zane */}
                         {/* <aside>
-                            <Link to="/content?header=podcasts">
-                                <img className="podcast_img" srcSet={podcast} alt="Tune in to our podcast! New episodes every Friday." onClick={ () => {this.setStateHandler()}} />
+                            <Link to="/content/podcasts">
+                                <img className="podcast_img" srcSet={podcast} alt="Tune in to our podcast! New episodes every Friday." onClick={ () => { this.setStateHandler() } } />
                             </Link>
                         </aside> */}
                     </div>
@@ -164,6 +163,5 @@ export default class Content extends Component {
 Content.propTypes = {
     podcast: PropTypes.string.isRequired,
     profileImgSmall: PropTypes.string,
-    articleImgLink: PropTypes.string,
-    reviseName: PropTypes.func.isRequired
+    articleImgLink: PropTypes.string
 }
