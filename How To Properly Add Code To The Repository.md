@@ -124,7 +124,7 @@ To finally add your code to the forked repository existing in your account, type
 
 On your browser, go to the link where your forked repository exists. Click on "Pull Request", and then click on the option "Compare and Pull Request". When
 typing in your changes information, make sure to have your "base" and "base fork" linked to the original repository over at 
-https://github.com/Zandy12/NHNAC-website. Also, make sure your "head fork" and "compare" are properly linked in your forked repository. 
+https://github.com/crystal-spider/NHNAC-website. Also, make sure your "head fork" and "compare" are properly linked in your forked repository. 
 
 When you're all set and you feel confident that all the information for your pull request is correct and is properly documented, click "Create Pull Request".
 
