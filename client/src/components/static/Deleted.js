@@ -19,6 +19,11 @@ export default class Deleted extends Component {
     * @param {object} event
     */
     onSubmit(event) {
+        // Use IE5-8 fallback if event object not present
+        if (!event) {
+            event = window.event;
+        }
+
         event.preventDefault(event);
     
         let messageContent = event.target.message.value;
@@ -35,8 +40,12 @@ export default class Deleted extends Component {
             thankYouBlock.style.textAlign = "center";
             modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
 
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: false });
         } else {
@@ -60,8 +69,12 @@ export default class Deleted extends Component {
         window.scrollTo(0, 0);
 
         if (!this.state.formActive) {
-            // Add pop-up warning of unsaved data if user attempts to leave page
-            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.addEventListener) { // If event listener supported
+                // Add pop-up warning of unsaved data if user attempts to leave page
+                window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.attachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
 
             this.setState({ formActive: true });
         }
@@ -69,8 +82,12 @@ export default class Deleted extends Component {
 
     componentWillUnmount() {
         if (this.state.formActive) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
         }        
     }
 

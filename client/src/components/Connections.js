@@ -3,9 +3,10 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-export const Connections = ({ profileImgSmall, messageIcon, approveOrReject}) => {
+var CryptoJS = require("crypto-js");
+
+export const Connections = ({ profileImgSmall, messageIcon, approveOrReject, closeModal }) => {
 
 /**
  * approveOrReject() function - Change status in Connection table with auth. user and connecting user to "Approved" in database if
@@ -33,7 +34,7 @@ return (
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <Link to="/profile?userid=1&view=viewer"><h2>Milton Miles</h2></Link>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
@@ -47,22 +48,22 @@ return (
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <Link to="/profile?userid=1&view=viewer"><h2>Milton Miles</h2></Link>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
-            <Link className="message_icon_a" to="/direct_message?senderid=1&receiverid=null"><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></Link>
+            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
             <div className="clear"></div>
         </li>
         <li><hr /></li>
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <Link to="/profile?userid=1&view=viewer"><h2>Milton Miles</h2></Link>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
-            <Link className="message_icon_a" to="/direct_message?senderid=1&receiverid=null"><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></Link>
+            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
             <div className="clear"></div>
         </li>
     </ul>
@@ -75,5 +76,6 @@ export default Connections;
 // PropTypes for jest testing in App.test.js
 Connections.propTypes = {
     profileImgSmall: PropTypes.string,
-    messageIcon: PropTypes.string.isRequired
+    messageIcon: PropTypes.string.isRequired,
+    closeModal: PropTypes.func.isRequired
 }

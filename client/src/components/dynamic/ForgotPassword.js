@@ -23,6 +23,11 @@ export default class ForgotPassword extends Component {
      * @returns {boolean} false
      */
     onSubmit = (e) => {
+        // Use IE5-8 fallback if event object isn't present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault();
 
         let securityAnswer = e.target[1].value;

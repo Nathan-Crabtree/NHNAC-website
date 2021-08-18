@@ -13,6 +13,11 @@ export const Report = ({className}) => {
 * @param {object} event 
 */
 function onSubmit(event) {
+    // Use IE5-8 fallback if event object not present
+    if (!event) {
+        event = window.event;
+    }
+
     event.preventDefault(event);
     const reportType = event.target.type.value;
     

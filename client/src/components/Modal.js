@@ -46,7 +46,7 @@ displayForm = () => {
         case "Report":
             return <Report className={className} />
         case "Connections":
-            return <Connections profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
+            return <Connections closeModal={closeModal} profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
         case "Delete Account":
             return <Delete closeModal={closeModal} />
         case "Share this podcast":

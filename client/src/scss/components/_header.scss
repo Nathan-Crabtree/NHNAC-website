@@ -4,7 +4,7 @@
 }
 
 .logo {
-    @include center;
+    @extend %center;
     padding-top: 1%;
 }
 
@@ -12,7 +12,7 @@
 nav > div {
     padding: $nh-padding-xs 0;
     > div {
-      @include center;
+      @extend %center;
       width: 221px;
       > img {
         position: relative;

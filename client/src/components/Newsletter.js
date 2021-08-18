@@ -9,11 +9,17 @@ export const Newsletter = ({ onSubmit, closeModal, emailIsValid, setNewsletterEm
 const [errorExists, setErrorExists] = useState(false);
 
 /**
- * onSubmit() function -
+ * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if email
+ * is valid, submits and renders HTML according to condition. Subscribes user to newsletter email list.
  *
  * @param {object} event
  */
 onSubmit = (event) => {
+    // Use IE5-8 fallback if event object not present
+    if (!event) {
+        event = window.event;
+    }
+
     event.preventDefault(event);
 
     let email = event.target.email.value;
@@ -54,6 +60,13 @@ onSubmit = (event) => {
         } else {
             // Do code here
             setNewsletterEmailAddress(email);
+
+            // Render on the modal thank you text
+            const modalForm = document.getElementsByClassName("modal_form")[0];
+            const thankYouBlock = document.createElement("h3");
+            thankYouBlock.innerText = "Thank you for your subscribing!";
+            thankYouBlock.style.textAlign = "center";
+            modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
         }
     }
 

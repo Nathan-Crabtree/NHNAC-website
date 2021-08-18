@@ -124,15 +124,13 @@ p.lorem-text {
 }
 
 .submit_btn {
-  @include button_properties($nh-button);
-  width: 97.5%;
-  height: 50px !important;
+  @include button-properties($nh-button, 97.5%);
+  //height: 50px !important;
 }
 
 .close_btn {
-  @include button_properties(white);
-  width: 97.5%;
-  height: 50px !important;
+  @include button-properties(white, 97.5%);
+  //height: 50px !important;
   margin-top: 15px;
 }
 
@@ -149,7 +147,7 @@ p.lorem-text {
 // Share Podcast 
 
 .social_media_field {
-  @include center;
+  @extend %center;
   width: 432px;
   margin-left: 30px;
   > div {
@@ -172,9 +170,7 @@ p.lorem-text {
     margin-right: 15px;
   }
   .share_btn {
-    @include button_properties($nh-button);
-    width: 150px;
-    height: 50px !important;
+    @include button-properties($nh-button, 150px);
     margin-top: 15px;
   }
 }

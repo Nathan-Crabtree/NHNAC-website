@@ -13,22 +13,22 @@ export default class Home extends Component {
         if (!this.props.cookiePolicyDisplayed) {
             if (this.props.isAuthenticated) {
                 $(function() {
-                    document.getElementsByClassName('modal_button')[1].click();
+                    $('button.modal_button')[1].click();
                 });
             } else {
                 $(function() {
-                    document.getElementsByClassName('modal_button')[0].click();
+                    $('button.modal_button')[0].click();
                 });
             }
             this.props.setCookiePolicyDisplayed();
         }
         if (this.props.isAuthenticated) {
             $(function() {
-                document.getElementsByClassName('modal_button')[1].style.display = "none";
+                $('button.modal_button')[1].style.display = "none";
             });
         } else {
             $(function() {
-                document.getElementsByClassName('modal_button')[0].style.display = "none";
+                $('button.modal_button')[0].style.display = "none";
             });
         }
     }
@@ -207,7 +207,6 @@ Home.propTypes = {
     homes: PropTypes.string.isRequired,
     people: PropTypes.string.isRequired,
     cookiePolicyDisplayed: PropTypes.bool.isRequired,
-    onSubmit: PropTypes.func,
     setCookiePolicyDisplayed: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool.isRequired
 }

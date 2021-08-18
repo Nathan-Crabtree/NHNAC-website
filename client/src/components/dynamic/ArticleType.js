@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 //import Container from '../Container';
 
+var CryptoJS = require("crypto-js");
+
 export default class ArticleType extends Component {
 
     render() {
@@ -45,9 +47,9 @@ export default class ArticleType extends Component {
                 </article>
                 <aside className="bottom_aside_container">
                     <div>
-                        <Link to="/search?query=#tag1&page=1">#tag1</Link>
-                        <Link to="/search?query=#tag2&page=1">#tag2</Link>
-                        <Link to="/search?query=#tag3&page=1">#tag3</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>
+                        <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
                     </div>
                     <div>
                         <ul>
@@ -70,7 +72,7 @@ export default class ArticleType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to="/profile?userid=1&view=viewer">Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -108,6 +110,7 @@ export default class ArticleType extends Component {
                                 <ul>
                                     <li><button onClick={ () => { this.props.displayForm("comment_form_1_0", "comment_content_1_0", true) } } className="text_btn" type="button"><b>Edit</b></button></li>
                                     <li><button onClick={ () => {} } className="text_btn" type="button"><b>Delete</b></button></li>
+                                    {/* Report feature is currently disabled. - Zane */}
                                     {/*<li><Container onSubmit={this.props.onSubmitApp} triggerText="Report" /></li>*/}
                                 </ul>
                                 <div className="response_section_container">
@@ -116,7 +119,7 @@ export default class ArticleType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to="/profile?userid=1&view=viewer">Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>
@@ -153,6 +156,7 @@ export default class ArticleType extends Component {
                                             <ul>
                                                 <li><button onClick={ () => { this.props.displayForm("comment_form_1_1", "comment_content_1_1", true, true) } } className="text_btn" type="button"><b>Edit</b></button></li>
                                                 <li><button onClick={ () => {} } className="text_btn" type="button"><b>Delete</b></button></li>
+                                                {/* Report feature is currently disabled. - Zane */}
                                                 {/*<li><Container onSubmit={this.props.onSubmitApp} triggerText="Report" /></li>*/}
                                             </ul>
                                             <hr />

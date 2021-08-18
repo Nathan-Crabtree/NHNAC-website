@@ -9,13 +9,13 @@ export default class ContentNav extends Component {
             <nav className="content_nav">
                 <div>
                     <ul className="header_links">
-                        <li><Link to="/content?header=news" onClick={ () => {this.props.setStateHandler()}}>News</Link></li>
+                        <li><Link to="/content/news" onClick={ () => {this.props.setStateHandler()}}>News</Link></li>
                         <li className="vertical_bar">|</li>
-                        <li><Link to="/content?header=articles" onClick={ () => {this.props.setStateHandler()}}>Articles</Link></li>
+                        <li><Link to="/content/articles" onClick={ () => {this.props.setStateHandler()}}>Articles</Link></li>
                         <li className="vertical_bar">|</li>
-                        <li><Link to="/content?header=updates" onClick={ () => {this.props.setStateHandler()}}>Updates</Link></li>
+                        <li><Link to="/content/updates" onClick={ () => {this.props.setStateHandler()}}>Updates</Link></li>
                         <li className="vertical_bar">|</li>
-                        <li><Link to="/content?header=blogs" onClick={ () => {this.props.setStateHandler()}}>Blogs</Link></li>
+                        <li><Link to="/content/blogs" onClick={ () => {this.props.setStateHandler()}}>Blogs</Link></li>
                     </ul>
                 </div>
             </nav>

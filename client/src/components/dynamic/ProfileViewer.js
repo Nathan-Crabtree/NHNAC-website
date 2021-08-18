@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Container from '../Container';
 
-export default class ProfileViewer extends Component {
+var CryptoJS = require("crypto-js");
+
+class ProfileViewer extends Component {
 
     constructor() {
         super();
@@ -28,7 +31,7 @@ export default class ProfileViewer extends Component {
             if (btn === "connection") {
                 return <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />;
             } else if (btn === "message") {
-                return <button className="bitcoin_btn" onClick={ () => { window.location.href="/direct_message?senderid=1&receiverid=null" } } type="button"><h4>Message</h4></button>;
+                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
             }
         } else if (this.state.status === "pending") {
             if (btn === "connection") {
@@ -92,7 +95,7 @@ export default class ProfileViewer extends Component {
                 <div className="profile_container1">
                     <div>
                         <div>
-                            <img srcSet={profileImgLarge} alt="Portrait of user." />
+                            <img className="profile_img_large" srcSet={profileImgLarge} alt="Portrait of user." />
                         </div>
                         <section>
                             <h2>Harper "Kiss" Young</h2>
@@ -184,6 +187,8 @@ export default class ProfileViewer extends Component {
         );
     }
 }
+
+export default withRouter(ProfileViewer);
 
 // PropTypes for jest testing in App.test.js
 ProfileViewer.propTypes = {

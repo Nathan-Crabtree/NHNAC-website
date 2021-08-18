@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 export default class Login extends Component {
 
@@ -19,7 +18,13 @@ export default class Login extends Component {
      * @param {object} e
      */
     onSubmit = (e) => {
+        // Use IE5-8 fallback if event object isn't present
+        if (!e) {
+            e = window.event;
+        }
+
         e.preventDefault(e);
+
         let email = e.target.email.value;
         let password = e.target.password.value;
 

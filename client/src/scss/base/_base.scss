@@ -2,14 +2,23 @@
     font-family: 'Bitter', serif;
 }
 
+.loading-spinner {
+    @extend %center;
+    margin-top: 40vh;
+}
+
 body {
     background-color: $nh-body;
 }
 
+body, html {
+    height: 100%;
+}
+
 main, 
 noscript {
-    @include center;
-    width: 65%;
+    @extend %center;
+    width: 65vw;
     padding: 5% 3%;
     background-color: $nh-main;  
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+//import axios from 'axios';
 
 export default class SignUp extends Component {
 
@@ -16,8 +16,8 @@ export default class SignUp extends Component {
     }
 
     /**
-    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values from are fit for submission.
-    * Submits and renders HTML or transfer to PayPal website according to condition.
+    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values are fit for submission.
+    * Submits and conditionally redirects to profile page or to PayPal website according to payment status.
     *
     * NOTE: Could be further refactored to reduce runtime. - Zane
     *
@@ -25,6 +25,11 @@ export default class SignUp extends Component {
     * @returns {boolean} false
     */
    onSubmit(event) {
+        // Use IE5-8 fallback if event object not present
+        if (!event) {
+            event = window.event;
+        }
+
         console.log("onSubmit() called");
         event.preventDefault(event);
 
@@ -340,8 +345,12 @@ export default class SignUp extends Component {
 
         // After-submit code
 
-        // Remove pop-up warning of unsaved data if user attempts to leave page
-        window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);    
+        if (window.removeEventListener) { // If event listener supported
+            // Remove pop-up warning of unsaved data if user attempts to leave page
+            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+        } else {
+            window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+        }    
 
         this.setState({ listenerRemoved: true });
     
@@ -412,16 +421,24 @@ export default class SignUp extends Component {
             this.props.setGeoDataExists();
         }
 
-        // Add pop-up warning of unsaved data if user attempts to leave page
-        window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+        if (window.addEventListener) { // If event listener supported
+            // Add pop-up warning of unsaved data if user attemps to leave page
+            window.addEventListener("beforeunload", this.props.displayUnloadMessage, false);
+        } else {
+            window.attachEvent("beforeunload", this.props.displayUnloadMessage, false);
+        }
 
         this.setState({ listenerRemoved: false });
     } 
 
     componentWillUnmount() {
         if (!this.state.listenerRemoved) {
-            // Remove pop-up warning of unsaved data if user attempts to leave page
-            window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);  
+            if (window.removeEventListener) { // If event listener supported
+                // Remove pop-up warning of unsaved data if user attempts to leave page
+                window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
+            } else {
+                window.detachEvent("beforeunload", this.props.displayUnloadMessage);
+            }
         }
     }
 

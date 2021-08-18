@@ -17,30 +17,33 @@
 // - Zane 
 
 // Import React libraries
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import $ from 'jquery';
 
 // Import images
 import { logo, hbIcon, fbLogo, donate, paypal, bitcoin, indian,
   tribe, hands, homes, people, podcast, articleImgLink, profileImgSmall,
   profileImgLarge, fbMini, instaMini, twitterMini, thumbsUp, magnifyingGlass,
   apple, book, badge, messageIcon, avatar
- } from './images/Images';
+ } from '../images/Images';
 
 // Import miscellaneous
-import ConstitutionPdf from './components/documents/new_haven_constitution.pdf';
-import CodeOfConductPdf from './components/documents/ethical_code_of_conduct.pdf';
+import ConstitutionPdf from './documents/new_haven_constitution.pdf';
+import CodeOfConductPdf from './documents/ethical_code_of_conduct.pdf';
 
 // Import components
 import { Footer, PrivacyPolicy, TermsOfService, FAQ,
          Donate, SignUp, About, Constitution,
          LegalRights, CodeOfConduct, Home, RequestID, Deleted
-        } from './components/static/Static';
+        } from './static/Static';
 import { Header, Error, Login, Content,
           Article, ForgotPassword, Verification, Profile,
           Suspended, AccountSettings, Confirmation, Search,
           DirectMessage
-         } from './components/dynamic/Dynamic';
+         } from './dynamic/Dynamic';
+
+var CryptoJS = require("crypto-js");
 
 export default class App extends Component {
 
@@ -103,6 +106,11 @@ export default class App extends Component {
    * @param {object} e
    */
   onSubmit = (e) => {
+    // Use IE5-8 fallback if event object not present
+    if (!e) {
+      e = window.event;
+    }
+
     e.preventDefault(e);
     console.log(e.target.name.value);
 
@@ -367,6 +375,11 @@ export default class App extends Component {
       links[link].onclick = this.resetToggleDisplay();
     }
 
+    // Remove loading spinner from DOM
+    $(function() {
+      document.getElementsByClassName("loading-spinner")[0].style.display = "none";
+    });
+
     // When component is rendered, bring user to top of page
     window.scrollTo(0, 0);
   }
@@ -380,13 +393,13 @@ export default class App extends Component {
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
-                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended?userid=${this.state.userId}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} 
-                cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} onSubmit={this.onSubmit} isAuthenticated={this.state.isAuthenticated} /> } </Route>
+                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), 'doGeAtCaT12107;/\)').toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} 
+                cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} isAuthenticated={this.state.isAuthenticated} /> } </Route>
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy /> } />
-                <Route exact path="/content" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} articleImgLink={articleImgLink} reviseName={this.reviseName} /> } />
-                <Route exact path="/article" component={ (props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
+                <Route exact path="/content/:header" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} articleImgLink={articleImgLink} /> } />
+                <Route exact path="/article/:type" component={ (props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
                 profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} onSubmit={this.onSubmit} sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
-                <Route exact path="/profile" component={ (props) => <Profile {...props} apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini}
+                <Route exact path="/profile/:userId" component={ (props) => <Profile {...props} apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini}
                 twitterMini={twitterMini} profileImgLarge={avatar} badge={badge} onSubmit={this.onSubmit} profileImgSmall={profileImgSmall}
                 messageIcon={messageIcon} sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService /> } />
@@ -407,11 +420,11 @@ export default class App extends Component {
                 <Route exact path="/constitution" component={ () => <Constitution ConstitutionPdf={ConstitutionPdf} /> } />
                 <Route exact path="/ethical_code_of_conduct" component={ () => <CodeOfConduct CodeOfConductPdf={CodeOfConductPdf} /> } />
                 <Route exact path="/legal_rights" component={ () => <LegalRights /> } />
-                <Route exact path="/suspended" component={ () => <Suspended /> } />
+                <Route exact path="/suspended/:userId" component={ () => <Suspended /> } />
                 <Route exact path="/deleted" component={ () => <Deleted sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
-                <Route exact path="/id_request" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}
+                <Route exact path="/id_request/:userId" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}
                 sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
-                <Route exact path="/account_settings" component={ (props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini}
+                <Route exact path="/account_settings/:userId" component={ (props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini}
                 twitterMini={twitterMini} emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName}
                 onSubmit={this.onSubmit} checkDates={this.checkDates} urlIsValid={this.urlIsValid} filePathIsValid={this.filePathIsValid} changeBorderColor={this.changeBorderColor}
                 sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
