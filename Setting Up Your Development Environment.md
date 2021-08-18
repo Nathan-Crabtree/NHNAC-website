@@ -18,18 +18,6 @@ If Git is not installed, you can download the installer at: https://sourceforge.
 
 When you’re assured that Git is installed and properly working, you’ll now need to install Node.js by visiting this link: https://nodejs.org/en/download/.
 
-Once you’ve installed Node.js, you can now check to see if it’s working by looking up the version in the terminal:
-
-```
-node -v
-``` 
-
-Ensure on your computer after installing Node.js that you also have npm by checking the version:
-
-```
-npm -v
-```
-
 After installing Node.js, it is now time to install MySQL. Please follow the instructions provided in this link: https://dev.mysql.com/doc/mysql-osx-excerpt/5.7/en/osx-installation-pkg.html
 
 *Note: If you are getting an error that is preventing you from launching the .dmg file due to a security block, you will have to go to "Security & Privacy" General settings in "System Preferences" and click "Open anyways" at the bottom where it notifies you that a file has been prevented from being opened.*
