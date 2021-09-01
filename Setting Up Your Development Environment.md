@@ -242,6 +242,8 @@ npm install
 npm install -g sass
 ```
 
+## Starting your servers
+
 To run the servers in each directory, simply put in the terminal for both:
 
 ```
@@ -257,7 +259,17 @@ npm test
 To run the sass preprocessor while working on the front-end, type in the terminal:
 
 ```
-sass --watch scss/style.css ../public/css/style.css --style=compressed
+npm run sass
 ```
+
+#### EXPERIMENTAL: To start all your servers, you can now easily do it by typing in the terminal:
+
+```
+node start-dev <os>
+```
+
+with \<os\> being your operating system (windows, mac, linux).
+
+*Note: If you need help using this CLI, you can type in the terminal "node start-dev help".*
 
 At this point, your environment is all set and ready for you to start coding! 

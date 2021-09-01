@@ -60,5 +60,9 @@ typings/
 # next.js build output
 .next
 
+# docker files
+Dockerfile
+docker-compose.yml
+
 # misc
 package-lock.json 

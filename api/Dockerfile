@@ -13,7 +13,8 @@ WORKDIR /usr/src/app
 COPY package.json package.json
 RUN npm install
 
-# Bundle app source
+# Bundle app source. 
+# NOTE: Include more file locations if needed as project increases in size. - Zane
 RUN mkdir src
 COPY src/* src/
 COPY server.js server.js
@@ -23,10 +24,9 @@ COPY users.json users.json
 RUN chown docker /usr/src/app
 
 # Expose the server to the host machine
-EXPOSE 8001
 
 # Run this command on startup
-ENTRYPOINT ["npm","start"]
+ENTRYPOINT ["npm","build"]
 
 # Switch user
 USER docker

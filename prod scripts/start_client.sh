@@ -57,7 +57,7 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE 
-echo -e ": Successfully waited. Stopped the server and deleted old container.\n" >> $FILE
+echo -e ": Successfully waited. Stopped and removed client docker container.\n" >> $FILE
 
 cd ~/production/client 
 
@@ -79,6 +79,11 @@ echo ": (command: npm audit fix) " >> $FILE
 npm audit fix >> $FILE
 echo -e "\n" >> $FILE
 
+wait
+
+date >> $FILE
+echo -e ": Waited successfully\n" >> $FILE
+
 echo -e "Subject: Client server restarted\n" >> $EMAIL
 echo -e "Client server has successfully updated and restarted.\n" >> $EMAIL
 git log >> $EMAIL
@@ -87,15 +92,7 @@ echo -e "\n" >> $EMAIL
 wait
 
 date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": Created email.txt\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+echo -e ": Waited successfully. Created email.txt\n" >> $FILE
 
 date >> $FILE
 echo ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $FILE
@@ -105,10 +102,7 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": email successfully sent\n" >> $FILE
+echo -e ": Waited successfully. email successfully sent\n" >> $FILE
 
 date >> $FILE
 echo ": (command: rm email.txt) " >> $FILE
@@ -151,7 +145,7 @@ echo -e "\n" >> $FILE
 wait
 
 date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+echo -e ": Waited successfully. Client docker container created and running.\n" >> $FILE
 
 date >> $FILE
 echo -e ": (command: rmdir ~/production/client/build) " >> $FILE

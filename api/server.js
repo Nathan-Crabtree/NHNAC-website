@@ -1,19 +1,24 @@
 "use strict";
+require('dotenv').config();
 const express = require('express');
 const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 //const { User } = require('./src/Models.js');
 const Models = require('./src/Models.js');
 const _USERS = require('./users.json');
 const { userInfo } = require('os');
-const { Certificate } = require('crypto'); 
-var cors = require('cors'); //prevents fetch() being blocked by CORS policy 
-
+const { Certificate } = require('crypto');
+var cors = require('cors'); //prevents fetch() being blocked by CORS policy
 
 //const {bodyParser} = require('body-parser'); //for post requests
 
 const app = express();
 app.use(cors());
-const port = 8001; 
+let port;
+if (process.env.NODE_ENV !== "production") {
+    port = 5000;
+} else {
+    port = parseInt(process.env.API_PROD);
+}
 
 app.get('/', (req,res) => res.send('Hello World! from Node.js'))
 
@@ -24,7 +29,7 @@ app.get('/', (req,res) => res.send('Hello World! from Node.js'))
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
     host: 'localhost',
     dialect: 'mysql',
-    //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database 
+    //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database
     operatorsAliases: false // prevents us from receiving certain deprecation warnings inside console
 });
 
@@ -104,13 +109,13 @@ app.get('/findAllUsers', (req, res) => {
     Models.User.findAll({
         //find records with specific userName
         // where: {
-        //     UserName: 'joeschmoe'     
+        //     UserName: 'joeschmoe'
         // }
-        
+
         //find all records where firstName contains an s (case insensitive)
         where: {
             FirstName: {
-                [Op.like]: '%s%'  
+                [Op.like]: '%s%'
             }
         }
     })
@@ -121,7 +126,7 @@ app.get('/findAllUsers', (req, res) => {
         console.log(error);
         res.status(404).send(error);
     })
-}) 
+})
 
 app.get('/findUserByID/:ID', (req, res) => {
     Models.User.findByPk(req.params.ID)
@@ -132,7 +137,7 @@ app.get('/findUserByID/:ID', (req, res) => {
         console.log(error);
         res.status(404).send(error);
     })
-}) 
+})
 
 // app.put('/updateUser', (req, res) => {
 //     //User.update(req.body) //normal client request use case
@@ -149,7 +154,7 @@ app.get('/findUserByID/:ID', (req, res) => {
 //         console.log(error);
 //         res.status(404).send(error);
 //     })
-// }) 
+// })
 app.delete('/deleteUserByID/:ID', (req, res) => {
     //User.update(req.body) //normal client request use case
     Models.User.destroy({
@@ -164,7 +169,7 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
         console.log(error);
         res.status(404).send(error);
     })
-}) 
+})
 // app.get('/createUser', (req, res) => {
 //     User.create({
 //         Email: "JoeSchmoe@gmail.com",
@@ -172,7 +177,7 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
 //         FirstName: 'Joe',
 //         LastName: "Schmoe",
 //         NickName: "SchmoJoe",
-//         Birthday: new Date('1986', '01', '23'),  
+//         Birthday: new Date('1986', '01', '23'),
 //         Gender: "Male",
 //         SecurityQuestion: "Example Question",
 //         SecurityAnswer: "Example Answer",
@@ -204,10 +209,10 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
 //     Models.User.create({
 //         Email: req.params.Email,
 //         Password: req.params.Password,
-//         FirstName: req.params.FirstName,   
+//         FirstName: req.params.FirstName,
 //         LastName: req.params.LastName,
 //         NickName: req.params.NickName,
-//         Birthday: req.params.Birthday,  
+//         Birthday: req.params.Birthday,
 //         Gender: req.params.Gender,
 //         SecurityQuestion: req.params.SecurityQuestion,
 //         SecurityAnswer: req.params.SecurityAnswer,
@@ -260,7 +265,7 @@ app.post('/createChapter:Name/', (req, res) => {
          FirstName: req.params.FirstName,
          LastName: req.params.LastName,
 //         NickName: req.params.NickName,
-         Birthday: req.params.Birthday,  
+         Birthday: req.params.Birthday,
          Gender: req.params.Gender,
          SecurityQuestion: req.params.SecurityQuestion,
          SecurityAnswer: req.params.SecurityAnswer
@@ -278,7 +283,7 @@ app.post('/createChapter:Name/', (req, res) => {
 //         Twitter: req.params.Twitter,
 //         ChapterID: req.params.ChapterID
 
-     })     
+     })
      .then(user => {
         res.json(user);
     })
@@ -295,7 +300,7 @@ app.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => {
         State: req.params.State,
         City: req.params.City,
         Zip: req.params.Zip
-    })     
+    })
     .then(address => {
        res.json(address);
    })
@@ -312,7 +317,7 @@ app.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:
         FirstName: req.params.FirstName,
         LastName: req.params.LastName,
         NickName: req.params.NickName,
-        Birthday: req.params.Birthday,  
+        Birthday: req.params.Birthday,
         Gender: req.params.Gender,
         SecurityQuestion: req.params.SecurityQuestion,
         SecurityAnswer: req.params.SecurityAnswer,

@@ -1,7 +1,9 @@
 #ignore reuploading documentation
 'How To Properly Add Code To The Repository.md'
 'READ FIRST BEFORE DOING ANYTHING.md'
-'Setting Up Your Development Environment.md'
+#'Setting Up Your Development Environment.md'
+'README.md'
+'LICENSE.md'
 
 #ignore .DS_store
 .DS_store

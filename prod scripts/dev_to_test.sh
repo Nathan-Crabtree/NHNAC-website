@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-#
 # The procedure goes in this script as follows:
 # 
 # cd ~/testing
