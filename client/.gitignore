@@ -9,6 +9,8 @@
 # production
 /build
 /public-html
+Dockerfile
+docker-compose.yml
 
 # misc
 .DS_Store

@@ -5,6 +5,7 @@ import Content from './Content';
 import Container from '../Container';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 class Header extends Component {
 
@@ -43,7 +44,7 @@ class Header extends Component {
      *  filter: brightness(50%);
      *  position: relative;
      *  z-index: -1;
-     * 
+     *
      */
     toggleDisplayNav() {
         if (this.state.toggleDisplay) {
@@ -55,7 +56,7 @@ class Header extends Component {
 
             // Change hamburgerIcon's display to block; change navDiv margin and transition settings
             hamburgerIcon.style.display = "block";
-            navDiv.style.marginTop = "-485.72px";
+            navDiv.style.marginTop = "-485.7px";
             navDiv.style.transition = "margin-top 1s";
 
             // Set body overflow style property to scroll
@@ -160,13 +161,13 @@ class Header extends Component {
                         { this.props.isAuthenticated ?
                             <ul className="header_links">
                                 <li className="dropdown">
-                                    <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?view=user&customize=false`}>Profile</Link>
+                                    <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?view=user&customize=false`}>Profile</Link>
                                     <div className="dropdown-content">
-                                        <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?edit_profile_pic=false`}>Account Settings</Link>
-                                        <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}?view=user&customize=true`}>Customize Page</Link>
-                                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`}>Messages</Link>
+                                        <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link>
+                                        <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?view=user&customize=true`}>Customize Page</Link>
+                                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`}>Messages</Link>
                                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
-                                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}`}>Request ID</Link>
+                                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}`}>Request ID</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>
@@ -201,7 +202,7 @@ class Header extends Component {
                                 <li className="vertical_bar">|</li>
                                 <li>
                                     <form id="search" onSubmit={this.onSubmit}>
-                                        <input type="text" className="login_input search_input" name="search" maxLength="500" placeholder="Search..." />
+                                        <input type="search" className="login_input search_input" name="search" maxLength="500" placeholder="Search..." />
                                         <input type="image" className="magnifying_glass" src={magnifyingGlass} alt="Submit your search query." />
                                     </form>
                                 </li>

@@ -5,6 +5,7 @@ import Container from '../Container';
 import queryString from 'query-string';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubscribe, displaySubscription }) => {
   const [userId, setUserId] = useState(null);
@@ -722,7 +723,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    setUserId(CryptoJS.AES.decrypt(props.match.params.userId, 'doGeAtCaT12107;/\)').toString(CryptoJS.enc.Utf8));
+    setUserId(CryptoJS.AES.decrypt(props.match.params.userId, process.env.PROD_KEY).toString(CryptoJS.enc.Utf8));
     setEditProfilePic(parsedQString.edit_profile_pic);
 
     // Display "Edit Profile Picture" form if editProfilePic is true
@@ -825,7 +826,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           </form>
           <button onClick={ () => { displayForm("status") } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
         </div>
-        <Link to={`/id_request/${CryptoJS.AES.encrypt(userId, 'doGeAtCaT12107;/\)').toString()}`}>Request new ID card</Link><br />
+        <Link to={`/id_request/${CryptoJS.AES.encrypt(userId, process.env.PROD_KEY).toString()}`}>Request new ID card</Link><br />
         <Container onSubmit={props.onSubmit} triggerText="Delete Account" /><br />
         {/* Social Media Links */}
         <div>

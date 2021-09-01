@@ -85,7 +85,7 @@ export default class Content extends Component {
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
-                                    <p>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></p>
+                                    <p>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></p>
                                     <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                 </div>
                                 <div className="sub_article_content">

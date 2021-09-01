@@ -14,7 +14,7 @@
 
 // NOTE: Pass {...props} and as callback into routed component in order to properly use query strings.
 // NOTE: Interestingly, props can only be traversed upward for components with classes, not hooks.
-// - Zane 
+// - Zane
 
 // Import React libraries
 import React, { Component } from 'react';
@@ -44,6 +44,7 @@ import { Header, Error, Login, Content,
          } from './dynamic/Dynamic';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export default class App extends Component {
 
@@ -80,7 +81,7 @@ export default class App extends Component {
   /**
   * displayUnloadMessage() function - Adds pop-up warning message of unsaved data if user attempts to leave page
   * on a event listener.
-  * 
+  *
   * @param {object} event
   * @returns {string} message
   */
@@ -134,7 +135,7 @@ export default class App extends Component {
       hamburgerIcon.style.display = "block";
 
       // Change navDiv margin and transition settings.
-      navDiv.style.marginTop = "-485.72px";
+      navDiv.style.marginTop = "-485.7px";
       navDiv.style.transition = "margin-top 0s";
 
       // Set body overflow style property to scroll.
@@ -393,7 +394,7 @@ export default class App extends Component {
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
-                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), 'doGeAtCaT12107;/\)').toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} 
+                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), process.env.PROD_KEY).toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed}
                 cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} isAuthenticated={this.state.isAuthenticated} /> } </Route>
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy /> } />
                 <Route exact path="/content/:header" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} articleImgLink={articleImgLink} /> } />
@@ -411,7 +412,7 @@ export default class App extends Component {
                   *  Source: https://stackoverflow.com/questions/23945494/use-html5-to-resize-an-image-before-upload - Zane
                   */}
                 <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} emailIsValid={this.emailIsValid}
-                setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName} checkDates={this.checkDates} changeBorderColor={this.changeBorderColor} sanitizeInput={this.sanitizeInput} 
+                setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName} checkDates={this.checkDates} changeBorderColor={this.changeBorderColor} sanitizeInput={this.sanitizeInput}
                 displayUnloadMessage={this.displayUnloadMessage} /> } />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword sanitizeInput={this.sanitizeInput} /> } />
                 <Route exact path="/verification" component={ () => <Verification newsletterEmailAddress={this.props.newsletterEmailAddress} /> } />
@@ -434,7 +435,7 @@ export default class App extends Component {
                 <Route component={Error} />
             </Switch>
           </main>
-          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} emailIsValid={this.emailIsValid} setNewsletterEmailAddress={this.setNewsletterEmailAddress} 
+          <Footer fbLogo={fbLogo} onSubmit={this.onSubmit} emailIsValid={this.emailIsValid} setNewsletterEmailAddress={this.setNewsletterEmailAddress}
           sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} />
         </div>
       </BrowserRouter>

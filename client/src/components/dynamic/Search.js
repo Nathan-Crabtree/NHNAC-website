@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import queryString, { parse } from 'query-string';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export const Search = (props) => {
   // Source: https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react - Zane 
@@ -191,7 +192,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -213,7 +214,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -235,7 +236,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -257,7 +258,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -279,7 +280,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -301,7 +302,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -323,7 +324,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -345,7 +346,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -367,7 +368,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
@@ -389,7 +390,7 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>

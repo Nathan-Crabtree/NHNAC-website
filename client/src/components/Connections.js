@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export const Connections = ({ profileImgSmall, messageIcon, approveOrReject, closeModal }) => {
 
@@ -34,7 +35,7 @@ return (
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
@@ -48,22 +49,22 @@ return (
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
-            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
+            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
             <div className="clear"></div>
         </li>
         <li><hr /></li>
         <li>
             <img className="profile_img_med" srcSet={profileImgSmall} alt="Portrait of user." />
             <div>
-                <a href={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
+                <a href={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`} onClick={closeModal}><h2>Milton Miles</h2></a>
                 <p>Tier</p>
                 <p>Last Online: 35 min ago</p>
             </div>
-            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
+            <a className="message_icon_a" href={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`} onClick={closeModal}><img className="message_icon" srcSet={messageIcon} alt="Click to message this user." /></a>
             <div className="clear"></div>
         </li>
     </ul>
