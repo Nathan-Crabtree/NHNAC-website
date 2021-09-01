@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Container from '../Container';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export default class PodcastType extends Component {
 
@@ -92,7 +93,7 @@ export default class PodcastType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -139,7 +140,7 @@ export default class PodcastType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>

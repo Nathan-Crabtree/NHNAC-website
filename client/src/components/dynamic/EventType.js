@@ -9,6 +9,7 @@ import { Icon } from 'leaflet'
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export default class EventType extends Component {
 
@@ -156,17 +157,17 @@ export default class EventType extends Component {
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg></button>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                     <li>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                     <li>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                 </ul>
@@ -292,7 +293,7 @@ export default class EventType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -339,7 +340,7 @@ export default class EventType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>

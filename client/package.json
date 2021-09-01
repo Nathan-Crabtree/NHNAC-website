@@ -1,12 +1,13 @@
 {
   "name": "client",
-  "version": "0.6.8",
+  "version": "0.7.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.14.6",
     "@types/react": "^17.0.11",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
     "focus-trap-react": "^8.6.0",
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass": "cd src && sass --watch scss/style.scss ../public/css/style.css --style=compressed"
   },
   "browserslist": [
     ">0.2%",

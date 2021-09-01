@@ -11,6 +11,7 @@ import EventType from './EventType';
 import BlogType from './BlogType';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 export default class Article extends Component {
 
@@ -321,7 +322,7 @@ export default class Article extends Component {
                     <div>
                         <p>Posted on 2-2-20</p>
                         <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
-                        <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </div>
                     <div>
                         <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><img srcSet={instaMini} alt="Author's instagram link." /></a>

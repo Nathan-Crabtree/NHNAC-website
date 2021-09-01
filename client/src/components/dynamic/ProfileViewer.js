@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Container from '../Container';
 
 var CryptoJS = require("crypto-js");
+require('dotenv').config();
 
 class ProfileViewer extends Component {
 
@@ -31,7 +32,7 @@ class ProfileViewer extends Component {
             if (btn === "connection") {
                 return <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />;
             } else if (btn === "message") {
-                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', 'doGeAtCaT12107;/\)').toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
+                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
             }
         } else if (this.state.status === "pending") {
             if (btn === "connection") {
