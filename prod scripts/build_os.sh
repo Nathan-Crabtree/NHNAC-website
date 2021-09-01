@@ -1,6 +1,4 @@
-#! bin/bash
-#
-# build.sh
+#!/bin/bash
 #
 # NOTE: This script is meant for reading only. It has not been tested or known to work. - Zane
 #
@@ -12,8 +10,9 @@
 # 4) schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
 # 5) implement security features for apache and mysql. Configure firewall settings and enable SSH remote access.
 # note: whenever enabling SSH remote access for Linux server, make sure to combine it with OpenVPN.
-# 6) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
-# 7) implement extra security features for the server if you can.
+# 6) create docker-compose.yml, Dockerfiles and .env files for api and client folders at /home/mint for environment variables.
+# 7) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
+# 8) implement extra security features for the server if you can.
 #
 # MYSQL COMMANDS KNOWN TO WORK WITH GENERIC LINUX (DO NOT USE SUDO):
 # bin/mysqld_safe --user=mysql &

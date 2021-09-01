@@ -1,32 +1,40 @@
 "use strict";
-// NOTE: Role and UserRole still need associations. - Zane
+// NOTE: Role and UserRole still need associations.
+// Use config.json to load proper database. Refer to https://github.com/Zandy12/FSJS-Project-Ten/blob/master/api/config/config.json. - Zane
 
 //var babel = require("@babel/core");
 //import { transform } from "@babel/core";
 //import * as babel from "@babel/core";
-//import { secret } from '~/secret.js'; //production env
 
 const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-//const sequelize = secret; // Production env, could be a node environment variable - Zane 
+//const sequelize = new Sequelize(process.env.DB_PROD, { logging: console.log });; // production env - Zane
 
 //const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
 //const sequelize = new Sequelize('mysql://newhavenuser:@localhost:3306/newhaven', { logging: console.log }); //development env
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
   host: 'localhost',
   dialect: 'mysql',
-  //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database 
+  //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database
   operatorsAliases: false // prevents us from receiving certain deprecation warnings inside console
 });
 
 //bcrypt is for password hashing
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
+let saltRounds, myPlaintextPassword, someOtherPlaintextPassword;
 
-// For validation 
+if (process.env.NODE_ENV !== "production") {
+  saltRounds = 1;
+  myPlaintextPassword = "password1";
+  someOtherPlaintextPassword = "password2"; 
+} else {
+  saltRounds = parseInt(process.env.PROD_SALTROUNDS);
+  myPlaintextPassword = process.env.PROD_PLAINTEXTPASSWORD1;
+  someOtherPlaintextPassword = process.env.PROD_PLAINTEXTPASSWORD2;
+}
+
+// For validation
 const date = new Date();
 const currentDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 const filePathRegex = /^[A-Z]:[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/;
@@ -43,12 +51,12 @@ console.log("entering Models.js");
 
 //Multiple Chapters (branches of the church) managed by database
 class Chapter extends Model{}
-  Chapter.init ({    
+  Chapter.init ({
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    }, 
+    },
     Name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -79,7 +87,7 @@ class Council extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    }, 
+    },
     Name: {
         type:DataTypes.STRING,
         allowNull: false,
@@ -133,7 +141,7 @@ Address.init({
         args: [150],
         message: 'Error: Address street field must contain less than 150 characters'
       }
-    } 
+    }
   },
   Country: {
     type: DataTypes.STRING,
@@ -172,7 +180,7 @@ Address.init({
       notEmpty: {
         args: [true],
         message: 'Error: Zip field must not be empty'
-      }      
+      }
     }
   }
 }, {
@@ -225,7 +233,7 @@ class User extends Model{}
           args: [true],
           message: 'Error: Email field must not be empty'
         }
-      } 
+      }
     },
     Password: {
       type: DataTypes.STRING,
@@ -276,7 +284,7 @@ class User extends Model{}
         },
         isBefore: {
           args: [currentDate],
-          message: 'Error: Birthday must be before current date ' + currentDate 
+          message: 'Error: Birthday must be before current date ' + currentDate
         }
       }
     },
@@ -288,7 +296,7 @@ class User extends Model{}
           args: [true],
           message: 'Error: Gender field must not be empty'
         },
-      }      
+      }
     },
     SecurityQuestion: {
       type: DataTypes.STRING,
@@ -298,7 +306,7 @@ class User extends Model{}
           args: [true],
           message: 'Error: Security question field must not be empty'
         },
-      } 
+      }
     },
     SecurityAnswer: {
       type: DataTypes.STRING,
@@ -308,7 +316,7 @@ class User extends Model{}
           args: [true],
           message: 'Error: Security answer field must not be empty'
         }
-      }     
+      }
     },
     // E-signature will be stored into a pdf in the server hard drive.
     ESignatureFilePath: {
@@ -328,12 +336,12 @@ class User extends Model{}
     // Uses a boolean to determine if user is subscribed to newsletter or not.
     SubscribedToNewsLetter: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false     
+      defaultValue: false
     },
     // Uses a boolean to determine if user is subscribed to podcast or not.
     SubscribedToPodcast: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false     
+      defaultValue: false
     },
     Points: {
       type: DataTypes.SMALLINT.UNSIGNED,
@@ -353,7 +361,7 @@ class User extends Model{}
           args: [32],
           message: 'Error: Status length can\'t be greater than 32 characters'
         }
-      }          
+      }
     },
     ProfilePic: {
       type: DataTypes.STRING,
@@ -363,21 +371,21 @@ class User extends Model{}
           args: [filePathRegex],
           message: "Error: File path to profile image file must contain a hard drive directory"
         }
-      }          
+      }
     },
     DateLoggedIn: {
       type: DataTypes.DATE,
-      allowNull: false, 
+      allowNull: false,
       validate: {
         isDate: {
           args: [true],
           message: 'Error: Logged-in date field must contain a date'
-        } 
+        }
       }
     },
     TimeLoggedIn: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     },
     Facebook: {
       type: DataTypes.STRING,
@@ -409,7 +417,7 @@ class User extends Model{}
         }
       }
     },
-    // Strikes are used to tally up no. of times a the user has been warned to not post offensive content 
+    // Strikes are used to tally up no. of times a the user has been warned to not post offensive content
     // (max 2 before being suspended). - Zane
     Strikes: {
       type: DataTypes.TINYINT,
@@ -422,38 +430,38 @@ class User extends Model{}
       }
     },
     /**
-     * // If a user is suspended after having 2 or more strikes, they will be prevented from accessing their 
+     * // If a user is suspended after having 2 or more strikes, they will be prevented from accessing their
      * // account with this field. - Zane
-     * 
+     *
      * @deprecated
      */
     /* Suspended: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     }, */
-    // Once user is suspended, they will not be able to access their account within 30 days following the date 
-    // they've been suspended. - Zane 
+    // Once user is suspended, they will not be able to access their account within 30 days following the date
+    // they've been suspended. - Zane
     DateSuspended: {
-      type: DataTypes.DATE, 
+      type: DataTypes.DATE,
       allowNull: true,
       validate: {
         isDate: {
           args: [true],
           message: 'Error: Suspended date field must contain a date'
         }
-      } 
+      }
     },
     AgreedToTerms: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,      
+      defaultValue: true,
     }
   }, {
     // hooks: {
-    //   beforeCreate: (user) => { 
+    //   beforeCreate: (user) => {
     //     //either beforeCreate or AfterValidate is fine
     //     //afterValidate: (user) => {
     //     user.Password = bcrypt.hashSync('${user.Password}', 8); //copied from Pluralsight Sequelize tutorial
-        
+
     //     //To check if password is correct for authentication:
     //     //bcrypt.compareSync(myPlaintextPassword, hash); // true
     //   }
@@ -461,7 +469,7 @@ class User extends Model{}
     //This was in the "Column Options" section of the sequilize manual
     sequelize,
     modelName: 'User',
-  
+
     //Using `unique: true` in an attribute above is exactly the same as creating the index in the model's options:
     indexes: [{ unique: true, fields: ['ID'] }]
   }
@@ -475,7 +483,7 @@ class Connection extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    User1: { 
+    User1: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -489,7 +497,7 @@ class Connection extends Model{}
         }
       }
     },
-    User2: { 
+    User2: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -503,14 +511,14 @@ class Connection extends Model{}
         }
       }
     },
-    // Status can either only be Pending or Approved. - Zane 
+    // Status can either only be Pending or Approved. - Zane
     Status: {
       type: DataTypes.STRING(8),
       allowNull: false,
       validate: {
-        isIn: { 
+        isIn: {
           args: [['Pending', 'Approved']],
-          message: 'Error: Status input can only either be Pending or Approved' 
+          message: 'Error: Status input can only either be Pending or Approved'
         }
       }
     },
@@ -532,7 +540,7 @@ class Role extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    }, 
+    },
     Name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -555,7 +563,7 @@ class Role extends Model{}
 );
 console.log("RoleLoaded: " + (Role === sequelize.models.Role)); // true
 
-//Users may play multiple roles in the church, "web admin", "church user", "medicine person", 
+//Users may play multiple roles in the church, "web admin", "church user", "medicine person",
 class UserRole extends Model{}
   UserRole.init({
     ID: {
@@ -676,7 +684,7 @@ class Badge extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    }, 
+    },
     Name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -685,7 +693,7 @@ class Badge extends Model{}
         message: 'Error: Badge name field must not be empty'
       }
     },
-    // Reference to where the image file is stored in the hard drive. 
+    // Reference to where the image file is stored in the hard drive.
     Image: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -702,7 +710,7 @@ class Badge extends Model{}
           args: [true],
           message: 'Error: Badge image field must not be empty'
         }
-      }  
+      }
     },
     Description: {
       type: DataTypes.TEXT,
@@ -723,7 +731,7 @@ class Badge extends Model{}
     modelName: 'Badge',
     indexes: [{ unique: true, fields: ['ID'] }]
   }
-); 
+);
 console.log("BadgeLoaded: " + (Badge === sequelize.models.Badge)); //true
 
 class UserBadge extends Model{}
@@ -740,7 +748,7 @@ class UserBadge extends Model{}
           key: 'ID'
       },
     },
-    UserID: {  //Changed by Nathan to fix association 
+    UserID: {  //Changed by Nathan to fix association
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -759,7 +767,7 @@ class UserBadge extends Model{}
     modelName: 'UserBadge',
     indexes: [{ unique: true, fields: ['ID'] }]
   }
-); 
+);
 console.log("UserBadgeLoaded: " + (UserBadge === sequelize.models.UserBadge)); //true
 
 
@@ -770,7 +778,7 @@ class UpdatesTable extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    UserID: { 
+    UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -1112,7 +1120,7 @@ class CouncilsTable extends Model{}
 );
 console.log("CouncilsTableLoaded: " + (CouncilsTable === sequelize.models.CouncilsTable)); //true
 
-class Message extends Model{} 
+class Message extends Model{}
   Message.init({
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1173,11 +1181,11 @@ class Message extends Model{}
           args: [true],
           message: 'Error: Message date field must not be empty'
         }
-      } 
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     },
     // Using this to check if message has been read by receiver for alert purposes on profile page. - Zane
     Read: {
@@ -1240,7 +1248,7 @@ class Comment extends Model{}
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1250,7 +1258,7 @@ class Comment extends Model{}
 );
 console.log("CommentLoaded: " + (Comment === sequelize.models.Comment)); //true
 
-class Tag extends Model{} 
+class Tag extends Model{}
   Tag.init({
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1283,14 +1291,14 @@ class Article extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },    
+    },
     TagID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
         key: 'ID'
       },
-      allowNull: true    
+      allowNull: true
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1354,7 +1362,7 @@ class Article extends Model{}
         }
       }
     },
-    Likes: {       
+    Likes: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0,
       validate: {
@@ -1376,11 +1384,11 @@ class Article extends Model{}
           args: [true],
           message: 'Error: Article date field must not be empty'
         }
-      } 
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1396,14 +1404,14 @@ class Blog extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },    
+    },
     TagID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
         key: 'ID'
       },
-      allowNull: true    
+      allowNull: true
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1467,7 +1475,7 @@ class Blog extends Model{}
         }
       }
     },
-    Likes: {       
+    Likes: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0,
       validate: {
@@ -1489,11 +1497,11 @@ class Blog extends Model{}
           args: [true],
           message: 'Error: Blog date field must not be empty'
         }
-      }  
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1509,14 +1517,14 @@ class Podcast extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },    
+    },
     TagID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
         key: 'ID'
       },
-      allowNull: true    
+      allowNull: true
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1594,7 +1602,7 @@ class Podcast extends Model{}
         }
       }
     },
-    Likes: {       
+    Likes: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0,
       validate: {
@@ -1616,11 +1624,11 @@ class Podcast extends Model{}
           args: [true],
           message: 'Error: Podcast date field must not be empty'
         }
-      }  
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1636,15 +1644,15 @@ class Update extends Model{}
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true
-    },    
+    },
     TagID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: Tag,
         key: 'ID'
       },
-      allowNull: true    
-    },    
+      allowNull: true
+    },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
@@ -1707,7 +1715,7 @@ class Update extends Model{}
         }
       }
     },
-    Likes: {       
+    Likes: {
       type: DataTypes.INTEGER.UNSIGNED,
       defaultValue: 0,
       validate: {
@@ -1729,11 +1737,11 @@ class Update extends Model{}
           args: [true],
           message: 'Error: Update date field must not be empty'
         }
-      }        
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1756,7 +1764,7 @@ class Event extends Model{}
         model: Tag,
         key: 'ID'
       },
-      allowNull: true    
+      allowNull: true
     },
     UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -1898,7 +1906,7 @@ class Event extends Model{}
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -1928,7 +1936,7 @@ class CommentContent extends Model{}
           args: [true],
           message: 'Error: Comment reference in comment-content must not be empty'
         }
-      }    
+      }
     },
     ArticleID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -2006,8 +2014,8 @@ class ForumPost extends Model{}
           args: [true],
           message: 'Error: Forum post likes input must be an integer'
         }
-      }      
-    },    
+      }
+    },
     Resolved: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
@@ -2024,11 +2032,11 @@ class ForumPost extends Model{}
           args: [true],
           message: 'Error: Forum post date field must not be empty'
         }
-      } 
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2127,11 +2135,11 @@ class Response extends Model{}
           args: [true],
           message: 'Error: Response date field must not be empty'
         }
-      }       
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2155,7 +2163,7 @@ class Certification extends Model{}
       validate: {
         isAlpha: {
           args: [true],
-          message: 'Error: Certification names can only have letters' 
+          message: 'Error: Certification names can only have letters'
         },
         notEmpty: {
           args: [true],
@@ -2185,7 +2193,7 @@ class Certification extends Model{}
           args: [/\.(mp4)$/i],
           message: "Error: File extension needs to be .mp4"
         }
-      }      
+      }
     },
     IntroImage: {
       type: DataTypes.TEXT,
@@ -2286,7 +2294,7 @@ class Certificate extends Model{}
           args: [true],
           message: 'Error: File path to certificate field must not be empty'
         }
-      } 
+      }
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -2312,7 +2320,7 @@ class Certificate extends Model{}
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2350,7 +2358,7 @@ class Course extends Model{}
       validate: {
         isAlpha: {
           args: [true],
-          message: 'Error: Course names can only have letters' 
+          message: 'Error: Course names can only have letters'
         },
         notEmpty: {
           args: [true],
@@ -2384,7 +2392,7 @@ class Course extends Model{}
           args: [/\.(mp4)$/i],
           message: "Error: File extension needs to be .mp4"
         }
-      } 
+      }
     },
     IntroImage: {
       type: DataTypes.TEXT,
@@ -2494,7 +2502,7 @@ class CertificationPreReq extends Model{}
 );
 console.log("CertificationPreReqLoaded: " + CoursePreReq === sequelize.models.CertificationPreReq); //true
 
-class UserCourse extends Model{} 
+class UserCourse extends Model{}
   UserCourse.init({
     //token primary key
     ID: {
@@ -2502,7 +2510,7 @@ class UserCourse extends Model{}
       autoIncrement: true,
       primaryKey: true
     },
-    UserID: { 
+    UserID: {
       type: DataTypes.INTEGER.UNSIGNED,
       references: {
         model: User,
@@ -2550,11 +2558,11 @@ class UserCourse extends Model{}
           args: [true],
           message: 'Error: User course date field must not be empty'
         }
-      }       
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2564,7 +2572,7 @@ class UserCourse extends Model{}
 );
 console.log("UserCourseLoaded: " + (UserCourse === sequelize.models.UserCourse)); //true
 
-class Section extends Model{} 
+class Section extends Model{}
   Section.init({
     //token primary key
     ID: {
@@ -2638,7 +2646,7 @@ class UserSection extends Model{}
           args: [true],
           message: 'Error: Section reference in user-section must not be empty'
         }
-      }      
+      }
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -2660,11 +2668,11 @@ class UserSection extends Model{}
           args: [true],
           message: 'Error: User section field must not be empty'
         }
-      }       
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2675,7 +2683,7 @@ class UserSection extends Model{}
 console.log("UserSectionLoaded: " + (UserSection === sequelize.models.UserSection)); //true
 
 // Content that belongs to a section of a course. - Zane
-class Content extends Model{} 
+class Content extends Model{}
   Content.init({
     //token primary key
     ID: {
@@ -2723,7 +2731,7 @@ class Content extends Model{}
           args: [/\.(mp4)$/i],
           message: "Error: File extension needs to be .mp4"
         }
-      }            
+      }
     },
     Page: {
       type: DataTypes.STRING,
@@ -2737,7 +2745,7 @@ class Content extends Model{}
           args: [true],
           message: 'Error: File path to content page field must not be empty'
         }
-      }             
+      }
     },
     Description: {
       type: DataTypes.TEXT,
@@ -2751,7 +2759,7 @@ class Content extends Model{}
           args: [true],
           message: 'Error: Content description field must not be empty'
         }
-      }         
+      }
     }
   }, {
     sequelize,
@@ -2795,7 +2803,7 @@ class UserContent extends Model{}
           args: [true],
           message: 'Error: Content reference in user-content must not be empty'
         }
-      }      
+      }
     },
     Started: {
       type: DataTypes.BOOLEAN,
@@ -2817,11 +2825,11 @@ class UserContent extends Model{}
           args: [true],
           message: 'Error: User content date field must not be empty'
         }
-      }       
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -2884,7 +2892,7 @@ class EventUser extends Model{}
 );
 console.log("EventUser: " + (EventUser === sequelize.models.EventUser)); //true
 
-class Resource extends Model{} 
+class Resource extends Model{}
   Resource.init({
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -2911,7 +2919,7 @@ class Resource extends Model{}
           args: [true],
           message: 'Error: File path to resource field must not be empty'
         }
-      }      
+      }
     }
   }, {
       sequelize,
@@ -2921,7 +2929,7 @@ class Resource extends Model{}
 );
 console.log("ResourceLoaded: " + (Resource === sequelize.models.Resource)); //true
 
-class UserResource extends Model{} 
+class UserResource extends Model{}
   UserResource.init({
     ID: {
       type: DataTypes.INTEGER.UNSIGNED,
@@ -2958,7 +2966,7 @@ class UserResource extends Model{}
     },
     Archived: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false  
+      defaultValue: false
     }
   }, {
       sequelize,
@@ -3083,11 +3091,11 @@ class UserQuiz extends Model{}
           args: [true],
           message: 'Error: User quiz date field must not be empty'
         }
-      }       
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
     sequelize,
@@ -3179,7 +3187,7 @@ class Answer extends Model{}
           args: [true],
           message: 'Error: Answer text field must not be empty'
         }
-      }      
+      }
     },
     //Is this answer the correct answer to the question?
     Correct: {
@@ -3198,11 +3206,11 @@ class Answer extends Model{}
           args: [true],
           message: 'Error: Answer date field must not be empty'
         }
-      }        
+      }
     },
     Time: {
       type: DataTypes.TIME,
-      allowNull: false 
+      allowNull: false
     }
   }, {
       sequelize,
@@ -3215,7 +3223,7 @@ console.log("AnswerLoaded: " + (Answer === sequelize.models.Answer)); //true
 // Report table exists to document reports that have been made. - Zane
 class Report extends Model{}
   Report.init({
-    // As of 1/24/2020, only the ID field is needed to show report no. - Zane 
+    // As of 1/24/2020, only the ID field is needed to show report no. - Zane
     ID: {
       type: DataTypes.BIGINT.UNSIGNED,
       autoIncrement: true,
@@ -3228,6 +3236,8 @@ class Report extends Model{}
   }
 );
 console.log("ReportLoaded: " + (Report === sequelize.models.Report)); //true
+
+// NOTE: Refer to https://github.com/Zandy12/FSJS-Project-Ten/tree/master/api/models for proper use of associations. - Zane
 
 // Chapter Associations
 User.belongsTo(Chapter);
@@ -3307,7 +3317,7 @@ Certification.hasMany(Certificate);
 Course.belongsTo(User);
 User.hasMany(Course);
 
-// CoursePreReq Associations  
+// CoursePreReq Associations
 CoursePreReq.belongsTo(CoursePreReq);
 CoursePreReq.hasMany(CoursePreReq);
 CoursePreReq.belongsTo(Course);
@@ -3346,7 +3356,7 @@ UserContent.belongsTo(Content);
 Content.hasMany(UserContent);
 
 // Article Associations
-Article.belongsTo(Tag); 
+Article.belongsTo(Tag);
 Tag.hasMany(Article);
 Article.belongsTo(User);
 User.hasMany(Article);
@@ -3356,7 +3366,7 @@ Article.belongsTo(CommentContent);
 CommentContent.hasMany(Article);
 
 // Blog Associations
-Blog.belongsTo(Tag); 
+Blog.belongsTo(Tag);
 Tag.hasMany(Blog);
 Blog.belongsTo(User);
 User.hasMany(Blog);
@@ -3366,7 +3376,7 @@ Blog.belongsTo(CommentContent);
 CommentContent.hasMany(Blog);
 
 // Podcast Associations
-Podcast.belongsTo(Tag); 
+Podcast.belongsTo(Tag);
 Tag.hasMany(Podcast);
 Podcast.belongsTo(User);
 User.hasMany(Podcast);
@@ -3442,8 +3452,8 @@ Question.hasMany(Answer);
 // Response Associations
 Response.belongsTo(Comment);
 Comment.hasMany(Response);
-   
-// Kept this in file for future reference. - Zane  
+
+// NOTE: Kept this in file for future reference. - Zane
 /* //User.hasMany(Role, {through: UserRole, foreignKey: UserName, otherKey: Role});
 User.belongsToMany(Role, {through: UserRole, foreignKey: 'UserName', otherKey: 'Role'});
 Role.belongsToMany(User, {through: UserRole, foreignKey: 'Role', otherKey: 'UserName'});
@@ -3510,4 +3520,3 @@ module.exports = {
   Report
 }
 console.log("Exiting Models.js");
-

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 # The script executes the following command:
 #
