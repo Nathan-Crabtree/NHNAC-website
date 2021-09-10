@@ -1,24 +1,27 @@
 #!/bin/bash
 #
-# NOTE: This script is meant for reading only. It has not been tested or known to work. - Zane
+# NOTE: This script is meant for reading only is constantly being revised. Has not been tested or known to work. - Zane
 #
 # Steps:
 # 1) before running script, make sure you have an SSH key setup for accessing github repo, 
-# also have the latest full MySQL Community Server .tar.xz file downloaded from https://dev.mysql.com/downloads/mysql/.
+# also have the latest full MySQL Community Server .tar.xz LOG_FILE downloaded from https://dev.mysql.com/downloads/mysql/.
 # 2) run script with sudo
-# 3) after running script, use "chmod +x *" in ~/testing/scripts folder along with restart_mysql.sh and startup.sh in /etc/init.d (make sure to have it unlocked). 
-# 4) schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab file: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
-# 5) implement security features for apache and mysql. Configure firewall settings and enable SSH remote access.
-# note: whenever enabling SSH remote access for Linux server, make sure to combine it with OpenVPN.
-# 6) create docker-compose.yml, Dockerfiles and .env files for api and client folders at /home/mint for environment variables.
-# 7) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
-# 8) implement extra security features for the server if you can.
+# 3) after running script, use "chmod +x *" in ~/testing/"prod scripts" folder along with restart_mysql.sh and startup.sh in /etc/init.d (make sure to have it unlocked). 
+# 4) configure the /etc/ssmtp/ssmtp.conf LOG_FILE for sending emails (refer to https://wiki.archlinux.org/title/SSMTP).
+# 5) schedule cron job using "crontab -e" for dev_to_test.sh. Insert at bottom of crontab LOG_FILE: "0 0 * * * cd ~/testing; ./dev_to_test.sh".
+# 6) implement security features for apache and mysql. configure firewall settings and enable SSH remote access.
+# note: whenever enabling SSH remote access for Linux server, make sure to combine it with a VPN.
+# 7) create docker-compose.yml, Dockerfiles and .env.production files for api and client folders at home (~) for environment variables.
+# 8) run stage_to_prod.sh and start_client.sh as soon as the staging folder is populated.
+# 9) implement extra security features for the server if you can.
 #
 # MYSQL COMMANDS KNOWN TO WORK WITH GENERIC LINUX (DO NOT USE SUDO):
 # bin/mysqld_safe --user=mysql &
 # mysql -u root -p -h127.0.0.1
 # bin/mysqladmin -u root -p shutdown
 # 
+# NOTE: Docker works best with automated scripts when running as "docker" user. - Zane
+#
 # The script executes in the following way:
 #
 # apt-get update
@@ -39,7 +42,7 @@
 # groupadd mysql
 # useradd -r -g mysql -s /bin/false mysql
 # cd /usr/local
-# prompt file location and name of mysql file here
+# prompt LOG_FILE location and name of mysql LOG_FILE here
 # tar xvf <path_and_name_to_mysql_file>.tar.xz
 # ln -s /usr/local/<mysql_filename> mysql
 # cd mysql
@@ -58,310 +61,338 @@
 # git init 
 # git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git
 # git pull origin master
-# cp /scripts/startup.sh /etc/init.d
-# cp /scripts/restart_mysql.sh /etc/init.d
+# cp "prod scripts"/startup.sh /etc/init.d
+# cp "prod scripts"/restart_mysql.sh /etc/init.d
 #
 
-FILE=~/script_exec_log.txt
-EMAIL=~/production/api/email.txt
+source set_env_vars.sh
+source functions.sh
 
-if [ -f "$FILE" ]; then
-        date >> $FILE        
-        echo -e "Note: file already exists. Top logo will not be created.\n" >> $FILE
-else
-        cd ~
-        touch script_exec_log.txt
-        echo -e "***********************************************\n" >> $FILE
-        echo -e "     ENVIRONMENT SCRIPT EXECUTION LOG FILE     \n" >> $FILE
-        echo -e "***********************************************\n\n" >> $FILE
-        echo -e "<weekday month day UT timezone>\n" >> $FILE 
-        echo -e "<description>\n\n" >> $FILE    
-fi
+draw_logo
 
 wait 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e "build.sh is being executed...\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: apt-get update) " >> $FILE
-apt-get update >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf "build_os.sh is being executed...\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: rm /etc/apt/preferences.d/nosnap.pref) " >> $FILE
-rm /etc/apt/preferences.d/nosnap.pref >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt-get update) " >> $LOG_FILE
+apt-get update >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: apt update) " >> $FILE
-apt update >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: apt install snapd) " >> $FILE
-apt install snapd >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: rm /etc/apt/preferences.d/nosnap.pref) " >> $LOG_FILE
+rm /etc/apt/preferences.d/nosnap.pref >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: snap install docker) " >> $FILE
-snap install docker >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: docker volume create portainer_data) " >> $FILE
-docker volume create portainer_data >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt update) " >> $LOG_FILE
+apt update >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer) " >> $FILE
-docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: apt install apache2) " >> $FILE
-apt install apache2 >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt install snapd) " >> $LOG_FILE
+apt install snapd >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: apt install git) " >> $FILE
-apt install git >> $FILE 
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: apt install nodejs) " >> $FILE
-apt install nodejs >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: snap install docker) " >> $LOG_FILE
+snap install docker >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: apt install npm) " >> $FILE
-apt install npm >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: apt install ssmtp) " >> $FILE
-apt install ssmtp >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: docker volume create portainer_data) " >> $LOG_FILE
+docker volume create portainer_data >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: apt install wget) " >> $FILE
-apt install wget >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb) " >> $FILE
-wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer) " >> $LOG_FILE
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: groupadd mysql) " >> $FILE
-groupadd mysql >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: useradd -r -g mysql -s /bin/false mysql) " >> $FILE
-useradd -r -g mysql -s /bin/false mysql >> $FILE
-echo -e "\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: cd /usr/local) " >> $FILE
-cd /usr/local >> $FILE
-echo -e "\n" >> $FILE
-
-read -p "Please enter the full file-name and path for your MySQL download (be sure to include .tar.xz)" VARFILENAME_AND_PATH
-
-date >> $FILE
-echo -e ": (command: tar xvf ${VARFILENAME_AND_PATH}) " >> $FILE
-tar xvf ${VARFILENAME_AND_PATH} >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt install apache2) " >> $LOG_FILE
+apt install apache2 >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-read -p "Please enter the only full file-name your MySQL download (be sure to include .tar.xz)" VARFILENAME_ONLY
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: ln -s /usr/local/${VARFILENAME_ONLY} mysql) " >> $FILE
-ln -s /usr/local/${VARFILENAME_ONLY} mysql >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt install git) " >> $LOG_FILE
+apt install git >> $LOG_FILE 
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: cd mysql) " >> $FILE
-cd mysql >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: mkdir mysql-files) " >> $FILE
-mkdir mysql-files >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt install nodejs) " >> $LOG_FILE
+apt install nodejs >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: chown mysql:mysql mysql-files) " >> $FILE
-chown mysql:mysql mysql-files >> $FILE
-echo -e "\n" >> $FILE
+wait
 
-date >> $FILE
-echo -e ": (command: chmod 750 mysql-files) " >> $FILE
-chmod 750 mysql-files >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
+date >> $LOG_FILE
+printf ": (command: apt install npm) " >> $LOG_FILE
+apt install npm >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: chmod -R 777 /tmp) " >> $FILE
-chmod -R 777 /tmp >> $FILE
-echo -e "\n" >> $FILE
+wait
 
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: chmod -R 777 /var) " >> $FILE
-chmod -R 777 /var >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: apt install ssmtp) " >> $LOG_FILE
+apt install ssmtp >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: apt install wget) " >> $LOG_FILE
+apt install wget >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb) " >> $LOG_FILE
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: groupadd mysql) " >> $LOG_FILE
+groupadd mysql >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: useradd -r -g mysql -s /bin/false mysql) " >> $LOG_FILE
+useradd -r -g mysql -s /bin/false mysql >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+cd /usr/local
+
+date >> $LOG_FILE
+printf ": changed directory to /usr/local\n" >> $LOG_FILE
+
+read -p "Please enter the full LOG_FILE-name and path for your MySQL download (be sure to include .tar.xz): " VARFILENAME_AND_PATH
+
+date >> $LOG_FILE
+printf ": (command: tar xvf '$VARFILENAME_AND_PATH') " >> $LOG_FILE
+tar xvf $VARFILENAME_AND_PATH >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+read -p "Please enter the only full LOG_FILE-name your MySQL download (be sure to include .tar.xz): " VARFILENAME_ONLY
+
+date >> $LOG_FILE
+printf ": (command: ln -s /usr/local/'$VARFILENAME_ONLY' mysql) " >> $LOG_FILE
+ln -s /usr/local/$VARFILENAME_ONLY mysql >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+cd mysql >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": Changed directory to mysql\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: mkdir mysql-files) " >> $LOG_FILE
+mkdir mysql-files >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: chown mysql:mysql mysql-files) " >> $LOG_FILE
+chown mysql:mysql mysql-files >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: chmod 750 mysql-files) " >> $LOG_FILE
+chmod 750 mysql-files >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: chmod -R 777 /tmp) " >> $LOG_FILE
+chmod -R 777 /tmp >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: chmod -R 777 /var) " >> $LOG_FILE
+chmod -R 777 /var >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
 # These need to be ran manually after mysql has been installed:
 # bin/mysqld --initialize --user=mysql # Note: Here you'll receive a default password, be sure to have that remembered.
 # bin/mysql_ssl_rsa_setup
 
 cd ~
-date >> $FILE
-echo -e ": Changed directory to ~\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: mkdir development testing staging production) " >> $FILE
-mkdir development testing staging production >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Changed directory to ~\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: mkdir development testing staging production) " >> $LOG_FILE
+mkdir development testing staging production >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
 cd testing
-date >> $FILE
-echo -e ": Changed directory to ~/testing\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: git init) " >> $FILE
-git init >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Changed directory to testing\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git) " >> $FILE
-git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: git init) " >> $LOG_FILE
+git init >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: git pull origin master) " >> $FILE
-git pull origin master >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git) " >> $LOG_FILE
+git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: git pull origin master) " >> $LOG_FILE
+git pull origin master >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
 cd ~/production
-date >> $FILE
-echo -e ": Changed directory to ~/production\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: git init) " >> $FILE
-git init >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Changed directory to ~/production\n" >> $LOG_FILE
 
-wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git) " >> $FILE
-git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: git init) " >> $LOG_FILE
+git init >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
 
-date >> $FILE
-echo -e ": (command: cp scripts/startup.sh /etc/init.d) " >> $FILE
-cp scripts/startup.sh /etc/init.d >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: cp scripts/startup.sh /etc/init.d) " >> $FILE
-cp scripts/restart_mysql.sh /etc/init.d >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git) " >> $LOG_FILE
+git remote add origin git+ssh://git@github.com/Zandy12/NHNAC-website.git >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": build.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: cp 'prod scripts'/startup.sh /etc/init.d) " >> $LOG_FILE
+cp "prod scripts"/startup.sh /etc/init.d >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: cp 'prod scripts'/startup.sh /etc/init.d) " >> $LOG_FILE
+cp "prod scripts"/restart_mysql.sh /etc/init.d >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": build.sh executed successfully. Waiting and returning exit status 0.\n" >> $LOG_FILE
 
 wait
 

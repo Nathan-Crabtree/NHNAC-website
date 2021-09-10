@@ -4,11 +4,10 @@
 # 
 # docker stop api # obsolete
 # docker rm api # obsolete
+# \cp -r ~/staging/* ~/production
 # cd ~/production/api
 # docker-compose down
 # npm run-script stop # obsolete
-# \cp -r ~/staging/* ~/production
-# \cp -r /home/mint/api/* ~/production/api
 # npm install
 # npm audit fix
 # sendmail
@@ -18,125 +17,106 @@
 # docker-compose up -d
 #
 
-FILE=~/script_exec_log.txt
+source set_env_vars.sh
+source functions.sh
+
 EMAIL=~/production/api/email.txt
 
-if [ -f "$FILE" ]; then
-        date >> $FILE        
-        echo -e "Note: file already exists. Top logo will not be created.\n" >> $FILE
-else
-        cd ~
-        touch script_exec_log.txt
-        echo -e "***********************************************\n" >> $FILE
-        echo -e "     ENVIRONMENT SCRIPT EXECUTION LOG FILE     \n" >> $FILE
-        echo -e "***********************************************\n\n" >> $FILE
-        echo -e "<weekday month day UT timezone>\n" >> $FILE 
-        echo -e "<description>\n\n" >> $FILE    
-fi
+draw_logo
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": Beginning stage_to_prod.sh\n" >> $FILE
+date >> $LOG_FILE
+printf ": Beginning stage_to_prod.sh\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/staging/* ~\production) " >> $LOG_FILE
+\cp -r ~/staging/* ~/production >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully. Files copied from ~/staging to ~/production.\n" >> $LOG_FILE
 
 cd ~/production/api
 
 wait 
 
-date >> $FILE
-echo -e ": Waited successfully. Changed directory to ~/production/api\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Changed directory to ~/production/api\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: docker-compose down) " >> $FILE
-docker-compose down >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: docker-compose down) " >> $LOG_FILE
+docker-compose down >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait 
 
-date >> $FILE 
-echo -e ": Waited successfully. Stopped and deleted api docker container.\n" >> $FILE 
+date >> $LOG_FILE 
+printf ": Waited successfully. Stopped and deleted api docker container.\n" >> $LOG_FILE 
 
-date >> $FILE
-echo -e ": (command: \cp -r ~/staging/* ~\production) " >> $FILE
-\cp -r ~/staging/* ~/production >> $FILE
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully. Files copied from ~/staging to ~/production.\n" >> $FILE
-
-date >> $FILE
-echo -e ": (command: \cp -r /home/mint/api/* ~/production/api) " >> $FILE
-\cp -r /home/mint/api/* ~/production/api >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: npm install) " >> $LOG_FILE
+npm install >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. Files copied from ~/home/mint/api to ~/production/api.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo ": (command: npm install) " >> $FILE
-npm install >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: npm audit fix) " >> $LOG_FILE
+npm audit fix >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-wait
-
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo ": (command: npm audit fix) " >> $FILE
-npm audit fix >> $FILE
-echo -e "\n" >> $FILE
-
-echo -e "Subject: Files transfered to Production from Staging. API server restarted\n" >> $EMAIL
-echo -e "Files have been successfully transferred from Staging to Production and API server has restarted.\n" >> $EMAIL
-git log >> $EMAIL
-echo -e "\n" >> $EMAIL
+printf "Subject: Files transfered to Production from Staging. API server restarted\n" >> $EMAIL
+printf "Files have been successfully transferred from Staging to Production and API server has restarted.\n\n" >> $EMAIL
+printf "=============== GIT LOG ====================\n\n" >> $EMAIL
+cat $GIT_LOG >> $EMAIL
+printf "\n" >> $EMAIL
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. Created email.txt\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Created email.txt\n" >> $LOG_FILE
 
-date >> $FILE
-echo ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $FILE
-/usr/sbin/sendmail zanechandygmail.com < email.txt >> $FILE
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": email successfully sent\n" >> $FILE
-
-date >> $FILE
-echo ": (command: rm email.txt) " >> $FILE
-rm email.txt >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $LOG_FILE
+/usr/sbin/sendmail zanechandygmail.com < email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. email has been sent\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": email.txt successfully deleted\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: rm email.txt) " >> $LOG_FILE
+rm email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: docker-compose up -d) " >> $FILE
-docker-compose up -d >> $FILE
-echo -e "\n" >> $FILE
+wait
 
-date >> $FILE
-echo -e ": stage_to_prod.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": email.txt has been deleted\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: docker-compose up -d) " >> $LOG_FILE
+docker-compose up -d >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": stage_to_prod.sh executed successfully. Waiting and returning exit status 0.\n" >> $LOG_FILE
+
+./start_client.sh
 
 wait
 

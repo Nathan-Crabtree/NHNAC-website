@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Src: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -31,7 +31,7 @@ export const Modal = ({
 }) => {
 
 /**
- * displayForm() function - Renders following component according to what value triggerText has.
+ * Renders following component according to what value triggerText has.
  *
  * @returns {class} Component - A React Component.
  */

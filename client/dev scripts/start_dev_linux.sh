@@ -9,7 +9,7 @@ read DIR
 
 # Src: https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script - Zane
 while true; do
-    read -p "Are you sure you want to use \"$DIR\"? (Y/N): " yn
+    read -p "Are you sure you want to use '$DIR'? (Y/N): " yn
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) exit;;

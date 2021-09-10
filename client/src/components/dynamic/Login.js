@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class Login extends Component {
 
@@ -12,21 +13,23 @@ export default class Login extends Component {
     }
 
     /**
-     * onSubmit() function - Checks login credentials before submitting and authenticating user.
+     * Checks login credentials before submitting and authenticating user.
      * Renders error stating incorrect email or password else if credentials don't match those on database.
      *
      * @param {object} e
      */
     onSubmit = (e) => {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
             e = window.event;
         }
 
-        e.preventDefault(e);
+        e.preventDefault();
 
-        let email = e.target.email.value;
-        let password = e.target.password.value;
+        let email = target.email.value;
+        let password = target.password.value;
 
         // NOTE: Password isn't being sanitized because it's being checked against hashed/encoded data. - Zane
 
@@ -37,6 +40,9 @@ export default class Login extends Component {
 
         if (emailAlreadyExists) {
             // Check if password matches that what already exists on database for user
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");  
         } else {
             if (!this.state.errorExists) {
                 // Render error text and change boolean
@@ -74,13 +80,15 @@ export default class Login extends Component {
                             <input className="login_input" type="text" id="email" name="email" maxLength="320" /><br />
                             <label htmlFor="password">Password:</label><br />
                             <input className="login_input" type="password" id="password" name="password" minLength="3" maxLength="30" /><br />
+                            <input onClick={this.props.showPassword} type="checkbox" id="showPassword" name="show_password" />
+                            <label htmlFor="showPassword">Show password</label><br />
                             <input type="checkbox" id="rememberMe" name="remember_me" />
                             <label htmlFor="rememberMe">Remember me</label><br />
                         </div>
                         <div className="form_links center_text">
                             <span><Link to="/forgot_password">Click here if you forgot your password.</Link></span>
                         </div>
-                        <button className="login_submit" type="submit">Sign In</button>
+                        <button id="submit" className="login_submit" type="submit">Sign In</button>
                     </fieldset>
                     <div className="form_links center_text">
                         <span>New member? <Link to="/signup">Click here to become adopted.</Link></span>
@@ -89,4 +97,9 @@ export default class Login extends Component {
             </div>
          );
     }
+}
+
+// PropTypes for jest testing in App.test.js
+Login.propTypes = {
+    showPassword: PropTypes.func.isRequired
 }

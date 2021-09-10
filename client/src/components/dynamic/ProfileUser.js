@@ -29,7 +29,7 @@ class ProfileUser extends Component {
     }
 
     /**
-     * displayForm() function - Shows the section's form that the comment belongs to and hides the associated "edit" button.
+     * Shows the section's form that the comment belongs to and hides the associated "edit" button.
      *
      */
     displayForm() {
@@ -50,7 +50,7 @@ class ProfileUser extends Component {
     }
 
     /**
-     * hideForm() function - Hides the section's form that the comment belongs to and shows the associated "edit" button.
+     * Hides the section's form that the comment belongs to and shows the associated "edit" button.
      *
      */
     hideForm() {
@@ -71,12 +71,14 @@ class ProfileUser extends Component {
     }
 
     /**
-     * onSubmit() function - Takes status content submitted from user and sends to API and then gets added to database;
+     * Takes status content submitted from user and sends to API and then gets added to database;
      * the page is then refreshed to include the new status.
      *
      * @param {object} e
      */
     onSubmit(e) {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object not present
         if (!e) {
             e = window.event;
@@ -84,9 +86,9 @@ class ProfileUser extends Component {
 
         e.preventDefault();
 
-        console.log(e.target.status.value);
+        console.log(target.status.value);
 
-        let status = e.target.status.value;
+        let status = target.status.value;
         status = this.props.sanitizeInput(status);
 
         // Check if status input is less than 32 characters
@@ -118,10 +120,11 @@ class ProfileUser extends Component {
     }
 
     /**
-     * collapseDataTable() function - Collapses the Table associated with "className" and replaces it with tableHeader
+     * Collapses the Table associated with "className" and replaces it with tableHeader
      * and the option to expand it in section with class "proflie_container1_section_container2".
      *
-     * @param {string} className, @param {string} tableHeader
+     * @param {string} className
+     * @param {string} tableHeader
      */
     collapseDataTable(className, tableHeader) {
         const expandedTable = document.getElementsByClassName(className)[0];
@@ -130,7 +133,7 @@ class ProfileUser extends Component {
         expandedTable.style.resize = "none";
         expandedTable.style.display = "none";
 
-        // Src: https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array - Zane
+        // Src: https://stackoverflow.com/questions/37435334/correct-way-to-push-into-state-array
         const joined = this.state.collapsedTables.concat(newJSX);
         this.setState({ collapsedTables: joined });
 
@@ -140,9 +143,9 @@ class ProfileUser extends Component {
     }
 
     /**
-     * expandDataTable() function - Expands the Table associated with "className" and removes table's
-     * header and the option to expand it in section with class "proflie_container1_section_container2" via popping
-     * it out of the collapsedTables array.
+     * Expands the Table associated with "className" and removes table's header
+     * and the option to expand it in section with class "proflie_container1_section_container2" 
+     * via popping it out of the collapsedTables array.
      *
      * @param {string} className
      */
@@ -155,7 +158,7 @@ class ProfileUser extends Component {
         // Search array for correlated child component to pop
         for (let collapsedTable = 0; collapsedTable < this.state.collapsedTables.length; collapsedTable++) {
             if (this.state.collapsedTables[collapsedTable].props.className === className) {
-                // Src: https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react - Zane
+                // Src: https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react
                 var array = [...this.state.collapsedTables]; // make a separate copy of the array
                 array.pop(collapsedTable);
                 this.setState({collapsedTables: array});
@@ -164,11 +167,13 @@ class ProfileUser extends Component {
     }
 
     /**
-     * displayCollapsedDataTableHeaderAndExpandBtn() function - Once collapseDataTable() has been called, displayCollapsedDataTableHeaderAndExpandBtn()
-     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again. A unique
-     * key is also generated for the component within the array.
+     * Once collapseDataTable() has been called, displayCollapsedDataTableHeaderAndExpandBtn()
+     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again. 
+     * A uniquenkey is also generated for the component within the array.
      *
-     * @param {string} className, @param {string} tableHeader, @param {integer} key
+     * @param {string} className
+     * @param {string} tableHeader
+     * @param {integer} key
      * @returns {class} Component - A React Component.
      */
     displayCollapsedDataTableHeaderAndExpandBtn(className, tableHeader, key) {
@@ -179,8 +184,8 @@ class ProfileUser extends Component {
     }
 
     /**
-     * resizeDataTable() function - Checks to see if user has resized the selected data table. Will automatically change the
-     * styling to a medium or large height setting.
+     * Checks to see if user has resized the selected data table. 
+     * Will automatically change the styling to a medium or large height setting.
      *
      * @param {string} id
      */
@@ -194,7 +199,7 @@ class ProfileUser extends Component {
     }
 
     /**
-     * customizePage() function - Allows user to collapse, resize, and move around their data tables for desired settings.
+     * Allows user to collapse, resize, and move around their data tables for desired settings.
      * When completed, user will click "Save Settings" which will send preference data to the API and reload the page showing
      * the new preferred settings.
      *
@@ -206,7 +211,7 @@ class ProfileUser extends Component {
 
         // Edit the styling of all data tables to show buttons and allow customization.
         // Utilizing the Drag and Drop API.
-        // Src: https://www.youtube.com/watch?v=OHTudicK7nY - Zane
+        // Src: https://www.youtube.com/watch?v=OHTudicK7nY
         let dataTables = [];
         dataTables[0] = document.querySelector("#profileContainer1SectionContainer3");
         dataTables[1] = document.querySelector("#profileContainer1SectionContainer4");
@@ -279,7 +284,7 @@ class ProfileUser extends Component {
     }
 
     /**
-     * saveSettings() function - Checks the styling of each data table to see if there are any changes made by user in order to
+     * Checks the styling of each data table to see if there are any changes made by user in order to
      * update the preference data to the API and reload the page.
      *
      */
@@ -287,7 +292,7 @@ class ProfileUser extends Component {
         // Check the styling of each data table to see if any changes need to made for user's preference data on back-end
 
         // Force reload the page to show new settings and revert changed styling
-        this.props.history.push(`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?view=user`);
+        this.props.history.push(`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user`);
     }
 
     componentDidMount() {
@@ -319,6 +324,7 @@ class ProfileUser extends Component {
           messageIcon,
           badge
         } = this.props;
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <React.Fragment>
@@ -326,7 +332,7 @@ class ProfileUser extends Component {
                     <div>
                         <div>
                             <img className="profile_img_large" srcSet={profileImgLarge} alt="Portrait of user." />
-                            <button onClick={ () => { this.props.history.push(`/account_settings/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?edit_profile_pic=true`) } } className="edit_profile_pic_btn" type="button">Edit Profile Picture</button>
+                            <button onClick={ () => { this.props.history.push(`/account_settings/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}?edit_profile_pic=true`) } } className="edit_profile_pic_btn" type="button">Edit Profile Picture</button>
                         </div>
                         <section>
                             <h2>Harper "Kiss" Young</h2>
@@ -352,7 +358,7 @@ class ProfileUser extends Component {
                                 <button onClick={ () => { this.displayForm() } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                             </div>
                             <div className="clear"></div>
-                            <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link><br />
+                            <Link to={`/account_settings/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link><br />
                             <button onClick={this.customizePage} className="text_btn" type="button"><b>Customize Page</b></button>
                             <button onClick={this.saveSettings} className="text_btn" type="button"><b>Save Settings</b></button>
                             <div>
@@ -365,10 +371,10 @@ class ProfileUser extends Component {
                     {/* This button needs to link to a specific URL generated by a function that checks the most recent course being worked on by the user. - Zane */}
                     <button className="paypal_btn" type="button"><h4>Go to current course: <br />Course Name (50% complete)</h4></button>
                     <section className="profile_container1_section_container2">
-                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`}>Messages (1)</Link><br />
+                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}&receiverid=null`}>Messages (1)</Link><br />
                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
-                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}`}>Request new ID card</Link><br />
-                        <Link to={`/download_archive?userid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}`}>Download archive</Link><br />
+                        <Link to={`/id_request/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Request new ID card</Link><br />
+                        <Link to={`/download_archive?userid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Download archive</Link><br />
                         <Container onSubmit={ () => {} } triggerText="Feedback" />
                         {this.state.collapsedTables}
                     </section>

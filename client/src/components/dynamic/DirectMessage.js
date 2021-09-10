@@ -12,7 +12,7 @@ export default class DirectMessage extends Component {
     // Use Regex validator when search query is submitted to check if input isn't code for XXE attack
 
     /**
-     * getConnections() function - Renders auth. user's connections that have status approved on DM UI.
+     * Renders auth. user's connections that have status approved on DM UI.
      * 
      */
     getConnections() {

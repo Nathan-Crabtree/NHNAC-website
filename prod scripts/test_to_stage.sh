@@ -8,148 +8,153 @@
 # docker rmi api # obsolete
 # docker rmi client
 # \cp -r ~/testing/* ~/staging
-# \cp -r /home/mint/client/* ~/staging/client
 # cd ~/staging
+# mkdir ~/staging/client (if doesn't exist)
+# \cp -r ~/client/* ~/staging/client
+# \cp -r ~/api/* ~/staging/api
 # ls
 # sendmail
 # delete email.txt
-# \cp -r ~/staging/scripts/startup.sh /etc/init.d
-# \cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d
+# \cp -r ~/staging/"prod scripts"/startup.sh /etc/init.d/
+# \cp -r ~/staging/"prod scripts"/restart_mysql.sh /etc/init.d/
 # docker build -t api api # obsolete
-# docker build -t client client
 #
 
-FILE=~/script_exec_log.txt
-EMAIL=~/staging/email.txt
+source functions.sh
 
-if [ -f "$FILE" ]; then
-        date >> $FILE        
-        echo -e "Note: file already exists. Top logo will not be created.\n" >> $FILE
-else
-        cd ~
-        touch script_exec_log.txt
-        echo -e "***********************************************\n" >> $FILE
-        echo -e "     ENVIRONMENT SCRIPT EXECUTION LOG FILE     \n" >> $FILE
-        echo -e "***********************************************\n\n" >> $FILE
-        echo -e "<weekday month day UT timezone>\n" >> $FILE 
-        echo -e "<description>\n\n" >> $FILE    
+EMAIL=~/staging/email.txt
+DIR=~/staging/client
+
+draw_logo
+
+wait 
+
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": Starting test_to_stage.sh\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: docker rmi client) " >> $LOG_FILE
+docker rmi client >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully. Old docker image for client removed.\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: \cp ~/testing/* ~/staging) " >> $LOG_FILE
+\cp -r ~/testing/* ~/staging >> $LOG_FILE 
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully. Files successfully moved from testing to staging.\n" >> $LOG_FILE
+
+cd ~/staging
+
+date >> $LOG_FILE
+echo ": Directory changed to ~/staging\n" >> $LOG_FILE
+
+if [ -d "$DIR" ]; then
+    date >> $LOG_FILE
+    echo ": Client folder already exists, will not be creating.\n" >> $LOG_FILE
+else 
+    date >> $LOG_FILE
+    printf ": (command: mkdir client) " >> $LOG_FILE
+    mkdir client >> $LOG_FILE 
+    printf "\n" >> $LOG_FILE
 fi
 
 wait 
 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": Starting test_to_stage.sh\n" >> $FILE
-
-date >> $FILE
-echo ": (command: docker rmi client) " >> $FILE
-docker rmi client >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/client/* ~/staging/client) " >> $LOG_FILE
+\cp -r ~/client/* ~/staging/client >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. Old docker image for client removed.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Files copied from ~/client/ to ~/staging/client.\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: \cp ~/testing/* ~/staging) " >> $FILE
-\cp -r ~/testing/* ~/staging >> $FILE 
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully. Files successfully moved from testing to staging.\n" >> $FILE
-
-date >> $FILE
-echo ": (command: \cp -r /home/mint/client/* ~/production/client) " >> $FILE
-\cp -r /home/mint/client/* ~/production/client >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/api/* ~/staging/api) " >> $LOG_FILE
+\cp -r ~/api/* ~/staging/api >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. Files copied from /home/mint/client/ to ~/production/client.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Files copied from ~/api to ~/staging/api.\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": Changing directory to ~/staging.\n" >> $FILE
-
-cd ~/staging
-
-date >> $FILE
-echo ": (command: ls) " >> $FILE
-ls >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: ls) " >> $LOG_FILE
+ls >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-echo -e "Subject: Transfer to Staging successful\n" >> $EMAIL
-echo -e "Files have been successfully transferred from Testing to Staging and are ready to be deployed in Production.\n" >> $EMAIL
-git log >> $EMAIL
-echo -e "\n" >> $EMAIL
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully. Created email.txt\n" >> $FILE
-
-date >> $FILE
-echo ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $FILE
-/usr/sbin/sendmail zanechandygmail.com < email.txt >> $FILE
-echo -e "\n" >> $FILE
+printf "Subject: Transfer to Staging successful\n" >> $EMAIL
+printf "Files have been successfully transferred from Testing to Staging and are ready to be deployed in Production.\n\n" >> $EMAIL
+printf "=============== GIT LOG ====================\n\n" >> $EMAIL
+cat $GIT_LOG >> $EMAIL
+printf "\n" >> $EMAIL
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. email successfully sent\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Created email.txt\n" >> $LOG_FILE
 
-date >> $FILE
-echo ": (command: rm email.txt) " >> $FILE
-rm email.txt >> $FILE
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
-
-date >> $FILE
-echo -e ": email.txt successfully deleted\n" >> $FILE
-
-date >> $FILE
-echo ": (command: \cp -r ~/staging/scripts/startup.sh /etc/init.d) " >> $FILE
-\cp -r ~/staging/scripts/startup.sh /etc/init.d >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $LOG_FILE
+/usr/sbin/sendmail zanechandygmail.com < email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo ": (command: \cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d) " >> $FILE
-\cp -r ~/staging/scripts/restart_mysql.sh /etc/init.d >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. email has been sent\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: rm email.txt) " >> $LOG_FILE
+rm email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully. email.txt has been deleted\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/staging/'prod scripts'/startup.sh /etc/init.d) " >> $LOG_FILE
+\cp -r ~/staging/"prod scripts"/startup.sh /etc/init.d/ >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/staging/'prod scripts'/restart_mysql.sh /etc/init.d) " >> $LOG_FILE
+\cp -r ~/staging/"prod scripts"/restart_mysql.sh /etc/init.d/ >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait 
 
-date >> $FILE
-echo -e ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Restart scripts have been moved to /etc/init.d\n" >> $LOG_FILE
 
-date >> $FILE
-echo ": (command: docker build -t client client) " >> $FILE
-docker build -t client client >> $FILE
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully. Docker image built for client.\n" >> $FILE
-
-date >> $FILE
-echo -e ": test_to_stage.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+date >> $LOG_FILE
+printf ": test_to_stage.sh executed successfully. Waiting and returning exit status 0.\n" >> $LOG_FILE
 
 wait
 

@@ -4,52 +4,78 @@
 # 
 # cd ~/testing
 # git pull origin master
-# cd ~/testing/scripts
+# \cp -r ~/"prod scripts"/* ~/testing/"prod scripts"
+# git log
+# cd ~/testing/"prod scripts"
+# chmod +x *
 # ./test_to_stage.sh
 #
 
-FILE=~/script_exec_log.txt
+source set_env_vars.sh
+source functions.sh
 
-if [ -f "$FILE" ]; then
-        date >> $FILE        
-        echo -e "Note: file already exists. Top logo will not be created.\n" >> $FILE
-else
-        cd ~
-        touch script_exec_log.txt
-        echo -e "***********************************************\n" >> $FILE
-        echo -e "     ENVIRONMENT SCRIPT EXECUTION LOG FILE     \n" >> $FILE
-        echo -e "***********************************************\n\n" >> $FILE
-        echo -e "<weekday month day UT timezone>\n" >> $FILE 
-        echo -e "<description>\n\n" >> $FILE    
-fi
+draw_logo
 
 wait 
 
-date >> $FILE 
-echo -e ": Waited successfully\n" >> $FILE 
+date >> $LOG_FILE 
+printf ": Waited successfully\n" >> $LOG_FILE 
 
-date >> $FILE
-echo -e ": Beginning dev_to_test.sh. Changing directory to ~/testing.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Beginning dev_to_test.sh. Changing directory to ~/testing.\n" >> $LOG_FILE
 
 cd ~/testing
 
-date >> $FILE
-echo -e ": (command: git pull origin master) " >> $FILE
-git pull origin master >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": Changed directory to ~/testing\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: git pull origin master) " >> $LOG_FILE
+git pull origin master >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully.\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": dev_to_test.sh executed successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: \cp -r ~/'prod scripts'/* ~/testing/'prod scripts') " >> $LOG_FILE
+\cp -r ~/"prod scripts"/* ~/testing/"prod scripts" >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
-cd ~/testing/scripts
+wait
 
-date >> $FILE
-echo -e ": Changed directory to ~/testing/scripts. Waiting and returning exit status 0.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully.\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: git log) " >> $LOG_FILE
+git log >> $GIT_LOG >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully.\n" >> $LOG_FILE
+
+cd ~/testing/"prod scripts"
+
+date >> $LOG_FILE
+printf ": Changed directory to ~/testing/'prod scripts'.\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: chmod +x *) " >> $LOG_FILE
+chmod +x * >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully.\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": dev_to_test.sh executed successfully. Waiting and returning exit status 0.\n" >> $LOG_FILE
 
 ./test_to_stage.sh
 

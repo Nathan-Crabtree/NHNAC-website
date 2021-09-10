@@ -19,7 +19,7 @@ class ProfileViewer extends Component {
     }
 
     /**
-     * checkUserConnection() function - Checks status property of Connection table between auth. user and viewed user (if it exists)
+     * Checks status property of Connection table between auth. user and viewed user (if it exists)
      * via query and renders button options and permissions accordingly.
      *
      * @param {string} btn
@@ -32,7 +32,7 @@ class ProfileViewer extends Component {
             if (btn === "connection") {
                 return <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />;
             } else if (btn === "message") {
-                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
+                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
             }
         } else if (this.state.status === "pending") {
             if (btn === "connection") {
@@ -50,7 +50,7 @@ class ProfileViewer extends Component {
     }
 
     /**
-     * connectUser() function - Creates a connection request to viewed user by auth. user and changes "Connect" button to show pending
+     * Creates a connection request to viewed user by auth. user and changes "Connect" button to show pending
      * status. Create Connection table between users with status property valued "Pending" for viewed user to be notified. Refreshes the page.
      *
      */
@@ -62,8 +62,8 @@ class ProfileViewer extends Component {
     }
 
     /**
-     * cancelConnect() function - Allows user to click on "Pending" button and revert connect request to show "Connect" button again. Deletes connection table between users with status property
-     * valued "Pending". Refreshes the page.
+     * Allows user to click on "Pending" button and revert connect request to show "Connect" button again. 
+     * Deletes connection table between users with status property valued "Pending". Refreshes the page.
      *
      */
     cancelConnect() {

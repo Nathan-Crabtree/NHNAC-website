@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Src: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -10,23 +10,31 @@ const [errorExists, setErrorExists] = useState(false);
 const [formActive, setFormActive] = useState(false);
 
 /**
-* onSubmit() function - An event handler that prevents default action (page refresh), checks to see if message
-* content is > 3 and < 500 characters, submits and renders HTML according to condition.
-*
-* @param {object} event
-*/
+ * An event handler that prevents default action (page refresh), checks to see if message
+ * content is > 3 and < 500 characters, submits and renders HTML according to condition.
+ *
+ * @param {object} event
+ */
 function onSubmit(event) {
+  const target = event.target || event.srcElement;
+
   // Use IE5-8 fallback if event object not present
   if (!event) {
     event = window.event;
   }
 
-  event.preventDefault(event);
+  event.preventDefault();
 
-  let messageContent = event.target.message.value;
+  let messageContent = target.message.value;
   messageContent = sanitizeInput(messageContent);
 
+  // This form is vulnerable for ddos attack. - Zane
   if (messageContent.length > 3 && messageContent.length <= 500) {
+      // After-submit code
+      // Disable submit button
+      submit.disabled = true;
+      submit.setAttribute("class", "disabled_btn");    
+
       // Take the data and send it to API
       console.log(messageContent);
 
@@ -48,8 +56,8 @@ function onSubmit(event) {
   } else {
       // Render error text and colors
       if (!errorExists) {
-        const formField = event.target.children[1].firstChild;
-        const input = event.target.children[1].firstChild.children[6];
+        const formField = target.children[1].firstChild;
+        const input = target.children[1].firstChild.children[6];
         const error = document.createElement('p');
         error.innerText = '*Please type in more than 3 characters.';
         error.style.fontSize = '.9rem';
@@ -99,7 +107,7 @@ return (
                         <label htmlFor="message">Comment</label><br />
                         <textarea className="login_input" type="text" id="message" name="message" maxLength="500" /><br />
                     </div>
-                    <button className="submit_btn submit_padding" type="submit">Submit</button>
+                    <button id="submit" className="submit_btn submit_padding" type="submit">Submit</button>
                 </fieldset>
             </form>
         </div>

@@ -18,7 +18,7 @@ export default class Profile extends Component {
     }
 
     /**
-     * displayViewComponent() function - Grabs the "view" query string value and renders the proper component according to the view of profile.
+     * Grabs the "view" query string value and renders the proper component according to the view of profile.
      *
      * @returns {class} Component - A React Component.
      */

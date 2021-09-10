@@ -14,7 +14,7 @@ export default class Suspended extends Component {
     }
 
     /**
-     * countDaysLeft() function - Takes converted versions of dateAccountSuspended and currentDate to find the number of
+     * Takes converted versions of dateAccountSuspended and currentDate to find the number of
      * days left for the user.
      *
      * NOTE: Chunks of this code were copied from

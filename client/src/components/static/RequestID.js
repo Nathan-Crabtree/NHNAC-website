@@ -8,16 +8,20 @@ export default class RequestID extends Component {
     constructor() {
         super();
         this.state = {
-            userFirstName: "Milton",
-            userNickName: "Milo",
-            userLastName: "Miles",
-            userStreet: "1234 Yerling Street",
-            userCountry: "United States",
-            userState: "Mississippi",
-            userCity:  "Orlando",
-            userZip: "02345",
-            userTier: "Ayahuasca Roadman",
-            userEmail: "miltonmiles@gmail.com",
+            user: { 
+                firstName: "Milton", 
+                nickName: "Milo", 
+                lastName: "Miles", 
+                address: {
+                    street: "1234 Yerling Street", 
+                    country: "United States", 
+                    state: "Mississippi", 
+                    city: "Orlando", 
+                    zip: "02345", 
+                },
+                tier: "Ayahuasca Roadman", 
+                email: "miltonmiles@gmail.com"
+            },
             errorsThatExist: [],
             renderChild: false,
             formActive: false,
@@ -28,7 +32,7 @@ export default class RequestID extends Component {
     }
 
     /**
-     * displayForm() function - Shows the section's form that the comment belongs to and hides the associated "edit" button.
+     * Shows the section's form that the comment belongs to and hides the associated "edit" button.
      *
      * @param {integer} classNameIndex
      */
@@ -70,7 +74,7 @@ export default class RequestID extends Component {
     }
 
     /**
-     * hideForm() function - Hides the section's form that the comment belongs to and shows the associated "edit" button.
+     * Hides the section's form that the comment belongs to and shows the associated "edit" button.
      *
      * @param {integer} classNameIndex
      */
@@ -93,13 +97,16 @@ export default class RequestID extends Component {
     }
 
     /**
-     * onSubmit() function - Checks form for validation then takes content submitted from user and sends an email containing a pdf file or card mailed
-     * depending on user preference.
+     * Checks form for validation then takes content submitted from user and 
+     * sends an email containing a pdf file or card mailed depending on user preference.
      *
-     * @param {object} e, @param {string} form
+     * @param {object} e
+     * @param {string} form
      * @returns {boolean} false
      */
     onSubmit(e, form) {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object not present
         if (!e) {
             e = window.event;
@@ -116,9 +123,9 @@ export default class RequestID extends Component {
         }
 
         if (form === "name") {
-            let firstName = e.target.firstName.value;
-            let nickName = e.target.nickName.value;
-            let lastName = e.target.lastName.value;
+            let firstName = target.firstName.value;
+            let nickName = target.nickName.value;
+            let lastName = target.lastName.value;
             firstName = this.props.sanitizeInput(firstName);
             nickName = this.props.sanitizeInput(nickName);
             lastName = this.props.sanitizeInput(lastName);
@@ -158,15 +165,17 @@ export default class RequestID extends Component {
                 this.hideForm(0);
 
                 this.setState({
-                    userFirstName: firstName,
-                    userNickName: nickName,
-                    userLastName: lastName
+                    user: { 
+                        firstName: firstName, 
+                        nickName: nickName, 
+                        lastName: lastName 
+                    }
                 });
             }
         }
 
         if (form === "email") {
-            let email = e.target.userEmail.value;
+            let email = target.userEmail.value;
 
             //Check for valid email input
             if (!(this.props.emailIsValid(email))) {
@@ -186,17 +195,17 @@ export default class RequestID extends Component {
                 this.hideForm(1);
 
                 this.setState({
-                    userEmail: email,
+                    user: { email: email }
                 });
             }
         }
 
         if (form === "address") {
-            let street = e.target.street.value;
-            const country = e.target.country.value;
-            const state = e.target.state.value;
-            const city = e.target.city.value;
-            let zip = e.target.zip.value.toString();
+            let street = target.street.value;
+            const country = target.country.value;
+            const state = target.state.value;
+            const city = target.city.value;
+            let zip = target.zip.value.toString();
             street = this.props.sanitizeInput(street);
             zip = this.props.sanitizeInput(zip);
 
@@ -241,20 +250,27 @@ export default class RequestID extends Component {
                 this.hideForm(2);
 
                 this.setState({
-                    userStreet: street,
-                    userCountry: country,
-                    userState: state,
-                    userCity: city,
-                    userZip: zip,
+                    user: { 
+                        address: {
+                            street: street, 
+                            country: country, 
+                            state: state, 
+                            city: city, 
+                            zip: zip 
+                        }
+                    }
                 });
             }
         }
 
         if (form === "request_id") {
-            let userData = [this.state.userFirstName, this.state.userLastName, this.state.userStreet, this.state.userCountry,
-            this.state.userState, this.state.userCity, this.state.userZip, this.state.userTier, this.state.userEmail];
+            const { user } = this.state;
+            let userData = [user.firstName, user.lastName, user.address.street, user.address.country,
+            user.address.state, user.address.city, user.address.zip, user.tier, user.email];
 
-            // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");
 
             if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
@@ -262,6 +278,8 @@ export default class RequestID extends Component {
             } else {
                 window.detachEvent("beforeunload", this.props.displayUnloadMessage);
             }
+
+            // Create an email with pdf draft and send to user and admin for mail-in if either or both are selected
 
             // Redirect to form submitted page
             for (let data = 0; data < userData.length; data++) {
@@ -280,12 +298,13 @@ export default class RequestID extends Component {
 
         // This script tag is important for sign-up form to work properly.
         // Provides country data for users to help insert exact address location.
-        // Source: https://geodata.solutions - Zane
+        // Src: https://geodata.solutions
         if (!this.props.geoDataExists) {
             const script = document.createElement("script");
 
             script.src = "//geodata.solutions/includes/countrystatecity.js";
             script.async = true;
+            script.className = "geodata_script";
 
             document.body.appendChild(script);
 
@@ -302,13 +321,23 @@ export default class RequestID extends Component {
                 window.detachEvent("beforeunload", this.props.displayUnloadMessage);
             }
         }
+
+        // Remove geodata script from DOM 
+        if (this.props.geoDataExists) {
+            const geoDataScript = document.getElementsByClassName('geodata_script')[0];
+            
+            geoDataScript.parentElement.removeChild(geoDataScript);
+            this.props.setGeoDataExists();
+        }
     }
 
     render() {
+        const { user } = this.state;
+
         return( this.state.renderChild ?
-            <RequestIDSubmitted userFirstName={this.state.userFirstName} userLastName={this.state.userLastName} userStreet={this.state.userStreet}
-            userCountry={this.state.userCountry} userState={this.state.userState} userCity={this.state.userCity} userZip={this.state.userZip}
-            userTier={this.state.userTier} userEmail={this.state.userEmail} />
+            <RequestIDSubmitted userFirstName={user.firstName} userLastName={user.lastName} userStreet={user.address.street}
+            userCountry={user.address.country} userState={user.address.state} userCity={user.address.city} userZip={user.address.zip}
+            userTier={user.tier} userEmail={user.email} />
             :
             <div className="request_id_form">
                 <div>
@@ -318,7 +347,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <h4>Name</h4>
-                        <p>{this.state.userFirstName} {this.state.userLastName}</p>
+                        <p>{user.firstName} {user.lastName}</p>
                         <form id="name" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "name") } }>
                             <fieldset>
                                 <div className="status_form_field">
@@ -329,11 +358,11 @@ export default class RequestID extends Component {
                                     <br />
                                     <div>
                                         <label htmlFor="firstName">First Name</label><br />
-                                        <input className="signup_input" type="text" id="firstName" name="first_name" maxLength="50" placeholder={`${this.state.userFirstName}`} /><br />
+                                        <input className="signup_input" type="text" id="firstName" name="first_name" maxLength="50" placeholder={`${user.firstName}`} /><br />
                                         <label htmlFor="nickName">Nick Name</label><br />
-                                        <input className="signup_input" type="text" id="nickName" name="nick_name" maxLength="50" placeholder={`${this.state.userNickName}`} /><br />
+                                        <input className="signup_input" type="text" id="nickName" name="nick_name" maxLength="50" placeholder={`${user.nickName}`} /><br />
                                         <label htmlFor="lastName">Last Name</label><br />
-                                        <input className="signup_input" type="text" id="lastName" name="last_name" maxLength="50" placeholder={`${this.state.userLastName}`} /><br />
+                                        <input className="signup_input" type="text" id="lastName" name="last_name" maxLength="50" placeholder={`${user.lastName}`} /><br />
                                     </div>
                                 </div>
                                 <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -343,7 +372,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <h4>Email</h4>
-                        <p>{this.state.userEmail}</p>
+                        <p>{user.email}</p>
                         <form id="email" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "email") } }>
                             <fieldset>
                                 <div className="status_form_field">
@@ -353,7 +382,7 @@ export default class RequestID extends Component {
                                     </svg><br />
                                     <br />
                                     <div>
-                                        <input className="signup_input" type="text" id="userEmail" name="user_email" maxLength="320" placeholder={`${this.state.userEmail}`} /><br />
+                                        <input className="signup_input" type="text" id="userEmail" name="user_email" maxLength="320" placeholder={`${user.email}`} /><br />
                                     </div>
                                 </div>
                                 <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -363,7 +392,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <h4>Address</h4>
-                        <p>{this.state.userStreet} {this.state.userCity}, {this.state.userState}, {this.state.userCountry} {this.state.userZip}</p>
+                        <p>{user.address.street} {user.address.city}, {user.address.state}, {user.address.country} {user.address.zip}</p>
                         <form id="address" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "address") }}>
                             <fieldset>
                                 <div className="status_form_field">
@@ -398,7 +427,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <h4>Tier</h4>
-                        <p>{this.state.userTier}</p>
+                        <p>{user.tier}</p>
                     </div>
                     <div className="signup_fields request_id_checkboxes">
                         <div className="newsletter_div center_text">
@@ -412,7 +441,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <div className="pay_with_div center_text">
-                            <button className="paypal_btn" onClick={ (e) => { this.onSubmit(e, "request_id") } }>Request New ID Card</button>
+                            <button id="submit" className="paypal_btn" onClick={ (e) => { this.onSubmit(e, "request_id") } }>Request New ID Card</button>
                         </div>
                     </div>
                 </div>

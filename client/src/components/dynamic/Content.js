@@ -16,11 +16,10 @@ export default class Content extends Component {
     }
 
     /**
-     * setStateHandler() function - Takes query string variable from URL and parses it into an object property
-     * for proper page rendering.
+     * Takes query string variable from URL and parses it into an object property for proper page rendering.
      *
-     * NOTE: The callback function used as the second argument for this.setState() allows page to be rendered
-     * with only one click. - Zane
+     * NOTE: The callback function used as the second argument for this.setState()
+     * allows page to be renderedbwith only one click. - Zane
      *
      */
     setStateHandler() {
@@ -73,6 +72,7 @@ export default class Content extends Component {
           articleImgLink,
           podcast
         } = this.props;
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <React.Fragment>
@@ -85,12 +85,12 @@ export default class Content extends Component {
                             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing?</h3>
                             <div className="sub_article_container">
                                 <div className="author_content">
-                                    <p>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></p>
+                                    <p>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></p>
                                     <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article/article?id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article/article?id=1">Click here to read {">>"}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
@@ -104,7 +104,7 @@ export default class Content extends Component {
                                 </div>
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article/event?id=1">Click here to read {'>>'}</Link>
+                                    <Link to="/article/event?id=1">Click here to read {">>"}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>
@@ -116,7 +116,7 @@ export default class Content extends Component {
                             <div className="sub_article_container">
                                 <div className="sub_article_content">
                                     <p>Posted on 2-2-20</p>
-                                    <Link to="/article/podcast?id=1">Click here to listen {'>>'}</Link>
+                                    <Link to="/article/podcast?id=1">Click here to listen {">>"}</Link>
                                 </div>
                                 <div className="clear"></div>
                             </div>

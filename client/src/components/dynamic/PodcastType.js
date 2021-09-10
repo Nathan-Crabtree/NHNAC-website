@@ -23,11 +23,12 @@ export default class PodcastType extends Component {
           fbMini,
           profileImgSmall
         } = this.props;
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <React.Fragment>
                 <article>
-                    {/* Source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio - Zane */}
+                    {/* Src: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio */}
                     <figure className="figure_podcast">
                         <figcaption>Listen to the Podcast:</figcaption><br />
                         <audio
@@ -93,7 +94,7 @@ export default class PodcastType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -140,7 +141,7 @@ export default class PodcastType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>

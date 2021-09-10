@@ -15,7 +15,7 @@ export default class ForgotPassword extends Component {
     }
 
     /**
-     * onSubmit() function - Takes content submitted from user and gets checked with user's security answer on
+     * Takes content submitted from user and gets checked with user's security answer on
      * database and then checks if answers match. If successful, user will be sent an email address containing their
      * password be notified.
      *
@@ -23,6 +23,8 @@ export default class ForgotPassword extends Component {
      * @returns {boolean} false
      */
     onSubmit = (e) => {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
             e = window.event;
@@ -30,7 +32,7 @@ export default class ForgotPassword extends Component {
 
         e.preventDefault();
 
-        let securityAnswer = e.target[1].value;
+        let securityAnswer = target[1].value;
         securityAnswer = this.props.sanitizeInput(securityAnswer);
         let error = document.createElement("p");
 
@@ -39,8 +41,8 @@ export default class ForgotPassword extends Component {
             if (securityAnswer !== this.state.correctAnswer) {
                 if (!this.state.errorExists) {
                     // Render error text and change boolean
-                    const formField = e.target.firstChild.firstChild;
-                    const input = e.target[1];
+                    const formField = target.firstChild.firstChild;
+                    const input = target[1];
                     error.innerText = '*Your security answer is incorrect.';
                     error.className = "error";
                     error.style.fontSize = '.9rem';
@@ -53,6 +55,9 @@ export default class ForgotPassword extends Component {
             } 
         } else {
             // Do code here 
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");  
         }
     }
 
@@ -76,7 +81,7 @@ export default class ForgotPassword extends Component {
                             <label htmlFor="securityQuestion">{securityQuestion}</label><br />
                             <input type="text" className="security_question" id="securityOuestion" maxLength="150" name="security_answer" placeholder=" Type your security answer here" /><br />
                         </div>
-                        <button className="security_submit" type="submit">Submit</button><br />
+                        <button id="submit" className="security_submit" type="submit">Submit</button><br />
                     </fieldset>
                     <span className="resend_email_span">Need assistance? <Link to="/about#contact">Click here to contact us.</Link></span>
                 </form>
