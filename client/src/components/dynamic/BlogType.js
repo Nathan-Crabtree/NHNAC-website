@@ -16,6 +16,7 @@ export default class BlogType extends Component {
           fbMini,
           profileImgSmall
         } = this.props;
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <React.Fragment>
@@ -48,9 +49,9 @@ export default class BlogType extends Component {
                 </article>
                 <aside className="bottom_aside_container">
                     <div>
-                        <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>
-                        <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>
-                        <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                     </div>
                     <div>
                         <ul>
@@ -73,7 +74,7 @@ export default class BlogType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -120,7 +121,7 @@ export default class BlogType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>

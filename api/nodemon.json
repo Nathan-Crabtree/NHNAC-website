@@ -8,7 +8,12 @@
   "env": {
     "NODE_ENV": "development",
     "DB_ENABLE_LOGGING": "false",
-    "ENABLE_GLOBAL_ERROR_LOGGING": "false"
+    "ENABLE_GLOBAL_ERROR_LOGGING": "false",
+    "DB": "mysql://root:@localhost:3306/newhaven",
+    "PORT": 5000,
+    "SALTROUNDS": 1,
+    "MYPLAINTEXTPASSWORD": "password1",
+    "SOMEOTHERPLAINTEXTPASSWORD": "password2"
   },
   "ext": "js"
 }

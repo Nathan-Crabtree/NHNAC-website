@@ -1,5 +1,5 @@
-// NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// NOTE: Majority of this code is starter code. 
+// Src: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -9,27 +9,29 @@ export const Newsletter = ({ onSubmit, closeModal, emailIsValid, setNewsletterEm
 const [errorExists, setErrorExists] = useState(false);
 
 /**
- * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if email
+ * An event handler that prevents default action (page refresh), checks to see if email
  * is valid, submits and renders HTML according to condition. Subscribes user to newsletter email list.
  *
  * @param {object} event
  */
 onSubmit = (event) => {
+    const target = event.target || event.srcElement;
+
     // Use IE5-8 fallback if event object not present
     if (!event) {
         event = window.event;
     }
 
-    event.preventDefault(event);
+    event.preventDefault();
 
-    let email = event.target.email.value;
+    let email = target.email.value;
 
     // Check if email length is greater than 320 characters and valid
     if (email.length > 320 || !emailIsValid(email)) {
         if (!errorExists) {
             // Render error text and change boolean
-            const formField = event.target.children[2].firstChild;
-            const input = event.target.children[2].firstChild.firstChild;
+            const formField = target.children[2].firstChild;
+            const input = target.children[2].firstChild.firstChild;
             let error = document.createElement("p");
             error.innerText = '*Please enter a valid email address.';
             error.style.fontSize = '.9rem';
@@ -47,8 +49,8 @@ onSubmit = (event) => {
         if (emailAlreadyExists) {
             if (!errorExists) {
                 // Render error text and change boolean
-                const formField = event.target.children[2].firstChild;
-                const input = event.target.children[2].firstChild.firstChild;
+                const formField = target.children[2].firstChild;
+                const input = target.children[2].firstChild.firstChild;
                 let error = document.createElement("p");
                 error.innerText = '*Email address already exists.';
                 error.style.fontSize = '.9rem';
@@ -59,6 +61,10 @@ onSubmit = (event) => {
             }
         } else {
             // Do code here
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");  
+
             setNewsletterEmailAddress(email);
 
             // Render on the modal thank you text
@@ -80,7 +86,7 @@ return (
                 <div className="newsletter_form_fields">
                     <input className="login_input" type="text" id="email" name="email" maxLength="320" placeholder="Enter your email"/><br />
                 </div>
-                <button className="submit_btn" type="submit">Subscribe</button>
+                <button id="submit" className="submit_btn" type="submit">Subscribe</button>
                 <div className="form_links center_text">
                     <span><button className="form_links_btn" type="button" onClick={closeModal}>No thanks</button></span>
                 </div>

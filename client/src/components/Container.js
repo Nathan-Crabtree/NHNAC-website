@@ -1,5 +1,5 @@
 // NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Src: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 import React, { Component } from 'react';
 import { Modal } from './Modal';
@@ -21,7 +21,7 @@ export default class Container extends Component {
     }
 
     /**
-     * showModal() function - Changes "isShown" value, locks screen, and shows closeButton.
+     * Changes "isShown" value, locks screen, and shows closeButton.
      *
      */
     showModal = () => {
@@ -32,7 +32,7 @@ export default class Container extends Component {
     };
 
     /**
-     * closeModal() function - Negates the effect of showModal().
+     * Negates the effect of showModal().
      *
      */
     closeModal = () => {
@@ -42,7 +42,7 @@ export default class Container extends Component {
     };
 
     /**
-     * onKeyDown() function - Event handler that allows "Enter" key to trigger closeModal() by user.
+     * Event handler that allows "Enter" key to trigger closeModal() by user.
      *
      * @param {object} event
      */
@@ -53,23 +53,22 @@ export default class Container extends Component {
     };
 
     /**
-     * onClickOutside() function - Allows user to exit out of modal when clicking outside.
+     * Allows user to exit out of modal when clicking outside.
      *
      * @param {object} event
      */
     onClickOutside = (event) => {
-       if (this.modal && this.modal.contains(event.target)) return;
+       const target = event.target || event.srcElement;
+
+       if (this.modal && this.modal.contains(target)) return;
        this.closeModal();
     };
 
     /**
-     * toggleScrollLock() function - Creates a class for <html> called "scroll-lock"
-     * that allows CSS to style scroll prevention.
+     * Creates a class for <html> called "scroll-lock" that allows CSS to style scroll prevention.
      *
      */
-    toggleScrollLock = () => {
-       document.querySelector('html').classList.toggle('scroll-lock');
-    };
+    toggleScrollLock = () => document.querySelector('html').classList.toggle('scroll-lock');
 
     render() {
         const {

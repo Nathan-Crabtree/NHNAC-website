@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
 
 // Import sub-components for dynamic rendering of article page according to article type
 import ArticleType from './ArticleType';
@@ -35,7 +34,7 @@ export default class Article extends Component {
     }
 
     /**
-     *  hideComments() function - Hides the comment section and shows the "See Comments" button. Hides all forms.
+     * Hides the comment section and shows the "See Comments" button. Hides all forms.
      *
      */
     hideComments() {
@@ -50,7 +49,7 @@ export default class Article extends Component {
     }
 
     /**
-     *  hideResponses() function - Hides the response section for the comment and shows the "See Responses" button. Hides response form.
+     * Hides the response section for the comment and shows the "See Responses" button. Hides response form.
      *
      */
     hideResponses() {
@@ -62,9 +61,10 @@ export default class Article extends Component {
     }
 
     /**
-     * displayComments() function - Shows the section the comment belongs to and hides the associated button.
+     * Shows the section the comment belongs to and hides the associated button.
      *
-     * @param {string} containerClassName, @param {string} btnClassName
+     * @param {string} containerClassName 
+     * @param {string} btnClassName
      */
     displayComments(containerClassName, btnClassName) {
         document.getElementsByClassName(containerClassName)[0].style.display = "block";
@@ -73,9 +73,12 @@ export default class Article extends Component {
     }
 
     /**
-     * displayForm() function - Shows the section's form that the comment belongs to and hides the associated button(s).
+     * Shows the section's form that the comment belongs to and hides the associated button(s).
      *
-     * @param {string} formClassName, @param {string} btnClassName, @param {boolean} editMode, @param {boolean} responseComment
+     * @param {string} formClassName
+     * @param {string} btnClassName
+     * @param {boolean} editMode
+     * @param {boolean} responseComment
      */
     displayForm(formClassName, btnClassName, editMode = false, responseComment = false) {
         if (!this.state.formActive) {
@@ -99,9 +102,12 @@ export default class Article extends Component {
     }
 
     /**
-     * hideForm() function - Hides the section's form that the comment belongs to and shows the associated button(s).
+     * Hides the section's form that the comment belongs to and shows the associated button(s).
      *
-     * @param {string} formClassName, @param {string} btnClassName, @param {boolean} editMode, @param {boolean} responseComment
+     * @param {string} formClassName
+     * @param {string} btnClassName
+     * @param {boolean} editMode
+     * @param {boolean} responseComment
      */
     hideForm(formClassName, btnClassName, editMode = false, responseComment = false) {
         if (this.state.formActive) {
@@ -121,13 +127,15 @@ export default class Article extends Component {
     }
 
     /**
-     * onSubmit() function - Takes comment content submitted from user and sends to API and then gets added to database;
+     * Takes comment content submitted from user and sends to API and then gets added to database;
      * the page is then refreshed to include the new comment.
      *
      * @param {object} e
      * @returns {boolean} false
      */
     onSubmit(e) {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
             e = window.event;
@@ -135,7 +143,7 @@ export default class Article extends Component {
 
         e.preventDefault();
 
-        let comment = e.target.comment.value;
+        let comment = target.comment.value;
         comment = this.props.sanitizeInput(comment);
         let error = document.createElement("p");
 
@@ -143,8 +151,8 @@ export default class Article extends Component {
         if (comment.length > 500) {
             if (!this.state.errorExists) {
                 // Render error text and change boolean
-                const formField = e.target.firstChild.firstChild;
-                const input = e.target.comment;
+                const formField = target.firstChild.firstChild;
+                const input = target.comment;
                 error.innerText = '*Comments can not be larger than 500 characters.';
                 error.className = "error";
                 error.style.fontSize = '.9rem';
@@ -174,7 +182,7 @@ export default class Article extends Component {
     }
 
     /**
-     * setTypeHeader() function - Sets the header for the proper component that's being rendered via query string.
+     * Sets the header for the proper component that's being rendered via query string.
      *
      * @returns {string} header
      */
@@ -196,7 +204,7 @@ export default class Article extends Component {
     }
 
     /**
-     * displayTypeComponent() function - Grabs the "type" query string value and renders the proper component according to the type of article.
+     * Grabs the "type" query string value and renders the proper component according to the type of article.
      *
      * @returns {class} Component - A React Component.
      */
@@ -235,7 +243,7 @@ export default class Article extends Component {
     }
 
     /**
-     * setTypeBackLink() function - Sets the return link for the proper component that's being rendered via query string.
+     * Sets the return link for the proper component that's being rendered via query string.
      *
      * @returns {string} header
      */
@@ -259,13 +267,15 @@ export default class Article extends Component {
     }
 
     /**
-     * displayProperContent() function - Returns proper JSX code according to whether the article is an event or update
-     * and the user isn't authenticated.
+     * Returns proper JSX code according to whether the article is an event or update and the user isn't authenticated.
      *
      * @returns {class} Component - A React Component.
      */
     displayProperContent() {
-        if ((!this.props.isAuthenticated && this.state.type === "event") || (!this.props.isAuthenticated && this.state.type === "update")) {
+        const isTypeEventAndAuthenticated = this.props.isAuthenticated && this.state.type === "event";
+        const isTypeUpdateAndAuthenticated = this.props.isAuthenticated && this.state.type === "update";
+
+        if (!isTypeEventAndAuthenticated || !isTypeUpdateAndAuthenticated) {
             return <div>
                 { this.displayTypeComponent() }
             </div>;
@@ -287,7 +297,7 @@ export default class Article extends Component {
     }
 
     componentDidMount() {
-        // Change state value of query property to that of query string in URL
+        // Change state value of type to that of URL parameter
         this.setState({ type: this.props.match.params.type });
 
         // When component is rendered, bring user to top of page
@@ -309,7 +319,7 @@ export default class Article extends Component {
           twitterMini,
           fbMini
         } = this.props;
-
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <React.Fragment>
@@ -322,7 +332,7 @@ export default class Article extends Component {
                     <div>
                         <p>Posted on 2-2-20</p>
                         <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
-                        <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </div>
                     <div>
                         <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/"><img srcSet={instaMini} alt="Author's instagram link." /></a>

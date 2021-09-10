@@ -7,15 +7,13 @@ var CryptoJS = require("crypto-js");
 require('dotenv').config();
 
 export const Search = (props) => {
-  // Source: https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react - Zane 
+  // Src: https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
-  const [totalResults, setTotalResults] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
-  const [query, setQuery] = useState(null);
-  const [qPage, setQPage] = useState(null);
-  const [qTag, setQTag] = useState(null);
+  const [total, setTotal] = useState({ results: 0, pages: 0 });
+  const [search, setSearch] = useState({ query: null, page: null, tag: null });
   const [page, setPage] = useState({ min: 0, max: 0 });
+  const { REACT_APP_KEY } = process.env;
 
   // Arrays
   const [filters, setFilters] = useState([]);
@@ -24,7 +22,7 @@ export const Search = (props) => {
   const [results, setResults] = useState([]);
 
   /**
-   * updateFilter() function - Once filter request form has been submitted, this function updates the "filter" query string to the correct value displaying results
+   * Once filter request form has been submitted, this function updates the "filter" query string to the correct value displaying results
    * according to specified filters.
    * 
    * @param {object} e 
@@ -49,10 +47,10 @@ export const Search = (props) => {
   }
 
   /**
-  * displayResults() function - Performs query search and counts results. Returns h3 component with result values according to page.
-  * Conducts web scraping and displays marks or tags according to boolean value of query string "tag"
-  * 
-  */ 
+   * Performs query search and counts results. Returns h3 component with result values according to page.
+   * Conducts web scraping and displays marks or tags according to boolean value of query string "tag".
+   * 
+   */ 
   const displayResults = () => {
     activeFilters = props.getSearchFilters();
 
@@ -72,7 +70,7 @@ export const Search = (props) => {
 
         // Append queried data to results array 
 
-        // Increment totalResults with setTotalResults
+        // Increment total.results with setTotal
 
     }
 
@@ -80,16 +78,16 @@ export const Search = (props) => {
   }
 
   /**
-  * displaySections() function - Returns filtered section components according to page.
-  * 
-  */
+   * Returns filtered section components according to page.
+   * 
+   */
   const displaySections = () => {
     // Generate component with sectioned results correlating to page and return
 
   }
 
   /**
-   * displaySimilarTags() function - Searches similar tags related to query and returns component containing them via tags array.
+   * Searches similar tags related to query and returns component containing them via tags array.
    * 
    */
   const displaySimilarTags = () => {
@@ -103,20 +101,20 @@ export const Search = (props) => {
   }
 
   /**
-  * displayPageLinks() function - Returns proper component for navigating through pages via 
-  * qPage and totalPages. Rerenders the component if query values haven't been received after component is rendered.
+  * Returns proper component for navigating through pages via 
+  * qPage and total.pages. Rerenders the component if query values haven't been received after component is rendered.
   * 
   */
   const displayPageLinks = () => {
-    setTotalPages(totalResults/10);
+    setTotal({ pages: total.results/10 });
 
     // Check conditions for rendering proper navigation component; current page will be unclickable
-    if (totalPages <= 5) {
+    if (total.pages <= 5) {
         /* Previous Page 1,2,3,4,5 Next Page */
     } else {
         if (qPage <= 5) {
             /* Previous Page 1,2,3,4,5…Pmax Next Page */
-        } else if (qPage > 4 && qPage < totalPages - 4) {
+        } else if (qPage > 4 && qPage < total.pages - 4) {
             /* Previous Page 1...qPage-2, qPage-1, qPage, qPage+1, qPage+2...Pmax Next Page */
         } else {
             /* Previous Page 1…Pmax-4, Pmax-3, Pmax-2, Pmax-1, Pmax Next Page */
@@ -133,14 +131,14 @@ export const Search = (props) => {
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    setQuery(decodeURIComponent(parsedQString.query));
-    setQPage(parseInt(parsedQString.page));
+    setSearch({ query: decodeURIComponent(parsedQString.query) });
+    setSearch({ page: parseInt(parsedQString.page) });
 
     // Check if tag or not
     if (parsedQString.query[0] === "#") {
-        setQTag(true);
+        setSearch({ tag: true });
     } else {
-        setQTag(false);
+        setSearch({ tag: false });
     }
 
     setFilters([articles, updates, events, podcasts, community, user]);
@@ -167,7 +165,7 @@ export const Search = (props) => {
                         <h2>Search Results</h2>
                         { displayResults }
                         {/* Hard-coded h3 is for reference only. - Zane */}
-                        <h3>Displaying {`${page.min}-${page.max}`} of {totalResults} results for {query}</h3>
+                        <h3>Displaying {`${page.min}-${page.max}`} of {total.results} results for {search.query}</h3>
                     </hgroup>
                     { displaySimilarTags }
                     {/* Hard-coded ul is for reference only. - Zane */}
@@ -192,16 +190,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -214,16 +212,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -236,16 +234,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -258,16 +256,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -280,16 +278,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -302,16 +300,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -324,16 +322,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -346,16 +344,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -368,16 +366,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>
@@ -390,16 +388,16 @@ export const Search = (props) => {
                         imperdiet massa tincidunt.</q></blockquote>
                         <div className="sub_article_container">
                             <div className="author_content">
-                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4>by <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                             </div>
                             <div className="sub_article_content">
                                 <p>Type: Article</p>
                             </div>
                             <div className="sub_article_tags">
                                 <p>Tags:&nbsp; 
-                                    <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>,&nbsp;
-                                    <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                                    <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>,&nbsp;
+                                    <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                                 </p>
                             </div>
                             <div className="clear"></div>

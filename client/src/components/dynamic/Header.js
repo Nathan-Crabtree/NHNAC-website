@@ -19,8 +19,7 @@ class Header extends Component {
     }
 
     /**
-     *
-     * toggleDisplayNav() funcion - An event handler for hamburger-icon to toggle display the mobile nav.
+     * An event handler for hamburger-icon to toggle display the mobile nav.
      * Changes being made to CSS during toggleDisplayNav:
      *
      * nav > div > ul {
@@ -113,13 +112,15 @@ class Header extends Component {
     }
 
     /**
-     * onSubmit() function - Grabs the input value of the search query and sends a request to the API and returns
+     * Grabs the input value of the search query and sends a request to the API and returns
      * relevant results on the search page.
      *
      * @param {object} e
      * @returns {boolean} false
      */
     onSubmit(e) {
+        const target = e.target || e.srcElement;
+
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
             e = window.event;
@@ -127,7 +128,7 @@ class Header extends Component {
 
         e.preventDefault();
 
-        let searchQuery = e.target.search.value;
+        let searchQuery = target.search.value;
 
         // Check if search input is less than 500 characters
         if (searchQuery.length < 500) {
@@ -145,6 +146,7 @@ class Header extends Component {
           messageIcon,
           profileImgSmall
         } = this.props;
+        const { REACT_APP_KEY } = process.env;
 
         return(
             <header>
@@ -161,13 +163,13 @@ class Header extends Component {
                         { this.props.isAuthenticated ?
                             <ul className="header_links">
                                 <li className="dropdown">
-                                    <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?view=user&customize=false`}>Profile</Link>
+                                    <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user&customize=false`}>Profile</Link>
                                     <div className="dropdown-content">
-                                        <Link to={`/account_settings/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link>
-                                        <Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}?view=user&customize=true`}>Customize Page</Link>
-                                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}&receiverid=null`}>Messages</Link>
+                                        <Link to={`/account_settings/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link>
+                                        <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user&customize=true`}>Customize Page</Link>
+                                        <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}&receiverid=null`}>Messages</Link>
                                         <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
-                                        <Link to={`/id_request/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}`}>Request ID</Link>
+                                        <Link to={`/id_request/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Request ID</Link>
                                     </div>
                                 </li>
                                 <li className="vertical_bar">|</li>

@@ -29,20 +29,21 @@ export default class EventType extends Component {
     }
 
     /**
-     * removeAttendee() function - Removes attendee's information from database and reloads the component.
+     * Removes attendee's information from database and reloads the component.
      *
      */
-    removeAttendee() {
-        this.setState({ attending: false });
-    }
+    removeAttendee = () => this.setState({ attending: false }); 
+
 
     /**
-     * addAttendee() function - Adds the attendee's info onto the database and reloads the component.
+     * Adds the attendee's info onto the database and reloads the component.
      *
      * @param {event} e
      */
     addAttendee(e) {
         let errorExists = false;
+        const authenticatedAndIsAvailable = this.props.isAuthenticated && this.state.currentPeopleGoing < this.state.maxPeopleAllowed;
+        const target = e.target || e.srcElement;
 
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
@@ -51,12 +52,13 @@ export default class EventType extends Component {
 
         e.preventDefault();
 
-        if (this.props.isAuthenticated && this.state.currentPeopleGoing < this.state.maxPeopleAllowed) {
+        if (authenticatedAndIsAvailable) {
             // Add the attendee's info onto the database and reload the component
             this.setState({ attending: true });
         }
 
-        if (!this.props.isAuthenticated && this.state.currentPeopleGoing < this.state.maxPeopleAllowed) {
+        // This form is vulnerable for ddos attack. - Zane
+        if (!authenticatedAndIsAvailable) {
             // Clear error text if it currently exists on the DOM
             if (this.state.errorExists) {
                 const element = document.getElementsByClassName("error")[0];
@@ -65,8 +67,9 @@ export default class EventType extends Component {
             }
 
             // Validate for guest name
-            let name = e.target.name.value;
+            let name = target.name.value;
             name = this.props.sanitizeInput(name);
+            const guestNameIsntFormal = name.length > 0 && name[0] !== name[0].toUpperCase();
 
             if (name.length === 0) {
                 if (!errorExists) {
@@ -84,7 +87,7 @@ export default class EventType extends Component {
                 }
             }
 
-            if (name.length > 0 && name[0] !== name[0].toUpperCase()) {
+            if (guestNameIsntFormal) {
                 if (!errorExists) {
                     // Render error text and change boolean
                     const formField = document.getElementsByClassName("guest_form")[0].firstChild;
@@ -102,6 +105,10 @@ export default class EventType extends Component {
 
             if (!errorExists) {
                 // Add the guest attendee's name onto the database and reload the component
+                // Disable submit button
+                submit.disabled = true;
+                submit.setAttribute("class", "disabled_btn");
+                
                 this.setState({ attending: true });
             } else {
                 this.setState({ errorExists: true });
@@ -110,7 +117,7 @@ export default class EventType extends Component {
     }
 
     /**
-     * displayAttendBtnOrForm() function - Displays either guest form or "attend" button depending on whether a user is
+     * Displays either guest form or "attend" button depending on whether a user is
      * authenticated or not.
      *
      * @returns {class} Component - A React Component.
@@ -128,7 +135,7 @@ export default class EventType extends Component {
                                 <label htmlFor="name">First Name: </label><br />
                                 <input className="signup_input" type="text" id="name" name="name" maxLength="50" /><br />
                             </fieldset>
-                            <button type="submit" className="paypal_btn">Click to attend</button>
+                            <button id="submit" type="submit" className="paypal_btn">Click to attend</button>
                         </form>;
             }
         } else {
@@ -141,8 +148,9 @@ export default class EventType extends Component {
     }
 
     /**
-     * displayAttendees function() - Queries for users that return true for attending the specific event and renders their profile page links 
+     * Queries for users that return true for attending the specific event and renders their profile page links 
      * and photos within the returned component.
+     * 
      * NOTE: In rough stage. - Zane
      * 
      * @returns {class} Component - A React Component.
@@ -157,17 +165,17 @@ export default class EventType extends Component {
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg></button>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                     <li>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                     <li>
                         <p><img className="profile_img_small" srcSet={this.props.profileImgSmall} alt="Portrait of user." /></p>
-                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                        <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                     </li>
                     <li><hr /></li>
                 </ul>
@@ -209,7 +217,7 @@ export default class EventType extends Component {
           fbMini,
           profileImgSmall
         } = this.props;
-
+        const { REACT_APP_KEY } = process.env;
         const { position } = this.state;
 
         return(
@@ -252,10 +260,10 @@ export default class EventType extends Component {
                         <p>Chapter: Main</p>
                         <p>Location: 28310 East, State Hwy 14, Ava, MO 65608</p>
                         <hr />
-                        {/* Src: https://react-leaflet.js.org/docs/start-setup - Zane */}
+                        {/* Src: https://react-leaflet.js.org/docs/start-setup */}
                         <MapContainer style={{ height: "200px", width: "100%" }} center={position} zoom={13} scrollWheelZoom={true}>
                         <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            attribution="&copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
                         <Marker icon={new Icon({iconUrl: markerIconPng})} position={position}>
@@ -268,9 +276,9 @@ export default class EventType extends Component {
                 </div>
                 <aside className="bottom_aside_container">
                     <div>
-                        <Link to={`/search?query=${encodeURIComponent('#tag1')}&page=1`}>#tag1</Link>
-                        <Link to={`/search?query=${encodeURIComponent('#tag2')}&page=1`}>#tag2</Link>
-                        <Link to={`/search?query=${encodeURIComponent('#tag3')}&page=1`}>#tag3</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag1")}&page=1`}>#tag1</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag2")}&page=1`}>#tag2</Link>
+                        <Link to={`/search?query=${encodeURIComponent("#tag3")}&page=1`}>#tag3</Link>
                     </div>
                     <div>
                         <ul>
@@ -293,7 +301,7 @@ export default class EventType extends Component {
                         <div>
                             <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                             <div>
-                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                <h4><Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                 <div>
                                     <p>Tier</p>
                                     <p>Last Online: 35 min ago</p>
@@ -340,7 +348,7 @@ export default class EventType extends Component {
                                             <div>
                                                 <img className="profile_img_small" srcSet={profileImgSmall} alt="Portrait of user." />
                                                 <div>
-                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt('1', process.env.PROD_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
+                                                    <h4><Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}}?view=viewer`}>Milton Miles</Link></h4>
                                                     <div>
                                                         <p>Tier</p>
                                                         <p>Last Online: 35 min ago</p>

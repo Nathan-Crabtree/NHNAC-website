@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // App.js
-import App, { setGeoDataExists, onSubmit, resetToggleDisplay, emailIsValid,
+import App, { onSubmit, resetToggleDisplay, emailIsValid,
   reviseName, setCookiePolicyDisplayed, deauthenticate, setNewsletterEmailAddress,
   setSearchFilters, getSearchFilters, checkDates, urlIsValid, filePathIsValid, changeBorderColor, sanitizeInput,
   desanitize, displayUnloadMessage } from './components/App';
@@ -75,16 +75,11 @@ Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
 
 // APP.JS FUNCTION(S)
 
-// setGeoDataExists testing; src: client/src/App.js
-it("doesn't output anything", () => {
-  expect(setGeoDataExists).toBeUndefined();
-});
-
 // onSubmit testing; src: client/src/App.js
-it("doesn't output anything", () => {
-  expect(onSubmit).toBeUndefined();
-});
-
+/* it("doesn't output anything", () => {
+  expect(onSubmit).toBe(e);
+}); */
+ 
 // resetToggleDisplay testing; src: client/src/App.js
 it("doesn't output anything", () => {
   expect(resetToggleDisplay).toBeUndefined();
@@ -96,8 +91,9 @@ it("doesn't output anything", () => {
 });
 
 // emailIsValid testing; src: client/src/App.js
-it("doesn't output anything", () => {
-  expect(emailIsValid).toBeUndefined();
+it("returns a boolean", () => {
+  expect(emailIsValid('joeshmoe@yahoo.com')).toEqual(true);
+  expect(emailIsValid('not an email')).toEqual(false);
 });
 
 // reviseName testing; src: client/src/components/static/App.js

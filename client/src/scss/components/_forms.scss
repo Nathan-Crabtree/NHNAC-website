@@ -9,6 +9,7 @@ textarea {
 }
 
 label[for="rememberMe"],
+label[for="showPassword"],
 label[for="newsletter"],
 label[for="by_email"],
 label[for="by_mail"],
@@ -24,6 +25,7 @@ select:focus {
 }
 
 label[for="rememberMe"],
+label[for="showPassword"],
 label[for="newsletter"],
 label[for="by_email"],
 label[for="by_mail"]  {
@@ -87,7 +89,7 @@ input:not([type='checkbox'], [type="radio"], .search_input, .magnifying_glass) {
     }
 }
 
-button:not(.modal_button, .form_links_btn, ._modal-close, .text_btn, .edit_profile_pic_btn):hover,
+button:not(.modal_button, .form_links_btn, ._modal-close, .text_btn, .edit_profile_pic_btn, .disabled_btn):hover,
 div.paypal_btn:hover {
     background-color: $nh-button-hover;
 }
@@ -102,6 +104,11 @@ textarea {
 
 .submit_padding {
     margin: $nh-form-margin;
+}
+
+// utility class
+.disabled_btn {
+    background-color: darkgray !important;
 }
 
 // Login
@@ -163,6 +170,9 @@ textarea {
     }
     &_fields {
         padding-bottom: $nh-padding-xs;
+        &:nth-child(8) {
+            margin-bottom: 20px;
+        }
     }
     &_input {
         width: 95%;

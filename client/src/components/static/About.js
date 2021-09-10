@@ -9,13 +9,12 @@ export const About = ({indian, tribe}) => {
     const devURL = 'http://localhost:3000/about';
     const prodURL = 'https://newhavennativeamericanchurch.org/about';
     const prodURLInsecure = 'http://newhavennativeamericanchurch.org/about';
+    const valid = window.location.href === devURL || window.location.href === prodURL || window.location.href === prodURLInsecure;
 
     useEffect(() => {
         // When component is rendered, bring user to top of page iff(if and only if) URL doesn't reference to home#contact
         // else bring home#contact into view.
-        if (window.location.href === devURL ||
-        window.location.href === prodURL ||
-        window.location.href === prodURLInsecure) {
+        if (valid) {
             window.scrollTo(0, 0);
         } else {
             document.getElementById('contactDiv').scrollIntoView();

@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
-export const Slideshow = ({hands, homes, people}) => {
+export const Slideshow = ({ hands, homes, people }) => {
 
-    // Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane 
+    // Src: https://www.w3schools.com/howto/howto_js_slideshow.asp 
     var slideIndex = useRef(0);
 
     /**
-     * showSlides function() - Renders and hides images in the order they were placed and edits styling of the viewer.
+     * Renders and hides images in the order they were placed and edits styling of the viewer.
      * 
      * @param {integer} n 
      */
@@ -29,26 +29,22 @@ export const Slideshow = ({hands, homes, people}) => {
     }
 
     /**
-     * plusSlides() function - Next and previous controls for the slideshow viewer.
+     * Next and previous controls for the slideshow viewer.
      * 
      * @param {integer} n 
      */
-    function plusSlides(n) {
-        showSlides(slideIndex.current += n);
-    }
+    function plusSlides (n) { showSlides(slideIndex.current += n); }
   
     /**
-     * currentSlide() function - Thumbnail image controls.
+     * Thumbnail image controls.
      * 
      * @param {integer} n 
      */
-    function currentSlide(n) {
-        showSlides(slideIndex.current = n);
-    }
+    function currentSlide (n) { showSlides(slideIndex.current = n); }
 
     useEffect(() => {
         /**
-         * showSlidesAuto() function - Automated version of showSlides(). 
+         * Automated version of showSlides(). 
          * 
          */
         const showSlidesAuto = () => {
@@ -68,7 +64,7 @@ export const Slideshow = ({hands, homes, people}) => {
             dots[slideIndex.current-1].className += " active";
         }
 
-        // Source: https://stackoverflow.com/questions/40325035/document-ready-settimeout - Zane
+        // Src: https://stackoverflow.com/questions/40325035/document-ready-settimeout
         let functionDone = false;
 
         // Change image every 5 seconds
@@ -90,7 +86,7 @@ export const Slideshow = ({hands, homes, people}) => {
     return(
         <React.Fragment>
             {/* NOTE: Majority of this code is starter code. */}
-            {/* Source: https://www.w3schools.com/howto/howto_js_slideshow.asp - Zane */}
+            {/* Src: https://www.w3schools.com/howto/howto_js_slideshow.asp */}
             {/* Slideshow wrapper */}
             <div className="slideshow_wrapper">
                 <div className="slideshow-container">

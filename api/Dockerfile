@@ -26,7 +26,7 @@ RUN chown docker /usr/src/app
 # Expose the server to the host machine
 
 # Run this command on startup
-ENTRYPOINT ["npm","build"]
+ENTRYPOINT ["npm","run-script","build"]
 
 # Switch user
 USER docker

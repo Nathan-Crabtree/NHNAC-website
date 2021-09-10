@@ -19,22 +19,26 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     twitterMini,
     instaMini
   } = props;
+  const { REACT_APP_KEY } = process.env;
 
   /**
-  * onSubmit() function - Takes any content submitted from user and sends to API and then gets added to database;
+  * Takes any content submitted from user and sends to API and then gets added to database;
   * the page is then refreshed to include the new content.
   *
-  * @param {object} e, @param {string} tagID
+  * @param {object} e
+  * @param {string} tagID
   * @returns {boolean} false
   */
   onSubmit = (e, tagID) => {
+      const target = e.target || e.srcElement;  
+
       // Use IE5-8 fallback if event object isn't present
       if (!e) {
         e = window.event;
       }
 
       e.preventDefault();
-      console.log(e.target.className);
+      console.log(target.className);
 
       // Array of form input IDs
       const formInputIds = ["profilePicLink", "firstName", "lastName", "fb_input", "twitter_input", "insta_input", "email_input", "birthday_input", "streetId",
@@ -51,7 +55,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
 
       switch(tagID) {
         case "profile_pic":
-            let profilePicLink = e.target.profilePicLink.value;
+            let profilePicLink = target.profilePicLink.value;
             profilePicLink = props.sanitizeInput(profilePicLink);
 
             // Change border color of input and select tag back to normal
@@ -103,11 +107,11 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "name":
-            let firstName = e.target.first_name.value;
+            let firstName = target.first_name.value;
             let revisedFirstName = [];
-            let nickName = e.target.nick_name.value;
+            let nickName = target.nick_name.value;
             let revisedNickName = [];
-            let lastName = e.target.last_name.value;
+            let lastName = target.last_name.value;
             let revisedLastName = [];
             firstName = props.sanitizeInput(firstName);
             nickName = props.sanitizeInput(nickName);
@@ -179,7 +183,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "fb":
-            let fb = e.target.fb.value;
+            let fb = target.fb.value;
             fb = encodeURIComponent(props.sanitizeInput(fb));
 
             // Change border color of input and select tag back to normal
@@ -229,7 +233,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "twitter":
-            let twitter = e.target.twitter.value;
+            let twitter = target.twitter.value;
             twitter = encodeURIComponent(props.sanitizeInput(twitter));
 
             // Change border color of input and select tag back to normal
@@ -279,7 +283,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "insta":
-            let insta = e.target.insta.value;
+            let insta = target.insta.value;
             insta = encodeURIComponent(props.sanitizeInput(insta));
 
             // Change border color of all input and select tags back to normal
@@ -329,7 +333,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "email":
-            let email = e.target.email.value;
+            let email = target.email.value;
 
             // Change border color of input and select tag back to normal
             props.changeBorderColor(formInputIds[6]);
@@ -400,7 +404,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "birthday":
-            const birthday = e.target.birthday.value;
+            const birthday = target.birthday.value;
 
             // Check if birthday and current date match variables
             const date = new Date();
@@ -461,11 +465,11 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             break;
         case "address":
             console.log("case address is activiated");
-            let street = e.target.street.value;
-            const country = e.target.country.value;
-            const state = e.target.state.value;
-            const city = e.target.city.value;
-            let zip = e.target.zip.value.toString();
+            let street = target.street.value;
+            const country = target.country.value;
+            const state = target.state.value;
+            const city = target.city.value;
+            let zip = target.zip.value.toString();
             const formField = document.getElementsByClassName("address_form_field")[0];
             const inputStreet = document.getElementById("streetId");
             street = props.sanitizeInput(street);
@@ -541,9 +545,9 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
             }
             break;
         case "password":
-            let oldPassword = e.target.old_password.value;
-            let newPassword = e.target.new_password.value;
-            let confirmPassword = e.target.confirm_password.value;
+            let oldPassword = target.old_password.value;
+            let newPassword = target.new_password.value;
+            let confirmPassword = target.confirm_password.value;
 
             // Do query search to find user's current password
             let currentPassword = null;
@@ -624,10 +628,10 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
   }
 
   /**
-  * hideForm() function - Hides the section's form that the comment belongs to and shows the associated "edit" button.
-  *
-  * @param {string} tagClassName
-  */
+   * Hides the section's form that the comment belongs to and shows the associated "edit" button.
+   *
+   * @param {string} tagClassName
+   */
   hideForm = (tagClassName) => {
     document.getElementsByClassName(`${tagClassName}_form`)[0].style.display = "none";
     document.getElementsByClassName(`edit_${tagClassName}_btn`)[0].style.display = "block";
@@ -651,10 +655,10 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
   }
 
   /**
-  * displayForm() function - Shows the section's form that the comment belongs to and hides the associated "edit" button.
-  *
-  * @param {string} tagClassName
-  */
+   * Shows the section's form that the comment belongs to and hides the associated "edit" button.
+   *
+   * @param {string} tagClassName
+   */
   displayForm = (tagClassName) => {
     document.getElementsByClassName(`${tagClassName}_form`)[0].style.display = "block";
     document.getElementsByClassName(`edit_${tagClassName}_btn`)[0].style.display = "none";
@@ -676,7 +680,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
   }
 
   /**
-   * unsubscribe() function - Unsubscribes the user from selected subscription topic by changing the boolean value
+   * Unsubscribes the user from selected subscription topic by changing the boolean value
    * of user's subscription value column in the database table to false.
    *
    * @param {string} subscription
@@ -693,7 +697,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
   }
 
   /**
-   * displaySubscription() function - Checks boolean value of user's subscription value column in database table via parameter
+   * Checks boolean value of user's subscription value column in database table via parameter
    * to render within DOM the proper markup content.
    *
    * @param {string} subscription
@@ -723,7 +727,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
     const parsedQString = queryString.parse(props.location.search);
 
     // Change value of query variable to that of query string in URL
-    setUserId(CryptoJS.AES.decrypt(props.match.params.userId, process.env.PROD_KEY).toString(CryptoJS.enc.Utf8));
+    setUserId(CryptoJS.AES.decrypt(props.match.params.userId, REACT_APP_KEY).toString(CryptoJS.enc.Utf8));
     setEditProfilePic(parsedQString.edit_profile_pic);
 
     // Display "Edit Profile Picture" form if editProfilePic is true
@@ -736,16 +740,15 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
 
     // This script tag is important htmlFor sign-up form to work properly.
     // Provides country data htmlFor users to help insert exact address location.
-    // Source: https://geodata.solutions - Zane
+    // Src: https://geodata.solutions
     if (!props.geoDataExists) {
       const script = document.createElement("script");
 
       script.src = "//geodata.solutions/includes/countrystatecity.js";
       script.async = true;
+      script.className = "geodata_script";
 
       document.body.appendChild(script);
-
-      props.setGeoDataExists();
     }
 
     // componentWillUnmount() substitute for React Hooks 
@@ -756,6 +759,10 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
       } else {
         window.detachEvent("beforeunload", props.displayUnloadMessage);
       }
+
+      // Remove geodata script from DOM 
+      const geoDataScript = document.getElementsByClassName('geodata_script')[0];
+      geoDataScript.parentElement.removeChild(geoDataScript);
     }
   }, [props, editProfilePic]);
 
@@ -826,7 +833,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
           </form>
           <button onClick={ () => { displayForm("status") } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
         </div>
-        <Link to={`/id_request/${CryptoJS.AES.encrypt(userId, process.env.PROD_KEY).toString()}`}>Request new ID card</Link><br />
+        <Link to={`/id_request/${CryptoJS.AES.encrypt(userId, REACT_APP_KEY).toString()}`}>Request new ID card</Link><br />
         <Container onSubmit={props.onSubmit} triggerText="Delete Account" /><br />
         {/* Social Media Links */}
         <div>
@@ -982,6 +989,8 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, unsubs
                           <input className="signup_input" type="password" id="newPassword" name="new_password" minLength="3" maxLength="30" /><br />
                           <label htmlFor="confirmPassword">Confirm Password</label><br />
                           <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" /><br />
+                          <input onClick={props.showPassword} type="checkbox" id="showPassword" name="show_password" />
+                          <label htmlFor="showPassword">Show passwords</label><br />
                       </div>
                   </div>
                   <button className="submit_btn submit_padding" type="submit">Submit</button>
@@ -1012,12 +1021,12 @@ AccountSettings.propTypes = {
     twitterMini: PropTypes.string.isRequired,
     emailIsValid: PropTypes.func.isRequired,
     geoDataExists: PropTypes.bool.isRequired,
-    setGeoDataExists: PropTypes.func.isRequired,
     reviseName: PropTypes.func.isRequired,
     checkDates: PropTypes.func.isRequired,
     urlIsValid: PropTypes.func.isRequired,
     filePathIsValid: PropTypes.func.isRequired,
     changeBorderColor: PropTypes.func.isRequired,
     sanitizeInput: PropTypes.func.isRequired,
-    displayUnloadMessage: PropTypes.func.isRequired
+    displayUnloadMessage: PropTypes.func.isRequired,
+    showPassword: PropTypes.func.isRequired
 }

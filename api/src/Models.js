@@ -9,10 +9,16 @@
 const {Sequelize, DataTypes, Model} = require('sequelize');
 const { types } = require('util');
 const { type } = require('os');
-//const sequelize = new Sequelize(process.env.DB_PROD, { logging: console.log });; // production env - Zane
+const enableLogging = process.env.DB_ENABLE_LOGGING === 'true';
+const database = new Database(data, enableLogging);
+const db = process.env.DB || "mysql://root:@localhost:3306/newhaven";
+let logging = null;
 
-//const sequelize = new Sequelize('mysql://root:@localhost:3306/newhaven', { logging: console.log }); //development env
-//const sequelize = new Sequelize('mysql://newhavenuser:@localhost:3306/newhaven', { logging: console.log }); //development env
+if (enableLogging) {
+  logging = { logging: console.log };
+}
+
+//const sequelize = new Sequelize(db, logging); 
 const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
   host: 'localhost',
   dialect: 'mysql',
@@ -22,23 +28,14 @@ const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
 
 //bcrypt is for password hashing
 const bcrypt = require('bcrypt');
-let saltRounds, myPlaintextPassword, someOtherPlaintextPassword;
-
-if (process.env.NODE_ENV !== "production") {
-  saltRounds = 1;
-  myPlaintextPassword = "password1";
-  someOtherPlaintextPassword = "password2"; 
-} else {
-  saltRounds = parseInt(process.env.PROD_SALTROUNDS);
-  myPlaintextPassword = process.env.PROD_PLAINTEXTPASSWORD1;
-  someOtherPlaintextPassword = process.env.PROD_PLAINTEXTPASSWORD2;
-}
+const saltRounds = parseInt(process.env.SALTROUNDS) || 1;
+const myPlaintextPassword = process.env.MYPLAINTEXTPASSWORD || "password1";
+const someOtherPlaintextPassword = SOMEOTHERPLAINTEXTPASSWORD || "password2";
 
 // For validation
 const date = new Date();
 const currentDate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 const filePathRegex = /^[A-Z]:[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/;
-
 
 console.log("entering Models.js");
 

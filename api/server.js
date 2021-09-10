@@ -9,20 +9,18 @@ const { userInfo } = require('os');
 const { Certificate } = require('crypto');
 var cors = require('cors'); //prevents fetch() being blocked by CORS policy
 
+// variable to enable global error logging
+const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
+
 //const {bodyParser} = require('body-parser'); //for post requests
 
-const app = express();
-app.use(cors());
-let port;
-if (process.env.NODE_ENV !== "production") {
-    port = 5000;
-} else {
-    port = parseInt(process.env.API_PROD);
-}
+const server = express();
+server.use(cors());
+server.set('port', process.env.PORT || 5000);
 
-app.get('/', (req,res) => res.send('Hello World! from Node.js'))
+server.get('/', (req,res) => res.send('Hello World! from Node.js'))
 
-// app.use(
+// server.use(
 //     bodyParser.json() //for post requests
 // );
 
@@ -76,8 +74,20 @@ sequelize.sync({force: true});
 //     })
 // })
 
-//app.post('/createChapter/:Name/', (req, res) => {
-app.post('/createChapter:Name/', (req, res) => {
+// setup a global error handler
+server.use((err, req, res, next) => {
+    if (enableGlobalErrorLogging) {
+      console.error(`Global error handler: ${JSON.stringify(err.stack)}`);
+    }
+  
+    res.status(err.status || 500).json({
+      message: err.message,
+      error: {},
+    });
+});
+
+//server.post('/createChapter/:Name/', (req, res) => {
+server.post('/createChapter:Name/', (req, res) => {
    Models.Chapter.create({
         Name: req.params.Name
     })
@@ -90,7 +100,7 @@ app.post('/createChapter:Name/', (req, res) => {
     })
 })
 
-app.post('/createCouncil/:Name/:ChapterID/', (req, res) => {
+server.post('/createCouncil/:Name/:ChapterID/', (req, res) => {
     Models.Council.create({
         Name: req.params.Name,
         ChapterID: req.params.ChapterID
@@ -105,7 +115,7 @@ app.post('/createCouncil/:Name/:ChapterID/', (req, res) => {
 })
 
 //create express route; retrieve all records from Users table
-app.get('/findAllUsers', (req, res) => {
+server.get('/findAllUsers', (req, res) => {
     Models.User.findAll({
         //find records with specific userName
         // where: {
@@ -128,7 +138,7 @@ app.get('/findAllUsers', (req, res) => {
     })
 })
 
-app.get('/findUserByID/:ID', (req, res) => {
+server.get('/findUserByID/:ID', (req, res) => {
     Models.User.findByPk(req.params.ID)
     .then(user => {
         res.json(user);
@@ -139,7 +149,7 @@ app.get('/findUserByID/:ID', (req, res) => {
     })
 })
 
-// app.put('/updateUser', (req, res) => {
+// server.put('/updateUser', (req, res) => {
 //     //User.update(req.body) //normal client request use case
 //     User.update({
 //         FirstName: 'Schmoe',
@@ -155,7 +165,7 @@ app.get('/findUserByID/:ID', (req, res) => {
 //         res.status(404).send(error);
 //     })
 // })
-app.delete('/deleteUserByID/:ID', (req, res) => {
+server.delete('/deleteUserByID/:ID', (req, res) => {
     //User.update(req.body) //normal client request use case
     Models.User.destroy({
         where: {
@@ -170,7 +180,7 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
         res.status(404).send(error);
     })
 })
-// app.get('/createUser', (req, res) => {
+// server.get('/createUser', (req, res) => {
 //     User.create({
 //         Email: "JoeSchmoe@gmail.com",
 //         Password: "password",
@@ -203,8 +213,8 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
 //         res.status(404).send(error);
 //     })
 // })
-//app.post('/createUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
-// app.post('/createUser:Email:Password:FirstName:LastName:NickName:Birthday:Gender:SecurityQuestion:SecurityAnswer:ESignatureFilePath:SubscribedToNewsLetter:SubscribedToPodcast:Points:ProfilePicLarge:ProfilePicMedium:ProfilePicSmall:Facebook:Instagram:Twitter:ChapterID/', (req, res) => {
+//server.post('/createUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
+// server.post('/createUser:Email:Password:FirstName:LastName:NickName:Birthday:Gender:SecurityQuestion:SecurityAnswer:ESignatureFilePath:SubscribedToNewsLetter:SubscribedToPodcast:Points:ProfilePicLarge:ProfilePicMedium:ProfilePicSmall:Facebook:Instagram:Twitter:ChapterID/', (req, res) => {
 //     console.log("Inside Create USER API");
 //     Models.User.create({
 //         Email: req.params.Email,
@@ -242,7 +252,7 @@ app.delete('/deleteUserByID/:ID', (req, res) => {
     // })
 // })
 // npm
-app.post('/createChapter:Name/', (req, res) => {
+server.post('/createChapter:Name/', (req, res) => {
     Models.Chapter.create({
          Name: req.params.Name
      })
@@ -255,7 +265,7 @@ app.post('/createChapter:Name/', (req, res) => {
      })
  })
 
-  app.post('/createUser/:AddressID/:Email/:Password/:FirstName/:LastName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer', (req, res) => {
+  server.post('/createUser/:AddressID/:Email/:Password/:FirstName/:LastName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer', (req, res) => {
      console.log("Inside Create USER API");
      Models.User.create({
          //ChapterID: req.params.ChapterID, //not needed yet
@@ -293,7 +303,7 @@ app.post('/createChapter:Name/', (req, res) => {
     })
 });
 
-app.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => {
+server.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => {
     Models.Address.create({
         Street: req.params.Street,
         Country: req.params.Country,
@@ -309,7 +319,7 @@ app.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => {
        res.status(404).send(error);
    })
 });
-app.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
+server.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
     console.log("Inside UPDATE USER API");
     Models.User.update({
         Email: req.params.Email,
@@ -347,7 +357,7 @@ app.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:
     })
 })
 
-app.post('/createUserRole/:RoleID/:UserID/', (req, res) => {
+server.post('/createUserRole/:RoleID/:UserID/', (req, res) => {
     Models.UserRole.create({
         RoleID: req.params.RoleID,
         UserID: req.params.UserID
@@ -361,7 +371,7 @@ app.post('/createUserRole/:RoleID/:UserID/', (req, res) => {
     })
 })
 
-app.post('/createCouncilRole/:Name/', (req, res) => {
+server.post('/createCouncilRole/:Name/', (req, res) => {
     Models.CouncilRole.create({
         Name: req.params.Name
     })
@@ -374,7 +384,7 @@ app.post('/createCouncilRole/:Name/', (req, res) => {
     })
 })
 
-app.post('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, res) => {
+server.post('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, res) => {
     Models.CouncilUserRole.create({
         CouncilID: req.params.CouncilID,
         UserID: req.params.UserID,
@@ -389,7 +399,7 @@ app.post('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, res)
     })
 })
 
-app.post('/createAddress/:Address/:Country/:State/:City/:Zip/:UserID/', (req, res) => {
+server.post('/createAddress/:Address/:Country/:State/:City/:Zip/:UserID/', (req, res) => {
     Models.Address.create({
         Address: req.params.Address,
         Country: req.params.Country,
@@ -407,7 +417,7 @@ app.post('/createAddress/:Address/:Country/:State/:City/:Zip/:UserID/', (req, re
     })
 })
 
-app.post('/createCertificate/:CertificationID/:UserID/:UserCertFilePath/:Started/:Completed/:Date/:Time/', (req, res) => {
+server.post('/createCertificate/:CertificationID/:UserID/:UserCertFilePath/:Started/:Completed/:Date/:Time/', (req, res) => {
     Certificate.create({
         CertificationID: req.params.CertificationID,
         UserID: req.params.UserID,
@@ -426,6 +436,7 @@ app.post('/createCertificate/:CertificationID/:UserID/:UserCertFilePath/:Started
     })
 })
 
-app.listen(port, () => {
-    console.log('Running CORS-enabled server on port ' + port)
+// start listening on our port
+const server = server.listen(server.get('port'), () => {
+    console.log(`Running CORS-enabled server on port ${server.address().port}`);
 });

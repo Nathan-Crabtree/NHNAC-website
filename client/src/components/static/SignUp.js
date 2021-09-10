@@ -15,9 +15,11 @@ export default class SignUp extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    /**
-    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if all values are fit for submission.
-    * Submits and conditionally redirects to profile page or to PayPal website according to payment status.
+   /**
+    * An event handler that prevents default action (page refresh), 
+    * checks to see if all values are fit for submission.
+    * Submits and conditionally redirects to profile page or to PayPal website 
+    * according to payment status.
     *
     * NOTE: Could be further refactored to reduce runtime. - Zane
     *
@@ -25,37 +27,40 @@ export default class SignUp extends Component {
     * @returns {boolean} false
     */
    onSubmit(event) {
+        let submit = document.getElementById("submit");
+        const target = event.target || event.srcElement;
+
         // Use IE5-8 fallback if event object not present
         if (!event) {
             event = window.event;
         }
 
         console.log("onSubmit() called");
-        event.preventDefault(event);
+        event.preventDefault();
 
-        let firstName = event.target.first_name.value;
+        let firstName = target.first_name.value;
         let revisedFirstName = [];
-        let nickName = event.target.nick_name.value;
+        let nickName = target.nick_name.value;
         let revisedNickName = [];
-        let lastName = event.target.last_name.value;
+        let lastName = target.last_name.value;
         let nameArray = [firstName, nickName, lastName];
         //let chapterID = 1;
         let revisedLastName = [];
-        let email = event.target.email.value;
-        const birthday = event.target.birthday.value;
-        const gender = event.target.gender.value;
-        let street = event.target.street.value;
-        const country = event.target.country.value;
-        const state = event.target.state.value;
-        const city = event.target.city.value;
-        let zip = event.target.zip.value.toString();
+        let email = target.email.value;
+        const birthday = target.birthday.value;
+        const gender = target.gender.value;
+        let street = target.street.value;
+        const country = target.country.value;
+        const state = target.state.value;
+        const city = target.city.value;
+        let zip = target.zip.value.toString();
         let addressArray = [street, zip];
-        const securityQuestion = event.target.security_question.value;
-        let securityAnswer = event.target.security_answer.value;
-        const password = event.target.password.value;
+        const securityQuestion = target.security_question.value;
+        let securityAnswer = target.security_answer.value;
+        const password = target.password.value;
         const confirmPassword = event.target.confirm_password.value;
-        //let redeemableCode = event.target.redeemable_code.value;
-        //const payment = parseInt(event.target.payment.value.split("").filter(string => string !== "$").join(""));
+        //let redeemableCode = target.redeemable_code.value;
+        //const payment = parseInt(target.payment.value.split("").filter(string => string !== "$").join(""));
 
         // Check if birthday and current date match variables
         const date = new Date();
@@ -344,6 +349,9 @@ export default class SignUp extends Component {
         }
 
         // After-submit code
+        // Disable submit button
+        submit.disabled = true;
+        submit.setAttribute("class", "disabled_btn");
 
         if (window.removeEventListener) { // If event listener supported
             // Remove pop-up warning of unsaved data if user attempts to leave page
@@ -409,12 +417,13 @@ export default class SignUp extends Component {
 
         // This script tag is important htmlFor sign-up form to work properly.
         // Provides country data htmlFor users to help insert exact address location.
-        // Source: https://geodata.solutions - Zane
+        // Src: https://geodata.solutions
         if (!this.props.geoDataExists) {
             const script = document.createElement("script");
 
             script.src = "//geodata.solutions/includes/countrystatecity.js";
             script.async = true;
+            script.className = "geodata_script";
 
             document.body.appendChild(script);
 
@@ -440,8 +449,15 @@ export default class SignUp extends Component {
                 window.detachEvent("beforeunload", this.props.displayUnloadMessage);
             }
         }
-    }
 
+        // Remove geodata script from DOM 
+        if (this.props.geoDataExists) {
+            const geoDataScript = document.getElementsByClassName('geodata_script')[0];
+            
+            geoDataScript.parentElement.removeChild(geoDataScript);
+            this.props.setGeoDataExists();
+        }
+    }
     render() {
         return (
             <React.Fragment>
@@ -539,6 +555,8 @@ export default class SignUp extends Component {
                                     <input className="signup_input" type="password" id="password" name="password" minLength="3" maxLength="30" placeholder="Password" /><br />
                                     <label htmlFor="confirm_password">Confirm Password</label><br />
                                     <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" placeholder="Confirm Password" /><br />
+                                    <input onClick={this.props.showPassword} type="checkbox" id="showPassword" name="show_password" />
+                                    <label htmlFor="showPassword">Show password</label><br />
                                 </div>
                                 {/* Code snippet for newsletter checkbox, which is currently an unavailable feature in the beta release. - Zane */}
                                 {/*<div className="signup_fields">
@@ -564,10 +582,10 @@ export default class SignUp extends Component {
                                 </div>
                                 <div className="signup_fields">
                                     <div className="pay_with_div center_text">
-                                        <button className="paypal_btn" type="submit">Pay with PayPal</button>
+                                        <button id="submit" className="paypal_btn" type="submit">Pay with PayPal</button>
                                         {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
                                         {/*<p>Or</p>
-                                        <button className="bitcoin_btn" type="submit">Pay with Bitcoin</button>*/}
+                                        <button id="submit" className="bitcoin_btn" type="submit">Pay with Bitcoin</button>*/}
                                     </div>
                                 </div>
                                 <div className="signup_fields agreement_div">
@@ -593,5 +611,6 @@ SignUp.propTypes = {
     checkDates: PropTypes.func.isRequired,
     changeBorderColor: PropTypes.func.isRequired,
     sanitizeInput: PropTypes.func.isRequired,
-    displayUnloadMessage: PropTypes.func.isRequired
+    displayUnloadMessage: PropTypes.func.isRequired,
+    showPassword: PropTypes.func.isRequired
 }

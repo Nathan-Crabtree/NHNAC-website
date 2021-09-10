@@ -13,32 +13,28 @@ export default class Deleted extends Component {
     }
 
     /**
-    * onSubmit() function - An event handler that prevents default action (page refresh), checks to see if message
+    * An event handler that prevents default action (page refresh), checks to see if message
     * content is > 3 and < 500 characters, submits and renders HTML according to condition.
     *
     * @param {object} event
     */
     onSubmit(event) {
+        const target = event.target || event.srcElement;
+
         // Use IE5-8 fallback if event object not present
         if (!event) {
             event = window.event;
         }
 
-        event.preventDefault(event);
+        event.preventDefault();
     
-        let messageContent = event.target.message.value;
+        let messageContent = target.message.value;
         messageContent = this.props.sanitizeInput(messageContent);
     
         if (messageContent.length > 3 && messageContent.length <= 500 ) {
-            // Take the data and send it to API
-            console.log(messageContent);
-    
-            // Render on the modal thank you text
-            const modalForm = document.getElementsByClassName("modal_form")[0];
-            const thankYouBlock = document.createElement("h3");
-            thankYouBlock.innerText = "Thank you for your feedback!";
-            thankYouBlock.style.textAlign = "center";
-            modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");  
 
             if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
@@ -48,11 +44,21 @@ export default class Deleted extends Component {
             }
 
             this.setState({ formActive: false });
+    
+            // Take the data and send it to API
+            console.log(messageContent);
+    
+            // Render on the modal thank you text
+            const modalForm = document.getElementsByClassName("modal_form")[0];
+            const thankYouBlock = document.createElement("h3");
+            thankYouBlock.innerText = "Thank you for your feedback!";
+            thankYouBlock.style.textAlign = "center";
+            modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
         } else {
                 // Render error text and colors
                 if (!this.state.errorExists) {
-                const formField = event.target.children[1].firstChild;
-                const input = event.target.children[1].firstChild.children[6];
+                const formField = target.children[1].firstChild;
+                const input = target.children[1].firstChild.children[6];
                 const error = document.createElement('p');
                 error.innerText = '*Please type in more than 3 characters.';
                 error.style.fontSize = '.9rem';

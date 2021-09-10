@@ -46,6 +46,37 @@ import { Header, Error, Login, Content,
 var CryptoJS = require("crypto-js");
 require('dotenv').config();
 
+/**
+ * Checks for valid email input. Returns a boolean.
+ * Src: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression
+ *
+ * @param {string} email
+ * @returns {boolean} true or false.
+ */
+export const emailIsValid = (email) => {
+  return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(email);
+}
+
+/**
+ * An event handler that prevents default action (page refresh) and console logs name and email values.
+ *
+ * @param {object} e
+ */
+export const onSubmit = (e) => {
+    const target = e.target || e.srcElement;
+
+    // Use IE5-8 fallback if event object not present
+    if (!e) {
+      e = window.event;
+    }
+
+    e.preventDefault();
+    console.log(target.name.value);
+
+    // Disable submit button if form is submitted
+    //console.log(target.email.value); //nathan
+}
+
 export default class App extends Component {
 
   constructor() {
@@ -76,15 +107,15 @@ export default class App extends Component {
     this.sanitizeInput = this.sanitizeInput.bind(this);
     this.desanitize = this.desanitize.bind(this);
     this.displayUnloadMessage = this.displayUnloadMessage.bind(this);
+    this.showPassword = this.showPassword.bind(this);
   }
 
   /**
-  * displayUnloadMessage() function - Adds pop-up warning message of unsaved data if user attempts to leave page
-  * on a event listener.
-  *
-  * @param {object} event
-  * @returns {string} message
-  */
+   * Adds pop-up warning message of unsaved data if user attempts to leave page on a event listener.
+   *
+   * @param {object} event
+   * @returns {string} message
+   */
   displayUnloadMessage(event) {
       var message = "You have changes that have not been saved...";
       (event || window.event).returnValue = message;
@@ -92,35 +123,28 @@ export default class App extends Component {
   }
 
   /**
-   * setGeoDataExists() function - Switches boolean value of this.state.geoDataExists from a component when
-   * passed as a prop.
+   * Switches boolean value of this.state.geoDataExists from a component when passed as a prop.
    *
    */
-  setGeoDataExists()  {
-    this.setState({ geoDataExists: true });
+  setGeoDataExists() {
+    if (!this.state.geoDataExists) {
+      this.setState({ geoDataExists: true });
+    } else {
+      this.setState({ geoDataExists: false });
+    }
   }
 
   /**
-   * onSubmit() function - An event handler that prevents default action (page refresh)
-   * and console logs name and email values.
+   * An event handler that prevents default action (page refresh) and console logs name and email values.
    *
    * @param {object} e
    */
   onSubmit = (e) => {
-    // Use IE5-8 fallback if event object not present
-    if (!e) {
-      e = window.event;
-    }
-
-    e.preventDefault(e);
-    console.log(e.target.name.value);
-
-    //console.log(event.target.email.value); //nathan
+    return onSubmit(e);
   }
 
   /**
-   * resetToggleDisplay() function - An event handler for whenever a link is clicked on phone,
-   * the menu automatically disappears to avoid usage interference.
+   * An event handler for whenever a link is clicked on phone, the menu automatically disappears to avoid usage interference.
    *
    */
   resetToggleDisplay() {
@@ -151,23 +175,20 @@ export default class App extends Component {
     }
   }
 
-  /**
-   * emailIsValid() function - Checks for valid email input. Returns a boolean.
-   * Source: https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression - Zane
-   *
-   * @param {string} email
-   * @returns {boolean} true or false.
-   */
   emailIsValid (email) {
-      return /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(email);
+      return emailIsvalid(email);
   }
 
   /**
-   * reviseName() function - Takes a string and capitalizes the first letter of the string and puts into a new array.
-   * Useful for correcting name-related values inserted in forms by user. Also checks to see if it has a value related to a form
-   * or not to return proper output. Can also reassign a variable.
+   * Takes a string and capitalizes the first letter of the string and puts into a new array.
+   * Useful for correcting name-related values inserted in forms by user. 
+   * Also checks to see if it has a value related to a form or not to return proper output. 
+   * Can also reassign a variable.
    *
-   * @param {string} name, @param {array} revisedName, @param {string} id, @param {boolean} isAVAlue
+   * @param {string} name
+   * @param {array} revisedName
+   * @param {string} id
+   * @param {boolean} isAVAlue
    * @returns {string} revisedName
    */
   reviseName(name, revisedName, id, isAValue) {
@@ -192,53 +213,44 @@ export default class App extends Component {
   }
 
   /**
-   * setCookiePolicyDisplayed() function - Switches boolean value of this.state.cookiePolicyDisplayed.
+   * Switches boolean value of this.state.cookiePolicyDisplayed.
    *
    */
-  setCookiePolicyDisplayed = () => {
-    this.setState({ cookiePolicyDisplayed: true });
-  }
+  setCookiePolicyDisplayed = () => this.setState({ cookiePolicyDisplayed: true });
 
   /**
-   * deauthenticate() function - When "Log Out" link is pressed, this function executes to display non-authenticated nav header.
+   * When "Log Out" link is pressed, this function executes to display non-authenticated nav header.
    * NOTE: For development purposes only, will not be in the production code. - Zane
    *
    */
-  deauthenticate() {
-    this.setState({ isAuthenticated: false });
-  }
+  deauthenticate = () => this.setState({ isAuthenticated: false });
 
   /**
-   * setNewsletterEmailAddress() function - When newsletter form is submitted, this function executes to change
+   * When newsletter form is submitted, this function executes to change
    * this.state.newsletterEmailAddress for the verification page.
    *
    * @param {string} email
    */
-  setNewsletterEmailAddress(email) {
-    this.setState({ newsletterEmailAddress: email });
-  }
+  setNewsletterEmailAddress = (email) => this.setState({ newsletterEmailAddress: email });
 
   /**
-   * setSearchFilters() function - Whenever the filter form is updated on the search page, the searchFilters state
-   * array is updated.
+   * Whenever the filter form is updated on the search page, the searchFilters state array is updated.
    *
    * @param {array} lFilters
    */
-  setSearchFilters(lFilters) {
-    this.setState({ searchFilters: lFilters });
-  }
+  setSearchFilters = (lFilters) => this.setState({ searchFilters: lFilters });
 
   /**
-  * getSearchFilters() function - Returns value of this.state.searchFilters.
-  *
-  * @returns {array} searchFilters
-  */
-  getSearchFilters() {
+   * Returns value of this.state.searchFilters.
+   *
+   * @returns {array} searchFilters
+   */
+  getSearchFilters = () => { 
     return this.state.searchFilters;
   }
 
   /**
-   * checkDates() function - Anonymous function that checks and compares birthdate values to current date values.
+   * Anonymous function that checks and compares birthdate values to current date values.
    *
    * @params {integer} args
    * @returns {boolean} true or false.
@@ -249,8 +261,8 @@ export default class App extends Component {
   }
 
   /**
-   * urlIsValid() function - Checks for valid URL input. Returns a boolean.
-   * Source: https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url - Zane
+   * Checks for valid URL input. Returns a boolean.
+   * Src: https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
    *
    * @param {string} url
    * @returns {boolean} true or false.
@@ -260,12 +272,13 @@ export default class App extends Component {
   }
 
   /**
-   * filePathIsValid() function - Checks for valid directory input and supported file extension. Returns a boolean.
-   * Source: https://stackoverflow.com/questions/169008/regex-for-parsing-directory-and-filename - Zane
+   * Checks for valid directory input and supported file extension. Returns a boolean.
+   * Src: https://stackoverflow.com/questions/169008/regex-for-parsing-directory-and-filename
    *
    * NOTE: Only known to work on Chrome. - Zane
    *
-   * @param {string} filePath, @param {array} extensions
+   * @param {string} filePath
+   * @param {array} extensions
    * @returns {boolean} true or false.
    */
   filePathIsValid (filePath, extensions) {
@@ -294,7 +307,7 @@ export default class App extends Component {
   }
 
   /**
-   * changeBorderColor() function - Changes border color of selected tag containing id attribute provided in argument.
+   * Changes border color of selected tag containing id attribute provided in argument.
    *
    * @param {string} id
    */
@@ -304,7 +317,7 @@ export default class App extends Component {
   }
 
   /**
-   * sanitizeInput() function - Escapes <,>,&,`,',",/ characters in input argument and returns new string.
+   * Escapes <,>,&,`,',",/ characters in input argument and returns new string.
    *
    * @param {string} userInput
    * @returns {string} sanitizedInput
@@ -336,7 +349,7 @@ export default class App extends Component {
   }
 
   /**
-   * desanitize() function - Places escaped characters <,>,&,`,',",/ back and returns new string.
+   * Places escaped characters <,>,&,`,',",/ back and returns new string.
    *
    * @param {string} data
    * @returns {string} desanitizedData
@@ -367,6 +380,26 @@ export default class App extends Component {
     return desanitizedData.join("");
   }
 
+  /**
+   * Once the "Show password" checkmark is checked, this function will allow password fields' text to be visible.
+   * 
+   */
+  showPassword() {
+      const checked = document.getElementById("showPassword").checked;
+      let passwordArray = [document.getElementById("oldPassword"), document.getElementById("newPassword"), 
+      document.getElementById("confirmPassword"), document.getElementById("password")];
+
+      for (let element = 0; element < passwordArray.length; element++) {
+        if (passwordArray[element] !== null) {
+          if (passwordArray[element].type === "password" && checked) {
+            passwordArray[element].type = "text";
+          } else {
+            passwordArray[element].type = "password";
+          } 
+        }    
+      } 
+  }
+
   componentDidMount() {
     let links = document.getElementsByTagName("a");
 
@@ -386,6 +419,8 @@ export default class App extends Component {
   }
 
   render() {
+    const { REACT_APP_KEY } = process.env;
+
     return (
       <BrowserRouter>
         <Header logo={logo} hbIcon={hbIcon} setStateHandler={this.setStateHandler} isAuthenticated={this.state.isAuthenticated}
@@ -394,7 +429,7 @@ export default class App extends Component {
         <div onClick={this.resetToggleDisplay}>
           <main>
             <Switch>
-                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), process.env.PROD_KEY).toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed}
+                <Route exact path="/">{ (this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), REACT_APP_KEY).toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed}
                 cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} isAuthenticated={this.state.isAuthenticated} /> } </Route>
                 <Route exact path="/privacy_policy" component={ () => <PrivacyPolicy /> } />
                 <Route exact path="/content/:header" component={ (props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} articleImgLink={articleImgLink} /> } />
@@ -406,14 +441,14 @@ export default class App extends Component {
                 <Route exact path="/terms_of_service" component={ () => <TermsOfService /> } />
                 <Route exact path="/FAQ" component={ () => <FAQ /> } />
                 <Route exact path="/donate" component={ () => <Donate donate={donate} paypal={paypal} bitcoin={bitcoin} /> } />
-                <Route exact path="/login" component={ () => <Login /> } />
+                <Route exact path="/login" component={ () => <Login showPassword={this.showPassword} /> } />
                 {/* avatar might be passed as a prop in SignUp component to be uploaded as default picture for new user. */}
                 {/** Resize submitted image using HTML5 canvas
-                  *  Source: https://stackoverflow.com/questions/23945494/use-html5-to-resize-an-image-before-upload - Zane
+                  *  Src: https://stackoverflow.com/questions/23945494/use-html5-to-resize-an-image-before-upload
                   */}
                 <Route exact path="/signup" component={ () => <SignUp geoDataExists={this.state.geoDataExists} emailIsValid={this.emailIsValid}
                 setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName} checkDates={this.checkDates} changeBorderColor={this.changeBorderColor} sanitizeInput={this.sanitizeInput}
-                displayUnloadMessage={this.displayUnloadMessage} /> } />
+                displayUnloadMessage={this.displayUnloadMessage} showPassword={this.showPassword} /> } />
                 <Route exact path="/forgot_password" component={ () => <ForgotPassword sanitizeInput={this.sanitizeInput} /> } />
                 <Route exact path="/verification" component={ () => <Verification newsletterEmailAddress={this.props.newsletterEmailAddress} /> } />
                 <Route exact path="/confirmation" component={ () => <Confirmation newsletterEmailAddress={this.props.newsletterEmailAddress} /> } />
@@ -426,9 +461,9 @@ export default class App extends Component {
                 <Route exact path="/id_request/:userId" component={ () => <RequestID emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}
                 sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
                 <Route exact path="/account_settings/:userId" component={ (props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini}
-                twitterMini={twitterMini} emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists} reviseName={this.reviseName}
+                twitterMini={twitterMini} emailIsValid={this.emailIsValid} geoDataExists={this.state.geoDataExists} reviseName={this.reviseName}
                 onSubmit={this.onSubmit} checkDates={this.checkDates} urlIsValid={this.urlIsValid} filePathIsValid={this.filePathIsValid} changeBorderColor={this.changeBorderColor}
-                sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} /> } />
+                sanitizeInput={this.sanitizeInput} displayUnloadMessage={this.displayUnloadMessage} showPassword={this.showPassword} /> } />
                 <Route exact path="/search" component={ (props) => <Search {...props} searchFilters={this.state.searchFilters} setSearchFilters={this.setSearchFilters}
                 getSearchFilters={this.getSearchFilters} /> } />
                 <Route exact path="/direct_message" component={ (props) => <DirectMessage {...props} /> } />

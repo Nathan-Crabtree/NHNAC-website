@@ -12,86 +12,78 @@
 # npm run-script build # obselete
 #
 
-FILE=~/script_exec_log.txt
+source set_env_vars.sh
+source functions.sh
+
 EMAIL=~/production/api/email.txt
 
-if [ -f "$FILE" ]; then
-        date >> $FILE        
-        echo -e "Note: file already exists. Top logo will not be created.\n" >> $FILE
-else
-        cd ~
-        touch script_exec_log.txt
-        echo -e "***********************************************\n" >> $FILE
-        echo -e "     ENVIRONMENT SCRIPT EXECUTION LOG FILE     \n" >> $FILE
-        echo -e "***********************************************\n\n" >> $FILE
-        echo -e "<weekday month day UT timezone>\n" >> $FILE 
-        echo -e "<description>\n\n" >> $FILE    
-fi
+draw_logo
 
 wait 
 
-date >> $FILE
-echo -e ": Waited successfully\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": startup.sh is being executed...\n" >> $FILE
+date >> $LOG_FILE
+printf ": startup.sh is being executed...\n" >> $LOG_FILE
 
-date >> $FILE 
-echo -e ": Linux Mint has been restarted. Restarting client and api servers...\n" >> $FILE 
+date >> $LOG_FILE 
+printf ": Linux Mint has been restarted. Restarting client and api servers...\n" >> $LOG_FILE 
 
 cd ~/production/api
 
 wait 
 
-date >> $FILE
-echo -e ": Waited successfully. Changed directory to ~/production/api.\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Changed directory to ~/production/api.\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": (command: docker-compose restart) " >> $FILE
-docker-compose restart >> $FILE
-echo -e "\n" >> $FILE
-
-wait 
-
-date >> $FILE
-echo -e ": (command: docker restart client) " >> $FILE
-docker restart client >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: docker-compose restart) " >> $LOG_FILE
+docker-compose restart >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait 
 
-echo -e "Subject: Linux Mint has been restarted.\n" >> $EMAIL
-echo -e "Linux Mint has rebooted and both servers have successfully restarted.\n" >> $EMAIL
-git log >> $EMAIL
-echo -e "\n" >> $EMAIL
+date >> $LOG_FILE
+printf ": (command: docker restart client) " >> $LOG_FILE
+docker restart client >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait 
+
+printf "Subject: Linux Mint has been restarted.\n" >> $EMAIL
+printf "Linux Mint has rebooted and all servers have successfully restarted.\n\n" >> $EMAIL
+printf "=============== GIT LOG ====================\n\n" >> $EMAIL
+cat $GIT_LOG >> $EMAIL
+printf "\n" >> $EMAIL
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. Created email.txt\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. Created email.txt\n" >> $LOG_FILE
 
-date >> $FILE
-echo ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $FILE
-/usr/sbin/sendmail zanechandygmail.com < email.txt >> $FILE
-echo -e "\n" >> $FILE
-
-wait
-
-date >> $FILE
-echo -e ": Waited successfully. email successfully sent\n" >> $FILE
-
-date >> $FILE
-echo ": (command: rm email.txt) " >> $FILE
-rm email.txt >> $FILE
-echo -e "\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: /usr/sbin/sendmail zanechandy < email.txt) " >> $LOG_FILE
+/usr/sbin/sendmail zanechandygmail.com < email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 wait
 
-date >> $FILE
-echo -e ": Waited successfully. email.txt successfully deleted\n" >> $FILE
+date >> $LOG_FILE
+printf ": Waited successfully. email has been sent\n" >> $LOG_FILE
 
-date >> $FILE
-echo -e ": startup.sh executed successfully. Waiting and returning exit status 0.\n" >> $FILE
+date >> $LOG_FILE
+printf ": (command: rm email.txt) " >> $LOG_FILE
+rm email.txt >> $LOG_FILE
+printf "\n" >> $LOG_FILE
+
+wait
+
+date >> $LOG_FILE
+printf ": Waited successfully. email.txt has been deleted\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": startup.sh executed successfully. Waiting and returning exit status 0.\n" >> $LOG_FILE
 
 wait
 

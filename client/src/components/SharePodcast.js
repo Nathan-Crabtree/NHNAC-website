@@ -1,13 +1,13 @@
 // NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// Src: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 import React, { useEffect } from 'react';
 
 export const SharePodcast = ({ copySharingLink }) => {
 
 /**
- * copySharingLink() function - Copies shareLink value to clipboard for user to post elsewhere.
- * Src: https://www.w3schools.com/howto/howto_js_copy_clipboard.asp - Zane
+ * Copies shareLink value to clipboard for user to post elsewhere.
+ * Src: https://www.w3schools.com/howto/howto_js_copy_clipboard.asp
  *
  */
 copySharingLink = () => {
@@ -27,7 +27,7 @@ copySharingLink = () => {
 
 useEffect(() => {
     // Create twitter share button
-    // For more info on createShareButton() object parameters: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/parameter-reference1 - Zane
+    // For more info on createShareButton() object parameters: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/parameter-reference1
     twttr.widgets.createShareButton(
         '/',
         document.getElementById('container'),
@@ -63,7 +63,7 @@ return (
                         {/* Twitter share button */}
                         <div id="container"></div>
                         {/* Email share button */}
-                        {/* Src: https://stackoverflow.com/questions/5045918/adding-a-share-by-email-link-to-website - Zane */}
+                        {/* Src: https://stackoverflow.com/questions/5045918/adding-a-share-by-email-link-to-website */}
                         <a rel="noopener noreferrer" href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site https://www.your-domain.com/your-page.html." title="Share by Email">
                             <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png" width="35px" height="35px" />
                         </a>
