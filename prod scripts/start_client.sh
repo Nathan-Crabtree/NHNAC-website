@@ -10,8 +10,9 @@
 # npm audit fix
 # sendmail
 # delete email.txt
-# npm run build
+# CI=true npm run build
 # \mv -r ~/production/client/build ~/production/client/public-html
+# cd ../
 # docker build -t client client
 # docker run -d -p $PORT:$PORT --name client client 
 # \cp -r ~/production/client/build/* /var/www/html/ # obsolete
@@ -110,8 +111,8 @@ date >> $LOG_FILE
 printf ": email.txt has been deleted\n" >> $LOG_FILE
 
 date >> $LOG_FILE
-printf ": (command: npm run build) " >> $LOG_FILE
-npm run build >> $LOG_FILE
+printf ": (command: CI=true npm run build) " >> $LOG_FILE
+CI=true npm run build >> $LOG_FILE
 printf "\n" >> $LOG_FILE
 
 wait
@@ -128,6 +129,11 @@ wait
 
 date >> $LOG_FILE
 printf ": Waited successfully\n" >> $LOG_FILE
+
+date >> $LOG_FILE
+printf ": (command: cd ../) " >> $LOG_FILE
+cd ../ >> $LOG_FILE
+printf "\n" >> $LOG_FILE
 
 date >> $LOG_FILE
 printf ": (command: docker build -t client client) " >> $LOG_FILE
