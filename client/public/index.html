@@ -1,49 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/nhnac.ico">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- import Leaflet maps v1.7.1 -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/nhnac.ico">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!-- import Leaflet maps v1.7.1 -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>New Haven Native American Church</title>
-    <!-- You can use Open Graph tags to customize link previews.
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>New Haven Native American Church | Learn with our online community</title>
+  <!-- You can use Open Graph tags to customize link previews.
     Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
-    <meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="Your Website Title" />
-    <meta property="og:description"   content="Your description" />
-    <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
-  </head>
-  <body>
-    <!-- Import Twitter JavaScript API -->
-    <script>window.twttr = (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0],
-              t = window.twttr || {};
-          if (d.getElementById(id)) return t;
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "https://platform.twitter.com/widgets.js";
-          fjs.parentNode.insertBefore(js, fjs);
+  <meta property="og:url" content="https://www.newhavennativeamericanchurch.org/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="New Haven Native American Church" />
+  <meta property="og:description" content="Learn with our online community" />
+  <meta property="og:image" content="https://www.newhavennativeamericanchurch.org`/static/media/nhnac.5f44db79.png" />
+</head>
 
-          t._e = [];
-          t.ready = function(f) {
-              t._e.push(f);
-          };
+<body>
+  <!-- Import Twitter JavaScript API -->
+  <script>window.twttr = (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
 
-          return t;
-          }(document, "script", "twitter-wjs"))</script>
-    <noscript>
-      <img class="logo" srcset="images/nhnac.png" alt="New Haven Native American Church logo" width="221px" height="210px" />
-      <h2 align="center">Please enable JavaScript inside your browser.</h2>
-    </noscript>
-    <img class="loading-spinner" src="images/spinner.gif" alt="Loading spinner.">
-    <div id="root"></div>
-    <!-- import jQuery v3.6.0 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  </body>
+      t._e = [];
+      t.ready = function (f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"))</script>
+  <noscript>
+    <img class="logo" srcset="images/nhnac.png" alt="New Haven Native American Church logo" width="221px"
+      height="210px" />
+    <h2 align="center">Please enable JavaScript inside your browser.</h2>
+  </noscript>
+  <div id="root"></div>
+  <!-- import jQuery v3.6.0 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+
 </html>

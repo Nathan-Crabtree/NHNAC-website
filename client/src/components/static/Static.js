@@ -15,8 +15,9 @@ import Slideshow from './Slideshow';
 import RequestID from './RequestID';
 import Deleted from './Deleted';
 
-export { Footer, PrivacyPolicy, TermsOfService, FAQ, 
-         Donate, SignUp, About, Constitution, 
-         LegalRights, CodeOfConduct, Home, 
-         Slideshow, RequestID, Deleted
-        };
+export {
+    Footer, PrivacyPolicy, TermsOfService, FAQ,
+    Donate, SignUp, About, Constitution,
+    LegalRights, CodeOfConduct, Home,
+    Slideshow, RequestID, Deleted
+};

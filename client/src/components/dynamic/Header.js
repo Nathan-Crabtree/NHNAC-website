@@ -84,7 +84,7 @@ class Header extends Component {
             headerLinks.style.display = "block";
 
             // Change navDiv margin and transition settings
-            navDiv.style.marginTop  = "0px";
+            navDiv.style.marginTop = "0px";
             navDiv.style.transition = "margin-top 1s";
 
             // Set body overflow style property to hidden
@@ -140,15 +140,15 @@ class Header extends Component {
 
     render() {
         const {
-          hbIcon,
-          logo,
-          magnifyingGlass,
-          messageIcon,
-          profileImgSmall
+            hbIcon,
+            logo,
+            magnifyingGlass,
+            messageIcon,
+            profileImgSmall
         } = this.props;
         const { REACT_APP_KEY } = process.env;
 
-        return(
+        return (
             <header>
                 <nav>
                     <img className="hamburger_icon" onClick={this.toggleDisplayNav} srcSet={hbIcon} alt="Hamburger menu icon" />
@@ -157,10 +157,10 @@ class Header extends Component {
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                         </svg>
                         <div>
-                          <img className="logo" srcSet={logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
-                          <h5>beta</h5>
+                            <img className="logo" srcSet={logo} alt="New Haven Native American Church logo" width="221px" height="210px" />
+                            <h5>beta</h5>
                         </div>
-                        { this.props.isAuthenticated ?
+                        {this.props.isAuthenticated ?
                             <ul className="header_links">
                                 <li className="dropdown">
                                     <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user&customize=false`}>Profile</Link>
@@ -168,7 +168,7 @@ class Header extends Component {
                                         <Link to={`/account_settings/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link>
                                         <Link to={`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user&customize=true`}>Customize Page</Link>
                                         <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}&receiverid=null`}>Messages</Link>
-                                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
+                                        <Container onSubmit={() => { }} triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
                                         <Link to={`/id_request/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Request ID</Link>
                                     </div>
                                 </li>
@@ -192,11 +192,11 @@ class Header extends Component {
                                 </li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content/articles" onClick={ () => <Content /> }>Articles</Link>
+                                    <Link to="/content/articles" onClick={() => <Content />}>Articles</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content/news" onClick={ () => <Content /> }>News</Link>
-                                        <Link to="/content/updates" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content/blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content/news" onClick={() => <Content />}>News</Link>
+                                        <Link to="/content/updates" onClick={() => <Content />}>Updates</Link>
+                                        <Link to="/content/blogs" onClick={() => <Content />}>Blogs</Link>
                                         {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
                                         {/* <Link to="/content/podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
@@ -216,11 +216,11 @@ class Header extends Component {
                                 <li><Link to="/">Home</Link></li>
                                 <li className="vertical_bar">|</li>
                                 <li className="dropdown">
-                                    <Link to="/content/news" onClick={ () => <Content /> }>News</Link>
+                                    <Link to="/content/news" onClick={() => <Content />}>News</Link>
                                     <div className="dropdown-content">
-                                        <Link to="/content/articles" onClick={ () => <Content /> }>Articles</Link>
-                                        <Link to="/content/updates" onClick={ () => <Content /> }>Updates</Link>
-                                        <Link to="/content/blogs" onClick={ () => <Content /> }>Blogs</Link>
+                                        <Link to="/content/articles" onClick={() => <Content />}>Articles</Link>
+                                        <Link to="/content/updates" onClick={() => <Content />}>Updates</Link>
+                                        <Link to="/content/blogs" onClick={() => <Content />}>Blogs</Link>
                                         {/* NOTE: Podcasts will be unavailable in beta release. - Zane  */}
                                         {/* <Link to="/content/podcasts" onClick={ () => <Content /> }>Podcast</Link> */}
                                     </div>
@@ -250,14 +250,13 @@ class Header extends Component {
 
 export default withRouter(Header);
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Header.propTypes = {
     logo: PropTypes.string.isRequired,
     hbIcon: PropTypes.string.isRequired,
     isAuthenticated: PropTypes.bool.isRequired,
     deauthenticate: PropTypes.func.isRequired,
     magnifyingGlass: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     profileImgSmall: PropTypes.string,
     messageIcon: PropTypes.string.isRequired
 }

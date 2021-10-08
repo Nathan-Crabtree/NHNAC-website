@@ -1,16 +1,16 @@
 // Color variables
-$nh-black: #100B00;
-$nh-white: #FFFCF4;
-$nh-body: #E2E1E0;
-$nh-main: #EAEAE8;
-$nh-error: #C31F01;
-$nh-button: #CCF9C6;
+$nh-black: #100b00;
+$nh-white: #fffcf4;
+$nh-body: #e2e1e0;
+$nh-main: #eaeae8;
+$nh-error: #c31f01;
+$nh-button: #ccf9c6;
 $nh-button-hover: rgba(161, 214, 165);
-$nh-gray: rgb(136,132,123);
+$nh-gray: rgb(136, 132, 123);
 
 // Form variables
-$checkbox-shadow: 0 1px 2px rgba(0,0,0,0.05);
-$checkbox-shadow-inset: inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+$checkbox-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+$checkbox-shadow-inset: inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
 $nh-form-margin: 10px 0;
 $nh-form-width: 50%;
 $nh-signup-padding-bottom: 45px;
@@ -37,7 +37,8 @@ $nh-profile-img-l-width: 332px;
 $nh-profile-img-l-height: 252px;
 
 // Font variables
-$nh-font-small: .8rem;
+$nh-font-small: 0.8rem;
 
 // Lists
-$nh-account-settings-forms: profile_pic, name, status, fb, twitter, insta, email, birthday, address, password;
+$nh-account-settings-forms: profile_pic, name, status, fb, twitter, insta, email,
+  birthday, address, password;

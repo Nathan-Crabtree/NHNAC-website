@@ -9,7 +9,7 @@ const Constitution = ({ ConstitutionPdf }) => {
         window.scrollTo(0, 0);
     }, []);
 
-    return ( 
+    return (
         <React.Fragment>
             <div className="MsoNormal"><strong><span>Constitution</span></strong></div><br />
             <p>&emsp;New Haven Native American Church’s Medicine Men and Medicine Women are dedicated in following the Sacred Healing Way.  As an Independent Governing Branch of the Native American Church, our Spiritual Authority directly stems from the Lakota Sioux’s Native American Church, Rosebud Reservation of South Dakota.  In the Declaration of Good Conscience and Practice, Constitution, and Establishment of the Church, We Walk In The Sacred Way!</p>
@@ -21,13 +21,13 @@ const Constitution = ({ ConstitutionPdf }) => {
             <p>&emsp;Accordingly, we exercise the Right of Self-Determination, which has been guaranteed by International and Domestic Law, to form the New Haven Native American Church comprised of individuals out of many Federally and Crown-Recognized Tribes and Bands, Non-recognized Tribes and Bands, Native Hawaiian, Native Alaskan, other Indigenous Peoples worldwide, and also from those individuals whom the Church shall see fit to admit by the exercise of our Religion and the administration of our Cultural Traditions and Institutions, whom we recognize as Our People, founded upon the Customs, Traditions, Principles, Religion, Governance, and Belief Systems cited herein, and we ordain and establish this Constitution for the New Haven Native American Church as an Indigenous Group under U.N.D.R.I.P.</p>
             <br />
             <Link className="about_link" to={ConstitutionPdf} target="_blank">Read Our Full Constitution</Link>
-        </React.Fragment>  
+        </React.Fragment>
     );
 }
- 
+
 export default Constitution;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Constitution.propTypes = {
     ConstitutionPdf: PropTypes.string.isRequired,
 }

@@ -1,81 +1,81 @@
 @media (max-width: 375px) {
+  // Base
 
-    // Base 
+  body {
+    background-color: $nh-main;
+  }
 
-    body {
-        background-color: $nh-main;
+  main {
+    width: 100%;
+    padding: 5% 0% 5% 0%;
+  }
+
+  // Header
+
+  .cross {
+    display: block;
+    float: right;
+    padding: $nh-padding-s $nh-padding-s 0;
+    width: 10%;
+    height: 10%;
+    fill: transparent;
+    stroke: $nh-white;
+    stroke-linecap: round;
+    stroke-width: 8;
+  }
+
+  .logo {
+    width: 38%;
+    height: 38%;
+    margin: 0;
+    padding: $nh-padding-xl 0 0 $nh-padding-xl;
+  }
+
+  nav > div {
+    margin-top: -485.7px;
+  }
+
+  .vertical_bar {
+    display: none;
+  }
+
+  .hamburger_icon {
+    display: block;
+    padding: $nh-padding-m 0 0 $nh-padding-m; /* top right bottom left */
+  }
+
+  nav {
+    position: fixed;
+    display: block;
+  }
+
+  // Footer
+
+  footer > div,
+  footer > div:last-child ul {
+    display: block;
+    padding-left: $nh-padding-xs;
+  }
+
+  footer {
+    padding: $nh-padding-xl 0 0 30px;
+  }
+
+  footer > div:last-child {
+    padding-bottom: $nh-padding-xs;
+    > ul > li {
+      padding-bottom: $nh-padding-m;
     }
+  }
 
-    main {
-        width: 100%;
-        padding: 5% 0% 5% 0%;
-    }
+  // Section
 
-    // Header
+  bdt,
+  a > span {
+    word-break: break-word;
+  }
 
-    .cross {
-        display: block;
-        float: right;
-        padding: $nh-padding-s $nh-padding-s 0;
-        width: 10%;
-        height: 10%;
-        fill: transparent;
-        stroke: $nh-white;
-        stroke-linecap: round;
-        stroke-width: 8;
-    }
-
-    .logo {
-        width: 38%;
-        height: 38%;
-        margin: 0;
-        padding: $nh-padding-xl 0 0 $nh-padding-xl;
-    }
-
-    nav > div {
-        margin-top: -485.7px;
-    }
-
-    .vertical_bar {
-        display: none;
-    }
-
-    .hamburger_icon {
-        display: block;
-        padding: $nh-padding-m 0 0 $nh-padding-m; /* top right bottom left */ 
-    }
-
-    nav {
-        position: fixed;
-        display: block;
-    }
-
-    // Footer
-
-    footer > div,
-    footer > div:last-child ul {
-        display: block;
-        padding-left: $nh-padding-xs;
-    }
-
-    footer {
-        padding: $nh-padding-xl 0 0 30px;
-    }
-
-    footer > div:last-child {
-        padding-bottom: $nh-padding-xs;
-        > ul > li {
-        padding-bottom: $nh-padding-m;
-        }
-    }
-
-    // Section 
-
-    bdt, a > span {
-        word-break: break-word;
-    }
-
-    td {
-        font-size: .25rem; // 25% relative to root font-size (1em = 16px)
-    }
-} 
+  td {
+    font-size: 0.25rem; // 25% relative to root font-size (1em = 16px)
+  }
+}

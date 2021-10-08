@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
+// Use Regex validator when search query is submitted to check if input isn't code for XXE attack
+
 export default class DirectMessage extends Component {
 
     constructor() {
         super();
         this.getConnections = this.getConnections.bind(this);
     }
-
-    // Use Regex validator when search query is submitted to check if input isn't code for XXE attack
 
     /**
      * Renders auth. user's connections that have status approved on DM UI.
@@ -31,14 +31,14 @@ export default class DirectMessage extends Component {
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
                 <p>This is some text.</p>
             </React.Fragment>
         );
     }
-} 
+}
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 DirectMessage.propTypes = {
 }

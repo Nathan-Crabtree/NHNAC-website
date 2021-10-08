@@ -6,6 +6,21 @@ import Container from '../Container';
 var CryptoJS = require("crypto-js");
 require('dotenv').config();
 
+/**
+ * Checks to see if user has resized the selected data table.
+ * Will automatically change the styling to a medium or large height setting.
+ *
+ * @param {string} id
+ */
+export const resizeDataTable = (id) => {
+    const idStyleHeight = parseInt(document.getElementById(id).style.height);
+    if (idStyleHeight > 397.81) {
+        document.getElementById(id).style.height = "795.6px";
+    } else {
+        document.getElementById(id).style.height = "397.8px";
+    };
+}
+
 class ProfileUser extends Component {
 
     constructor() {
@@ -23,7 +38,6 @@ class ProfileUser extends Component {
         this.collapseDataTable = this.collapseDataTable.bind(this);
         this.expandDataTable = this.expandDataTable.bind(this);
         this.displayCollapsedDataTableHeaderAndExpandBtn = this.displayCollapsedDataTableHeaderAndExpandBtn.bind(this);
-        this.resizeDataTable = this.resizeDataTable.bind(this);
         this.customizePage = this.customizePage.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
     }
@@ -66,7 +80,7 @@ class ProfileUser extends Component {
                 window.detachEvent("beforeunload", this.props.displayUnloadMessage);
             }
 
-            this.setState({ formActive: false});
+            this.setState({ formActive: false });
         }
     }
 
@@ -144,7 +158,7 @@ class ProfileUser extends Component {
 
     /**
      * Expands the Table associated with "className" and removes table's header
-     * and the option to expand it in section with class "proflie_container1_section_container2" 
+     * and the option to expand it in section with class "proflie_container1_section_container2"
      * via popping it out of the collapsedTables array.
      *
      * @param {string} className
@@ -161,14 +175,14 @@ class ProfileUser extends Component {
                 // Src: https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react
                 var array = [...this.state.collapsedTables]; // make a separate copy of the array
                 array.pop(collapsedTable);
-                this.setState({collapsedTables: array});
+                this.setState({ collapsedTables: array });
             }
         }
     }
 
     /**
      * Once collapseDataTable() has been called, displayCollapsedDataTableHeaderAndExpandBtn()
-     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again. 
+     * will be called with it and render within the DOM some JSX correlating to the collapsed table allowing to expand it once again.
      * A uniquenkey is also generated for the component within the array.
      *
      * @param {string} className
@@ -178,24 +192,9 @@ class ProfileUser extends Component {
      */
     displayCollapsedDataTableHeaderAndExpandBtn(className, tableHeader, key) {
         return <div key={key} className={className}>
-            <p>{ tableHeader }</p>
-            <button onClick={ () => { this.expandDataTable(className) } } className="text_btn" type="button"><b>expand</b></button>
+            <p>{tableHeader}</p>
+            <button onClick={() => { this.expandDataTable(className) }} className="text_btn" type="button"><b>expand</b></button>
         </div>;
-    }
-
-    /**
-     * Checks to see if user has resized the selected data table. 
-     * Will automatically change the styling to a medium or large height setting.
-     *
-     * @param {string} id
-     */
-    resizeDataTable(id) {
-        const idStyleHeight = parseInt(document.getElementById(id).style.height);
-        if (idStyleHeight > 397.81) {
-            document.getElementById(id).style.height = "795.6px";
-        } else {
-            documentgetElementById(id).style.height = "397.8px";
-        };
     }
 
     /**
@@ -303,7 +302,6 @@ class ProfileUser extends Component {
 
     componentWillUnmount() {
         if (this.state.formActive) {
-
             if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
                 window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
@@ -315,24 +313,24 @@ class ProfileUser extends Component {
 
     render() {
         const {
-          profileImgLarge,
-          apple,
-          instaMini,
-          twitterMini,
-          fbMini,
-          profileImgSmall,
-          messageIcon,
-          badge
+            profileImgLarge,
+            apple,
+            instaMini,
+            twitterMini,
+            fbMini,
+            profileImgSmall,
+            messageIcon,
+            badge
         } = this.props;
         const { REACT_APP_KEY } = process.env;
 
-        return(
+        return (
             <React.Fragment>
                 <div className="profile_container1">
                     <div>
                         <div>
                             <img className="profile_img_large" srcSet={profileImgLarge} alt="Portrait of user." />
-                            <button onClick={ () => { this.props.history.push(`/account_settings/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}?edit_profile_pic=true`) } } className="edit_profile_pic_btn" type="button">Edit Profile Picture</button>
+                            <button onClick={() => { this.props.history.push(`/account_settings/${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}?edit_profile_pic=true`) }} className="edit_profile_pic_btn" type="button">Edit Profile Picture</button>
                         </div>
                         <section>
                             <h2>Harper "Kiss" Young</h2>
@@ -342,11 +340,11 @@ class ProfileUser extends Component {
                             <p>Student <img srcSet={apple} alt="Student account displayed by apple." /></p>
                             <div>
                                 <p className="status_p">Status: none</p>
-                                <form id="status" className="status_form" onSubmit={ this.onSubmit }>
+                                <form id="status" className="status_form" onSubmit={this.onSubmit}>
                                     <fieldset>
                                         <div className="status_form_field">
                                             <label htmlFor="status">Status</label>
-                                            <svg onClick={ () => { this.hideForm() } } className="_modal-close-icon" viewBox="0 0 40 40">
+                                            <svg onClick={() => { this.hideForm() }} className="_modal-close-icon" viewBox="0 0 40 40">
                                                 <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                                             </svg><br />
                                             <textarea className="login_input" type="text" id="status_textarea" name="status" readOnly maxLength="32" value="Lorem ipsum dolor sit amet, cons" /><br />
@@ -355,7 +353,7 @@ class ProfileUser extends Component {
                                     </fieldset>
                                 </form>
                                 {/* NOTE: Class "edit_status_btn" is kept for display and hiding functionality. - Zane */}
-                                <button onClick={ () => { this.displayForm() } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
+                                <button onClick={() => { this.displayForm() }} className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                             </div>
                             <div className="clear"></div>
                             <Link to={`/account_settings/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?edit_profile_pic=false`}>Account Settings</Link><br />
@@ -372,16 +370,16 @@ class ProfileUser extends Component {
                     <button className="paypal_btn" type="button"><h4>Go to current course: <br />Course Name (50% complete)</h4></button>
                     <section className="profile_container1_section_container2">
                         <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}&receiverid=null`}>Messages (1)</Link><br />
-                        <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
+                        <Container onSubmit={() => { }} triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
                         <Link to={`/id_request/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Request new ID card</Link><br />
                         <Link to={`/download_archive?userid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Download archive</Link><br />
-                        <Container onSubmit={ () => {} } triggerText="Feedback" />
+                        <Container onSubmit={() => { }} triggerText="Feedback" />
                         {this.state.collapsedTables}
                     </section>
                     <div className="profile_container1_and_half">
                         <div className="profile_drop_zone">
-                            <section onClick={ () => { this.resizeDataTable("profileContainer1SectionContainer3") } } className="profile_container1_section_container3" id="profileContainer1SectionContainer3" draggable="true">
-                                <button onClick={ () => { this.collapseDataTable("profile_container1_section_container3", "Certifications") }} className="text_btn" type="button"><b>collapse</b></button>
+                            <section onClick={() => { resizeDataTable("profileContainer1SectionContainer3") }} className="profile_container1_section_container3" id="profileContainer1SectionContainer3" draggable="true">
+                                <button onClick={() => { this.collapseDataTable("profile_container1_section_container3", "Certifications") }} className="text_btn" type="button"><b>collapse</b></button>
                                 <h2>Certifications</h2>
                                 <ul>
                                     <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
@@ -389,13 +387,13 @@ class ProfileUser extends Component {
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                                <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                         <div className="profile_drop_zone"></div>
                         <div className="profile_drop_zone">
-                            <section onClick={ () => { this.resizeDataTable("profileContainer1SectionContainer4") } } className="profile_container1_section_container4" id="profileContainer1SectionContainer4" draggable="true">
-                                <button onClick={ () => { this.collapseDataTable("profile_container1_section_container4", "Updates") }} className="text_btn" type="button"><b>collapse</b></button>
+                            <section onClick={() => { resizeDataTable("profileContainer1SectionContainer4") }} className="profile_container1_section_container4" id="profileContainer1SectionContainer4" draggable="true">
+                                <button onClick={() => { this.collapseDataTable("profile_container1_section_container4", "Updates") }} className="text_btn" type="button"><b>collapse</b></button>
                                 <h2>Updates</h2>
                                 <ul>
                                     <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
@@ -403,28 +401,28 @@ class ProfileUser extends Component {
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                                <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                     </div>
                 </div>
                 <div className="profile_container2">
                     <div className="profile_drop_zone">
-                        <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer1") } } className="profile_container2_section_container1" id="profileContainer2SectionContainer1" draggable="true">
-                            <button onClick={ () => { this.collapseDataTable("profile_container2_section_container1", "Councils") }} className="text_btn" type="button"><b>collapse</b></button>
+                        <section onClick={() => { resizeDataTable("profileContainer2SectionContainer1") }} className="profile_container2_section_container1" id="profileContainer2SectionContainer1" draggable="true">
+                            <button onClick={() => { this.collapseDataTable("profile_container2_section_container1", "Councils") }} className="text_btn" type="button"><b>collapse</b></button>
                             <h2>Councils</h2>
                             <ul>
                                 <li>Council 1</li>
                                 <li>Council 2</li>
                                 <li>Council 3</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
                     <div className="profile_drop_zone">
-                        <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer2") } } className="profile_container2_section_container2" id="profileContainer2SectionContainer2" draggable="true">
-                            <button onClick={ () => { this.collapseDataTable("profile_container2_section_container2", "Recent Activity") }} className="text_btn" type="button"><b>collapse</b></button>
+                        <section onClick={() => { resizeDataTable("profileContainer2SectionContainer2") }} className="profile_container2_section_container2" id="profileContainer2SectionContainer2" draggable="true">
+                            <button onClick={() => { this.collapseDataTable("profile_container2_section_container2", "Recent Activity") }} className="text_btn" type="button"><b>collapse</b></button>
                             <h2>Recent Activity</h2>
                             <ul>
                                 <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
@@ -432,13 +430,13 @@ class ProfileUser extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
                     <div className="profile_drop_zone">
-                        <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer3") } } className="profile_container2_section_container3" id="profileContainer2SectionContainer3" draggable="true">
-                            <button onClick={ () => { this.collapseDataTable("profile_container2_section_container3", "Recent Achievements") }} className="text_btn" type="button"><b>collapse</b></button>
+                        <section onClick={() => { resizeDataTable("profileContainer2SectionContainer3") }} className="profile_container2_section_container3" id="profileContainer2SectionContainer3" draggable="true">
+                            <button onClick={() => { this.collapseDataTable("profile_container2_section_container3", "Recent Achievements") }} className="text_btn" type="button"><b>collapse</b></button>
                             <h2>Recent Achievements</h2>
                             <ul>
                                 <li>12/2/2020, 3:35pm - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
@@ -446,18 +444,18 @@ class ProfileUser extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone"></div>
                     <div className="profile_drop_zone">
-                        <section onClick={ () => { this.resizeDataTable("profileContainer2SectionContainer4") } } className="profile_container2_section_container4" id="profileContainer2SectionContainer4" draggable="true">
-                            <button onClick={ () => { this.collapseDataTable("profile_container2_section_container4", "Recent Badges") }} className="text_btn" type="button"><b>collapse</b></button>
+                        <section onClick={() => { resizeDataTable("profileContainer2SectionContainer4") }} className="profile_container2_section_container4" id="profileContainer2SectionContainer4" draggable="true">
+                            <button onClick={() => { this.collapseDataTable("profile_container2_section_container4", "Recent Badges") }} className="text_btn" type="button"><b>collapse</b></button>
                             <h2>Recent Badges</h2>
                             <ul>
                                 <li><img className="badge" srcSet={badge} alt="User's Silver badge." /></li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                 </div>

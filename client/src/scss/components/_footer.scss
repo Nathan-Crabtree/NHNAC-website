@@ -1,18 +1,18 @@
 footer > div:first-child > ul {
-    padding: 0% 3% 2%;
-    li {
-        padding-top: $nh-padding-xl;
-        h4 {
-            margin: 0;
-        }
+  padding: 0% 3% 2%;
+  li {
+    padding-top: $nh-padding-xl;
+    h4 {
+      margin: 0;
     }
-    li:not(first-child):hover {
-        text-decoration: underline;
-    }
+  }
+  li:not(first-child):hover {
+    text-decoration: underline;
+  }
 }
 
 footer > div:nth-child(2) li {
-    padding-left: $nh-padding-xs;
+  padding-left: $nh-padding-xs;
 }
 
 // Used for email styling. - Zane

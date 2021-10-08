@@ -30,33 +30,33 @@ export const Modal = ({
     displayUnloadMessage
 }) => {
 
-/**
- * Renders following component according to what value triggerText has.
- *
- * @returns {class} Component - A React Component.
- */
-displayForm = () => {
-    switch (triggerText) {
-        case "Feedback":
-            return <Feedback sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />
-        case "Newsletter":
-            return <Newsletter closeModal={closeModal} emailIsValid={emailIsValid} setNewsletterEmailAddress={setNewsletterEmailAddress} />
-        case "Cookies":
-            return <Cookies closeModal={closeModal} />
-        case "Report":
-            return <Report className={className} />
-        case "Connections":
-            return <Connections closeModal={closeModal} profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
-        case "Delete Account":
-            return <Delete closeModal={closeModal} />
-        case "Share this podcast":
-            return <SharePodcast />
-        default:
-            break;
+    /**
+     * Renders following component according to what value triggerText has.
+     *
+     * @returns {class} Component - A React Component.
+     */
+    displayForm = () => {
+        switch (triggerText) {
+            case "Feedback":
+                return <Feedback sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />
+            case "Newsletter":
+                return <Newsletter closeModal={closeModal} emailIsValid={emailIsValid} setNewsletterEmailAddress={setNewsletterEmailAddress} />
+            case "Cookies":
+                return <Cookies closeModal={closeModal} />
+            case "Report":
+                return <Report className={className} />
+            case "Connections":
+                return <Connections closeModal={closeModal} profileImgSmall={profileImgSmall} messageIcon={messageIcon} />
+            case "Delete Account":
+                return <Delete closeModal={closeModal} />
+            case "Share this podcast":
+                return <SharePodcast />
+            default:
+                break;
+        }
     }
-}
 
-return ReactDOM.createPortal(
+    return ReactDOM.createPortal(
         <FocusTrap>
             <aside
                 tag="aside"
@@ -76,7 +76,7 @@ return ReactDOM.createPortal(
                         onClick={closeModal}
                     >
                         <span id="close-modal" className="_hide-visual">
-                        Close
+                            Close
                         </span>
                         <svg className="_modal-close-icon" viewBox="0 0 40 40">
                             <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
@@ -95,7 +95,7 @@ return ReactDOM.createPortal(
 
 export default Modal;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 // NOTE: emailIsValid and setNewsletterEmailAddress aren't marked as required to avoid warnings when
 // non-newsletter modals are activated. - Zane
 Modal.propTypes = {

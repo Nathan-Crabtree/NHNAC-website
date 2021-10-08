@@ -20,6 +20,7 @@ export default class Login extends Component {
      */
     onSubmit = (e) => {
         const target = e.target || e.srcElement;
+        let submit = document.querySelector(".login_form #submit");
 
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
@@ -42,7 +43,7 @@ export default class Login extends Component {
             // Check if password matches that what already exists on database for user
             // Disable submit button
             submit.disabled = true;
-            submit.setAttribute("class", "disabled_btn");  
+            submit.setAttribute("class", "disabled_btn");
         } else {
             if (!this.state.errorExists) {
                 // Render error text and change boolean
@@ -95,11 +96,11 @@ export default class Login extends Component {
                     </div>
                 </form>
             </div>
-         );
+        );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Login.propTypes = {
     showPassword: PropTypes.func.isRequired
 }

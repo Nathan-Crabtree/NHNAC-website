@@ -5,7 +5,7 @@ input:not(.search_input, .magnifying_glass),
 .form_links,
 select[id="gender"],
 textarea {
-    margin: $nh-form-margin;
+  margin: $nh-form-margin;
 }
 
 label[for="rememberMe"],
@@ -14,386 +14,392 @@ label[for="newsletter"],
 label[for="by_email"],
 label[for="by_mail"],
 .resend_email_span {
-    font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 input:focus:not([type="checkbox"]),
 textarea:focus,
 select:focus {
-    outline: none;
-    border: $nh-black solid 2px;
+  outline: none;
+  border: $nh-black solid 2px;
 }
 
 label[for="rememberMe"],
 label[for="showPassword"],
 label[for="newsletter"],
 label[for="by_email"],
-label[for="by_mail"]  {
-    margin-left: 5px;
+label[for="by_mail"] {
+  margin-left: 5px;
 }
 
 input[type="checkbox"] {
-	appearance: none;
-	background-color: white;
-	border: 1px solid #cacece;
-	box-shadow: $checkbox-shadow, $checkbox-shadow-inset;
-    padding: 6px;
-	border-radius: 3px;
-    margin: 5px 0 0 0;
-    display: inline-block;
-    position: relative;
-    &:active, &:checked:active {
-        box-shadow: $checkbox-shadow, inset 0px 1px 3px rgba(0,0,0,0.1);
-    }
-    &:checked {
-        background: linear-gradient(336deg, green, lightgreen);
-        border: 1px solid #adb8c0;
-        box-shadow: $checkbox-shadow, $checkbox-shadow-inset, inset 15px 10px -12px rgba(255,255,255,0.1);
-        color: #99a1a7;
-    }
+  appearance: none;
+  background-color: white;
+  border: 1px solid #cacece;
+  box-shadow: $checkbox-shadow, $checkbox-shadow-inset;
+  padding: 6px;
+  border-radius: 3px;
+  margin: 5px 0 0 0;
+  display: inline-block;
+  position: relative;
+  &:active,
+  &:checked:active {
+    box-shadow: $checkbox-shadow, inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  &:checked {
+    background: linear-gradient(336deg, green, lightgreen);
+    border: 1px solid #adb8c0;
+    box-shadow: $checkbox-shadow, $checkbox-shadow-inset,
+      inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    color: #99a1a7;
+  }
 }
 
 form:not(#search) {
-    @extend %div_section;
-    padding: $nh-form-margin;
-    > ul {
-        list-style-type: none;
-    }
+  @extend %div_section;
+  padding: $nh-form-margin;
+  > ul {
+    list-style-type: none;
+  }
 }
 
 fieldset {
-    border: none;
-    margin-bottom: -10px;
+  border: none;
+  margin-bottom: -10px;
 }
 
 select {
-    @include input-properties(40px);
-    margin: $nh-form-margin;
+  @include input-properties(40px);
+  margin: $nh-form-margin;
 }
 
-input:not([type='checkbox'], [type="radio"], .search_input, .magnifying_glass) {
-    @include input-properties(40px);
+input:not([type="checkbox"], [type="radio"], .search_input, .magnifying_glass) {
+  @include input-properties(40px);
 }
 
 .report_label {
-    padding-top: $nh-padding-m;
+  padding-top: $nh-padding-m;
 }
 
 .report_radio {
-    padding-top: $nh-padding-m;
-    &:nth-of-type(4) {
-        padding-bottom: $nh-padding-m;
-    }
-    > label {
-        padding-left: $nh-padding-xs;
-    }
+  padding-top: $nh-padding-m;
+  &:nth-of-type(4) {
+    padding-bottom: $nh-padding-m;
+  }
+  > label {
+    padding-left: $nh-padding-xs;
+  }
 }
 
 button:not(.modal_button, .form_links_btn, ._modal-close, .text_btn, .edit_profile_pic_btn, .disabled_btn):hover,
 div.paypal_btn:hover {
-    background-color: $nh-button-hover;
+  background-color: $nh-button-hover;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 textarea {
-    @include input-properties(100px);
+  @include input-properties(100px);
 }
 
 .submit_padding {
-    margin: $nh-form-margin;
+  margin: $nh-form-margin;
 }
 
 // utility class
 .disabled_btn {
-    background-color: darkgray !important;
+  background-color: darkgray !important;
 }
 
 // Login
 
 .login {
-    &_form {
-        @extend %center;
-        width: 35%;
-        margin-top: 100px;
-    }
-    &_input {
-        width: 97.5%;
-    }
-    &_submit {
-        @include button-properties($nh-button, 95%);
-        @extend %center;
-    }
+  &_form {
+    @extend %center;
+    width: 35%;
+    margin-top: 100px;
+  }
+  &_input {
+    width: 97.5%;
+  }
+  &_submit {
+    @include button-properties($nh-button, 95%);
+    @extend %center;
+  }
 }
 
-
 .form_links {
-    > span {
-        font-size: $nh-font-small;
-        > button {
-            font-size: 1em;
-            text-align: left;
-            color: $nh-black;
-            background: none;
-            margin: 0;
-            padding: 0;
-            border: none;
-            cursor: pointer;
-        }
+  > span {
+    font-size: $nh-font-small;
+    > button {
+      font-size: 1em;
+      text-align: left;
+      color: $nh-black;
+      background: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      cursor: pointer;
     }
-    & button:hover {
-        text-decoration: underline;
-    }
+  }
+  & button:hover {
+    text-decoration: underline;
+  }
 }
 
 // Sign Up
 
 .adoption_agreement {
-    padding-bottom: $nh-signup-padding-bottom;
+  padding-bottom: $nh-signup-padding-bottom;
 }
 
 .top_div {
-    padding-bottom: calc(#{$nh-signup-padding-bottom} * 2);
+  padding-bottom: calc(#{$nh-signup-padding-bottom} * 2);
 }
 
 .signup {
-    &_form {
-        @extend %center;
-        margin-bottom: 45px;
-        padding-bottom: $nh-signup-padding-bottom;
-        width: 70%;
+  &_form {
+    @extend %center;
+    margin-bottom: 45px;
+    padding-bottom: $nh-signup-padding-bottom;
+    width: 70%;
+  }
+  &_fieldset {
+    padding-left: $nh-padding-xl;
+  }
+  &_fields {
+    padding-bottom: $nh-padding-xs;
+    &:nth-child(8) {
+      margin-bottom: 20px;
     }
-    &_fieldset {
-        padding-left: $nh-padding-xl;
-    }
-    &_fields {
-        padding-bottom: $nh-padding-xs;
-        &:nth-child(8) {
-            margin-bottom: 20px;
-        }
-    }
-    &_input {
-        width: 95%;
-    }
+  }
+  &_input {
+    width: 95%;
+  }
 }
 
 .agreement_div {
-    padding-top: 90px;
+  padding-top: 90px;
 }
 
 .geo_location {
-    margin: $nh-margin-s $nh-margin-s 0 0;
-    display: inline;
+  margin: $nh-margin-s $nh-margin-s 0 0;
+  display: inline;
 }
 
 .newsletter_div {
-    padding: 11px 0;
+  padding: 11px 0;
 }
 
 label[for="payment"] {
-    margin-bottom: -3px;
-    display: block;
+  margin-bottom: -3px;
+  display: block;
 }
 
 .pay {
-    &_buttons_div {
-        @extend %center;
-        width: 100%;
-    }
-    &_button {
-        @include button-properties($nh-button, 21%);
-        margin: 5px 27px 3px 0;
-    }
-    &_with_div {
-        margin-left: -32px;
-        padding: $nh-form-margin;
-    }
+  &_buttons_div {
+    @extend %center;
+    width: 100%;
+  }
+  &_button {
+    @include button-properties($nh-button, 21%);
+    margin: 5px 27px 3px 0;
+  }
+  &_with_div {
+    margin-left: -32px;
+    padding: $nh-form-margin;
+  }
 }
 
 .paypal_btn {
-    @include button-properties($nh-button, 92.25%);
+  @include button-properties($nh-button, 92.25%);
 }
 
 .bitcoin_btn {
-    @include button-properties(white, 92.25%);
+  @include button-properties(white, 92.25%);
 }
 
 // Forgot Password
 
 .security_question {
-    width: $nh-form-width;
+  width: $nh-form-width;
 }
 
 .security_submit {
-    @include button-properties($nh-button, 12.5%);
+  @include button-properties($nh-button, 12.5%);
 }
 
 .resend_email_span {
-    display: block;
-    padding: $nh-padding-xl 0 $nh-padding-s $nh-padding-s;
+  display: block;
+  padding: $nh-padding-xl 0 $nh-padding-s $nh-padding-s;
 }
 
 // Article
 
 .see_comments_btn {
-    @extend %center;
-    margin-top: 25px;
+  @extend %center;
+  margin-top: 25px;
 }
 
-.see_comments_btn:nth-of-type(2), .comment_btn:nth-of-type(2) {
-    display: none;
+.see_comments_btn:nth-of-type(2),
+.comment_btn:nth-of-type(2) {
+  display: none;
 }
 
 .comment_btn {
-    margin: 15px 0;
-    width: 100%;
+  margin: 15px 0;
+  width: 100%;
 }
 
 .text_btn {
-    border: none;
+  border: none;
+  background-color: inherit;
+  &:hover {
+    cursor: pointer;
     background-color: inherit;
-    &:hover {
-        cursor: pointer;
-        background-color: inherit;
-        text-decoration: underline;
-    }
+    text-decoration: underline;
+  }
 }
 
 // Comment
 
 .comment_form {
+  display: none;
+  &_1_0,
+  &_1_1 {
     display: none;
-    &_1_0, &_1_1 {
-        display: none;
+  }
+  &_field {
+    > svg {
+      @extend %form_svg;
     }
-    &_field {
-        > svg {
-            @extend %form_svg;
-        }
-    }
+  }
 }
 
 .response {
-    &_form {
-        display: none;
-    }
-    &_container ~ form > fieldset > svg {
-        @extend %form_svg;
-    }
+  &_form {
+    display: none;
+  }
+  &_container ~ form > fieldset > svg {
+    @extend %form_svg;
+  }
 }
 
 // Authenticated Nav
 
 .search_input {
-    height: 25px;
-    width: 150px;
-    resize: none;
-    margin-top: -3px;
-    position: relative;
+  height: 25px;
+  width: 150px;
+  resize: none;
+  margin-top: -3px;
+  position: relative;
 }
 
 // Event
 
 .guest_form {
-    @extend %center;
-    padding: $nh-padding-l;
-    > label, br, input {
-        margin-top: 15px;
-    }
-    > input, button {
-        width: 100%;
-    }
-    > button {
-        margin-top: $nh-margin-s;
-    }
+  @extend %center;
+  padding: $nh-padding-l;
+  > label,
+  br,
+  input {
+    margin-top: 15px;
+  }
+  > input,
+  button {
+    width: 100%;
+  }
+  > button {
+    margin-top: $nh-margin-s;
+  }
 }
 
 // Profile
 
 .status {
-    &_form {
-        display: none;
-        margin: $nh-form-margin;
-        > fieldset > div {
-            > svg {
-                @extend %form_svg;
-            }
-            > textarea {
-                height: 50px;
-            }
-        }
+  &_form {
+    display: none;
+    margin: $nh-form-margin;
+    > fieldset > div {
+      > svg {
+        @extend %form_svg;
+      }
+      > textarea {
+        height: 50px;
+      }
     }
-    &_p {
-        margin: 0;
-        width: 12%;
-    }
+  }
+  &_p {
+    margin: 0;
+    width: 12%;
+  }
 }
 
 .connect_btn {
-    padding-top: $nh-padding-m;
-    > h4 {
-        margin-top: 0;
-    }
+  padding-top: $nh-padding-m;
+  > h4 {
+    margin-top: 0;
+  }
 }
 
 .edit_profile_pic_btn {
-    position: relative;
-    color: #FFFCF4;
+  position: relative;
+  color: #fffcf4;
+  background-color: lightgray;
+  border: none;
+  cursor: pointer;
+  margin: 207px 0 0 0;
+  width: 332px;
+  height: 33px;
+  &:hover {
     background-color: lightgray;
-    border: none;
-    cursor: pointer;
-    margin: 207px 0 0 0;
-    width: 332px;
-    height: 33px;
-    &:hover {
-        background-color: lightgray;
-    }
-    &:active {
-        background-color: #a09e9e;
-    }
+  }
+  &:active {
+    background-color: #a09e9e;
+  }
 }
 
 .pending_btn {
-    @include button-properties(blue, initial);
-    &:hover {
-        background-color: lightblue;
+  @include button-properties(blue, initial);
+  &:hover {
+    background-color: lightblue;
+  }
+  > button {
+    border: none;
+    background-color: inherit;
+    color: white;
+    height: 0;
+    cursor: pointer;
+    > h4 {
+      margin-top: 15px;
     }
-    > button {
-        border: none;
-        background-color: inherit;
-        color: white;
-        height: 0;
-        cursor: pointer;
-        > h4 {
-            margin-top: 15px;
-        }
-    }
+  }
 }
 
 // Request ID
 
 .request_id {
-    &_form {
-        @extend %center;
-        width: 75%;
+  &_form {
+    @extend %center;
+    width: 75%;
+  }
+  &_checkboxes {
+    display: flex;
+    > div:first-of-type {
+      padding-right: $nh-padding-s;
     }
-    &_checkboxes {
-        display: flex;
-        > div:first-of-type {
-            padding-right: $nh-padding-s;
-        }
-    }
+  }
 }
 
 // Account Settings
 
 @for $form-class-name from 1 through 10 {
-    .#{nth($nh-account-settings-forms, $form-class-name)}_form {
-        display: none;
-        &_field > svg {
-            @extend %form_svg;
-        }
+  .#{nth($nh-account-settings-forms, $form-class-name)}_form {
+    display: none;
+    &_field > svg {
+      @extend %form_svg;
     }
+  }
 }

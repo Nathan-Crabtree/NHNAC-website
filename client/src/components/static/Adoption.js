@@ -7,7 +7,7 @@ const Adoption = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    return ( 
+    return (
         <React.Fragment>
             <div className="MsoNormal"><strong><span>Adoption Agreement</span></strong></div><br />
             <p>New Haven Native American Church’s Constitution limits membership in the Native American Church to those who have been duly adopted by the President of the Church.  This adoption is an ancient principle and Ceremony called "Making Relations."  The Ceremony involves two parts: First, that you perform by you in your location; and second, which the President of the Church performs at this location.</p><br />
@@ -31,8 +31,8 @@ const Adoption = () => {
                 <strong><li>I will strive to establish a Native American Church Chapter in my area, if none is already present, and I will dedicate time, talent and resources, as suggested to me by the Spirit, to forward the purpose of that Chapter.</li></strong><br />
             </ol><br />
             <p>Covenant Obligations are the foundation of furthering the New Haven Native American Church's Ministry and Healing the World depends upon your faithfulness. If you feel that you can be true to the Declarations and can place yourself in at least one category above, then your request for Spiritual Adoption will be approved.</p><br />
-        </React.Fragment> 
+        </React.Fragment>
     );
 }
- 
+
 export default Adoption;

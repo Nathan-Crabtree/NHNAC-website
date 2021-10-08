@@ -18,9 +18,9 @@ export default class Donate extends Component {
 
     render() {
         const {
-          donate,
-          paypal,
-          bitcoin
+            donate,
+            paypal,
+            bitcoin
         } = this.props;
 
         return (
@@ -67,7 +67,7 @@ export default class Donate extends Component {
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Donate.propTypes = {
     donate: PropTypes.string.isRequired,
     paypal: PropTypes.string.isRequired,

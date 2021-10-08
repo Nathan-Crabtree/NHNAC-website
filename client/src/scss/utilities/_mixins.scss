@@ -1,23 +1,23 @@
 @mixin button-properties($bg-color, $width) {
-    border: none;
-    background-color: #{$bg-color};
-    border-radius: 16px;
-    height: 50px;
-    cursor: pointer;
-    width: #{$width};
+  border: none;
+  background-color: #{$bg-color};
+  border-radius: 16px;
+  height: 50px;
+  cursor: pointer;
+  width: #{$width};
 }
 
 @mixin input-properties($height) {
-    border-radius: 4px;
-    padding: 2px 0px 2px 5px;
-    border: $nh-black solid 1px;
-    height: #{$height};
+  border-radius: 4px;
+  padding: 2px 0px 2px 5px;
+  border: $nh-black solid 1px;
+  height: #{$height};
 }
 
 @mixin img-properties($width) {
-    position: relative;
-    border-radius: 4px;
-    transition: opacity 0.25s;
-    box-shadow: 0 3px 6px #100B009A;
-    width: #{$width};
+  position: relative;
+  border-radius: 4px;
+  transition: opacity 0.25s;
+  box-shadow: 0 3px 6px #100b009a;
+  width: #{$width};
 }

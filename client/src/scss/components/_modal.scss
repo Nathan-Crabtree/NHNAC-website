@@ -1,11 +1,11 @@
-// NOTE: Majority of this code is starter code.
-// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571 - Zane
+// NOTE: Majority of this code is starter code. - Zane
+// Source: https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571
 
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -109,14 +109,14 @@ p.lorem-text {
 }
 
 .modal_button {
-	font-size: 1em;
+  font-size: 1em;
   text-align: left;
-	color: $nh-white;
-	background: none;
-	margin: 0;
-	padding: 0;
-	border: none;
-	cursor: pointer;
+  color: $nh-white;
+  background: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
 }
 
 .modal_button:hover {
@@ -144,7 +144,7 @@ p.lorem-text {
   overflow: hidden;
 }
 
-// Share Podcast 
+// Share Podcast
 
 .social_media_field {
   @extend %center;

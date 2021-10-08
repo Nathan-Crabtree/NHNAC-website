@@ -20,6 +20,7 @@ export default class Deleted extends Component {
     */
     onSubmit(event) {
         const target = event.target || event.srcElement;
+        let submit = document.querySelector(".feedback_form #submit");
 
         // Use IE5-8 fallback if event object not present
         if (!event) {
@@ -27,14 +28,14 @@ export default class Deleted extends Component {
         }
 
         event.preventDefault();
-    
+
         let messageContent = target.message.value;
         messageContent = this.props.sanitizeInput(messageContent);
-    
-        if (messageContent.length > 3 && messageContent.length <= 500 ) {
+
+        if (messageContent.length > 3 && messageContent.length <= 500) {
             // Disable submit button
             submit.disabled = true;
-            submit.setAttribute("class", "disabled_btn");  
+            submit.setAttribute("class", "disabled_btn");
 
             if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
@@ -44,10 +45,10 @@ export default class Deleted extends Component {
             }
 
             this.setState({ formActive: false });
-    
+
             // Take the data and send it to API
             console.log(messageContent);
-    
+
             // Render on the modal thank you text
             const modalForm = document.getElementsByClassName("modal_form")[0];
             const thankYouBlock = document.createElement("h3");
@@ -55,8 +56,8 @@ export default class Deleted extends Component {
             thankYouBlock.style.textAlign = "center";
             modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
         } else {
-                // Render error text and colors
-                if (!this.state.errorExists) {
+            // Render error text and colors
+            if (!this.state.errorExists) {
                 const formField = target.children[1].firstChild;
                 const input = target.children[1].firstChild.children[6];
                 const error = document.createElement('p');
@@ -94,11 +95,11 @@ export default class Deleted extends Component {
             } else {
                 window.detachEvent("beforeunload", this.props.displayUnloadMessage);
             }
-        }        
+        }
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Your account has been deleted.</span></strong></div><br />
                 <p>We’re sorry to see you go. Please take a few moments to complete our feedback form to let us know how we can improve!</p><br />
@@ -115,7 +116,7 @@ export default class Deleted extends Component {
                             <label htmlFor="message">Comment</label><br />
                             <textarea className="login_input" type="text" id="message" name="message" maxLength="500" /><br />
                         </div>
-                        <button className="submit_btn submit_padding" type="submit">Submit</button>
+                        <button id="submit" className="submit_btn submit_padding" type="submit">Submit</button>
                     </fieldset>
                 </form>
             </React.Fragment>
@@ -123,7 +124,7 @@ export default class Deleted extends Component {
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Deleted.propTypes = {
     sanitizeInput: PropTypes.func.isRequired,
     displayUnloadMessage: PropTypes.func.isRequired

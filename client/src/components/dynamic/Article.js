@@ -12,6 +12,30 @@ import BlogType from './BlogType';
 var CryptoJS = require("crypto-js");
 require('dotenv').config();
 
+/**
+ * Hides the response section for the comment and shows the "See Responses" button. Hides response form.
+ *
+ */
+export const hideResponses = () => {
+    document.getElementsByClassName("response_section_container")[0].style.display = "none";
+    document.getElementsByClassName("comment_btn")[0].style.display = "block";
+    document.getElementsByClassName("comment_btn")[1].style.display = "block";
+    document.getElementsByClassName("comment_btn")[2].style.display = "none";
+    document.getElementsByClassName("response_form")[0].style.display = "none";
+}
+
+/**
+ * Shows the section the comment belongs to and hides the associated button.
+ *
+ * @param {string} containerClassName
+ * @param {string} btnClassName
+ */
+export const displayComments = (containerClassName, btnClassName) => {
+    document.getElementsByClassName(containerClassName)[0].style.display = "block";
+    document.getElementsByClassName(btnClassName)[1].style.display = "none";
+    document.getElementsByClassName(btnClassName)[2].style.display = "block";
+}
+
 export default class Article extends Component {
 
     constructor() {
@@ -22,8 +46,6 @@ export default class Article extends Component {
             formActive: false
         }
         this.hideComments = this.hideComments.bind(this);
-        this.hideResponses = this.hideResponses.bind(this);
-        this.displayComments = this.displayComments.bind(this);
         this.displayForm = this.displayForm.bind(this);
         this.hideForm = this.hideForm.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -38,56 +60,41 @@ export default class Article extends Component {
      *
      */
     hideComments() {
-        this.hideForm("comment_form_1_0","comment_content_1_0",true);
-        this.hideForm("comment_form_1_1","comment_content_1_1",true,true);
+        // Hide all forms
+        hideForm("1", true);
+        hideForm("1", true, true);
+
         document.getElementsByClassName("comment_section_container")[0].style.display = "none";
         document.getElementsByClassName("see_comments_btn")[0].style.display = "block";
         document.getElementsByClassName("see_comments_btn")[1].style.display = "block";
         document.getElementsByClassName("see_comments_btn")[2].style.display = "none";
         document.getElementsByClassName("comment_form")[0].style.display = "none";
-        this.hideResponses();
-    }
-
-    /**
-     * Hides the response section for the comment and shows the "See Responses" button. Hides response form.
-     *
-     */
-    hideResponses() {
-        document.getElementsByClassName("response_section_container")[0].style.display = "none";
-        document.getElementsByClassName("comment_btn")[0].style.display = "block";
-        document.getElementsByClassName("comment_btn")[1].style.display = "block";
-        document.getElementsByClassName("comment_btn")[2].style.display = "none";
-        document.getElementsByClassName("response_form")[0].style.display = "none";
-    }
-
-    /**
-     * Shows the section the comment belongs to and hides the associated button.
-     *
-     * @param {string} containerClassName 
-     * @param {string} btnClassName
-     */
-    displayComments(containerClassName, btnClassName) {
-        document.getElementsByClassName(containerClassName)[0].style.display = "block";
-        document.getElementsByClassName(btnClassName)[1].style.display = "none";
-        document.getElementsByClassName(btnClassName)[2].style.display = "block";
+        hideResponses();
     }
 
     /**
      * Shows the section's form that the comment belongs to and hides the associated button(s).
      *
-     * @param {string} formClassName
-     * @param {string} btnClassName
+     * @param {string} indexValue
      * @param {boolean} editMode
      * @param {boolean} responseComment
      */
-    displayForm(formClassName, btnClassName, editMode = false, responseComment = false) {
+    displayForm(indexValue, editMode = false, responseComment = false) {
         if (!this.state.formActive) {
-            document.getElementsByClassName(formClassName)[0].style.display = "block";
-            document.getElementsByClassName(btnClassName)[0].style.display = "none";
-            if (editMode && !responseComment) {
-                document.getElementsByClassName(formClassName)[0].parentElement.getElementsByTagName("ul")[0].style.display = "none";
-            } else if (editMode && responseComment) {
-                document.getElementsByClassName(formClassName)[0].parentElement.parentElement.getElementsByTagName("ul")[1].style.display = "none";
+            if (responseComment) {
+                const elements = document.querySelectorAll("[data-response-index='" + indexValue + "']");
+                elements[1].style.display = "block";
+                elements[0].style.display = "none";
+                if (editMode) {
+                    elements[1].parentElement.parentElement.getElementsByTagName("ul")[1].style.display = "none";
+                }
+            } else {
+                const elements = document.querySelectorAll("[data-comment-index='" + indexValue + "']");
+                elements[1].style.display = "block";
+                elements[0].style.display = "none";
+                if (editMode) {
+                    elements[1].parentElement.getElementsByTagName("ul")[0].style.display = "none";
+                }
             }
 
             if (window.addEventListener) { // If event listener supported
@@ -104,20 +111,28 @@ export default class Article extends Component {
     /**
      * Hides the section's form that the comment belongs to and shows the associated button(s).
      *
-     * @param {string} formClassName
-     * @param {string} btnClassName
+     * @param {string} indexValue
      * @param {boolean} editMode
      * @param {boolean} responseComment
      */
-    hideForm(formClassName, btnClassName, editMode = false, responseComment = false) {
+    hideForm(indexValue, editMode = false, responseComment = false) {
         if (this.state.formActive) {
-            document.getElementsByClassName(formClassName)[0].style.display = "none";
-            document.getElementsByClassName(btnClassName)[0].style.display = "block";
-            if (editMode && !responseComment) {
-                document.getElementsByClassName(formClassName)[0].parentElement.getElementsByTagName("ul")[0].style.display = "block";
-            } else if (editMode && responseComment) {
-                document.getElementsByClassName(formClassName)[0].parentElement.parentElement.getElementsByTagName("ul")[1].style.display = "block";
-            }          
+            if (responseComment) {
+                const elements = document.querySelectorAll("[data-response-index='" + indexValue + "']");
+                elements[1].style.display = "none";
+                elements[0].style.display = "block";
+                if (editMode) {
+                    elements[1].parentElement.parentElement.getElementsByTagName("ul")[1].style.display = "block";
+                }
+            } else {
+                const elements = document.querySelectorAll("[data-comment-index='" + indexValue + "']");
+                elements[1].style.display = "none";
+                elements[0].style.display = "block";
+
+                if (editMode) {
+                    elements[1].parentElement.getElementsByTagName("ul")[0].style.display = "block";
+                }
+            }
 
             // Remove pop-up warning of unsaved data if user attempts to leave page
             window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
@@ -167,7 +182,7 @@ export default class Article extends Component {
 
             // Upload comment to database through API
 
-            if (window.removeEventListener) { // If event listener supported 
+            if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
                 window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
             } else {
@@ -188,7 +203,7 @@ export default class Article extends Component {
      */
     setTypeHeader() {
         // Render proper header according to "type" string value
-        switch(this.state.type) {
+        switch (this.state.type) {
             // NOTE: Podcasts will be unavailable in beta release. - Zane
             // case "podcast":
             //     return "PODCAST: ";
@@ -210,33 +225,33 @@ export default class Article extends Component {
      */
     displayTypeComponent() {
         // Render proper component according to "type" string value
-        switch(this.state.type) {
+        switch (this.state.type) {
             case "article":
                 return <ArticleType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit} onSubmitApp={this.props.onSubmit}
-                hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={this.hideResponses} displayComments={this.displayComments}
-                hideComments={this.hideComments} />
+                    fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit}
+                    hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={hideResponses} displayComments={displayComments}
+                    hideComments={this.hideComments} />
             // NOTE: Podcasts will be unavailable in beta release. - Zane
             // case "podcast":
             //     return <PodcastType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini}
-            //     fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit} onSubmitApp={this.props.onSubmit}
-            //     hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={this.hideResponses} displayComments={this.displayComments}
+            //     fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit}
+            //     hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={hideResponses} displayComments={displayComments}
             //     hideComments={this.hideComments} />
             case "blog":
                 return <BlogType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit} onSubmitApp={this.props.onSubmit}
-                hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={this.hideResponses} displayComments={this.displayComments}
-                hideComments={this.hideComments} />
+                    fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit}
+                    hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={hideResponses} displayComments={displayComments}
+                    hideComments={this.hideComments} />
             case "event":
                 return <EventType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit} onSubmitApp={this.props.onSubmit}
-                hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={this.hideResponses} displayComments={this.displayComments}
-                hideComments={this.hideComments} isAuthenticated={this.props.isAuthenticated} sanitizeInput={this.props.sanitizeInput} />
+                    fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit}
+                    hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={hideResponses} displayComments={displayComments}
+                    hideComments={this.hideComments} isAuthenticated={this.props.isAuthenticated} sanitizeInput={this.props.sanitizeInput} />
             case "update":
                 return <UpdateType thumbsUp={this.props.thumbsUp} instaMini={this.props.instaMini} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit} onSubmitApp={this.props.onSubmit}
-                hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={this.hideResponses} displayComments={this.displayComments}
-                hideComments={this.hideComments} />
+                    fbMini={this.props.fbMini} profileImgSmall={this.props.profileImgSmall} onSubmit={this.onSubmit}
+                    hideForm={this.hideForm} displayForm={this.displayForm} hideResponses={hideResponses} displayComments={displayComments}
+                    hideComments={this.hideComments} />
             default:
                 break;
         }
@@ -249,7 +264,7 @@ export default class Article extends Component {
      */
     setTypeBackLink() {
         // Render proper header according to "type" string value
-        switch(this.state.type) {
+        switch (this.state.type) {
             // NOTE: Podcasts will be unavailable in beta release. - Zane
             // case "podcast":
             //     return "/content/podcasts";
@@ -277,16 +292,16 @@ export default class Article extends Component {
 
         if (!isTypeEventAndAuthenticated || !isTypeUpdateAndAuthenticated) {
             return <div>
-                { this.displayTypeComponent() }
+                {this.displayTypeComponent()}
             </div>;
         } else if (this.props.isAuthenticated) {
             return <div>
-                { this.displayTypeComponent() }
+                {this.displayTypeComponent()}
             </div>;
         } else {
             return <div>
                 <div className="blur_container">
-                    { this.displayTypeComponent() }
+                    {this.displayTypeComponent()}
                 </div>
                 <div className="blur_text_container">
                     <p>Become adopted to the New Haven Native American Church community today to unlock this article.</p>
@@ -305,7 +320,7 @@ export default class Article extends Component {
     }
 
     componentWillUnmount() {
-        if (this.state.formActive && window.removeEventListener) { 
+        if (this.state.formActive && window.removeEventListener) {
             // Remove pop-up warning of unsaved data if user attempts to leave page
             window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
         }
@@ -313,15 +328,15 @@ export default class Article extends Component {
 
     render() {
         const {
-          articleImg,
-          profileImgSmall,
-          instaMini,
-          twitterMini,
-          fbMini
+            articleImg,
+            profileImgSmall,
+            instaMini,
+            twitterMini,
+            fbMini
         } = this.props;
         const { REACT_APP_KEY } = process.env;
 
-        return(
+        return (
             <React.Fragment>
                 <div className="MsoNormal center_text"><strong><span>{this.setTypeHeader()}Lorem ipsum dolor sit amet, consectetur adipiscing elit?</span></strong></div>
                 <div className="image_display">
@@ -341,16 +356,16 @@ export default class Article extends Component {
                     </div>
                     <div className="clear"></div>
                 </aside>
-                { this.displayProperContent() }
+                {this.displayProperContent()}
                 <div className="back_to_articles_link center_text">
-                    <button className="text_btn" type="button" onClick={ () => { this.props.history.push(this.setTypeBackLink()) } }><b>Back to content</b></button>
+                    <button className="text_btn" type="button" onClick={() => { this.props.history.push(this.setTypeBackLink()) }}><b>Back to content</b></button>
                 </div>
             </React.Fragment>
         );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Article.propTypes = {
     articleImg: PropTypes.string,
     fbMini: PropTypes.string.isRequired,
@@ -360,5 +375,5 @@ Article.propTypes = {
     profileImgSmall: PropTypes.string,
     isAuthenticated: PropTypes.bool.isRequired,
     sanitizeInput: PropTypes.func.isRequired,
-    displayUnloadMessage: PropTypes.func.isRequired
+    displayUnloadMessage: PropTypes.func.isRequired,
 }

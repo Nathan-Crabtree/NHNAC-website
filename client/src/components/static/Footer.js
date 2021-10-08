@@ -6,9 +6,9 @@ import Container from '../Container';
 export default class Footer extends Component {
 
     render() {
-        return(        
+        return (
             <footer>
-                <div> 
+                <div>
                     <ul>
                         <li><h4><u>Legal</u></h4></li>
                         <li><Link to="/privacy_policy">Privacy Policy</Link></li>
@@ -39,10 +39,9 @@ export default class Footer extends Component {
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Footer.propTypes = {
     fbLogo: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     emailIsValid: PropTypes.func.isRequired,
     setNewsletterEmailAddress: PropTypes.func.isRequired,
     sanitizeInput: PropTypes.func.isRequired,

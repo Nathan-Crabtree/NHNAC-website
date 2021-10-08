@@ -25,16 +25,16 @@ export default class Profile extends Component {
     displayViewComponent() {
         // Render proper component according to "type" string value
         // TODO: Break ProfileUser and ProfileViewer into smaller resuable components. - Zane
-        switch(this.state.view) {
+        switch (this.state.view) {
             case "user":
                 return <ProfileUser apple={this.props.apple} book={this.props.book} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
-                profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon}
-                customize={this.state.customize} sanitizeInput={this.props.sanitizeInput} displayUnloadMessage={this.props.displayUnloadMessage} />
+                    fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
+                    profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon}
+                    customize={this.state.customize} sanitizeInput={this.props.sanitizeInput} displayUnloadMessage={this.props.displayUnloadMessage} />
             case "viewer":
                 return <ProfileViewer apple={this.props.apple} book={this.props.book} twitterMini={this.props.twitterMini}
-                fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
-                profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon} />
+                    fbMini={this.props.fbMini} instaMini={this.props.instaMini} profileImgLarge={this.props.profileImgLarge}
+                    profileImgSmall={this.props.profileImgSmall} badge={this.props.badge} messageIcon={this.props.messageIcon} />
             default:
                 break;
         }
@@ -51,15 +51,15 @@ export default class Profile extends Component {
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
-                { this.displayViewComponent() }
+                {this.displayViewComponent()}
             </React.Fragment>
         );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Profile.propTypes = {
     apple: PropTypes.string.isRequired,
     book: PropTypes.string.isRequired,

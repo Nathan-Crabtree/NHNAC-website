@@ -1,0 +1,16 @@
+User-agent: *
+Sitemap: https://www.newhavennativeamericanchurch.org/sitemap.xml
+
+Disallow: /content/*
+Disallow: /article/articles
+Disallow: /article/blogs
+Disallow: /article/podcasts
+Disallow: /profile/*
+Disallow: /verification
+Disallow: /confirmation
+Disallow: /suspended/*
+Disallow: /deleted
+Disallow: /id_request/*
+Disallow: /account_settings/*
+Disallow: /search*
+Disallow: /direct_message
