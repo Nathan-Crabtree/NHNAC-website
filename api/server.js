@@ -18,13 +18,13 @@ const server = express();
 server.use(cors());
 server.set('port', process.env.PORT || 5000);
 
-server.get('/', (req,res) => res.send('Hello World! from Node.js'))
+server.get('/', (req, res) => res.send('Hello World! from Node.js'))
 
 // server.use(
 //     bodyParser.json() //for post requests
 // );
 
-const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass',{
+const sequelize = new Sequelize('newhaven', 'newhavenuser', 'newhavenpass', {
     host: 'localhost',
     dialect: 'mysql',
     //storage: 'newhaven.mysql' // not sure if this is necessary; I already created the "newhaven" database
@@ -41,8 +41,8 @@ sequelize
     });
 
 //sequelize.sync({force: true}); //doesn't actually drop tables??
-Models.Address.destroy({truncate: {}});
-Models.User.destroy({truncate: {}});
+Models.Address.destroy({ truncate: {} });
+Models.User.destroy({ truncate: {} });
 
 // console.log('About to bulk create');
 // sequelize.sync({force: true})
@@ -62,7 +62,7 @@ Models.User.destroy({truncate: {}});
 //  console.log('Done with Bulk Create');
 
 //sequelize.sync({});
-sequelize.sync({force: true});
+sequelize.sync({ force: true });
 
 // .then(() => {
 //     User.create({
@@ -77,27 +77,27 @@ sequelize.sync({force: true});
 // setup a global error handler
 server.use((err, req, res, next) => {
     if (enableGlobalErrorLogging) {
-      console.error(`Global error handler: ${JSON.stringify(err.stack)}`);
+        console.error(`Global error handler: ${JSON.stringify(err.stack)}`);
     }
-  
+
     res.status(err.status || 500).json({
-      message: err.message,
-      error: {},
+        message: err.message,
+        error: {},
     });
 });
 
 //server.post('/createChapter/:Name/', (req, res) => {
 server.post('/createChapter:Name/', (req, res) => {
-   Models.Chapter.create({
+    Models.Chapter.create({
         Name: req.params.Name
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createCouncil/:Name/:ChapterID/', (req, res) => {
@@ -105,13 +105,13 @@ server.post('/createCouncil/:Name/:ChapterID/', (req, res) => {
         Name: req.params.Name,
         ChapterID: req.params.ChapterID
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 //create express route; retrieve all records from Users table
@@ -129,24 +129,24 @@ server.get('/findAllUsers', (req, res) => {
             }
         }
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.get('/findUserByID/:ID', (req, res) => {
     Models.User.findByPk(req.params.ID)
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 // server.put('/updateUser', (req, res) => {
@@ -170,15 +170,15 @@ server.delete('/deleteUserByID/:ID', (req, res) => {
     Models.User.destroy({
         where: {
             ID: req.params.ID,
-         }
+        }
     })
-    .then(() => {
-        res.send('user successfully deleted');
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(() => {
+            res.send('user successfully deleted');
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 // server.get('/createUser', (req, res) => {
 //     User.create({
@@ -240,67 +240,67 @@ server.delete('/deleteUserByID/:ID', (req, res) => {
 //         Twitter: req.params.Twitter,
 //         ChapterID: req.params.ChapterID
 //     })
-    // .then(user => {
-    //     console.log("Finished Create USER API");
-    //     res.json(user);
-    // })
-    // .catch(error => {
-    //     console.log("ERROR Create USER API");
+// .then(user => {
+//     console.log("Finished Create USER API");
+//     res.json(user);
+// })
+// .catch(error => {
+//     console.log("ERROR Create USER API");
 
-    //     console.log(error);
-    //     res.status(404).send(error);
-    // })
+//     console.log(error);
+//     res.status(404).send(error);
+// })
 // })
 // npm
 server.post('/createChapter:Name/', (req, res) => {
     Models.Chapter.create({
-         Name: req.params.Name
-     })
-     .then(user => {
-         res.json(user);
-     })
-     .catch(error => {
-         console.log(error);
-         res.status(404).send(error);
-     })
- })
-
-  server.post('/createUser/:AddressID/:Email/:Password/:FirstName/:LastName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer', (req, res) => {
-     console.log("Inside Create USER API");
-     Models.User.create({
-         //ChapterID: req.params.ChapterID, //not needed yet
-         AddressID: req.params.AddressID,
-         Email: req.params.Email,
-         Password: req.params.Password,
-         FirstName: req.params.FirstName,
-         LastName: req.params.LastName,
-//         NickName: req.params.NickName,
-         Birthday: req.params.Birthday,
-         Gender: req.params.Gender,
-         SecurityQuestion: req.params.SecurityQuestion,
-         SecurityAnswer: req.params.SecurityAnswer
-//         ESignatureFilePath: req.params.ESignatureFilePath,
-//         SubscribedToNewsLetter: req.params.SubscribedToNewsLetter,
-//         SubscribedToPodcast: req.params.SubscribedToPodcast,
-//         Points: req.params.Points,
-//         Status: req.params.Status,
-//         ProfilePicLarge: req.params.ProfilePicLarge,
-//         ProfilePicMedium: req.params.ProfilePicMedium,
-//         ProfilePicSmall: req.params.ProfilePicSmall,
-//         DateTimeLoggedIn: new Date(),
-//         Facebook: req.params.Facebook,
-//         Instagram: req.params.Instagram,
-//         Twitter: req.params.Twitter,
-//         ChapterID: req.params.ChapterID
-
-     })
-     .then(user => {
-        res.json(user);
+        Name: req.params.Name
     })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
+})
+
+server.post('/createUser/:AddressID/:Email/:Password/:FirstName/:LastName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer', (req, res) => {
+    console.log("Inside Create USER API");
+    Models.User.create({
+        //ChapterID: req.params.ChapterID, //not needed yet
+        AddressID: req.params.AddressID,
+        Email: req.params.Email,
+        Password: req.params.Password,
+        FirstName: req.params.FirstName,
+        LastName: req.params.LastName,
+        //         NickName: req.params.NickName,
+        Birthday: req.params.Birthday,
+        Gender: req.params.Gender,
+        SecurityQuestion: req.params.SecurityQuestion,
+        SecurityAnswer: req.params.SecurityAnswer
+        //         ESignatureFilePath: req.params.ESignatureFilePath,
+        //         SubscribedToNewsLetter: req.params.SubscribedToNewsLetter,
+        //         SubscribedToPodcast: req.params.SubscribedToPodcast,
+        //         Points: req.params.Points,
+        //         Status: req.params.Status,
+        //         ProfilePicLarge: req.params.ProfilePicLarge,
+        //         ProfilePicMedium: req.params.ProfilePicMedium,
+        //         ProfilePicSmall: req.params.ProfilePicSmall,
+        //         DateTimeLoggedIn: new Date(),
+        //         Facebook: req.params.Facebook,
+        //         Instagram: req.params.Instagram,
+        //         Twitter: req.params.Twitter,
+        //         ChapterID: req.params.ChapterID
+
     })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 });
 
 server.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => {
@@ -311,13 +311,13 @@ server.post('/createAddress/:Street/:Country/:State/:City/:Zip/', (req, res) => 
         City: req.params.City,
         Zip: req.params.Zip
     })
-    .then(address => {
-       res.json(address);
-   })
-   .catch(error => {
-       console.log(error);
-       res.status(404).send(error);
-   })
+        .then(address => {
+            res.json(address);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 });
 server.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthday/:Gender/:SecurityQuestion/:SecurityAnswer/:ESignatureFilePath/:SubscribedToNewsLetter/:SubscribedToPodcast/:Points/:ProfilePicLarge/:ProfilePicMedium/:ProfilePicSmall/:Facebook/:Instagram/:Twitter/:ChapterID/', (req, res) => {
     console.log("Inside UPDATE USER API");
@@ -345,16 +345,16 @@ server.put('/updateUser/:Email/:Password/:FirstName/:LastName/:NickName/:Birthda
         Twitter: req.params.Twitter,
         ChapterID: req.params.ChapterID
     })
-    .then(user => {
-        console.log("Finished update USER API");
-        res.json(user);
-    })
-    .catch(error => {
-        console.log("ERROR update USER API");
+        .then(user => {
+            console.log("Finished update USER API");
+            res.json(user);
+        })
+        .catch(error => {
+            console.log("ERROR update USER API");
 
-        console.log(error);
-        res.status(404).send(error);
-    })
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createUserRole/:RoleID/:UserID/', (req, res) => {
@@ -362,26 +362,26 @@ server.post('/createUserRole/:RoleID/:UserID/', (req, res) => {
         RoleID: req.params.RoleID,
         UserID: req.params.UserID
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createCouncilRole/:Name/', (req, res) => {
     Models.CouncilRole.create({
         Name: req.params.Name
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, res) => {
@@ -390,13 +390,13 @@ server.post('/createCouncilUserRole/:CouncilID/:UserID/:CouncilRoleID/', (req, r
         UserID: req.params.UserID,
         CouncilRoleID: req.params.CouncilRoleID
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createAddress/:Address/:Country/:State/:City/:Zip/:UserID/', (req, res) => {
@@ -408,13 +408,13 @@ server.post('/createAddress/:Address/:Country/:State/:City/:Zip/:UserID/', (req,
         Zip: req.params.Zip,
         UserID: req.params.UserID
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 server.post('/createCertificate/:CertificationID/:UserID/:UserCertFilePath/:Started/:Completed/:Date/:Time/', (req, res) => {
@@ -427,13 +427,13 @@ server.post('/createCertificate/:CertificationID/:UserID/:UserCertFilePath/:Star
         Date: req.params.Date,
         Time: req.params.Time
     })
-    .then(user => {
-        res.json(user);
-    })
-    .catch(error => {
-        console.log(error);
-        res.status(404).send(error);
-    })
+        .then(user => {
+            res.json(user);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error);
+        })
 })
 
 // start listening on our port
