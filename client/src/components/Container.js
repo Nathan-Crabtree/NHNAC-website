@@ -6,6 +6,12 @@ import { Modal } from './Modal';
 import TriggerButton from './TriggerButton';
 import PropTypes from 'prop-types';
 
+/**
+ * Creates a class for <html> called "scroll-lock" that allows CSS to style scroll prevention.
+ *
+ */
+export const toggleScrollLock = () => document.querySelector('html').classList.toggle('scroll-lock');
+
 export default class Container extends Component {
 
     constructor() {
@@ -17,7 +23,6 @@ export default class Container extends Component {
         this.closeModal = this.closeModal.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onClickOutside = this.onClickOutside.bind(this);
-        this.toggleScrollLock = this.toggleScrollLock.bind(this);
     }
 
     /**
@@ -26,9 +31,9 @@ export default class Container extends Component {
      */
     showModal = () => {
         this.setState({ isShown: true }, () => {
-        this.closeButton.focus();
+            this.closeButton.focus();
         });
-        this.toggleScrollLock();
+        toggleScrollLock();
     };
 
     /**
@@ -38,7 +43,7 @@ export default class Container extends Component {
     closeModal = () => {
         this.setState({ isShown: false });
         this.TriggerButton.focus();
-        this.toggleScrollLock();
+        toggleScrollLock();
     };
 
     /**
@@ -47,8 +52,8 @@ export default class Container extends Component {
      * @param {object} event
      */
     onKeyDown = (event) => {
-      if (event.keyCode === 27) {
-        this.closeModal();
+        if (event.keyCode === 27) {
+            this.closeModal();
         }
     };
 
@@ -58,25 +63,19 @@ export default class Container extends Component {
      * @param {object} event
      */
     onClickOutside = (event) => {
-       const target = event.target || event.srcElement;
+        const target = event.target || event.srcElement;
 
-       if (this.modal && this.modal.contains(target)) return;
-       this.closeModal();
+        if (this.modal && this.modal.contains(target)) return;
+        this.closeModal();
     };
-
-    /**
-     * Creates a class for <html> called "scroll-lock" that allows CSS to style scroll prevention.
-     *
-     */
-    toggleScrollLock = () => document.querySelector('html').classList.toggle('scroll-lock');
 
     render() {
         const {
-          profileImgSmall,
-          messageIcon
+            profileImgSmall,
+            messageIcon
         } = this.props;
 
-        return(
+        return (
             <React.Fragment>
                 <TriggerButton
                     showModal={this.showModal}
@@ -84,28 +83,28 @@ export default class Container extends Component {
                     triggerText={this.props.triggerText}
                 />
                 {this.state.isShown ? (
-                <Modal
-                    triggerText={this.props.triggerText}
-                    modalRef={(n) => (this.modal = n)}
-                    buttonRef={(n) => (this.closeButton = n)}
-                    closeModal={this.closeModal}
-                    onKeyDown={this.onKeyDown}
-                    onClickOutside={this.onClickOutside}
-                    emailIsValid={this.props.emailIsValid}
-                    setNewsletterEmailAddress={this.props.setNewsletterEmailAddress}
-                    className={this.props.className}
-                    profileImgSmall={profileImgSmall}
-                    messageIcon={messageIcon}
-                    sanitizeInput={this.props.sanitizeInput}
-                    displayUnloadMessage={this.props.displayUnloadMessage}
-                />
+                    <Modal
+                        triggerText={this.props.triggerText}
+                        modalRef={(n) => (this.modal = n)}
+                        buttonRef={(n) => (this.closeButton = n)}
+                        closeModal={this.closeModal}
+                        onKeyDown={this.onKeyDown}
+                        onClickOutside={this.onClickOutside}
+                        emailIsValid={this.props.emailIsValid}
+                        setNewsletterEmailAddress={this.props.setNewsletterEmailAddress}
+                        className={this.props.className}
+                        profileImgSmall={profileImgSmall}
+                        messageIcon={messageIcon}
+                        sanitizeInput={this.props.sanitizeInput}
+                        displayUnloadMessage={this.props.displayUnloadMessage}
+                    />
                 ) : null}
             </React.Fragment>
-         );
+        );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 // NOTE: isRequired causes DOM errors for emailIsValid and setNewsletterEmailAddress because some modals don't use them. - Zane
 Container.propTypes = {
     triggerText: PropTypes.string.isRequired,

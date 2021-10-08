@@ -8,7 +8,7 @@ export default class TermsOfService extends Component {
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Terms Of Service</span></strong></div>
                 <p>In consideration of participating in activities of the New Haven Native American Church (NHNAC), I agree to read all the information presented in these Terms and Conditions and Waiver of Liability Claims.<span>&nbsp;&nbsp;</span>I agree to comply with any and all rules and regulations communicated to me about these activities, including but not limited to:</p>

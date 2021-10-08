@@ -1,24 +1,25 @@
 * {
-    font-family: 'Bitter', serif;
+  font-family: "Bitter", serif;
 }
 
 .loading-spinner {
-    @extend %center;
-    margin-top: 40vh;
+  @extend %center;
+  margin-top: 40vh;
 }
 
 body {
-    background-color: $nh-body;
+  background-color: $nh-body;
 }
 
-body, html {
-    height: 100%;
+body,
+html {
+  height: 100%;
 }
 
-main, 
+main,
 noscript {
-    @extend %center;
-    width: 65vw;
-    padding: 5% 3%;
-    background-color: $nh-main;  
+  @extend %center;
+  width: 65vw;
+  padding: 5% 3%;
+  background-color: $nh-main;
 }

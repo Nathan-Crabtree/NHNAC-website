@@ -4,17 +4,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Report = ({className}) => {
-
 /**
 * Prevents default action (page refresh), takes the data and sends it to the API, 
 * and renders HTML acknowledging submission.
 * 
 * @param {object} event 
 */
-function onSubmit(event) {
+export const onSubmit = (event, className) => {
     const target = event.target || event.srcElement;
     const reportType = target.type.value;
+    let submit = document.querySelector(".report_form #submit");
 
     // Use IE5-8 fallback if event object not present
     if (!event) {
@@ -25,20 +24,22 @@ function onSubmit(event) {
 
     // Disable submit button
     submit.disabled = true;
-    submit.setAttribute("class", "disabled_btn");  
-    
+    submit.setAttribute("class", "disabled_btn");
+
     // Take the data and send it to the API
     console.log(className);
     console.log(reportType);
-  
+
     // Render on the modal thank you text
     const modalForm = document.getElementsByClassName("modal_form")[0];
     modalForm.parentElement.innerHTML = '<h3 align="center">Thank you for your submission. We will be looking into this.</h3>';
 }
 
-return (
+export const Report = ({ className }) => {
+
+    return (
         <div>
-            <form className="modal_form" onSubmit={onSubmit}>
+            <form className="modal_form report_form" onSubmit={(event) => onSubmit(event, className)}>
                 <h2 className="newsletter_h2">Report</h2>
                 <fieldset>
                     <div className="feedback_form_fields">
@@ -63,14 +64,14 @@ return (
                     <button id="submit" className="submit_btn submit_padding" type="submit">Submit</button>
                 </fieldset>
             </form>
-        </div>   
+        </div>
     );
 
 };
 
 export default Report;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Report.propTypes = {
     className: PropTypes.string.isRequired
 }

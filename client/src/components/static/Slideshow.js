@@ -16,16 +16,16 @@ export const Slideshow = ({ hands, homes, people }) => {
         var i;
         var slides = document.getElementsByClassName("mySlides");
         var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {slideIndex.current = 1}
-        if (n < 1) {slideIndex.current = slides.length}
+        if (n > slides.length) { slideIndex.current = 1 }
+        if (n < 1) { slideIndex.current = slides.length }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
         for (i = 0; i < dots.length; i++) {
             dots[i].className = dots[i].className.replace(" active", "");
         }
-        slides[slideIndex.current-1].style.display = "block";
-        dots[slideIndex.current-1].className += " active";
+        slides[slideIndex.current - 1].style.display = "block";
+        dots[slideIndex.current - 1].className += " active";
     }
 
     /**
@@ -33,14 +33,14 @@ export const Slideshow = ({ hands, homes, people }) => {
      * 
      * @param {integer} n 
      */
-    function plusSlides (n) { showSlides(slideIndex.current += n); }
-  
+    function plusSlides(n) { showSlides(slideIndex.current += n); }
+
     /**
      * Thumbnail image controls.
      * 
      * @param {integer} n 
      */
-    function currentSlide (n) { showSlides(slideIndex.current = n); }
+    function currentSlide(n) { showSlides(slideIndex.current = n); }
 
     useEffect(() => {
         /**
@@ -59,31 +59,31 @@ export const Slideshow = ({ hands, homes, people }) => {
             }
             slideIndex.current++;
 
-            if (slideIndex.current > slides.length) {slideIndex.current = 1}
-            slides[slideIndex.current-1].style.display = "block";
-            dots[slideIndex.current-1].className += " active";
+            if (slideIndex.current > slides.length) { slideIndex.current = 1 }
+            slides[slideIndex.current - 1].style.display = "block";
+            dots[slideIndex.current - 1].className += " active";
         }
 
         // Src: https://stackoverflow.com/questions/40325035/document-ready-settimeout
         let functionDone = false;
 
         // Change image every 5 seconds
-        let timeout = setTimeout(function() {
+        let timeout = setTimeout(function () {
             showSlidesAuto();
             functionDone = true;
         }, 5000);
 
-        $(function() {
+        $(function () {
             if (!functionDone) {
                 // Clear time interval function once new page loads
                 clearTimeout(timeout);
 
                 showSlidesAuto();
-            }   
+            }
         });
     }, []);
 
-    return(
+    return (
         <React.Fragment>
             {/* NOTE: Majority of this code is starter code. */}
             {/* Src: https://www.w3schools.com/howto/howto_js_slideshow.asp */}
@@ -93,31 +93,31 @@ export const Slideshow = ({ hands, homes, people }) => {
 
                     {/* Full-width images with number and caption text */}
                     <div className="mySlides fade image_display">
-                        <img srcSet={hands} alt="People putting hands into a group." style={{width: "100%"}} />
+                        <img srcSet={hands} alt="People putting hands into a group." style={{ width: "100%" }} />
                         <p className="text slide_image_desc image_desc">People putting hands into a group.</p>
                     </div>
 
                     <div className="mySlides fade image_display">
-                        <img srcSet={homes} alt="Looking out upon a hill with homes under a cloudy blue sky." style={{width: "100%"}} />
+                        <img srcSet={homes} alt="Looking out upon a hill with homes under a cloudy blue sky." style={{ width: "100%" }} />
                         <p className="text slide_image_desc image_desc">Looking out upon a hill with homes under a cloudy blue sky.</p>
                     </div>
 
                     <div className="mySlides fade image_display">
-                        <img srcSet={people} alt="Professionals gathered smiling." style={{width: "100%"}} />
+                        <img srcSet={people} alt="Professionals gathered smiling." style={{ width: "100%" }} />
                         <p className="text slide_image_desc image_desc">Professionals gathered smiling.</p>
                     </div>
 
                     {/* Next and previous buttons */}
-                    <button className="prev" onClick={ () => {plusSlides(-1)}}>&#10094;</button>
-                    <button className="next" onClick={ () => {plusSlides(1)}}>&#10095;</button>
+                    <button className="prev" onClick={() => { plusSlides(-1) }}>&#10094;</button>
+                    <button className="next" onClick={() => { plusSlides(1) }}>&#10095;</button>
                     <br />
                 </div>
 
                 {/* The dots/circles */}
-                <div style={{textAlign: "center"}}>
-                    <span className="dot" onClick={ () => {currentSlide(1)}}></span>
-                    <span className="dot" onClick={ () => {currentSlide(2)}}></span>
-                    <span className="dot" onClick={ () => {currentSlide(3)}}></span>
+                <div style={{ textAlign: "center" }}>
+                    <span className="dot" onClick={() => { currentSlide(1) }}></span>
+                    <span className="dot" onClick={() => { currentSlide(2) }}></span>
+                    <span className="dot" onClick={() => { currentSlide(3) }}></span>
                 </div>
             </div>
         </React.Fragment>
@@ -125,7 +125,7 @@ export const Slideshow = ({ hands, homes, people }) => {
 };
 export default Slideshow;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Slideshow.propTypes = {
     hands: PropTypes.string.isRequired,
     homes: PropTypes.string.isRequired,

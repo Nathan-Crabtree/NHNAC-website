@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -5,6 +6,30 @@ import Container from '../Container';
 
 var CryptoJS = require("crypto-js");
 require('dotenv').config();
+
+/**
+ * Creates a connection request to viewed user by auth. user and changes "Connect" button to show pending
+ * status. Create Connection table between users with status property valued "Pending" for viewed user to be notified. Refreshes the page.
+ *
+ */
+export const connectUser = () => {
+    // Create Connection table between users
+
+    // Refresh the page
+    location.reload();
+}
+
+/**
+ * Allows user to click on "Pending" button and revert connect request to show "Connect" button again.
+ * Deletes connection table between users with status property valued "Pending". Refreshes the page.
+ *
+ */
+export const cancelConnect = () => {
+    // Delete Connection between users
+
+    // Refresh the page
+    location.reload();
+}
 
 class ProfileViewer extends Component {
 
@@ -14,8 +39,6 @@ class ProfileViewer extends Component {
             status: ""
         };
         this.checkUserConnection = this.checkUserConnection.bind(this);
-        this.connectUser = this.connectUser.bind(this);
-        this.cancelConnect = this.cancelConnect.bind(this);
     }
 
     /**
@@ -30,47 +53,23 @@ class ProfileViewer extends Component {
 
         if (this.state.status === "approved") {
             if (btn === "connection") {
-                return <Container onSubmit={ () => {} } triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />;
+                return <Container onSubmit={() => { }} triggerText="Connections" profileImgSmall={this.props.profileImgSmall} messageIcon={this.props.messageIcon} />;
             } else if (btn === "message") {
-                return <button className="bitcoin_btn" onClick={ () => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}&receiverid=null`) } } type="button"><h4>Message</h4></button>;
+                return <button className="bitcoin_btn" onClick={() => { this.props.history.push(`/direct_message?senderid=${CryptoJS.AES.encrypt('1', REACT_APP_KEY).toString()}&receiverid=null`) }} type="button"><h4>Message</h4></button>;
             }
         } else if (this.state.status === "pending") {
             if (btn === "connection") {
-                return <button onClick={this.cancelConnect}><h4>Pending...</h4></button>;
+                return <button onClick={cancelConnect}><h4>Pending...</h4></button>;
             } else if (btn === "message") {
                 return <button className="bitcoin_btn" type="button" disabled><h4>Message</h4></button>;
             }
         } else {
             if (btn === "connection") {
-                return <button onClick={this.connectUser} className="paypal_btn connect_btn"><h4>Connect</h4></button>;
+                return <button onClick={connectUser} className="paypal_btn connect_btn"><h4>Connect</h4></button>;
             } else if (btn === "message") {
                 return <button className="bitcoin_btn" type="button" disabled><h4>Message</h4></button>;
             }
         }
-    }
-
-    /**
-     * Creates a connection request to viewed user by auth. user and changes "Connect" button to show pending
-     * status. Create Connection table between users with status property valued "Pending" for viewed user to be notified. Refreshes the page.
-     *
-     */
-    connectUser() {
-        // Create Connection table between users
-
-        // Refresh the page
-        //location.reload();
-    }
-
-    /**
-     * Allows user to click on "Pending" button and revert connect request to show "Connect" button again. 
-     * Deletes connection table between users with status property valued "Pending". Refreshes the page.
-     *
-     */
-    cancelConnect() {
-        // Delete Connection between users
-
-        // Refresh the page
-        //location.reload();
     }
 
     componentDidMount() {
@@ -83,15 +82,15 @@ class ProfileViewer extends Component {
 
     render() {
         const {
-          profileImgLarge,
-          apple,
-          instaMini,
-          twitterMini,
-          fbMini,
-          badge
+            profileImgLarge,
+            apple,
+            instaMini,
+            twitterMini,
+            fbMini,
+            badge
         } = this.props;
 
-        return(
+        return (
             <React.Fragment>
                 <div className="profile_container1">
                     <div>
@@ -118,8 +117,8 @@ class ProfileViewer extends Component {
                     </div>
                     <div className="clear"></div>
                     <section className="profile_container1_section_container2--viewer">
-                        <div tabIndex="0" onClick={this.cancelConnect} role="button">{ this.checkUserConnection("connection") }</div>
-                        { this.checkUserConnection("message") }
+                        <div tabIndex="0" onClick={this.cancelConnect} role="button">{this.checkUserConnection("connection")}</div>
+                        {this.checkUserConnection("message")}
                         <br />
                     </section>
                     <div className="profile_container1_and_half">
@@ -132,7 +131,7 @@ class ProfileViewer extends Component {
                                     <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                     <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                                <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                         <div className="profile_drop_zone">
@@ -143,7 +142,7 @@ class ProfileViewer extends Component {
                                     <li>Council 2</li>
                                     <li>Council 3</li>
                                 </ul>
-                                <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                                <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             </section>
                         </div>
                     </div>
@@ -158,7 +157,7 @@ class ProfileViewer extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone">
@@ -170,7 +169,7 @@ class ProfileViewer extends Component {
                                 <li>5/4/2020, 2:30pm - Nullam non nisi.</li>
                                 <li>6/4/2020, 6:45am - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                     <div className="profile_drop_zone">
@@ -179,7 +178,7 @@ class ProfileViewer extends Component {
                             <ul>
                                 <li><img className="badge" srcSet={badge} alt="User's Silver badge." /></li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                         </section>
                     </div>
                 </div>

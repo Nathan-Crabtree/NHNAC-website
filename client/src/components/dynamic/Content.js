@@ -24,12 +24,12 @@ export default class Content extends Component {
      */
     setStateHandler() {
         // Change state value of query property to that of query string in URL
-        this.setState({ header: this.props.match.params.header }, () => {         
+        this.setState({ header: this.props.match.params.header }, () => {
             // Render proper text for bottom_aside and top_aside span tag according to string value
-            switch(this.state.header) {
+            switch (this.state.header) {
                 case "news":
                     document.getElementById("headerContent").innerText = "News";
-                    document.getElementById("topAsideContent").innerText = "Calendar";
+                    document.getElementById("topAsideContent").innerText = "Archive";
                     document.getElementById("bottomAsideContent").innerText = "Events";
                     break;
                 case "articles":
@@ -46,35 +46,35 @@ export default class Content extends Component {
                     document.getElementById("headerContent").innerText = "Updates";
                     document.getElementById("topAsideContent").innerText = "Archive";
                     document.getElementById("bottomAsideContent").innerText = "Popular";
-                break;
-                    // NOTE: Podcasts will be unavailable in beta release. - Zane
-                    case "podcasts":
-                      document.getElementById("headerContent").innerText = "Podcasts";
-                      document.getElementById("topAsideContent").innerText = "Archive";
-                      document.getElementById("bottomAsideContent").innerText = "Popular";
-                     break;
+                    break;
+                // NOTE: Podcasts will be unavailable in beta release. - Zane
+                case "podcasts":
+                    document.getElementById("headerContent").innerText = "Podcasts";
+                    document.getElementById("topAsideContent").innerText = "Archive";
+                    document.getElementById("bottomAsideContent").innerText = "Popular";
+                    break;
                 default:
                     break;
             }
         });
-   }
+    }
 
-   componentDidMount() {
+    componentDidMount() {
         this.setStateHandler();
 
         // When component is rendered, bring user to top of page
         window.scrollTo(0, 0);
-   }
+    }
 
     render() {
         const {
-          profileImgSmall,
-          articleImgLink,
-          podcast
+            profileImgSmall,
+            articleImgLink,
+            podcast
         } = this.props;
         const { REACT_APP_KEY } = process.env;
 
-        return(
+        return (
             <React.Fragment>
                 <ContentNav setStateHandler={this.setStateHandler} />
                 <div className="MsoNormal header_content"><strong><span id="headerContent"></span></strong></div>
@@ -121,7 +121,7 @@ export default class Content extends Component {
                                 <div className="clear"></div>
                             </div>
                         </section> */}
-                        <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                        <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                     </div>
                     <div className="content_container2">
                         <aside className="top_aside">
@@ -132,7 +132,7 @@ export default class Content extends Component {
                                 <li>April 2020</li>
                                 <li>March 2020</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             <div className="clear"></div>
                         </aside>
                         <aside className="bottom_aside">
@@ -143,7 +143,7 @@ export default class Content extends Component {
                                 <li>5/4/2020 - Nullam non nisi.</li>
                                 <li>6/4/2020 - Vulputate eu scelerisque felis.</li>
                             </ul>
-                            <button onClick={ () => { } } className="text_btn" type="button"><b>Click here to load more</b></button>
+                            <button onClick={() => { }} className="text_btn" type="button"><b>Click here to load more</b></button>
                             <div className="clear"></div>
                         </aside>
                         {/* Podcast promotion is commented out for beta release. - Zane */}
@@ -159,7 +159,7 @@ export default class Content extends Component {
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Content.propTypes = {
     podcast: PropTypes.string.isRequired,
     profileImgSmall: PropTypes.string,

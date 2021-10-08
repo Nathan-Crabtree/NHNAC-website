@@ -14,8 +14,9 @@ import Confirmation from './Confirmation';
 import Search from './Search';
 import DirectMessage from './DirectMessage';
 
-export { Header, Error, Login, Content,
-         Article, ForgotPassword, Verification, Profile, 
-         Suspended, AccountSettings, Confirmation, Search,
-         DirectMessage
-        };
+export {
+        Header, Error, Login, Content,
+        Article, ForgotPassword, Verification, Profile,
+        Suspended, AccountSettings, Confirmation, Search,
+        DirectMessage
+};

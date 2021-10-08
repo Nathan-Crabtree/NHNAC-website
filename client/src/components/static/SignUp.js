@@ -15,20 +15,20 @@ export default class SignUp extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-   /**
-    * An event handler that prevents default action (page refresh), 
-    * checks to see if all values are fit for submission.
-    * Submits and conditionally redirects to profile page or to PayPal website 
-    * according to payment status.
-    *
-    * NOTE: Could be further refactored to reduce runtime. - Zane
-    *
-    * @param {object} event
-    * @returns {boolean} false
-    */
-   onSubmit(event) {
-        let submit = document.getElementById("submit");
+    /**
+     * An event handler that prevents default action (page refresh), 
+     * checks to see if all values are fit for submission.
+     * Submits and conditionally redirects to profile page or to PayPal website 
+     * according to payment status.
+     *
+     * NOTE: Could be further refactored to reduce runtime. - Zane
+     *
+     * @param {object} event
+     * @returns {boolean} false
+     */
+    onSubmit(event) {
         const target = event.target || event.srcElement;
+        let submit = document.querySelector(".signup_form #submit");
 
         // Use IE5-8 fallback if event object not present
         if (!event) {
@@ -64,7 +64,7 @@ export default class SignUp extends Component {
 
         // Check if birthday and current date match variables
         const date = new Date();
-        const currentDate = [date.getFullYear(),date.getMonth()+1,date.getDate()];
+        const currentDate = [date.getFullYear(), date.getMonth() + 1, date.getDate()];
         const birthYear = parseInt(birthday[0] + birthday[1] + birthday[2] + birthday[3]);
         const birthMonth = parseInt(birthday[5] + birthday[6]);
         const birthDay = parseInt(birthday[8] + birthday[9]);
@@ -75,7 +75,7 @@ export default class SignUp extends Component {
 
         // Array of form input IDs
         const formInputIds = ["firstName", "lastName", "email", "birthday", "gender", "streetId", "countryId", "stateId", "cityId", "zipId",
-        "securityQuestion", "securityAnswer", "password", "payment"];
+            "securityQuestion", "securityAnswer", "password", "payment"];
 
         // Create error array
         let error = [];
@@ -229,20 +229,20 @@ export default class SignUp extends Component {
                 errorsThatExist[4] = true;
             }
         } else if (street.length > 150) {
-                // Render error text and change boolean
-                const formField = document.getElementsByClassName("signup_fields")[4];
-                const inputStreet = document.getElementById("streetId");
-                error[4].innerText = '*Please enter a value in the "street" field less than 150 characters.';
-                error[4].className = "error_4";
-                error[4].style.fontSize = '.9rem';
-                error[4].style.color = '#C31F01';
-                formField.appendChild(error[4]);
-                inputStreet.style.borderColor = '#C31F01';
-                inputCountry.style.borderColor = '#C31F01';
-                inputState.style.borderColor = '#C31F01';
-                inputCity.style.borderColor = '#C31F01';
-                inputZip.style.borderColor = '#C31F01';
-                errorsThatExist[4] = true;
+            // Render error text and change boolean
+            const formField = document.getElementsByClassName("signup_fields")[4];
+            const inputStreet = document.getElementById("streetId");
+            error[4].innerText = '*Please enter a value in the "street" field less than 150 characters.';
+            error[4].className = "error_4";
+            error[4].style.fontSize = '.9rem';
+            error[4].style.color = '#C31F01';
+            formField.appendChild(error[4]);
+            inputStreet.style.borderColor = '#C31F01';
+            inputCountry.style.borderColor = '#C31F01';
+            inputState.style.borderColor = '#C31F01';
+            inputCity.style.borderColor = '#C31F01';
+            inputZip.style.borderColor = '#C31F01';
+            errorsThatExist[4] = true;
         }
 
         // Check for security question selection
@@ -358,10 +358,10 @@ export default class SignUp extends Component {
             window.removeEventListener("beforeunload", this.props.displayUnloadMessage, false);
         } else {
             window.detachEvent("beforeunload", this.props.displayUnloadMessage);
-        }    
+        }
 
         this.setState({ listenerRemoved: true });
-    
+
         /* let addressID = 0; //not sure if variable needs to be declared here
         let api_url = `http://localhost:8001/createAddress/${street}/${country}/${state}/${city}/${zip}/` ;
         axios.post(api_url)
@@ -438,7 +438,7 @@ export default class SignUp extends Component {
         }
 
         this.setState({ listenerRemoved: false });
-    } 
+    }
 
     componentWillUnmount() {
         if (!this.state.listenerRemoved) {
@@ -453,7 +453,7 @@ export default class SignUp extends Component {
         // Remove geodata script from DOM 
         if (this.props.geoDataExists) {
             const geoDataScript = document.getElementsByClassName('geodata_script')[0];
-            
+
             geoDataScript.parentElement.removeChild(geoDataScript);
             this.props.setGeoDataExists();
         }
@@ -486,123 +486,123 @@ export default class SignUp extends Component {
                     <p>Covenant Obligations are the foundation of furthering the New Haven Native American Church's Ministry and Healing the World depends upon your faithfulness. If you feel that you can be true to the Declarations and can place yourself in at least one category above, then your request for Spiritual Adoption will be approved.</p><br />
                 </div>
                 <React.Fragment>
-                        <form className="signup_form" onSubmit={this.onSubmit}>
-                            <div className="top_div center_text">
-                                <h2>Adoption form</h2>
-                                <p>Pay what you'd like. Join our church today!</p>
+                    <form className="signup_form" onSubmit={this.onSubmit}>
+                        <div className="top_div center_text">
+                            <h2>Adoption form</h2>
+                            <p>Pay what you'd like. Join our church today!</p>
+                        </div>
+                        <fieldset className="signup_fieldset">
+                            <div className="signup_fields">
+                                <label htmlFor="firstName">First Name</label><br />
+                                <input className="signup_input" type="text" id="firstName" name="first_name" maxLength="50" placeholder="First Name" /><br />
+                                <label htmlFor="nickName">Nick Name</label><br />
+                                <input className="signup_input" type="text" id="nickName" name="nick_name" maxLength="50" placeholder="Nick Name" /><br />
+                                <label htmlFor="lastName">Last Name</label><br />
+                                <input className="signup_input" type="text" id="lastName" name="last_name" maxLength="50" placeholder="Last Name" /><br />
                             </div>
-                            <fieldset className="signup_fieldset">
-                                <div className="signup_fields">
-                                    <label htmlFor="firstName">First Name</label><br />
-                                    <input className="signup_input" type="text" id="firstName" name="first_name" maxLength="50" placeholder="First Name" /><br />
-                                    <label htmlFor="nickName">Nick Name</label><br />
-                                    <input className="signup_input" type="text" id="nickName" name="nick_name" maxLength="50" placeholder="Nick Name" /><br />
-                                    <label htmlFor="lastName">Last Name</label><br />
-                                    <input className="signup_input" type="text" id="lastName" name="last_name" maxLength="50" placeholder="Last Name" /><br />
-                                </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="email">Email</label><br />
-                                    <input className="signup_input" type="text" id="email" name="email" maxLength="320" placeholder="Email" /><br />
-                                </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="birthday">Birthday</label><br />
-                                    <input className="signup_input" type="date" id="birthday" name="birthday" /><br />
-                                </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="gender">Gender</label><br />
-                                    <select id="gender" name="gender">
+                            <div className="signup_fields">
+                                <label htmlFor="email">Email</label><br />
+                                <input className="signup_input" type="text" id="email" name="email" maxLength="320" placeholder="Email" /><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="birthday">Birthday</label><br />
+                                <input className="signup_input" type="date" id="birthday" name="birthday" /><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="gender">Gender</label><br />
+                                <select id="gender" name="gender">
                                     <option>Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select><br />
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="address">Physical Address</label><br />
+                                <input className="signup_input" type="text" name="street" id="streetId" maxLength="150" placeholder="Building number, Street name, Apartment ID" />
+                                <div className="geo_location">
+                                    <select name="country" className="countries" id="countryId">
+                                        <option value="">Select Country</option>
+                                    </select>
                                 </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="address">Physical Address</label><br />
-                                    <input className="signup_input" type="text" name="street" id="streetId" maxLength="150" placeholder="Building number, Street name, Apartment ID" />
-                                    <div className="geo_location">
-                                        <select name="country" className="countries" id="countryId">
-                                            <option value="">Select Country</option>
-                                        </select>
-                                    </div>
-                                    <div className="geo_location">
-                                        <select name="state" className="states" id="stateId">
-                                            <option value="">Select State</option>
-                                        </select>
-                                    </div>
-                                    <div className="geo_location">
-                                        <select name="city" className="cities" id="cityId">
-                                            <option value="">Select City</option>
-                                        </select>
-                                    </div><br />
-                                    <input type="text" name="zip" id="zipId" maxLength="10" placeholder="Zip" /><br />
+                                <div className="geo_location">
+                                    <select name="state" className="states" id="stateId">
+                                        <option value="">Select State</option>
+                                    </select>
                                 </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="securityQuestion">Select your security question here</label><br />
-                                    <select id="securityQuestion" name="security_question">
+                                <div className="geo_location">
+                                    <select name="city" className="cities" id="cityId">
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div><br />
+                                <input type="text" name="zip" id="zipId" maxLength="10" placeholder="Zip" /><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="securityQuestion">Select your security question here</label><br />
+                                <select id="securityQuestion" name="security_question">
                                     <option>Choose a security question</option>
-                                        <option value="question_1">What is your favorite car?</option>
-                                        <option value="question_2">What city were you born in?</option>
-                                        <option value="question_3">What is your favorite color?</option>
-                                    </select><br />
-                                </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="securityAnswer">Type your security answer here</label><br />
-                                    <input className="signup_input" type="text" id="securityAnswer" name="security_answer" maxLength="150" placeholder="Type your security answer here" /><br />
-                                </div>
-                                <div className="signup_fields">
-                                    <label htmlFor="password">Password</label><br />
-                                    <input className="signup_input" type="password" id="password" name="password" minLength="3" maxLength="30" placeholder="Password" /><br />
-                                    <label htmlFor="confirm_password">Confirm Password</label><br />
-                                    <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" placeholder="Confirm Password" /><br />
-                                    <input onClick={this.props.showPassword} type="checkbox" id="showPassword" name="show_password" />
-                                    <label htmlFor="showPassword">Show password</label><br />
-                                </div>
-                                {/* Code snippet for newsletter checkbox, which is currently an unavailable feature in the beta release. - Zane */}
-                                {/*<div className="signup_fields">
+                                    <option value="question_1">What is your favorite car?</option>
+                                    <option value="question_2">What city were you born in?</option>
+                                    <option value="question_3">What is your favorite color?</option>
+                                </select><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="securityAnswer">Type your security answer here</label><br />
+                                <input className="signup_input" type="text" id="securityAnswer" name="security_answer" maxLength="150" placeholder="Type your security answer here" /><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label htmlFor="password">Password</label><br />
+                                <input className="signup_input" type="password" id="password" name="password" minLength="3" maxLength="30" placeholder="Password" /><br />
+                                <label htmlFor="confirm_password">Confirm Password</label><br />
+                                <input className="signup_input" type="password" id="confirmPassword" name="confirm_password" minLength="3" maxLength="30" placeholder="Confirm Password" /><br />
+                                <input onClick={this.props.showPassword} type="checkbox" id="showPassword" name="show_password" />
+                                <label htmlFor="showPassword">Show password</label><br />
+                            </div>
+                            {/* Code snippet for newsletter checkbox, which is currently an unavailable feature in the beta release. - Zane */}
+                            {/*<div className="signup_fields">
                                     <div className="newsletter_div center_text">
                                         <input type="checkbox" id="newsletter" name="newsletter" />
                                         <label className="center_text" htmlFor="newsletter">Check this box to sign up for our newsletter</label><br />
                                     </div>
                                 </div>*/}
-                                {/* Insert e-signature widget here. */}
-                                <div className="signup_fields">
-                                    <label htmlFor="redeemableCode">Redeemable Code</label><br />
-                                    <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" maxLength="8" placeholder="Redeemable Code" /><br />
+                            {/* Insert e-signature widget here. */}
+                            <div className="signup_fields">
+                                <label htmlFor="redeemableCode">Redeemable Code</label><br />
+                                <input className="signup_input" type="text" id="redeemableCode" name="redeemable_code" maxLength="8" placeholder="Redeemable Code" /><br />
+                            </div>
+                            <div className="signup_fields">
+                                <label className="center_text" htmlFor="payment">Pay Us What You'd Like</label><br />
+                                <input className="signup_input" type="string" id="payment" name="payment" placeholder="0" defaultValue="$0.00" /><br />
+                                <div className="pay_buttons_div">
+                                    <button className="pay_button" type="button" value="1" onClick={() => { document.getElementById("payment").value = "$1.00" }}>$1</button>
+                                    <button className="pay_button" type="button" value="5" onClick={() => { document.getElementById("payment").value = "$5.00" }}>$5</button>
+                                    <button className="pay_button" type="button" value="10" onClick={() => { document.getElementById("payment").value = "$10.00" }}>$10</button>
+                                    <button className="pay_button" type="button" value="20" onClick={() => { document.getElementById("payment").value = "$20.00" }}>$20</button>
                                 </div>
-                                <div className="signup_fields">
-                                    <label className="center_text" htmlFor="payment">Pay Us What You'd Like</label><br />
-                                    <input className="signup_input" type="string" id="payment" name="payment" placeholder="0" defaultValue="$0.00"/><br />
-                                    <div className="pay_buttons_div">
-                                        <button className="pay_button" type="button" value="1" onClick={() => { document.getElementById("payment").value = "$1.00"} }>$1</button>
-                                        <button className="pay_button" type="button" value="5" onClick={() => { document.getElementById("payment").value = "$5.00"} }>$5</button>
-                                        <button className="pay_button" type="button" value="10" onClick={() => { document.getElementById("payment").value = "$10.00"} }>$10</button>
-                                        <button className="pay_button" type="button" value="20" onClick={() => { document.getElementById("payment").value = "$20.00"} }>$20</button>
-                                    </div>
-                                </div>
-                                <div className="signup_fields">
-                                    <div className="pay_with_div center_text">
-                                        <button id="submit" className="paypal_btn" type="submit">Pay with PayPal</button>
-                                        {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
-                                        {/*<p>Or</p>
+                            </div>
+                            <div className="signup_fields">
+                                <div className="pay_with_div center_text">
+                                    <button id="submit" className="paypal_btn" type="submit">Pay with PayPal</button>
+                                    {/* Code snippet for bitcoin payment option, which is currently an unavailable feature in the beta release. - Zane */}
+                                    {/*<p>Or</p>
                                         <button id="submit" className="bitcoin_btn" type="submit">Pay with Bitcoin</button>*/}
-                                    </div>
                                 </div>
-                                <div className="signup_fields agreement_div">
-                                    <div className="newsletter_div center_text">
-                                        <input type="checkbox" id="agreement" name="agreement" />
-                                        <label className="center_text" htmlFor="agreement">&nbsp;I agree to the <b>Adoption Agreement</b> and <Link to="/terms_of_service" target="_blank">Terms Of Service</Link>.</label><br />
-                                    </div>
+                            </div>
+                            <div className="signup_fields agreement_div">
+                                <div className="newsletter_div center_text">
+                                    <input type="checkbox" id="agreement" name="agreement" />
+                                    <label className="center_text" htmlFor="agreement">&nbsp;I agree to the <b>Adoption Agreement</b> and <Link to="/terms_of_service" target="_blank">Terms Of Service</Link>.</label><br />
                                 </div>
-                            </fieldset>
-                        </form>
+                            </div>
+                        </fieldset>
+                    </form>
                 </React.Fragment>
             </React.Fragment>
         );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 SignUp.propTypes = {
     geoDataExists: PropTypes.bool.isRequired,
     setGeoDataExists: PropTypes.func.isRequired,

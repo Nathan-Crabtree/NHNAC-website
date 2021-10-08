@@ -1,74 +1,75 @@
 nav ul,
 footer > div,
-footer > div:last-child ul  {
-    display: flex;
-    justify-content: center;
+footer > div:last-child ul {
+  display: flex;
+  justify-content: center;
 }
 
 // NOTE: These child tags don't have > because they cause a bug. - Zane
 nav > div,
 footer {
-    background-color: $nh-black;
-    a, h4 {
-        color: $nh-white;
-        text-decoration: none;
-    }
-    li {
-        list-style-type: none;
-    }
+  background-color: $nh-black;
+  a,
+  h4 {
+    color: $nh-white;
+    text-decoration: none;
+  }
+  li {
+    list-style-type: none;
+  }
 }
 
 footer a,
 footer > div:nth-child(2) li {
-    color: $nh-white;
-    text-decoration: none;
+  color: $nh-white;
+  text-decoration: none;
 }
 
 .MsoNormal {
-    font-size: 1.75rem; // 175% relative to root font-size (1em = 16px)
+  font-size: 1.75rem; // 175% relative to root font-size (1em = 16px)
 }
 
 tr:first-child > td {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 a {
-    color: $nh-black;
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-        text-decoration: underline;
-    }
+  color: $nh-black;
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .error_description {
-    color: $nh-error;
+  color: $nh-error;
 }
 
 .center_text {
-    text-align: center;
+  text-align: center;
 }
 
 .clear {
-    clear: both;
+  clear: both;
 }
 
 // About
 
 .about_link {
-    display: block;
+  display: block;
 }
 
 .experiences_div {
-    @extend %center;
-    width: 25%;
+  @extend %center;
+  width: 25%;
 }
 
 #contactDiv {
-    text-align: center;
-    > div > p {
-        font-weight: bold;
-    }
+  text-align: center;
+  > div > p {
+    font-weight: bold;
+  }
 }
 
 .image_credits_div {
@@ -83,567 +84,578 @@ a {
 // Content
 
 .content_container1 {
-    > section {
-        @extend %div_section;
-        margin: $nh-main-margin;
-        width: 584.1px; // calc(649px * .9)
-        h3 {
-            text-align: center;
-        }
+  > section {
+    @extend %div_section;
+    margin: $nh-main-margin;
+    width: 584.1px; // calc(649px * .9)
+    h3 {
+      text-align: center;
     }
-    > button {
-        @extend %center;
-    }
+  }
+  > button {
+    @extend %center;
+  }
 }
 
 .content_container2 {
-    padding-left: $nh-padding-l;
-    > aside:not(:nth-child(3)) {
-        @extend %content_container_section;
-    }
+  padding-left: $nh-padding-l;
+  > aside:not(:nth-child(3)) {
+    @extend %content_container_section;
+  }
 }
 
 // Src: https://coder-coder.com/display-divs-side-by-side/ - Zane
 .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
 }
 
 .header_content {
-    padding: calc(#{$nh-padding-s}*5) 0 $nh-padding-s 0; // padding: 50px 0 10px 0;
+  padding: calc(#{$nh-padding-s}* 5) 0 $nh-padding-s 0; // padding: 50px 0 10px 0;
 }
 
 .author_content {
-    > p, img {
-        float: left;
-    }
-    .event_info {
-        width: 50%;
-    }
-    margin: $nh-margin-s;
+  > p,
+  img {
+    float: left;
+  }
+  .event_info {
+    width: 50%;
+  }
+  margin: $nh-margin-s;
 }
 
 .sub_article {
-    &_content {
-        float: right;
-        clear: right;
-        margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s; /* top right bottom left */
-    }
-    &_tags {
-        float: left;
-        clear: left;
-        margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s;
-    }
+  &_content {
+    float: right;
+    clear: right;
+    margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s; /* top right bottom left */
+  }
+  &_tags {
+    float: left;
+    clear: left;
+    margin: 0 $nh-margin-s $nh-margin-s $nh-margin-s;
+  }
 }
 
-.top_aside, .bottom_aside {
-    > div, ul, button {
-        padding: $nh-padding-xl $nh-padding-xl 0 $nh-padding-xl;
-        > li {
-            list-style-type: none;
-            padding-bottom: $nh-padding-xl;
-        }
+.top_aside,
+.bottom_aside {
+  > div,
+  ul,
+  button {
+    padding: $nh-padding-xl $nh-padding-xl 0 $nh-padding-xl;
+    > li {
+      list-style-type: none;
+      padding-bottom: $nh-padding-xl;
     }
-    > button {
-        @extend %center;
-    }
+  }
+  > button {
+    @extend %center;
+  }
 }
 
 .more_articles_link {
-    width: 65%;
-    float: right;
-    padding-top: $nh-padding-s;
+  width: 65%;
+  float: right;
+  padding-top: $nh-padding-s;
 }
 
 // Article
 
 .top_aside_container {
-    display: block;
-    > div:first-child {
-        float: left;
+  display: block;
+  > div:first-child {
+    float: left;
+  }
+  > div:nth-child(2) {
+    float: right;
+    margin-top: 14px;
+    > a {
+      padding-right: $nh-padding-s;
     }
-    > div:nth-child(2) {
-        float: right;
-        margin-top: 14px;
-        > a {
-            padding-right: $nh-padding-s;
-        }
-    }
+  }
 }
 
 .location_time_section {
-    @extend %center;
-    @extend %content_container_section;
-    margin-top: 45px;
-    padding: $nh-padding-l $nh-padding-l;
-    > div {
-        margin-top: 20px;
-    }
+  @extend %center;
+  @extend %content_container_section;
+  margin-top: 45px;
+  padding: $nh-padding-l $nh-padding-l;
+  > div {
+    margin-top: 20px;
+  }
 }
 
 .event_attendees_div {
+  @extend %center;
+  padding-top: $nh-padding-l;
+  width: 40%;
+  > section {
+    @extend %content_container_section;
+    @extend %profile_container_section_ul;
+  }
+  > button {
     @extend %center;
-    padding-top: $nh-padding-l;
-    width: 40%;
-    > section {
-        @extend %content_container_section;
-        @extend %profile_container_section_ul;
-    }
-    > button {
-        @extend %center;
-    }
+  }
 }
 
 .event_info_container {
-    padding-right: 80px;
-    display: flex;
+  padding-right: 80px;
+  display: flex;
 }
 
 .bottom_aside_container {
-    display: block;
-    > div:first-child {
-        padding-top: 100px;
-        padding-bottom: $nh-padding-xs;
-        a {
-            background-color: white;
-            border: 1px solid $nh-black;
-            border-radius: 4px;
-            padding: $nh-padding-xs $nh-padding-xs;
-            margin-right: 5px;
-        }
+  display: block;
+  > div:first-child {
+    padding-top: 100px;
+    padding-bottom: $nh-padding-xs;
+    a {
+      background-color: white;
+      border: 1px solid $nh-black;
+      border-radius: 4px;
+      padding: $nh-padding-xs $nh-padding-xs;
+      margin-right: 5px;
     }
-    > div:nth-child(2) {
-        float: left;
-        > ul {
-            margin-left: -40px;
-            > li {
-                padding-right: $nh-padding-s;
-                list-style-type: none;
-                display: inline;
-            }
-        }
-        > p {
-            font-size: $nh-font-small;
-        }
+  }
+  > div:nth-child(2) {
+    float: left;
+    > ul {
+      margin-left: -40px;
+      > li {
+        padding-right: $nh-padding-s;
+        list-style-type: none;
+        display: inline;
+      }
     }
-    > div:nth-child(3) {
-        float: right;
-        margin-top: 14px;
-        > a {
-            padding-right: $nh-padding-s;
-        }
+    > p {
+      font-size: $nh-font-small;
     }
+  }
+  > div:nth-child(3) {
+    float: right;
+    margin-top: 14px;
+    > a {
+      padding-right: $nh-padding-s;
+    }
+  }
 }
 
 .back_to_articles_link {
-    padding-top: 50px;
-    width: 100%;
+  padding-top: 50px;
+  width: 100%;
 }
 
 .comment_section_container {
-    display: none;
+  display: none;
 }
 
 .blur_container {
-    filter: blur(1.5rem);
-    position: relative;
+  filter: blur(1.5rem);
+  position: relative;
 }
 
 // NOTE: Temporary styling. Needs to be corrected. - Zane
 .blur_text_container {
-    position: absolute;
-    top: 125%;
-    right: 31%;
-    text-align: center;
+  position: absolute;
+  top: 125%;
+  right: 31%;
+  text-align: center;
 }
 
 .figure_podcast {
-    padding-bottom: $nh-padding-l;
-    :last-child {
-      padding-top: $nh-padding-l;
-      color: $nh-black;
-    }
+  padding-bottom: $nh-padding-l;
+  :last-child {
+    padding-top: $nh-padding-l;
+    color: $nh-black;
+  }
 }
 
 // Comment
 
 .comment_container {
-    > div:nth-of-type(1) {
-        float: left;
-        > img {
-            float: left;
-            margin: $nh-margin-s $nh-margin-s 0 0;
-        }
-        > div {
-            float: right;
-            margin-top: -10px;
-            > div > p {
-                width: $nh-article-img-width;
-                margin-top: -5px;
-                font-size: $nh-font-small;
-            }
-        }
+  > div:nth-of-type(1) {
+    float: left;
+    > img {
+      float: left;
+      margin: $nh-margin-s $nh-margin-s 0 0;
     }
+    > div {
+      float: right;
+      margin-top: -10px;
+      > div > p {
+        width: $nh-article-img-width;
+        margin-top: -5px;
+        font-size: $nh-font-small;
+      }
+    }
+  }
+  > div:nth-of-type(3) {
+    width: 80%;
+    margin-top: -105px;
+    float: right;
+    > div:first-of-type {
+      float: left;
+      > p {
+        font-size: $nh-font-small;
+      }
+    }
+    @extend %comment_container_ul;
     > div:nth-of-type(3) {
-        width: 80%;
-        margin-top: -105px;
-        float: right;
-        > div:first-of-type {
-            float: left;
-            > p {
-                font-size: $nh-font-small;
-            }
+      padding-bottom: $nh-padding-xs;
+      > ul {
+        list-style-type: none;
+        padding: $nh-padding-m 0 $nh-padding-xs 0;
+        font-size: $nh-font-small;
+        > li {
+          display: inline-block;
+          padding-right: $nh-padding-xs;
+          &:nth-child(3) {
+            @extend %report_li;
+          }
         }
-        @extend %comment_container_ul;
-        > div:nth-of-type(3) {
-            padding-bottom: $nh-padding-xs;
-            > ul {
-                list-style-type: none;
-                padding: $nh-padding-m 0 $nh-padding-xs 0;
-                font-size: $nh-font-small;
-                > li {
-                    display: inline-block;
-                    padding-right: $nh-padding-xs;
-                    &:nth-child(3) {
-                        @extend %report_li;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 // Response
 
 .response_container {
-    > div {
-        width: 100%;
-        padding: $nh-padding-s;
+  > div {
+    width: 100%;
+    padding: $nh-padding-s;
+    float: right;
+    > div:first-of-type {
+      float: left;
+      > img {
+        float: left;
+        margin: $nh-margin-s $nh-margin-s 0 0;
+      }
+      > div {
         float: right;
-        > div:first-of-type {
-            float: left;
-            > img {
-                float: left;
-                margin: $nh-margin-s $nh-margin-s 0 0;
-            }
-            > div {
-                float: right;
-                margin: -10px 0 0 $nh-margin-s;
-                > div > p {
-                    margin-top: -5px;
-                    font-size: $nh-font-small;
-                }
-            }
+        margin: -10px 0 0 $nh-margin-s;
+        > div > p {
+          margin-top: -5px;
+          font-size: $nh-font-small;
         }
-        > div:nth-of-type(2) {
-            float: left;
-            > p {
-                font-size: $nh-font-small;
-            }
-        }
-        @extend %comment_container_ul;
-        > div:nth-of-type(4) {
-            padding-bottom: $nh-padding-xs;
-        }
-        > ul:nth-of-type(2) {
-            list-style-type: none;
-            padding-bottom: $nh-padding-xs;
-            font-size: $nh-font-small;
-            margin-left: -38px;
-            > li {
-                display: inline-block;
-                padding-right: $nh-padding-xs;
-                &:nth-child(3) {
-                    @extend %report_li;
-                }
-            }
-        }
+      }
     }
+    > div:nth-of-type(2) {
+      float: left;
+      > p {
+        font-size: $nh-font-small;
+      }
+    }
+    @extend %comment_container_ul;
+    > div:nth-of-type(4) {
+      padding-bottom: $nh-padding-xs;
+    }
+    > ul:nth-of-type(2) {
+      list-style-type: none;
+      padding-bottom: $nh-padding-xs;
+      font-size: $nh-font-small;
+      margin-left: -38px;
+      > li {
+        display: inline-block;
+        padding-right: $nh-padding-xs;
+        &:nth-child(3) {
+          @extend %report_li;
+        }
+      }
+    }
+  }
 }
 
 .response_section_container {
-    display: none;
+  display: none;
 }
 
 // Profile
 
 .profile_container1 {
-    float: left;
-    width: 58.7%;
+  float: left;
+  width: 58.7%;
+  > div:first-of-type {
     > div:first-of-type {
-        > div:first-of-type {
-            float: left;
-            padding-right: $nh-padding-xl;
-            .profile_img_large {
-                position: absolute;
-            }
-        }
-        > section:first-of-type {
-            float: right;
-            > h2 {
-                margin-top: 5px;
-                padding-bottom: $nh-padding-l;
-            }
-            > p {
-                margin-top: -15px;
-                &:nth-of-type(4) {
-                    margin-bottom: 0;
-                    margin-top: -20px;
-                }
-            }
-            > div:nth-of-type(2) {
-                p {
-                    margin: -15px 0 0 0;
-                    display: inline;
-                }
-                button {
-                    margin-left: -6px;
-                }
-            }
-            > button {
-                margin-left: -6px;
-                &:nth-of-type(2) {
-                    display: none;
-                }
-            }
-            > div:nth-of-type(3) {
-                margin-top: 14px;
-                > a {
-                    padding-right: $nh-padding-s;
-                }
-            }
-        }
+      float: left;
+      padding-right: $nh-padding-xl;
+      .profile_img_large {
+        position: absolute;
+      }
     }
-    > button {
-        margin: $nh-main-margin;
-        width: 332px;
+    > section:first-of-type {
+      float: right;
+      > h2 {
+        margin-top: 5px;
+        padding-bottom: $nh-padding-l;
+      }
+      > p {
+        margin-top: -15px;
+        &:nth-of-type(4) {
+          margin-bottom: 0;
+          margin-top: -20px;
+        }
+      }
+      > div:nth-of-type(2) {
+        p {
+          margin: -15px 0 0 0;
+          display: inline;
+        }
+        button {
+          margin-left: -6px;
+        }
+      }
+      > button {
+        margin-left: -6px;
+        &:nth-of-type(2) {
+          display: none;
+        }
+      }
+      > div:nth-of-type(3) {
+        margin-top: 14px;
+        > a {
+          padding-right: $nh-padding-s;
+        }
+      }
+    }
+  }
+  > button {
+    margin: $nh-main-margin;
+    width: 332px;
+    > h4 {
+      margin-top: 5px;
+    }
+  }
+  .profile_container1_section_container2 {
+    & {
+      a:first-child {
+        color: $nh-error;
+      }
+      .modal_button {
+        color: $nh-black;
+      }
+      > div > p {
+        margin: 0;
+      }
+    }
+    &--viewer {
+      padding-top: $nh-padding-s;
+      .modal_button {
+        color: $nh-black;
+      }
+      > button {
+        width: 50%;
+        border-radius: 25px;
         > h4 {
-            margin-top: 5px;
+          margin: 0;
         }
+      }
+      > div {
+        width: 50%;
+        border-radius: 25px;
+        margin-bottom: 15px;
+        > button {
+          @extend %center;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
     }
-    .profile_container1_section_container2 {
-        & {
-            a:first-child {
-                color: $nh-error;
-            }
-            .modal_button {
-                color: $nh-black;
-            }
-            > div > p {
-                margin: 0;
-            }
-        }
-        &--viewer {
-            padding-top: $nh-padding-s;
-            .modal_button {
-                color: $nh-black;
-            }
-            > button {
-                width: 50%;
-                border-radius: 25px;
-                > h4 {
-                    margin: 0;
-                }
-            }
-            > div {
-                width: 50%;
-                border-radius: 25px;
-                margin-bottom: 15px;
-                > button {
-                    @extend %center;
-                    &:hover {
-                        text-decoration: none;
-                    }
-                }
-            }
-        }
+  }
+  .profile_container1_and_half {
+    padding-top: $nh-padding-m;
+    width: 484.3px;
+    > div > section {
+      @extend %content_container_section;
+      margin: 0;
+      @extend %profile_container_section_ul;
     }
-    .profile_container1_and_half {
-        padding-top: $nh-padding-m;
-        width: 484.3px;
-        > div > section {
-            @extend %content_container_section;
-            margin: 0;
-            @extend %profile_container_section_ul;
-        }
-    }
+  }
 }
 
 .profile_container2 {
-    float: right;
-    padding-top: $nh-padding-m;
-    margin-top: -25px;
-    > div > section {
-        @extend %content_container_section;
-        margin: 0;
-        @extend %profile_container_section_ul;
-    }
+  float: right;
+  padding-top: $nh-padding-m;
+  margin-top: -25px;
+  > div > section {
+    @extend %content_container_section;
+    margin: 0;
+    @extend %profile_container_section_ul;
+  }
 }
 
 .profile_drop_zone {
-    padding: $nh-padding-m $nh-padding-m;
-    &--over, &--empty {
-        opacity: 0.5;
-        background-color: white;
-    }
+  padding: $nh-padding-m $nh-padding-m;
+  &--over,
+  &--empty {
+    opacity: 0.5;
+    background-color: white;
+  }
 }
 
 @for $profile-container from 1 through 2 {
-    @for $section-container from 1 through 4 {
-        @if $profile-container == 1 and $section-container > 2 {
-            .profile_container#{$profile-container}_section_container#{$section-container} {
-                // Src: https://stackoverflow.com/questions/391440/how-to-make-div-resizeable - Zane
-                resize: none;
-                overflow: auto; /* something other than visible */
-            }
-        } @else if $profile-container == 2 {
-            .profile_container#{$profile-container}_section_container#{$section-container} {
-                resize: none;
-                overflow: auto;
-            }
-        }
+  @for $section-container from 1 through 4 {
+    @if $profile-container == 1 and $section-container > 2 {
+      .profile_container#{$profile-container}_section_container#{$section-container} {
+        // Src: https://stackoverflow.com/questions/391440/how-to-make-div-resizeable - Zane
+        resize: none;
+        overflow: auto; /* something other than visible */
+      }
+    } @else if $profile-container == 2 {
+      .profile_container#{$profile-container}_section_container#{$section-container} {
+        resize: none;
+        overflow: auto;
+      }
     }
+  }
 }
 
 .table--clicked {
-    border: 1px solid $nh-black;
+  border: 1px solid $nh-black;
 }
 
 // Connections
 
 .connections_modal_ul {
-    margin-left: -40px;
-    > li {
-        list-style-type: none;
-        > img {
-            float: left;
-        }
-        > div:first-of-type {
-            margin-left: 120px;
-        }
-        > section:first-of-type {
-            float: right;
-            padding-bottom: $nh-padding-l;
-            > button:first-of-type {
-                background-color: blue;
-                color: white;
-                &:hover {
-                    background-color: blue;
-                }
-            }
-            > button:nth-of-type(2) {
-                background-color: red;
-                color: white;
-                margin-left: 5px;
-                &:hover {
-                    background-color: red;
-                }
-            }
-        }
+  margin-left: -40px;
+  > li {
+    list-style-type: none;
+    > img {
+      float: left;
     }
+    > div:first-of-type {
+      margin-left: 120px;
+    }
+    > section:first-of-type {
+      float: right;
+      padding-bottom: $nh-padding-l;
+      > button:first-of-type {
+        background-color: blue;
+        color: white;
+        &:hover {
+          background-color: blue;
+        }
+      }
+      > button:nth-of-type(2) {
+        background-color: red;
+        color: white;
+        margin-left: 5px;
+        &:hover {
+          background-color: red;
+        }
+      }
+    }
+  }
 }
 
 // Account Settings
 
 .account_settings_container {
-    @extend %center;
-    width: 63%;
-    padding-bottom: $nh-signup-padding-bottom;
-    > div:first-of-type {
-        float: left;
-        padding-right: $nh-padding-xl;
-        .profile_img_large {
-            position: absolute;
-        }
+  @extend %center;
+  width: 63%;
+  padding-bottom: $nh-signup-padding-bottom;
+  > div:first-of-type {
+    float: left;
+    padding-right: $nh-padding-xl;
+    .profile_img_large {
+      position: absolute;
     }
-    > div:nth-of-type(2) {
-        float: right;
-        @extend %report_li;
-        > div:nth-of-type(3) {
-            > div > div {
-                padding-top: $nh-padding-xl;
-                > img {
-                    padding-right: $nh-padding-s;
-                }
-            }
+  }
+  > div:nth-of-type(2) {
+    float: right;
+    @extend %report_li;
+    > div:nth-of-type(3) {
+      > div > div {
+        padding-top: $nh-padding-xl;
+        > img {
+          padding-right: $nh-padding-s;
         }
+      }
     }
-    > div:nth-of-type(4) {
-        > section {
-            padding-top: $nh-padding-xl;
-            > h5:first-child {
-                text-align: center;
-                width: 150px;
-                border: 1px solid $nh-black;
-                border-radius: 5px;
-                padding: $nh-padding-s;
-            }
-        }
+  }
+  > div:nth-of-type(4) {
+    > section {
+      padding-top: $nh-padding-xl;
+      > h5:first-child {
+        text-align: center;
+        width: 150px;
+        border: 1px solid $nh-black;
+        border-radius: 5px;
+        padding: $nh-padding-s;
+      }
     }
+  }
 }
 
 // Search
 
 .search_container {
-    @extend %center;
-    display: block;
-    width: 90%;
-    > div {
-        float: left;
-        padding: 0 45px;
+  @extend %center;
+  display: block;
+  width: 90%;
+  > div {
+    float: left;
+    padding: 0 45px;
+    @extend %div_section;
+    width: 70%;
+    > div:first-of-type {
+      text-align: center;
+      > ul > li {
+        display: inline;
+        list-style-type: none;
+      }
+    }
+    > div:nth-of-type(2) {
+      padding-bottom: 45px;
+      > section {
+        padding: $nh-padding-s;
         @extend %div_section;
-        width: 70%;
-        > div:first-of-type {
-            text-align: center;
-            > ul > li {
-                display: inline;
-                list-style-type: none;
-            }
+        margin: $nh-main-margin;
+        > a {
+          margin: 8px;
         }
-        > div:nth-of-type(2) {
-            padding-bottom: 45px;
-            > section {
-                padding: $nh-padding-s;
-                @extend %div_section;
-                margin: $nh-main-margin;
-                > a {
-                    margin: 8px;
-                }
-                > blockquote {
-                    font-style: italic;
-                    > q {
-                        background-image: linear-gradient(to right, $nh-gray 0%, $nh-black 5%, $nh-black 95%, $nh-gray 100%);
-                        // Src: https://fossheim.io/writing/posts/css-text-gradient/ - Zane
-                        background-size: 100%;
-                        -webkit-background-clip: text;
-                        -moz-background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        -moz-text-fill-color: transparent;
-                        > mark {
-                            background-color: transparent;
-                            font-weight: bold;
-                        }
-                    }
-                }
+        > blockquote {
+          font-style: italic;
+          > q {
+            background-image: linear-gradient(
+              to right,
+              $nh-gray 0%,
+              $nh-black 5%,
+              $nh-black 95%,
+              $nh-gray 100%
+            );
+            // Src: https://fossheim.io/writing/posts/css-text-gradient/ - Zane
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            > mark {
+              background-color: transparent;
+              font-weight: bold;
             }
+          }
         }
-        > ul {
-            @extend %center;
-            width: 75%;
-            > li {
-                display: inline;
-                list-style-type: none;
-                padding-right: $nh-padding-m;
-            }
-        }
+      }
     }
-    > form {
-        float: right;
-        width: 25%;
-        padding: $nh-padding-m;
-        > h3 {
-            text-align: center;
-        }
+    > ul {
+      @extend %center;
+      width: 75%;
+      > li {
+        display: inline;
+        list-style-type: none;
+        padding-right: $nh-padding-m;
+      }
     }
+  }
+  > form {
+    float: right;
+    width: 25%;
+    padding: $nh-padding-m;
+    > h3 {
+      text-align: center;
+    }
+  }
 }

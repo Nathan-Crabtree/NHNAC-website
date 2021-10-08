@@ -8,18 +8,18 @@ export default class RequestID extends Component {
     constructor() {
         super();
         this.state = {
-            user: { 
-                firstName: "Milton", 
-                nickName: "Milo", 
-                lastName: "Miles", 
+            user: {
+                firstName: "Milton",
+                nickName: "Milo",
+                lastName: "Miles",
                 address: {
-                    street: "1234 Yerling Street", 
-                    country: "United States", 
-                    state: "Mississippi", 
-                    city: "Orlando", 
-                    zip: "02345", 
+                    street: "1234 Yerling Street",
+                    country: "United States",
+                    state: "Mississippi",
+                    city: "Orlando",
+                    zip: "02345",
                 },
-                tier: "Ayahuasca Roadman", 
+                tier: "Ayahuasca Roadman",
                 email: "miltonmiles@gmail.com"
             },
             errorsThatExist: [],
@@ -36,7 +36,7 @@ export default class RequestID extends Component {
      *
      * @param {integer} classNameIndex
      */
-     displayForm(classNameIndex) {
+    displayForm(classNameIndex) {
         if (!this.state.formActive) {
             // Array of form input IDs
             const formInputIds = ["firstName", "lastName", "userEmail", "streetId", "countryId", "stateId", "cityId", "zipId"];
@@ -106,6 +106,7 @@ export default class RequestID extends Component {
      */
     onSubmit(e, form) {
         const target = e.target || e.srcElement;
+        let submit = document.querySelector(".request_id_form #submit");
 
         // Use IE5-8 fallback if event object not present
         if (!e) {
@@ -165,10 +166,10 @@ export default class RequestID extends Component {
                 this.hideForm(0);
 
                 this.setState({
-                    user: { 
-                        firstName: firstName, 
-                        nickName: nickName, 
-                        lastName: lastName 
+                    user: {
+                        firstName: firstName,
+                        nickName: nickName,
+                        lastName: lastName
                     }
                 });
             }
@@ -250,13 +251,13 @@ export default class RequestID extends Component {
                 this.hideForm(2);
 
                 this.setState({
-                    user: { 
+                    user: {
                         address: {
-                            street: street, 
-                            country: country, 
-                            state: state, 
-                            city: city, 
-                            zip: zip 
+                            street: street,
+                            country: country,
+                            state: state,
+                            city: city,
+                            zip: zip
                         }
                     }
                 });
@@ -325,7 +326,7 @@ export default class RequestID extends Component {
         // Remove geodata script from DOM 
         if (this.props.geoDataExists) {
             const geoDataScript = document.getElementsByClassName('geodata_script')[0];
-            
+
             geoDataScript.parentElement.removeChild(geoDataScript);
             this.props.setGeoDataExists();
         }
@@ -334,10 +335,10 @@ export default class RequestID extends Component {
     render() {
         const { user } = this.state;
 
-        return( this.state.renderChild ?
+        return (this.state.renderChild ?
             <RequestIDSubmitted userFirstName={user.firstName} userLastName={user.lastName} userStreet={user.address.street}
-            userCountry={user.address.country} userState={user.address.state} userCity={user.address.city} userZip={user.address.zip}
-            userTier={user.tier} userEmail={user.email} />
+                userCountry={user.address.country} userState={user.address.state} userCity={user.address.city} userZip={user.address.zip}
+                userTier={user.tier} userEmail={user.email} />
             :
             <div className="request_id_form">
                 <div>
@@ -348,11 +349,11 @@ export default class RequestID extends Component {
                     <div className="signup_fields">
                         <h4>Name</h4>
                         <p>{user.firstName} {user.lastName}</p>
-                        <form id="name" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "name") } }>
+                        <form id="name" className="status_form" onSubmit={(e) => { this.onSubmit(e, "name") }}>
                             <fieldset>
                                 <div className="status_form_field">
                                     <label htmlFor="name">Name</label>
-                                    <svg onClick={ () => { this.hideForm(0) } } className="_modal-close-icon" viewBox="0 0 40 40">
+                                    <svg onClick={() => { this.hideForm(0) }} className="_modal-close-icon" viewBox="0 0 40 40">
                                         <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                                     </svg><br />
                                     <br />
@@ -368,16 +369,16 @@ export default class RequestID extends Component {
                                 <button className="submit_btn submit_padding" type="submit">Submit</button>
                             </fieldset>
                         </form>
-                        <button onClick={ () => { this.displayForm(0) } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
+                        <button onClick={() => { this.displayForm(0) }} className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                     </div>
                     <div className="signup_fields">
                         <h4>Email</h4>
                         <p>{user.email}</p>
-                        <form id="email" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "email") } }>
+                        <form id="email" className="status_form" onSubmit={(e) => { this.onSubmit(e, "email") }}>
                             <fieldset>
                                 <div className="status_form_field">
                                     <label htmlFor="email">Email</label>
-                                    <svg onClick={ () => { this.hideForm(1) } } className="_modal-close-icon" viewBox="0 0 40 40">
+                                    <svg onClick={() => { this.hideForm(1) }} className="_modal-close-icon" viewBox="0 0 40 40">
                                         <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                                     </svg><br />
                                     <br />
@@ -388,16 +389,16 @@ export default class RequestID extends Component {
                                 <button className="submit_btn submit_padding" type="submit">Submit</button>
                             </fieldset>
                         </form>
-                        <button onClick={ () => { this.displayForm(1) } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
+                        <button onClick={() => { this.displayForm(1) }} className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                     </div>
                     <div className="signup_fields">
                         <h4>Address</h4>
                         <p>{user.address.street} {user.address.city}, {user.address.state}, {user.address.country} {user.address.zip}</p>
-                        <form id="address" className="status_form" onSubmit={ (e) => { this.onSubmit(e, "address") }}>
+                        <form id="address" className="status_form" onSubmit={(e) => { this.onSubmit(e, "address") }}>
                             <fieldset>
                                 <div className="status_form_field">
                                     <label htmlFor="address">Address</label><br />
-                                    <svg onClick={ () => { this.hideForm(2) } } className="_modal-close-icon" viewBox="0 0 40 40">
+                                    <svg onClick={() => { this.hideForm(2) }} className="_modal-close-icon" viewBox="0 0 40 40">
                                         <path d="M 10,10 L 30,30 M 30,10 L 10,30" />
                                     </svg><br />
                                     <div>
@@ -408,9 +409,9 @@ export default class RequestID extends Component {
                                             </select>
                                         </div>
                                         <div className="geo_location">
-                                                <select name="state" className="states" id="stateId">
-                                                    <option value="">Select State</option>
-                                                </select>
+                                            <select name="state" className="states" id="stateId">
+                                                <option value="">Select State</option>
+                                            </select>
                                         </div>
                                         <div className="geo_location">
                                             <select name="city" className="cities" id="cityId">
@@ -423,7 +424,7 @@ export default class RequestID extends Component {
                                 <button className="submit_btn submit_padding" type="submit">Submit</button>
                             </fieldset>
                         </form>
-                        <button onClick={ () => { this.displayForm(2) } } className="edit_status_btn text_btn" type="button"><b>edit</b></button>
+                        <button onClick={() => { this.displayForm(2) }} className="edit_status_btn text_btn" type="button"><b>edit</b></button>
                     </div>
                     <div className="signup_fields">
                         <h4>Tier</h4>
@@ -441,7 +442,7 @@ export default class RequestID extends Component {
                     </div>
                     <div className="signup_fields">
                         <div className="pay_with_div center_text">
-                            <button id="submit" className="paypal_btn" onClick={ (e) => { this.onSubmit(e, "request_id") } }>Request New ID Card</button>
+                            <button id="submit" className="paypal_btn" onClick={(e) => { this.onSubmit(e, "request_id") }}>Request New ID Card</button>
                         </div>
                     </div>
                 </div>
@@ -451,7 +452,7 @@ export default class RequestID extends Component {
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 RequestID.propTypes = {
     geoDataExists: PropTypes.bool.isRequired,
     setGeoDataExists: PropTypes.func.isRequired,

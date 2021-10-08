@@ -7,16 +7,16 @@ import PropTypes from 'prop-types';
 var CryptoJS = require("crypto-js");
 require('dotenv').config();
 
-export const Connections = ({ profileImgSmall, messageIcon, approveOrReject, closeModal }) => {
+export const Connections = ({ profileImgSmall, messageIcon, closeModal }) => {
     const { REACT_APP_KEY } = process.env;
 
     /**
      * Change status in Connection table with auth. user and connecting user to "Approved" in database if
-     * approved. Deletes Connection table related to auth. user and connecting user if rejected.
+     * approved. Deletes Connection table related to auth. user and connecting user if rejected. 
      *
      * @param {boolean} approved  
      */
-    approveOrReject = (approved) => {
+    const approveOrReject = (approved) => {
         if (approved) {
             // Change status in Connection table with auth. user and connecting user to "Approved" in database. Query with userId
             // in class attribute. Replace approve and reject buttons with linked message button.
@@ -40,8 +40,8 @@ export const Connections = ({ profileImgSmall, messageIcon, approveOrReject, clo
                     <p>Last Online: 35 min ago</p>
                 </div>
                 <section>
-                    <button onClick={ () => { approveOrReject(true) } }>Approve</button>
-                    <button onClick={ () => { approveOrReject(false) } }>Reject</button>
+                    <button onClick={() => { approveOrReject(true) }}>Approve</button>
+                    <button onClick={() => { approveOrReject(false) }}>Reject</button>
                 </section>
                 <div className="clear"></div>
             </li>
@@ -68,7 +68,7 @@ export const Connections = ({ profileImgSmall, messageIcon, approveOrReject, clo
                 <div className="clear"></div>
             </li>
         </ul>
-        );
+    );
 };
 
 export default Connections;

@@ -4,10 +4,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Delete = ({ closeModal, onSubmit }) => {
+export const Delete = ({ closeModal }) => {
 
-return (
-        <form className="modal_form" onSubmit={onSubmit}>
+    return (
+        <form className="modal_form" onSubmit={() => { }}>
             <h2 className="newsletter_h2">Delete Account</h2>
             <p>Are you sure you would like to delete your account?</p>
             <fieldset>
@@ -20,8 +20,7 @@ return (
 
 export default Delete;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Delete.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired
 }

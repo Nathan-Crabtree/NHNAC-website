@@ -1,156 +1,156 @@
 // Login
 
 .login_display {
-    background-image: url("../images/login.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 725px;
-    > h1 {
-        padding-top: 75px;
-        text-align: center;
-        margin: 0;
-        color: $nh-white;
-    }
+  background-image: url("../images/login.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 725px;
+  > h1 {
+    padding-top: 75px;
+    text-align: center;
+    margin: 0;
+    color: $nh-white;
+  }
 }
 
 // About
 
 .donate_image {
-    @include img-properties(100%);
+  @include img-properties(100%);
 }
 
 .donate_image_desc {
-    @extend %img-desc-properties;
+  @extend %img-desc-properties;
 }
 
 .tribe_image {
-    @include img-properties(initial);
-    @extend %center;
+  @include img-properties(initial);
+  @extend %center;
 }
 
 .tribe_image_desc {
-    @extend %img-desc-properties;
-    margin: -20px 30.75% 0 30.75%;
+  @extend %img-desc-properties;
+  margin: -20px 30.75% 0 30.75%;
 }
 
 .indian_image {
-    @extend %center;
-    width: 50%;
-    height: auto;
+  @extend %center;
+  width: 50%;
+  height: auto;
 }
 
 .indian_image_desc {
-    @extend %img-desc-properties;
-    margin: -30px 25.75% 0 25.75%;
+  @extend %img-desc-properties;
+  margin: -30px 25.75% 0 25.75%;
 }
 
 iframe[title="Oklevueha NAC Religious Freedoms Prevails"] {
-    @extend %center;
+  @extend %center;
 }
 
 // Donate
 
 .image_display {
-    @extend %center;
-    width: 100%;
+  @extend %center;
+  width: 100%;
 }
 
 .image_display,
 .paypal_link {
-    padding: $nh-padding-xl 0; /* top right bottom left */
+  padding: $nh-padding-xl 0; /* top right bottom left */
 }
 
 .image_display:hover {
-    opacity: 80%;
-    .image_desc {
-        opacity: 95%;
-    }
-    transition: opacity 0.25s;
+  opacity: 80%;
+  .image_desc {
+    opacity: 95%;
+  }
+  transition: opacity 0.25s;
 }
 
 // Sign up
 
 .bitcoin_link {
-    text-align: center;
+  text-align: center;
 }
 
 .bitcoin_span {
-    opacity: 50%;
+  opacity: 50%;
 }
 
 .paypal_bitcoin {
-    @extend %center;
+  @extend %center;
 }
 
 // Content
 
 .podcast_img {
-   width: 454.3px;
-   height: auto;
+  width: 454.3px;
+  height: auto;
 }
 
 // Article
 
 .article {
-    &_img_med {
-        border-radius: 4px;
-        width: $nh-article-img-m-width;
-    }
-    &_image {
-        @extend %center;
-        @include img-properties($nh-article-img-width);
-    }
-    &_image_desc {
-        width: $nh-article-img-width;
-        margin: auto;
-        margin-top: -20px;
-        @extend %img-desc-properties;
-    }
+  &_img_med {
+    border-radius: 4px;
+    width: $nh-article-img-m-width;
+  }
+  &_image {
+    @extend %center;
+    @include img-properties($nh-article-img-width);
+  }
+  &_image_desc {
+    width: $nh-article-img-width;
+    margin: auto;
+    margin-top: -20px;
+    @extend %img-desc-properties;
+  }
 }
 
 // Authenicated nav
 
 .magnifying_glass {
-    width: 23px;
-    height: auto;
-    position: absolute;
-    cursor: pointer;
-    border: 2px solid white;
-    background: white;
-    margin-top: -2px;
-    &:hover {
-        background-color: lightgray;
-    }
+  width: 23px;
+  height: auto;
+  position: absolute;
+  cursor: pointer;
+  border: 2px solid white;
+  background: white;
+  margin-top: -2px;
+  &:hover {
+    background-color: lightgray;
+  }
 }
 
 // Profile
 
 .profile_img {
-    &_small {
-        padding-left: $nh-padding-xs;
-        border-radius: 50%;
-        width: $nh-profile-img-s-width;
-        height: $nh-profile-img-s-height;
-    }
-    &_med {
-        padding-left: $nh-padding-xs;
-        border-radius: 50%;
-        width: $nh-profile-img-m-width;
-        height: $nh-profile-img-m-height;
-    }
-    &_large {
-        padding-bottom: $nh-padding-m;
-        width: $nh-profile-img-l-width;
-        height: $nh-profile-img-l-height;
-    }
+  &_small {
+    padding-left: $nh-padding-xs;
+    border-radius: 50%;
+    width: $nh-profile-img-s-width;
+    height: $nh-profile-img-s-height;
+  }
+  &_med {
+    padding-left: $nh-padding-xs;
+    border-radius: 50%;
+    width: $nh-profile-img-m-width;
+    height: $nh-profile-img-m-height;
+  }
+  &_large {
+    padding-bottom: $nh-padding-m;
+    width: $nh-profile-img-l-width;
+    height: $nh-profile-img-l-height;
+  }
 }
 
 // Connections
 
 .message_icon {
-    width: 62%;
-    padding-bottom: $nh-padding-l;
-    &_a {
-        float: right;
-    }
+  width: 62%;
+  padding-bottom: $nh-padding-l;
+  &_a {
+    float: right;
+  }
 }

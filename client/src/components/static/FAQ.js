@@ -8,7 +8,7 @@ export default class FAQ extends Component {
     }
 
     render() {
-        return(
+        return (
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Frequently Asked Questions</span></strong></div><br />
                 <p><strong>1. I am a Healer that runs a small clinic. How can I be legally protected by the New Haven Native American Church?</strong></p>

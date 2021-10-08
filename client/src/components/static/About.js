@@ -1,8 +1,8 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export const About = ({indian, tribe}) => {
+export const About = ({ indian, tribe }) => {
 
     const indianAlt = "A Native American Indian.";
     const tribeAlt = "Tribe logo.";
@@ -61,10 +61,10 @@ export const About = ({indian, tribe}) => {
                 </div>
             </div>
             <div className="image_credits_div">
-              <h3>Image Credits:</h3>
-              <ul>
-                <li><div>Icons made by <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
-              </ul>
+                <h3>Image Credits:</h3>
+                <ul>
+                    <li><div>Icons made by <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a target="_blank" rel="noopener noreferrer" href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
+                </ul>
             </div>
         </React.Fragment>
     );
@@ -72,7 +72,7 @@ export const About = ({indian, tribe}) => {
 
 export default About;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 About.propTypes = {
     indian: PropTypes.string.isRequired,
     tribe: PropTypes.string.isRequired,

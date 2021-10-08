@@ -16,10 +16,10 @@ export default class Error extends Component {
 
     render() {
         const {
-          error
+            error
         } = this.state;
 
-        return(
+        return (
             <div>
                 <p>Oops. There seems to be a problem with finding this page.</p>
                 &nbsp;

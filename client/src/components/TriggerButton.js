@@ -12,7 +12,7 @@ const Trigger = ({ triggerText, buttonRef, showModal }) => {
             ref={buttonRef}
             onClick={showModal}
         >
-        <b>{triggerText}</b>
+            <b>{triggerText}</b>
         </button>
     );
 
@@ -20,7 +20,7 @@ const Trigger = ({ triggerText, buttonRef, showModal }) => {
 
 export default Trigger;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Trigger.propTypes = {
     triggerText: PropTypes.string.isRequired,
     buttonRef: PropTypes.func.isRequired,

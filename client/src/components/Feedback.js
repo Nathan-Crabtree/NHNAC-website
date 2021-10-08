@@ -6,93 +6,94 @@ import PropTypes from 'prop-types';
 
 export const Feedback = ({ sanitizeInput, displayUnloadMessage }) => {
 
-const [errorExists, setErrorExists] = useState(false);
-const [formActive, setFormActive] = useState(false);
+    const [errorExists, setErrorExists] = useState(false);
+    const [formActive, setFormActive] = useState(false);
 
-/**
- * An event handler that prevents default action (page refresh), checks to see if message
- * content is > 3 and < 500 characters, submits and renders HTML according to condition.
- *
- * @param {object} event
- */
-function onSubmit(event) {
-  const target = event.target || event.srcElement;
+    /**
+     * An event handler that prevents default action (page refresh), checks to see if message
+     * content is > 3 and < 500 characters, submits and renders HTML according to condition.
+     *
+     * @param {object} event
+     */
+    function onSubmit(event) {
+        const target = event.target || event.srcElement;
+        let submit = document.querySelector(".feedback_form #submit");
 
-  // Use IE5-8 fallback if event object not present
-  if (!event) {
-    event = window.event;
-  }
+        // Use IE5-8 fallback if event object not present
+        if (!event) {
+            event = window.event;
+        }
 
-  event.preventDefault();
+        event.preventDefault();
 
-  let messageContent = target.message.value;
-  messageContent = sanitizeInput(messageContent);
+        let messageContent = target.message.value;
+        messageContent = sanitizeInput(messageContent);
 
-  // This form is vulnerable for ddos attack. - Zane
-  if (messageContent.length > 3 && messageContent.length <= 500) {
-      // After-submit code
-      // Disable submit button
-      submit.disabled = true;
-      submit.setAttribute("class", "disabled_btn");    
+        // This form is vulnerable for ddos attack. - Zane
+        if (messageContent.length > 3 && messageContent.length <= 500) {
+            // After-submit code
+            // Disable submit button
+            submit.disabled = true;
+            submit.setAttribute("class", "disabled_btn");
 
-      // Take the data and send it to API
-      console.log(messageContent);
+            // Take the data and send it to API
+            console.log(messageContent);
 
-      // Render on the modal thank you text
-      const modalForm = document.getElementsByClassName("modal_form")[0];
-      const thankYouBlock = document.createElement("h3");
-      thankYouBlock.innerText = "Thank you for your feedback!";
-      thankYouBlock.style.textAlign = "center";
-      modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
+            // Render on the modal thank you text
+            const modalForm = document.getElementsByClassName("modal_form")[0];
+            const thankYouBlock = document.createElement("h3");
+            thankYouBlock.innerText = "Thank you for your feedback!";
+            thankYouBlock.style.textAlign = "center";
+            modalForm.parentElement.replaceChild(thankYouBlock, modalForm);
 
-      if (window.removeEventListener) { // If event listener supported
-          // Remove pop-up warning of unsaved data if user attempts to leave page
-          window.removeEventListener("beforeunload", displayUnloadMessage, false);
-      } else {
-          window.detachEvent("beforeunload", displayUnloadMessage);
-      }
-
-      setFormActive(false);
-  } else {
-      // Render error text and colors
-      if (!errorExists) {
-        const formField = target.children[1].firstChild;
-        const input = target.children[1].firstChild.children[6];
-        const error = document.createElement('p');
-        error.innerText = '*Please type in more than 3 characters.';
-        error.style.fontSize = '.9rem';
-        error.style.color = '#C31F01';
-        formField.appendChild(error);
-        input.style.borderColor = '#C31F01';
-        setErrorExists(true);
-      }
-  }
-}
-
-useEffect(() => {
-    if (window.addEventListener) { // If event listener supported
-        // Add pop-up warning of unsaved data if user attempts to leave page
-        window.addEventListener("beforeunload", displayUnloadMessage, false);
-    } else {
-        window.attachEvent("beforeunload", displayUnloadMessage);
-    }
-
-    setFormActive(true);
-
-    // componentWillUnmount() substitute for React Hooks 
-    return () => {
-        if (formActive) {
             if (window.removeEventListener) { // If event listener supported
                 // Remove pop-up warning of unsaved data if user attempts to leave page
                 window.removeEventListener("beforeunload", displayUnloadMessage, false);
             } else {
                 window.detachEvent("beforeunload", displayUnloadMessage);
             }
+
+            setFormActive(false);
+        } else {
+            // Render error text and colors
+            if (!errorExists) {
+                const formField = target.children[1].firstChild;
+                const input = target.children[1].firstChild.children[6];
+                const error = document.createElement('p');
+                error.innerText = '*Please type in more than 3 characters.';
+                error.style.fontSize = '.9rem';
+                error.style.color = '#C31F01';
+                formField.appendChild(error);
+                input.style.borderColor = '#C31F01';
+                setErrorExists(true);
+            }
         }
     }
-}, [])
 
-return (
+    useEffect(() => {
+        if (window.addEventListener) { // If event listener supported
+            // Add pop-up warning of unsaved data if user attempts to leave page
+            window.addEventListener("beforeunload", displayUnloadMessage, false);
+        } else {
+            window.attachEvent("beforeunload", displayUnloadMessage);
+        }
+
+        setFormActive(true);
+
+        // componentWillUnmount() substitute for React Hooks 
+        return () => {
+            if (formActive) {
+                if (window.removeEventListener) { // If event listener supported
+                    // Remove pop-up warning of unsaved data if user attempts to leave page
+                    window.removeEventListener("beforeunload", displayUnloadMessage, false);
+                } else {
+                    window.detachEvent("beforeunload", displayUnloadMessage);
+                }
+            }
+        }
+    }, [])
+
+    return (
         <div>
             <form className="modal_form" onSubmit={onSubmit}>
                 <h2 className="newsletter_h2">Feedback</h2>
@@ -117,8 +118,8 @@ return (
 
 export default Feedback;
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 Feedback.propTypes = {
-  sanitizeInput: PropTypes.func.isRequired,
-  displayUnloadMessage: PropTypes.func.isRequired
+    sanitizeInput: PropTypes.func.isRequired,
+    displayUnloadMessage: PropTypes.func.isRequired
 }

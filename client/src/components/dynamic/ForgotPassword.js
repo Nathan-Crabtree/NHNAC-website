@@ -24,6 +24,7 @@ export default class ForgotPassword extends Component {
      */
     onSubmit = (e) => {
         const target = e.target || e.srcElement;
+        let submit = document.querySelector(".forgot_password_form #submit");
 
         // Use IE5-8 fallback if event object isn't present
         if (!e) {
@@ -52,12 +53,12 @@ export default class ForgotPassword extends Component {
                     this.setState({ errorExists: true });
                 }
                 return false;
-            } 
+            }
         } else {
             // Do code here 
             // Disable submit button
             submit.disabled = true;
-            submit.setAttribute("class", "disabled_btn");  
+            submit.setAttribute("class", "disabled_btn");
         }
     }
 
@@ -75,7 +76,7 @@ export default class ForgotPassword extends Component {
             <React.Fragment>
                 <div className="MsoNormal"><strong><span>Password Recovery</span></strong></div><br />
                 <p>Please answer your security question below.</p><br />
-                <form onSubmit={this.onSubmit}>
+                <form className="forgot_password_form" onSubmit={this.onSubmit}>
                     <fieldset>
                         <div>
                             <label htmlFor="securityQuestion">{securityQuestion}</label><br />
@@ -86,11 +87,11 @@ export default class ForgotPassword extends Component {
                     <span className="resend_email_span">Need assistance? <Link to="/about#contact">Click here to contact us.</Link></span>
                 </form>
             </React.Fragment>
-         );
+        );
     }
 }
 
-// PropTypes for jest testing in App.test.js
+// PropTypes for jest testing
 ForgotPassword.propTypes = {
     sanitizeInput: PropTypes.func.isRequired
 }
