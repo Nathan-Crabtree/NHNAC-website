@@ -124,6 +124,7 @@ export default class RequestID extends Component {
         }
 
         if (form === "name") {
+            let revisedFirstName, revisedNickName, revisedLastName;
             let firstName = target.firstName.value;
             let nickName = target.nickName.value;
             let lastName = target.lastName.value;
@@ -210,16 +211,17 @@ export default class RequestID extends Component {
             street = this.props.sanitizeInput(street);
             zip = this.props.sanitizeInput(zip);
 
+            const formField = document.getElementsByClassName("status_form_field")[2];
+            const inputStreet = document.getElementById("streetId");
+            const inputCountry = document.getElementById("countryId");
+            const inputState = document.getElementById("stateId");
+            const inputCity = document.getElementById("cityId");
+            const inputZip = document.getElementById("zipId");
+
             // Check and validate address input if the address form is being submitted
             if (street === "" || country === "" || state === "" || city === "" || zip === "") {
                 if (!errorsThatExist[2]) {
                     // Render error text and change boolean
-                    const formField = document.getElementsByClassName("status_form_field")[2];
-                    const inputStreet = document.getElementById("streetId");
-                    const inputCountry = document.getElementById("countryId");
-                    const inputState = document.getElementById("stateId");
-                    const inputCity = document.getElementById("cityId");
-                    const inputZip = document.getElementById("zipId");
                     error[2].innerText = '*Please enter or select a value in all address-related fields.';
                     error[2].className = "error_2";
                     error[2].style.fontSize = '.9rem';
@@ -233,19 +235,19 @@ export default class RequestID extends Component {
                     errorsThatExist[2] = true;
                 }
             } else if (street.length > 150) {
-                if (!errorsThatExist[7]) {
+                if (!errorsThatExist[2]) {
                     // Render error text and change boolean
-                    error[7].innerText = '*Please enter a value in the "street" field less than 150 characters.';
-                    error[7].className = "error_7";
-                    error[7].style.fontSize = '.9rem';
-                    error[7].style.color = '#C31F01';
+                    error[2].innerText = '*Please enter a value in the "street" field less than 150 characters.';
+                    error[2].className = "error_7";
+                    error[2].style.fontSize = '.9rem';
+                    error[2].style.color = '#C31F01';
                     formField.appendChild(error[4]);
                     inputStreet.style.borderColor = '#C31F01';
                     inputCountry.style.borderColor = '#C31F01';
                     inputState.style.borderColor = '#C31F01';
                     inputCity.style.borderColor = '#C31F01';
                     inputZip.style.borderColor = '#C31F01';
-                    tempErrorsThatExist[7] = true;
+                    errorsThatExist[2] = true;
                 }
             } else {
                 this.hideForm(2);

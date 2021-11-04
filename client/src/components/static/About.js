@@ -19,7 +19,7 @@ export const About = ({ indian, tribe }) => {
         } else {
             document.getElementById('contactDiv').scrollIntoView();
         }
-    }, []);
+    }, [valid]);
 
     return (
 

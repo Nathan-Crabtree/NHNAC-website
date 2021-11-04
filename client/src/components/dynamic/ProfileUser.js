@@ -18,7 +18,7 @@ export const resizeDataTable = (id) => {
         document.getElementById(id).style.height = "795.6px";
     } else {
         document.getElementById(id).style.height = "397.8px";
-    };
+    }
 }
 
 class ProfileUser extends Component {
@@ -291,7 +291,7 @@ class ProfileUser extends Component {
         // Check the styling of each data table to see if any changes need to made for user's preference data on back-end
 
         // Force reload the page to show new settings and revert changed styling
-        this.props.history.push(`/profile/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}?view=user`);
+        this.props.history.push(`/profile/${CryptoJS.AES.encrypt("1", process.env.REACT_APP_KEY).toString()}?view=user`);
     }
 
     componentDidMount() {
@@ -372,7 +372,7 @@ class ProfileUser extends Component {
                         <Link to={`/direct_message?senderid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}&receiverid=null`}>Messages (1)</Link><br />
                         <Container onSubmit={() => { }} triggerText="Connections" profileImgSmall={profileImgSmall} messageIcon={messageIcon} /><br />
                         <Link to={`/id_request/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Request new ID card</Link><br />
-                        <Link to={`/download_archive?userid=${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Download archive</Link><br />
+                        <Link to={`/download_archive/${CryptoJS.AES.encrypt("1", REACT_APP_KEY).toString()}`}>Download archive</Link><br />
                         <Container onSubmit={() => { }} triggerText="Feedback" />
                         {this.state.collapsedTables}
                     </section>

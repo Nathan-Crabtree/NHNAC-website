@@ -14,6 +14,7 @@
 
 // NOTE: Pass {...props} and as callback into routed component in order to properly use query strings.
 // NOTE: Interestingly, props can only be traversed upward in components with classes, not hooks.
+// NOTE: Recently patched a build-breaking "Unexpected Token" CRA bug. Don't tamper with browserslist configuration in package.json.
 // - Zane
 
 // Import React libraries
@@ -406,12 +407,13 @@ export default class App extends Component {
         <div onClick={resetToggleDisplay}>
           <main>
             <Switch>
-              <Route exact path="/">{(this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), REACT_APP_KEY).toString()}`} /> : <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed}
-                cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} isAuthenticated={this.state.isAuthenticated} />} </Route>
+              <Route exact path="/">{(this.state.strikes > 2) ? <Redirect to={`/suspended/${CryptoJS.AES.encrypt(this.state.userId.toString(), REACT_APP_KEY).toString()}`} /> : 
+              <Home setCookiePolicyDisplayed={this.setCookiePolicyDisplayed} cookiePolicyDisplayed={this.state.cookiePolicyDisplayed} hands={hands} homes={homes} people={people} 
+              isAuthenticated={this.state.isAuthenticated} />}</Route>
               <Route exact path="/privacy_policy" component={() => <PrivacyPolicy />} />
               <Route exact path="/content/:header" component={(props) => <Content {...props} podcast={podcast} profileImgSmall={profileImgSmall} articleImgLink={articleImgLink} />} />
-              <Route exact path="/article/:type" component={(props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} thumbsUp={thumbsUp}
-                profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />} />
+              <Route exact path="/article/:type" component={(props) => <Article {...props} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini} twitterMini={twitterMini} 
+              thumbsUp={thumbsUp} profileImgSmall={profileImgSmall} isAuthenticated={this.state.isAuthenticated} sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />} />
               <Route exact path="/profile/:userId" component={(props) => <Profile {...props} apple={apple} book={book} articleImg={articleImgLink} fbMini={fbMini} instaMini={instaMini}
                 twitterMini={twitterMini} profileImgLarge={avatar} badge={badge} profileImgSmall={profileImgSmall} messageIcon={messageIcon} sanitizeInput={sanitizeInput}
                 displayUnloadMessage={displayUnloadMessage} />} />
@@ -435,8 +437,8 @@ export default class App extends Component {
               <Route exact path="/legal_rights" component={() => <LegalRights />} />
               <Route exact path="/suspended/:userId" component={() => <Suspended />} />
               <Route exact path="/deleted" component={() => <Deleted sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />} />
-              <Route exact path="/id_request/:userId" component={(props) => <RequestID {...props} emailIsValid={emailIsValid} geoDataExists={this.state.geoDataExists} setGeoDataExists={this.setGeoDataExists}
-                sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />} />
+              <Route exact path="/id_request/:userId" component={(props) => <RequestID {...props} emailIsValid={emailIsValid} geoDataExists={this.state.geoDataExists} 
+              setGeoDataExists={this.setGeoDataExists} sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage} />} />
               <Route exact path="/account_settings/:userId" component={(props) => <AccountSettings {...props} profileImgLarge={profileImgLarge} fbMini={fbMini} instaMini={instaMini}
                 twitterMini={twitterMini} emailIsValid={emailIsValid} geoDataExists={this.state.geoDataExists} reviseName={reviseName} checkDates={checkDates} urlIsValid={urlIsValid}
                 filePathIsValid={filePathIsValid} changeBorderColor={changeBorderColor} sanitizeInput={sanitizeInput} displayUnloadMessage={displayUnloadMessage}

@@ -22,7 +22,7 @@ export const unsubscribe = (subscription) => {
 
   }
   // Refresh the page
-  location.reload();
+  window.location.reload();
 }
 
 export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displaySubscription }) => {
@@ -73,7 +73,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
     let tempErrorsThatExist = errorsThatExist;
 
     switch (tagID) {
-      case "profile_pic":
+      case "profile_pic": {
         let profilePicLink = target.profilePicLink.value;
         profilePicLink = props.sanitizeInput(profilePicLink);
 
@@ -125,7 +125,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           console.log("Passed! :D");
         }
         break;
-      case "name":
+      } case "name": {
         let firstName = target.first_name.value;
         let revisedFirstName = [];
         let nickName = target.nick_name.value;
@@ -201,7 +201,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "fb":
+      } case "fb": {
         let fb = target.fb.value;
         fb = encodeURIComponent(props.sanitizeInput(fb));
 
@@ -251,7 +251,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "twitter":
+      } case "twitter": {
         let twitter = target.twitter.value;
         twitter = encodeURIComponent(props.sanitizeInput(twitter));
 
@@ -301,7 +301,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "insta":
+      } case "insta": {
         let insta = target.insta.value;
         insta = encodeURIComponent(props.sanitizeInput(insta));
 
@@ -351,7 +351,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "email":
+      } case "email": {
         let email = target.email.value;
 
         // Change border color of input and select tag back to normal
@@ -422,7 +422,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "birthday":
+      } case "birthday": {
         const birthday = target.birthday.value;
 
         // Check if birthday and current date match variables
@@ -482,7 +482,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      case "address":
+      } case "address": {
         console.log("case address is activiated");
         let street = target.street.value;
         const country = target.country.value;
@@ -506,14 +506,15 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           tempErrorsThatExist[7] = false;
         }
 
+        const inputCountry = document.getElementById("countryId");
+        const inputState = document.getElementById("stateId");
+        const inputCity = document.getElementById("cityId");
+        const inputZip = document.getElementById("zipId");
+
         // Check for address input
         if (street === "" || country === "" || state === "" || city === "" || zip === "") {
           if (!errorsThatExist[7]) {
             // Render error text and change boolean
-            const inputCountry = document.getElementById("countryId");
-            const inputState = document.getElementById("stateId");
-            const inputCity = document.getElementById("cityId");
-            const inputZip = document.getElementById("zipId");
             error[7].innerText = '*Please enter or select a value in all address-related fields.';
             error[7].className = "error_7";
             error[7].style.fontSize = '.9rem';
@@ -563,7 +564,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh             
         }
         break;
-      case "password":
+      } case "password": {
         let oldPassword = target.old_password.value;
         let newPassword = target.new_password.value;
         let confirmPassword = target.confirm_password.value;
@@ -631,8 +632,9 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
           // Page refresh
         }
         break;
-      default:
+      } default: {
         break;
+      }
     }
 
     // set errorsThatExist array to tempErrorsThatExist
@@ -709,7 +711,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
     let subscriptions = ["newsletter", "podcast"];
     let component = null;
 
-    for (let subscription = 0; subscription < subscriptions.length; subcription++) {
+    for (let subscription = 0; subscription < subscriptions.length; subscription++) {
       if (subscriptions[subscription] === "newsletter") {
         // Check and set boolean value of user's subscription value column in database table within "subscribed"
 
@@ -742,7 +744,8 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
     setUserId(CryptoJS.AES.decrypt(props.match.params.userId, REACT_APP_KEY).toString(CryptoJS.enc.Utf8));
     setEditProfilePic(parsedQString.edit_profile_pic);
 
-    // Display "Edit Profile Picture" form if editProfilePic is true
+    // Display "Edit Profile Picture" form if editProfilePic is true. 
+    // NOTE: Don't touch. - Zane
     if (editProfilePic == "true") {
       displayForm("profile_pic");
     }
@@ -784,7 +787,7 @@ export const AccountSettings = (props, { hideForm, displayForm, onSubmit, displa
         setScriptRendered(false);
       }
     }
-  }, [props, editProfilePic, scriptRendered]);
+  }, [props, editProfilePic, scriptRendered, REACT_APP_KEY, displayForm]);
 
   return (
     <div className="account_settings_container">

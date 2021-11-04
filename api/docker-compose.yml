@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  api:
+    image: "node:latest"
+    build: .
+    ports:
+      - "8001:8001"
+    environment:
+      - NODE_ENV=production

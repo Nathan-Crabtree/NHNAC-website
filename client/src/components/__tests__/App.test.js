@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
-jest.mock("../App");
+import Deleted from '../static/Deleted';
 
 // Import functions
 import App, {
@@ -11,8 +11,7 @@ import App, {
   desanitize
 } from '../App';
 
-// Components
-import Deleted from '../static/Deleted';
+jest.mock("../App");
 
 // App render testing
 it('renders without crashing', () => {

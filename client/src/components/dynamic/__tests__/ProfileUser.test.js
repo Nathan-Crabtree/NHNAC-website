@@ -38,7 +38,7 @@ it("changes styling of height when called", () => {
                     testState.idStyle = { height: "795.6px" }
                 } else {
                     testState.idStyle = { height: "397.8px" }
-                };
+                }
             }}
         />
     ));
@@ -53,5 +53,5 @@ it("changes styling of height when called", () => {
         expect(testState.idStyle.height).toEqual("795.6px");
     } else {
         expect(testState.idStyle.height).toEqual("397.8px");
-    };
+    }
 });

@@ -60,7 +60,7 @@ export default class SignUp extends Component {
         const password = target.password.value;
         const confirmPassword = event.target.confirm_password.value;
         //let redeemableCode = target.redeemable_code.value;
-        //const payment = parseInt(target.payment.value.split("").filter(string => string !== "$").join(""));
+        const payment = parseInt(target.payment.value.split("").filter(string => string !== "$").join(""));
 
         // Check if birthday and current date match variables
         const date = new Date();
@@ -206,16 +206,17 @@ export default class SignUp extends Component {
         street = this.props.sanitizeInput(street);
         zip = this.props.sanitizeInput(zip);
 
+        const formField = document.getElementsByClassName("signup_fields")[4];
+        const inputStreet = document.getElementById("streetId");
+        const inputCountry = document.getElementById("countryId");
+        const inputState = document.getElementById("stateId");
+        const inputCity = document.getElementById("cityId");
+        const inputZip = document.getElementById("zipId");
+        
         // Check for address input
         if (street === "" || country === "" || state === "" || city === "" || zip === "") {
             if (!errorsThatExist[4]) {
                 // Render error text and change boolean
-                const formField = document.getElementsByClassName("signup_fields")[4];
-                const inputStreet = document.getElementById("streetId");
-                const inputCountry = document.getElementById("countryId");
-                const inputState = document.getElementById("stateId");
-                const inputCity = document.getElementById("cityId");
-                const inputZip = document.getElementById("zipId");
                 error[4].innerText = '*Please enter or select a value in all address-related fields.';
                 error[4].className = "error_4";
                 error[4].style.fontSize = '.9rem';

@@ -61,8 +61,8 @@ export default class Article extends Component {
      */
     hideComments() {
         // Hide all forms
-        hideForm("1", true);
-        hideForm("1", true, true);
+        this.hideForm("1", true);
+        this.hideForm("1", true, true);
 
         document.getElementsByClassName("comment_section_container")[0].style.display = "none";
         document.getElementsByClassName("see_comments_btn")[0].style.display = "block";
