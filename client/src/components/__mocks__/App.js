@@ -326,7 +326,7 @@ export const App = () => {
     <body style={testState.body}>
       <header>
         <nav>
-          <img onClick={toggleDisplayNavMock} style={testState.hamburgerIcon} />
+          <img alt="Hamburger menu icon" onClick={toggleDisplayNavMock} style={testState.hamburgerIcon} />
           <div style={testState.navDiv}>
             <svg onClick={toggleDisplayNavMock}></svg>
             <ul style={testState.headerLinks}></ul>

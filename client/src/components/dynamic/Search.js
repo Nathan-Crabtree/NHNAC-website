@@ -17,9 +17,9 @@ export const Search = (props) => {
 
     // Arrays
     const [filters, setFilters] = useState([]);
-    const [activeFilters, setActiveFilters] = useState([]);
     const [tags, setTags] = useState([]);
     const [results, setResults] = useState([]);
+    let [activeFilters, setActiveFilters] = useState([]);
 
     /**
      * Returns filtered section components according to page.
@@ -78,12 +78,12 @@ export const Search = (props) => {
         activeFilters = props.getSearchFilters();
 
         // Determine page's min and mix result numbers for heading
-        setPage({ min: qPage, max: qPage + 9 });
+        setPage({ min: page, max: page + 9 });
 
         // Search database for filtered-related content containing query and append to results array
         for (let activeFilter = 0; activeFilter < activeFilters.length; activeFilter++) {
-            // Do query search procedure according to qTag value
-            if (qTag) {
+            // Do query search procedure according to search.tag value
+            if (search.tag) {
                 // Query for results tag-related
 
             } else {
@@ -112,9 +112,9 @@ export const Search = (props) => {
         if (total.pages <= 5) {
             /* Previous Page 1,2,3,4,5 Next Page */
         } else {
-            if (qPage <= 5) {
+            if (page <= 5) {
                 /* Previous Page 1,2,3,4,5…Pmax Next Page */
-            } else if (qPage > 4 && qPage < total.pages - 4) {
+            } else if (page > 4 && page < total.pages - 4) {
                 /* Previous Page 1...qPage-2, qPage-1, qPage, qPage+1, qPage+2...Pmax Next Page */
             } else {
                 /* Previous Page 1…Pmax-4, Pmax-3, Pmax-2, Pmax-1, Pmax Next Page */
@@ -122,7 +122,7 @@ export const Search = (props) => {
         }
 
         // Rerender the component if query values are null
-        if (qPage === null || query === null) {
+        if (page === null || search.query === null) {
             forceUpdate();
         }
     }
@@ -141,7 +141,7 @@ export const Search = (props) => {
             setSearch({ tag: false });
         }
 
-        setFilters([articles, updates, events, podcasts, community, user]);
+        setFilters(["articles", "updates", "events", "podcasts", "community", "user"]);
         setActiveFilters(props.getSearchFilters());
 
         // Check content types that have already been filtered
@@ -152,7 +152,7 @@ export const Search = (props) => {
                 }
             }
         }
-    }, []);
+    }, [activeFilters, filters, props]);
 
     return (
         <React.Fragment>

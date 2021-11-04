@@ -2,10 +2,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
-jest.mock("../App");
-
-// Import functions
 import Header from '../dynamic/Header';
+jest.mock("../App");
 
 // Header render testing
 it('renders without crashing', () => {

@@ -1,10 +1,8 @@
 // SharePodcast.test.js
 import React from 'react';
 import { shallow } from 'enzyme';
-jest.mock("../SharePodcast");
-
-// Import functions
 import SharePodcast from '../SharePodcast';
+jest.mock("../SharePodcast");
 
 // SharePodcast render testing
 xit('renders without crashing', () => {

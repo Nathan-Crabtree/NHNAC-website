@@ -30,7 +30,7 @@ export const SharePodcast = () => {
     useEffect(() => {
         // Create twitter share button
         // For more info on createShareButton() object parameters: https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/guides/parameter-reference1
-        twttr.widgets.createShareButton(
+        window.twttr.widgets.createShareButton(
             '/',
             document.getElementById('container'),
             {
@@ -67,7 +67,7 @@ export const SharePodcast = () => {
                             {/* Email share button */}
                             {/* Src: https://stackoverflow.com/questions/5045918/adding-a-share-by-email-link-to-website */}
                             <a rel="noopener noreferrer" href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site https://www.your-domain.com/your-page.html." title="Share by Email">
-                                <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png" width="35px" height="35px" />
+                                <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png" alt="Share this podcast via email." width="35px" height="35px" />
                             </a>
                             <br />
                         </div>

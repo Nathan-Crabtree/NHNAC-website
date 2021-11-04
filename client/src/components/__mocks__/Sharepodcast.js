@@ -24,7 +24,7 @@ export const SharePodcast = () => {
     return (
         <div>
             <input type="text" id="shareLink" name="share_link" readOnly value="https://newhavennativeamericanchurch.org/article?type=podcast&id=1" />
-            <button className="share_btn" type="button" onClick={copySharingLinkMock}>{innerText}</button>
+            <button className="share_btn" type="button" onClick={copySharingLinkMock}>{testState.innerText}</button>
         </div>
     );
 }

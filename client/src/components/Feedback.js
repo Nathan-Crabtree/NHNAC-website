@@ -91,7 +91,7 @@ export const Feedback = ({ sanitizeInput, displayUnloadMessage }) => {
                 }
             }
         }
-    }, [])
+    }, [displayUnloadMessage, formActive])
 
     return (
         <div>

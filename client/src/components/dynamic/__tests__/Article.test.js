@@ -2,10 +2,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
-jest.mock("../Article");
-
-// Import functions
 import Article from "../Article";
+jest.mock("../Article");
 
 // Article render testing
 xit('renders without crashing', () => {
